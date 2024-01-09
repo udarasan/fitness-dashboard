@@ -12,7 +12,7 @@ body{
     background-color: #5f82b87a;
 }
 
-.loginTextFields{
+.registerTextFields{
     border-radius: 16px !important;
     padding: 0px !important;
     padding-right: 15px !important;
@@ -21,7 +21,7 @@ body{
     padding-bottom: 19px !important;
 }
 
-.btnLogin{
+.btnRegister{
     border-radius: 16px !important;
     max-height: 40px !important;
     padding: 0px !important;
@@ -33,21 +33,21 @@ body{
 }
 
 #secondColDiv{
-    padding-top: 110px !important;
-    padding-bottom: 110px !important;
+    padding-top: 100px !important;
+    padding-bottom: 100px !important;
 }
 
-.loginAnchorTags{
+.registerAnchorTags{
     color: rgba(15, 56, 118, 0.82) !important;
 }
 
-@media (max-width: 550px){
+@media all and (max-width: 550px){
     #secondColDiv{
         padding-top: 80px !important;
         padding-bottom: 80px !important;
     }
 
-    #welcome{
+    #create{
         margin-bottom: 30px !important;
     }
 }
@@ -60,7 +60,7 @@ body{
         padding-left: 40px !important;
     }
 
-    #welcome{
+    #create{
         margin-bottom: 30px !important;
     }
 }
@@ -69,30 +69,32 @@ body{
     #secondColDiv{
         padding-top: 70px !important;
         padding-bottom: 70px !important;
-        padding-right: 20px !important;
-        padding-left: 20px !important;
+        padding-right: 10px !important;
+        padding-left: 10px !important;
     }
 
-    #welcome{
+    #create{
         margin-bottom: 30px !important;
+        font-size: 22px !important;
+    }
+
+    .container{
+        padding-right: 10px !important;
+        padding-left: 10px !important;
     }
 }
 
 @media all and (max-width: 370px){
-    #welcome{
+    #create{
         font-size: 20px !important;
     }
 
-    .outerContainer{
-        padding: 0 !important;
-    }
-
-    .loginTextFields{
+    .registerTextFields{
         padding-top: 10px !important;
         padding-bottom: 10px !important;
     }
 
-    .btnLogin{
+    .btnRegister{
         padding-top: 7px !important;
         padding-bottom: 7px !important;
         background-color: #0F3876;
