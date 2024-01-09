@@ -1,0 +1,17 @@
+body{
+    background-color: #2a2c31;
+}
+
+.btnOption{
+    border-radius: 16px !important;
+    padding-top: 7px !important;
+    padding-bottom: 7px !important;
+    border: 0.1px solid rgba(0, 0, 0, 0.27);
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+.btnOption:hover{
+    /*border: 0.1px solid black;*/
+    background-color: whitesmoke;
+}
