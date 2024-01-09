@@ -1,0 +1,96 @@
+#firstCol{
+    background-image: url(../img/login.jpg);
+    background-size: cover;
+    background-position: center center;
+}
+
+#secondCol{
+    background-color: #5f82b87a;
+}
+
+.loginTextFields{
+    border-radius: 16px !important;
+    padding: 0px !important;
+    padding-right: 15px !important;
+    padding-left: 15px !important;
+    padding-top: 19px !important;
+    padding-bottom: 19px !important;
+}
+
+.btnLogin{
+    border-radius: 16px !important;
+    max-height: 40px !important;
+    padding: 0px !important;
+    padding-right: 15px !important;
+    padding-left: 15px !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    background-color: #0F3876;
+}
+
+#secondColDiv{
+    padding-top: 110px !important;
+    padding-bottom: 110px !important;
+}
+
+.loginAnchorTags{
+    color: rgba(15, 56, 118, 0.82) !important;
+}
+
+@media (max-width: 550px){
+    #secondColDiv{
+        padding-top: 80px !important;
+        padding-bottom: 80px !important;
+    }
+
+    #welcome{
+        margin-bottom: 30px !important;
+    }
+}
+
+@media (max-width: 500px){
+    #secondColDiv{
+        padding-top: 70px !important;
+        padding-bottom: 70px !important;
+        padding-right: 40px !important;
+        padding-left: 40px !important;
+    }
+
+    #welcome{
+        margin-bottom: 30px !important;
+    }
+}
+
+@media (max-width: 420px){
+    #secondColDiv{
+        padding-top: 70px !important;
+        padding-bottom: 70px !important;
+        padding-right: 20px !important;
+        padding-left: 20px !important;
+    }
+
+    #welcome{
+        margin-bottom: 30px !important;
+    }
+}
+
+@media (max-width: 370px){
+    #welcome{
+        font-size: 20px !important;
+    }
+
+    .outerContainer{
+        padding: 0 !important;
+    }
+
+    .loginTextFields{
+        padding-top: 10px !important;
+        padding-bottom: 10px !important;
+    }
+
+    .btnLogin{
+        padding-top: 7px !important;
+        padding-bottom: 7px !important;
+        background-color: #0F3876;
+    }
+}
