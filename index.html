@@ -22,39 +22,32 @@
     <link href="css/welcome-page.css" rel="stylesheet">
 </head>
 
-<body class="">
+<body class="d-flex align-items-center">
 
 <div class="container">
-
     <!-- Outer Row -->
-    <div class="row justify-content-center">
+    <div class="row justify-content-center ">
 
-        <div class="col-lg-6 outerContainer">
+        <div class="col-lg-12 outerContainer ">
 
-            <div class="card o-hidden border-0 shadow-lg my-5">
-                <div class="card-body p-0">
+            <div class="card o-hidden border-0 my-5 bg-transparent">
+                <div id="welcomeCBody" class="card-body p-5 bg-transparent">
                     <!-- Nested Row within Card Body -->
-                    <div class="row text-center">
-                        <div class="col m-auto"  >
-                            <div id="" class="p-5 ">
-                                <div class="text-center">
-                                    <h1 id="welcome" class="h4 text-gray-900 mb-5">Choose Option</h1>
-                                </div>
-                                    <div class="">
-                                        <a href="pages/admin/login.html">
-                                            <button class="btn btnOption">Admin</button>
-                                        </a>
-                                    </div>
-                                    <div class="">
-                                        <a href="pages/user/login.html">
-                                            <button class="btn btnOption">Member</button>
-                                        </a>                                    </div>
-                                    <div class="">
-                                        <a href="pages/trainer/login.html">
-                                            <button class="btn btnOption">Trainer</button>
-                                        </a>
-                                    </div>
-                            </div>
+                    <div class="text-center d-flex w-100 h-100 divContainer">
+                        <div class="btnDiv">
+                            <a href="pages/admin/login.html">
+                                <button class="btn btnOption">ADMIN</button>
+                            </a>
+                        </div>
+                        <div class="btnDiv">
+                            <a href="pages/user/login.html">
+                                <button class="btn btnOption">MEMBER</button>
+                            </a>
+                        </div>
+                        <div class="btnDiv">
+                            <a href="pages/trainer/login.html">
+                                <button class="btn btnOption">TRAINER</button>
+                            </a>
                         </div>
                     </div>
                 </div>
