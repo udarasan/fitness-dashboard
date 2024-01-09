@@ -1,15 +1,16 @@
 body{
-    background-color: #151C40;
+    background-color: #2a2c31;
 }
 
 #firstCol{
-    background-image: url(../img/login.jpg);
+    background-image: url(../img/register.jpg);
     background-size: cover;
     background-position: center center;
 }
 
 #secondCol{
-    background-color: #5f82b87a;
+    /*background-color: #5f82b87a;*/
+    padding: 0px !important;
 }
 
 .registerTextFields{
@@ -35,13 +36,14 @@ body{
 #secondColDiv{
     padding-top: 100px !important;
     padding-bottom: 100px !important;
+    padding-left: 35px !important;
 }
 
 .registerAnchorTags{
     color: rgba(15, 56, 118, 0.82) !important;
 }
 
-@media all and (max-width: 550px){
+@media all and (max-width: 632px){
     #secondColDiv{
         padding-top: 80px !important;
         padding-bottom: 80px !important;
@@ -52,7 +54,20 @@ body{
     }
 }
 
-@media all and (max-width: 500px){
+@media all and (max-width: 508px){
+    #secondColDiv{
+        padding-top: 70px !important;
+        padding-bottom: 70px !important;
+        padding-right: 40px !important;
+        padding-left: 40px !important;
+    }
+
+    #create{
+        margin-bottom: 30px !important;
+    }
+}
+
+@media all and (max-width: 462px){
     #secondColDiv{
         padding-top: 70px !important;
         padding-bottom: 70px !important;
@@ -67,10 +82,10 @@ body{
 
 @media all and (max-width: 420px){
     #secondColDiv{
-        padding-top: 70px !important;
-        padding-bottom: 70px !important;
-        padding-right: 10px !important;
-        padding-left: 10px !important;
+        padding-top: 50px !important;
+        padding-bottom: 50px !important;
+        padding-right: 20px !important;
+        padding-left: 20px !important;
     }
 
     #create{
@@ -87,6 +102,12 @@ body{
 @media all and (max-width: 370px){
     #create{
         font-size: 20px !important;
+    }
+
+    #secondColDiv{
+        padding-top: 40px !important;
+        padding-bottom: 40px !important;
+
     }
 
     .registerTextFields{
