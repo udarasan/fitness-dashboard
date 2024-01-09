@@ -3,12 +3,17 @@
     background-image: none;
 }
 
-.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
-    background-color: #2d324a !important;
-    opacity: .9;
+/*.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {*/
+/*    background-color: #2d324a !important;*/
+/*    opacity: .9;*/
+/*}*/
+
+
+.sidebar-dark .nav-item .nav-link[data-toggle=collapse]::after {
+    display: none;
 }
 
-.topbar {
-    background-color: #2d324a !important;
-
+.topbar.navbar-light .navbar-nav .nav-item .nav-link {
+    color: rgba(0,0,0,.3);
 }
+
