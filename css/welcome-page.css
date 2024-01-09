@@ -1,16 +1,101 @@
 body{
-    background-color: #2a2c31;
+    background-image: url(../img/welcome1.jpg);
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
 }
 
 .btnOption{
     border-radius: 16px !important;
     padding-top: 7px !important;
     padding-bottom: 7px !important;
-    border: 0.1px solid rgba(0, 0, 0, 0.27);
+    border: 1px solid white;
     width: 100%;
     margin-bottom: 40px;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.76);
+    color: white;
 }
 
 .btnOption:hover{
     background-color: whitesmoke;
+    color: black;
+}
+
+.btnDiv{
+    width: calc(100%/3);
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#welcomeCBody{
+    height: 60vh;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+@media all and (max-width: 992px){
+    #welcomeCBody{
+        padding: 0px !important;
+    }
+
+    .container{
+        margin-right: 50px !important;
+        margin-left: 50px !important;
+        max-width: 100%;
+    }
+}
+
+@media all and (max-width: 850px){
+    #welcomeCBody{
+        height: 250px !important;
+    }
+}
+
+@media all and (max-width: 800px){
+    #welcomeCBody{
+        height: 180px !important;
+    }
+}
+
+@media all and (max-width: 700px){
+    #welcomeCBody{
+        height: 60px !important;
+    }
+}
+
+@media all and (max-width: 650px){
+    #welcomeCBody{
+        height: auto !important;
+    }
+
+    .divContainer{
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+    }
+
+    .divContainer>div{
+        width: 100% !important;
+    }
+}
+
+@media all and (max-width: 450px){
+    #welcomeCBody{
+        height: auto !important;
+    }
+
+    .divContainer{
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+    }
+
+    .divContainer>div{
+        width: 100% !important;
+    }
+
+    .container{
+        margin-right: 0px !important;
+        margin-left: 0px !important;
+    }
 }

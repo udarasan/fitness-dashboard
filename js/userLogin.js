@@ -1,13 +1,9 @@
 $('#btnLogin').click(function () {
-    // Serialize form data into an object
-    let formData = $('#loginForm').serializeArray().reduce(function(obj, item) {
-        obj[item.name] = item.value;
-        return obj;
-    }, {});
+
 
     // Extract email and password
-    let email = formData.email;
-    let password = formData.password;
+    let email = $('#email').val();
+    let password = $('#password').val();
 
     // Make the AJAX request
     $.ajax({
