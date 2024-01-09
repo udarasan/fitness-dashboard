@@ -17,7 +17,8 @@ $('#btnLogin').click(function () {
         contentType: 'application/json',  // Set content type to JSON
         data: JSON.stringify({ "email": email, "password": password }),  // Convert data to JSON string
         success: function(response) {
-            console.log(response);
+            console.log(response)
+            window.location.href = '../admin/index.html';
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.error(jqXHR.responseText);  // Log the response text for debugging
