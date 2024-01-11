@@ -1,0 +1,26 @@
+$('#saveMemeber').click(function () {
+
+    let id = $('#member_id').val();
+    let email = $('#member_email').val();
+    let name = $('#member_name').val();
+    let trainer_id = $('#trainer_id').val();
+    let password =$('#memeber_password').val();
+
+
+    // Make the AJAX request
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/user/registration',
+        method: 'POST',
+        dataType: 'json',
+        contentType: 'application/json',  // Set content type to JSON
+        data: JSON.stringify({"id":id,  "email": email, "password": password, "name":name , "trainer_id":trainer_id}),  // Convert data to JSON string
+        success: function(response) {
+            console.log(response);
+
+
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error(jqXHR.responseText);  // Log the response text for debugging
+        }
+    });
+});
