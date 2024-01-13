@@ -1,3 +1,4 @@
+getAllMembers();
 $('#saveMemeber').click(function () {
 
     let id = $('#member_id').val();
@@ -28,23 +29,26 @@ $('#saveMemeber').click(function () {
 
 
 
-// members get All
-$.ajax({
-    url: 'http://localhost:8080/api/v1/user/getAllUsers',
-    method: 'GET',
-    dataType: 'json',
-    contentType: 'application/json',  // Set content type to JSON
-    success: function(response) {
-        console.log(response.data);
-        console.log(response.data);
+function getAllMembers() {
+    // members get All
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/user/getAllUsers',
+        method: 'GET',
+        dataType: 'json',
+        contentType: 'application/json',  // Set content type to JSON
+        success: function(response) {
+            console.log(response.data);
+            console.log(response.data);
 
-        $.each(response.data, function(index, member) {
-            let row = `<tr><td>${member.uid}</td><td>${member.name}</td><td>${member.email}</td><td>${member.trainer_id}</td></tr>`;
-            $('#tblMember').append(row);
-        });
+            $.each(response.data, function(index, member) {
+                let row = `<tr><td>${member.uid}</td><td>${member.name}</td><td>${member.email}</td><td>${member.trainer_id}</td></tr>`;
+                $('#tblMember').append(row);
+            });
 
-    },
-    error: function(jqXHR, textStatus, errorThrown) {
-        console.error(jqXHR.responseText);  // Log the response text for debugging
-    }
-});
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error(jqXHR.responseText);  // Log the response text for debugging
+        }
+    });
+
+}
