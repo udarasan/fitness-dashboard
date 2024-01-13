@@ -47,43 +47,29 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="../admin/index.html">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span id="dashboardTab">Dashboard</span></a>
         </li>
 
         <!-- Divider -->
         <hr class="sidebar-divider">
-
-        <!-- Heading -->
-        <!--            <div class="sidebar-heading">-->
-        <!--                Interface-->
-        <!--            </div>-->
-
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a aria-controls="collapseTwo" aria-expanded="true" class="nav-link collapsed" data-target="#collapseTwo"
-               data-toggle="collapse" href="#">
-                <i class="fas fa-fw fa-cog"></i>
-                <span id="trainerTab">Trainers</span>
-            </a>
+            <a class="nav-link" href="../trainer/trainerRegistration.html">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>Trainer</span></a>
         </li>
 
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
-            <a  aria-controls="collapseUtilities" aria-expanded="true"
-               class="nav-link collapsed" href="memberRegistration.html">
-                <i class="fas fa-fw fa-wrench"></i>
-                <span id="memberTab">Members</span>
-            </a>
-
+            <a class="nav-link" href="../../pages/components/memberRegistration.html">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>Members</span></a>
         </li>
 
         <!-- Divider -->
         <hr class="sidebar-divider">
-
-        <!-- Heading -->
-
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
@@ -93,19 +79,18 @@
                 <i class="fas fa-fw fa-folder"></i>
                 <span>Meal Plan</span>
             </a>
-
         </li>
 
         <!-- Nav Item - Charts -->
         <li class="nav-item">
-            <a class="nav-link" href="../../pages/components/charts.html">
+            <a class="nav-link" href="../components/charts.html">
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span>WokrOut Plan</span></a>
         </li>
 
         <!-- Nav Item - Tables -->
         <li class="nav-item">
-            <a class="nav-link" href="../../pages/components/tables.html">
+            <a class="nav-link" href="../components/tables.html">
                 <i class="fas fa-fw fa-table"></i>
                 <span>Tables</span></a>
         </li>
@@ -118,25 +103,17 @@
 
     </ul>
     <!-- End of Sidebar -->
-
     <!-- Content Wrapper -->
     <!--        Dashboard-->
     <div class="d-flex flex-column" id="content-wrapper">
-
         <!-- Main Content -->
         <div id="content">
-
             <!-- Topbar -->
             <nav class="navbar navbar-expand navbar-light bg-white topbar  static-top shadow">
-
                 <!-- Sidebar Toggle (Topbar) -->
                 <button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop">
                     <i class="fa fa-bars"></i>
                 </button>
-
-
-                <!-- Topbar Navbar -->
-
                 <ul class="navbar-nav ml-auto">
 
                     <!-- Nav Item - Search Dropdown (Visible Only XS) -->
@@ -324,15 +301,9 @@
                 </ul>
 
             </nav>
-            <!-- End of Topbar -->
+            <!--                        start member tab-->
 
-            <!-- Begin Page Content -->
-
-            <!--                End Dashboard-->
-
-
-            <!--                Trainer Tab-->
-            <div class="container-fluid mt-5 ">
+            <div class="container-fluid mt-5  " id="member">
 
                 <!-- Content Row -->
                 <div class="row">
@@ -434,27 +405,27 @@
 
                 <!--                start of table-->
 
-                <div class="row  " id="tableRowTrainer">
+                <div id="tableRowMember" class="row  ">
                     <div class="card mt-5">
                         <div class="card-header text-right">
-                            <button class="btn text-white" data-target="#trainerModal" data-toggle="modal" data-whatever="@mdo"
-                                    id="addTrainerBtn" style="background-color: #2d324a" type="button">Add
-                                New Trainer
+                            <button type="button" id="addMemberBTn" data-toggle="modal" data-target="#memberModal"
+                                    data-whatever="@mdo" class="btn text-white" style="background-color: #2d324a">Add
+                                New Member
                             </button>
                         </div>
 
                         <div class="card-body">
 
-                            <table class="table" id="trainerTable">
+                            <table id="memberTable" class="table">
                                 <thead class="thead-light">
                                 <tr>
                                     <th scope="col">Id</th>
+                                    <th scope="col">Name</th>
                                     <th scope="col">Email</th>
-                                    <th scope="col">Category</th>
-
+                                    <th scope="col">Trainer_Id</th>
                                 </tr>
                                 </thead>
-                                <tbody id="tblTrainer">
+                                <tbody id="tblMember">
 
                                 </tbody>
                             </table>
@@ -467,8 +438,7 @@
                 </div>
 
             </div>
-
-            <!--                End Trainer Tab-->
+            <!--                        end member tab-->
 
 
         </div>
@@ -510,62 +480,72 @@
             <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" data-dismiss="modal" type="button">Cancel</button>
-                <a class="btn btn-primary" href="../../pages/auth/login.html">Logout</a>
+                <a class="btn btn-primary" href="../auth/login.html">Logout</a>
             </div>
         </div>
     </div>
 </div>
 
 
-<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="trainerModal" tabindex="-1">
+<!--new member model-->
+
+<div class="modal fade" id="memberModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <!-- Header content goes here -->
+
+                <div class="modal-body">
+                    <form id="memberForm">
+                        <div class="mb-3">
+                            <label class="form-label" for="member_id">Member Id</label>
+                            <input class="form-control" id="member_id" placeholder="Enter Member Id" type="text"
+                                   name="uId"
+                            >
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="member_email">Member Email</label>
+                            <input class="form-control" id="member_email" placeholder="Enter Member Email" type="text"
+                                   name="email"
+                            >
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="memeber_password">Member Password</label>
+                            <input class="form-control" id="memeber_password" placeholder="Enter Member Password"
+                                   type="text" name="password"
+                            >
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="member_name">Member Name</label>
+                            <input class="form-control" id="member_name" placeholder="Enter Member Name" type="text"
+                                   name="name"
+                            >
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="tra_id">Trainer Id</label>
+                            <input class="form-control" id="tra_id" placeholder="Enter Trainer Id" type="text"
+                                   name="trainer_id"
+                            >
+                        </div>
+
+                    </form>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="font-size: 13px">
+                            Close
+                        </button>
+                        <button type="button" class="btn  " id="saveMemeber">Save Member</button>
+                    </div>
+
+                </div>
+
             </div>
-            <div class="modal-body">
 
-                <form id="trainerForm">
-                    <div class="mb-3">
-                        <label class="form-label" for="trainer_id">Trainer Id</label>
-                        <input class="form-control" id="trainer_id" name="id" placeholder="Enter trainer Id" type="text"
-                        >
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label" for="trainer_email">Trainer Email</label>
-                        <input class="form-control" id="trainer_email" name="email" placeholder="Enter trainer Email"
-                               type="text"
-                        >
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label" for="trainer_password">Trainer Password</label>
-                        <input class="form-control" id="trainer_password" name="password"
-                               placeholder="Enter trainer Password" type="text"
-                        >
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label" for="trainer_category">Category</label>
-                        <input class="form-control" id="trainer_category" name="category" placeholder="Enter category"
-                               type="text"
-                        >
-                    </div>
-
-                </form>
-
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" data-dismiss="modal" style="font-size: 13px" type="button">Close
-                </button>
-                <button class="btn" id="saveTrainer" type="button">Save Trainer</button>
-            </div>
         </div>
     </div>
 </div>
-
-
 <!--end-->
 
 <!-- Bootstrap core JavaScript-->
@@ -586,7 +566,8 @@
 <script src="../../js/demo/chart-area-demo.js"></script>
 <script src="../../js/demo/chart-pie-demo.js"></script>
 <script src="../../js/adminDashboard.js"></script>
-<script src="../../js/trainerRegistration.js"></script>
+<!--<script src="../../js/trainer.js"></script>-->
+<script src="../../js/member.js"></script>
 
 
 </body>
