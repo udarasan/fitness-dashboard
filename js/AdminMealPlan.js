@@ -25,7 +25,6 @@ $.ajax({
 function appendMealSection(mealPlan) {
     const cardContainer = document.getElementById("cardContainer");
 
-
     // Create the section
     const section = document.createElement("section");
     section.className = "mx-3 my-4";
