@@ -13,3 +13,29 @@
 #addNewMealPan{
     font-size: 13px;
 }
+
+#saveMeal,#updateMeal{
+    background-color:#2d324a ;
+    font-size: 13px;
+    color: white;
+}
+
+
+.threeDots{
+    top: 6.4px;
+    right: 0px;
+}
+
+.threeDots i{
+    font-weight: 600;
+    color: #b8b8b8;
+}
+
+.threeDots .dropdown-toggle::after{
+    display: none;
+}
+
+.threeDots a{
+    background: transparent;
+    border: none;
+}

@@ -1,5 +1,29 @@
 getAllTrainers();
 
+
+
+//delete trainer
+$('#deleteTrainer').click(function () {
+
+    let id = $('#trainer_id').val();
+    // Make the AJAX request
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/trainer/delete/'+ id,
+        method: 'DELETE',
+        contentType: 'application/json',  // Set content type to JSON
+        success: function (response) {
+            console.log(response);
+            $('#trainerModal').modal('hide');
+            getAllTrainers();
+            },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error(jqXHR.responseText);  // Log the response text for debugging
+        }
+    });
+});
+
+
+
 //update trainer
 $('#updateTrainer').click(function () {
 
@@ -95,6 +119,6 @@ $('#tblTrainer').on('click', 'tr', function () {
     $('#trainer_id').val(trainerId);
     $('#trainer_email').val(trainerEmail);
     $('#trainer_category').val(trainerCategory);
-    // Add your additional logic here based on the clicked row
+
 });
 
