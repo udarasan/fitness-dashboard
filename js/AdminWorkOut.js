@@ -30,7 +30,6 @@ $("#searchWorkoutPlans").keyup(function () {
         url: 'http://localhost:8080/api/v1/workoutplan/plansByPartName',
         method: 'GET',
         dataType: 'json',
-        // contentType: 'application/json',  // Set content type to JSON
         data: {partialName: text},   // Convert data to JSON string
         success: function (response) {
             console.log(response);
@@ -134,7 +133,26 @@ function getAllWorkoutPlans() {
 }
 
 $("#modalUpdateBtn").click(function () {
+    let name = $("#updPlanName").val();
+    let details = $("#updPlanDetails").val();
+    let calCount = $("#updPlanCalorieCount").val();
 
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/workoutplan/update',
+        method: 'POST',
+        dataType: 'json',
+        contentType: 'application/json',  // Set content type to JSON
+        data: JSON.stringify({"wid": id, "planName": name, "planDetails": details, "burnsCalorieCount": calCount}),  // Convert data to JSON string
+        success: function (response) {
+            $("#updateWorkoutModal").data('bs.modal').hide();
+            console.log(response);
+            $(".gridContainer").empty();
+            getAllWorkoutPlans();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error(jqXHR.responseText);  // Log the response text for debugging
+        }
+    });
 });
 
 
