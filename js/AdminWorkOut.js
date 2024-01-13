@@ -85,7 +85,7 @@ function getAllWorkoutPlans() {
                                      <ul class="dropdown-menu">
                                         <li><a class="dropdown-item btnEdit" data-target="#updateWorkoutModal" 
                                         data-toggle="modal" href="#">Edit</a></li>
-                                        <li><a class="dropdown-item" href="#">Delete</a></li>
+                                        <li><a class="dropdown-item btnDelete" href="#">Delete</a></li>
                                      </ul>
                                 </div>                    
                             </div>
@@ -125,6 +125,8 @@ function getAllWorkoutPlans() {
                 $("#updPlanDetails").val(details);
                 $("#updPlanCalorieCount").val(calorieCount);
             });
+
+            btnDeleteOnClick();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error(jqXHR.responseText);  // Log the response text for debugging
@@ -154,5 +156,50 @@ $("#modalUpdateBtn").click(function () {
         }
     });
 });
+
+$("#modalUpdateBtn").click(function () {
+    let name = $("#updPlanName").val();
+    let details = $("#updPlanDetails").val();
+    let calCount = $("#updPlanCalorieCount").val();
+
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/workoutplan/update',
+        method: 'POST',
+        dataType: 'json',
+        contentType: 'application/json',  // Set content type to JSON
+        data: JSON.stringify({"wid": id, "planName": name, "planDetails": details, "burnsCalorieCount": calCount}),  // Convert data to JSON string
+        success: function (response) {
+            $("#updateWorkoutModal").data('bs.modal').hide();
+            console.log(response);
+            $(".gridContainer").empty();
+            getAllWorkoutPlans();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error(jqXHR.responseText);  // Log the response text for debugging
+        }
+    });
+});
+
+function btnDeleteOnClick(){
+    $(".btnDelete").click(function(){
+        let workoutCard = $(this).parents("div.workoutCard");
+        let deleteId = workoutCard.children("div.card-body").children("input.hiddenWorkoutId").val();
+
+        $.ajax({
+            url: 'http://localhost:8080/api/v1/workoutplan/delete/'+ deleteId,
+            method: 'DELETE',
+            contentType: 'application/json',  // Set content type to JSON
+            success: function (response) {
+                console.log(response);
+                $(".gridContainer").empty();
+                getAllWorkoutPlans();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error(jqXHR.responseText);  // Log the response text for debugging
+            }
+        });
+    });
+}
+
 
 

@@ -21,6 +21,9 @@
     <link href="../../css/sb-admin-2.min.css" rel="stylesheet">
     <link href="../../css/admin-dashboard.css" rel="stylesheet">
     <link href="../../css/AdminMealPlan.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.5/dist/sweetalert2.min.css">
+
+
 
 </head>
 
@@ -481,8 +484,8 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label class="form-label" for="trainer_password">Meal Plan Details</label>
-                                        <input class="form-control" id="trainer_password" name="details"
+                                        <label class="form-label" for="meal_plan_details">Meal Plan Details</label>
+                                        <input class="form-control" id="meal_plan_details" name="details"
                                                placeholder="Enter Meal Plan Details" type="text"
                                         >
                                     </div>
@@ -502,13 +505,135 @@
                                 <button class="btn btn-secondary" data-dismiss="modal" style="font-size: 13px"
                                         type="button">Close
                                 </button>
-                                <button class="btn" id="saveTrainer" type="button">Save Trainer</button>
+                                <button class="btn" id="saveMeal" type="button">Save Meal</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!--                end of add new meal modal-->
+
+
+
+
+
+<!--                // meal update model-->
+
+                <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="updateMealModal"
+                     tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <!-- Header content goes here -->
+                            </div>
+                            <div class="modal-body">
+
+                                <form id="trainerUpdateForm">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="Update_meal_id">Meal Plan Id</label>
+                                        <input class="form-control" id="Update_meal_id" name="id"
+                                               placeholder="Enter Meal Id" type="text"
+                                        >
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label" for="Update_meal_name">Meal Plan Name</label>
+                                        <input class="form-control" id="Update_meal_name" name="name"
+                                               placeholder="Enter Meal Name"
+                                               type="text"
+                                        >
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label" for="Update_meal_plan_details">Meal Plan Details</label>
+                                        <input class="form-control" id="Update_meal_plan_details" name="details"
+                                               placeholder="Enter Meal Plan Details" type="text"
+                                        >
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label" for="Update_calorie">Total Calorie Count</label>
+                                        <input class="form-control" id="Update_calorie" name="category"
+                                               placeholder="Enter Total Calorie Count"
+                                               type="text"
+                                        >
+                                    </div>
+
+                                </form>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" data-dismiss="modal" style="font-size: 13px"
+                                        type="button">Close
+                                </button>
+                                <button class="btn" id="updateMeal" type="button">Update Meal</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+<!--                // end meal modal-->
+
+
+                <!--                // meal delete model-->
+
+                <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="deleteMealModal"
+                     tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <!-- Header content goes here -->
+                            </div>
+                            <div class="modal-body">
+
+                                <form id="trainerDeleteForm">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="delete_meal_id">Meal Plan Id</label>
+                                        <input class="form-control" id="delete_meal_id" name="id"
+                                               placeholder="Enter Meal Id" type="text"
+                                        >
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label" for="delete_meal_name">Meal Plan Name</label>
+                                        <input class="form-control" id="delete_meal_name" name="name"
+                                               placeholder="Enter Meal Name"
+                                               type="text"
+                                        >
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label" for="delete_meal_plan_details">Meal Plan Details</label>
+                                        <input class="form-control" id="delete_meal_plan_details" name="details"
+                                               placeholder="Enter Meal Plan Details" type="text"
+                                        >
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label" for="delete_calorie">Total Calorie Count</label>
+                                        <input class="form-control" id="delete_calorie" name="category"
+                                               placeholder="Enter Total Calorie Count"
+                                               type="text"
+                                        >
+                                    </div>
+
+                                </form>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" data-dismiss="modal" style="font-size: 13px"
+                                        type="button">Close
+                                </button>
+                                <button class="btn" id="deleteMeal" type="button">Delete Meal</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--                // end meal modal-->
+
 
 
             </div>
@@ -568,8 +693,11 @@
 <!--end-->
 
 <!-- Bootstrap core JavaScript-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.5/dist/sweetalert2.all.min.js"></script>
+
 <script src="../../vendor/jquery/jquery.min.js"></script>
 <script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
 
 <!-- Core plugin JavaScript-->
@@ -586,7 +714,6 @@
 <script src="../../js/demo/chart-pie-demo.js"></script>
 
 <script src="../../js/AdminMealPlan.js"></script>
-
 
 </body>
 
