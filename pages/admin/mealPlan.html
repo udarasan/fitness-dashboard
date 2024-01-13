@@ -20,6 +20,7 @@
     <!-- Custom styles for this template-->
     <link href="../../css/sb-admin-2.min.css" rel="stylesheet">
     <link href="../../css/admin-dashboard.css" rel="stylesheet">
+    <link href="../../css/AdminMealPlan.css" rel="stylesheet">
 
 </head>
 
@@ -32,7 +33,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../user/index.html">
             <div class="sidebar-brand-icon rotate-n-15">
                 <!--                    <i class="fas fa-dumbbell"></i>-->
                 <img alt="external-gym-hotel-nawicon-glyph-nawicon" height="25"
@@ -61,25 +62,21 @@
                 <span>Trainer</span></a>
         </li>
 
-
-
         <!-- Nav Item - Utilities Collapse Menu -->
-
         <li class="nav-item">
-            <a class="nav-link" href="memberRegistration.html">
+            <a class="nav-link" href="../../pages/components/memberRegistration.html">
                 <i class="fas fa-fw fa-chart-area"></i>
-                <span>Member</span></a>
+                <span>Members</span></a>
         </li>
 
         <!-- Divider -->
         <hr class="sidebar-divider">
 
-        <!-- Heading -->
-
-
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a  class="nav-link" href="mealPlan.html">
+            <a aria-controls="collapsePages" aria-expanded="true" class="nav-link collapsed"
+               data-target="#collapsePages"
+               data-toggle="collapse" href="mealPlan.html">
                 <i class="fas fa-fw fa-folder"></i>
                 <span>Meal Plan</span>
             </a>
@@ -87,14 +84,14 @@
 
         <!-- Nav Item - Charts -->
         <li class="nav-item">
-            <a class="nav-link" href="memberRegistration.html">
+            <a class="nav-link" href="../components/charts.html">
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span>WokrOut Plan</span></a>
         </li>
 
         <!-- Nav Item - Tables -->
         <li class="nav-item">
-            <a class="nav-link" href="../../pages/components/buttons.html">
+            <a class="nav-link" href="../components/tables.html">
                 <i class="fas fa-fw fa-table"></i>
                 <span>Tables</span></a>
         </li>
@@ -107,11 +104,9 @@
 
     </ul>
     <!-- End of Sidebar -->
-
     <!-- Content Wrapper -->
     <!--        Dashboard-->
     <div class="d-flex flex-column" id="content-wrapper">
-
         <!-- Main Content -->
         <div id="content">
             <!-- Topbar -->
@@ -305,17 +300,16 @@
                     </li>
 
                 </ul>
-            </nav>
-            <!-- End of Topbar -->
 
-            <!-- Begin Page Content -->
-            <!--                Dashboard-->
-            <div class="container-fluid mt-5 " id="dashboard">
+            </nav>
+
+
+            <div class="container-fluid mt-5  " id="member">
 
                 <!-- Content Row -->
                 <div class="row">
 
-                    <!-- Earnings (Monthly) Card Example -->
+                    <!--                    card 01-->
                     <div class="col-xl-3 col-md-6 mb-4">
                         <div class="card border-left-primary shadow h-100 py-2">
                             <div class="card-body">
@@ -334,7 +328,8 @@
                         </div>
                     </div>
 
-                    <!-- Earnings (Monthly) Card Example -->
+                    <!--                    card 02-->
+
                     <div class="col-xl-3 col-md-6 mb-4">
                         <div class="card border-left-success shadow h-100 py-2">
                             <div class="card-body">
@@ -353,7 +348,8 @@
                         </div>
                     </div>
 
-                    <!-- Earnings (Monthly) Card Example -->
+                    <!--                    card 03-->
+
                     <div class="col-xl-3 col-md-6 mb-4">
                         <div class="card border-left-info shadow h-100 py-2">
                             <div class="card-body">
@@ -383,7 +379,9 @@
                         </div>
                     </div>
 
-                    <!-- Pending Requests Card Example -->
+
+                    <!--                    card 04-->
+
                     <div class="col-xl-3 col-md-6 mb-4">
                         <div class="card border-left-warning shadow h-100 py-2">
                             <div class="card-body">
@@ -401,94 +399,124 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
 
-                <!-- Content Row -->
+                <!--                end of top four cards-->
 
-                <div class="row">
 
-                    <!-- Area Chart -->
-                    <div class="col-xl-8 col-lg-7">
-                        <div class="card shadow mb-4">
-                            <!-- Card Header - Dropdown -->
-                            <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
-                                <div class="dropdown no-arrow">
-                                    <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle"
-                                       data-toggle="dropdown"
-                                       href="#" id="dropdownMenuLink0" role="button">
-                                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                    </a>
-                                    <div aria-labelledby="dropdownMenuLink"
-                                         class="dropdown-menu dropdown-menu-right shadow animated--fade-in">
-                                        <div class="dropdown-header">Dropdown Header:</div>
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-                                    </div>
-                                </div>
+                <!--                start of meal plan card              -->
+
+                <div class="card mt-5">
+                    <div class="card-header text-right" style="background-color: #2d324a">
+                        <button class="btn btn-info mx-4" id="assignToMemberBtn">Assign to a member</button>
+                        <button class="btn btn-info" id="addNewMealPan" data-toggle="modal" data-target="#newMealModal">Add new meal plan</button>
+                    </div>
+
+                    <div class="card-body">
+
+                        <div id="cardContainer" class="container-fluid d-flex flex-wrap justify-content-center mealPlanContainer">
+                            <!--                            Meal card 01-->
+<!--                            <section class="mx-3 my-4" style="max-width: 20rem;">-->
+
+<!--                                <div class="card">-->
+<!--                                    <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">-->
+<!--                                        <img class="img-fluid"-->
+<!--                                             src="https://mdbootstrap.com/img/Photos/Horizontal/Food/8-col/img (5).jpg"/>-->
+<!--                                        <a href="#!">-->
+<!--                                            <div class="mask"-->
+<!--                                                 style="background-color: rgba(251, 251, 251, 0.15);"></div>-->
+<!--                                        </a>-->
+<!--                                    </div>-->
+<!--                                    <div class="card-body">-->
+<!--                                        <h5 class="card-title font-weight-bold"><a> Lean & Mean </a></h5>-->
+
+<!--                                        <p class="card-text planDetailText">This meal plan is designed for individuals-->
+<!--                                            looking to build lean muscle and reduce body fat. It includes a balance of-->
+<!--                                            protein, complex carbohydrates, and healthy fats.</p>-->
+<!--                                        <hr class="my-4"/>-->
+<!--                                        <p class="lead"><strong>Total calorie count : <span-->
+<!--                                                style="color: black; font-size: 13px">2,000 calories</span></strong></p>-->
+
+<!--                                    </div>-->
+<!--                                </div>-->
+
+<!--                            </section>-->
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                <!--                end of meal plan card              -->
+
+
+                <!--                add new meal modal-->
+
+                <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="newMealModal"
+                     tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <!-- Header content goes here -->
                             </div>
-                            <!-- Card Body -->
-                            <div class="card-body">
-                                <div class="chart-area">
-                                    <canvas id="myAreaChart"></canvas>
-                                </div>
+                            <div class="modal-body">
+
+                                <form id="trainerForm">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="meal_id">Meal Plan Id</label>
+                                        <input class="form-control" id="meal_id" name="id"
+                                               placeholder="Enter Meal Id" type="text"
+                                        >
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label" for="meal_name">Meal Plan Name</label>
+                                        <input class="form-control" id="meal_name" name="name"
+                                               placeholder="Enter Meal Name"
+                                               type="text"
+                                        >
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label" for="trainer_password">Meal Plan Details</label>
+                                        <input class="form-control" id="trainer_password" name="details"
+                                               placeholder="Enter Meal Plan Details" type="text"
+                                        >
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label" for="calorie">Total Calorie Count</label>
+                                        <input class="form-control" id="calorie" name="category"
+                                               placeholder="Enter Total Calorie Count"
+                                               type="text"
+                                        >
+                                    </div>
+
+                                </form>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" data-dismiss="modal" style="font-size: 13px"
+                                        type="button">Close
+                                </button>
+                                <button class="btn" id="saveTrainer" type="button">Save Trainer</button>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Pie Chart -->
-                    <div class="col-xl-4 col-lg-5">
-                        <div class="card shadow mb-4">
-                            <!-- Card Header - Dropdown -->
-                            <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
-                                <div class="dropdown no-arrow">
-                                    <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle"
-                                       data-toggle="dropdown"
-                                       href="#" id="dropdownMenuLink1" role="button">
-                                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                    </a>
-                                    <div aria-labelledby="dropdownMenuLink"
-                                         class="dropdown-menu dropdown-menu-right shadow animated--fade-in">
-                                        <div class="dropdown-header">Dropdown Header:</div>
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Card Body -->
-                            <div class="card-body">
-                                <div class="chart-pie pt-4 pb-2">
-                                    <canvas id="myPieChart"></canvas>
-                                </div>
-                                <div class="mt-4 text-center small">
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Direct
-                                        </span>
-                                    <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Social
-                                        </span>
-                                    <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> Referral
-                                        </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
+
+                <!--                end of add new meal modal-->
+
+
             </div>
 
-            <!--                End Dashboard-->
+            <!-- End of Main Content -->
 
 
         </div>
-        <!-- End of Main Content -->
 
 
         <!-- Footer -->
@@ -506,6 +534,7 @@
 
 </div>
 <!-- End of Page Wrapper -->
+
 
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
@@ -526,15 +555,15 @@
             <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" data-dismiss="modal" type="button">Cancel</button>
-                <a class="btn btn-primary" href="../../pages/auth/login.html">Logout</a>
+                <a class="btn btn-primary" href="../auth/login.html">Logout</a>
             </div>
         </div>
     </div>
 </div>
 
 
+<!--new member model-->
 
-<!--new trainer model-->
 
 <!--end-->
 
@@ -555,8 +584,10 @@
 <!-- Page level custom scripts -->
 <script src="../../js/demo/chart-area-demo.js"></script>
 <script src="../../js/demo/chart-pie-demo.js"></script>
-<script src="../../js/trainer.js"></script>
+<script src="../../js/adminDashboard.js"></script>
+<!--<script src="../../js/trainer.js"></script>-->
 <script src="../../js/member.js"></script>
+<script src="../../js/mealPlan.js"></script>
 
 
 </body>
