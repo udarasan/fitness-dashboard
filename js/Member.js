@@ -1,4 +1,6 @@
 getAllMembers();
+//save memeber
+
 $('#saveMemeber').click(function () {
 
     let id = $('#member_id').val();
