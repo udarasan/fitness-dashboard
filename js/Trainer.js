@@ -116,6 +116,8 @@ $('#tblTrainer').on('click', 'tr', function () {
     // Perform actions with the retrieved data
     $('#trainerModal').modal('show');
     $('#saveTrainer').css("display", 'none');
+    $('#updateTrainer').css("display", 'block');
+    $('#deleteTrainer').css("display", 'block');
     $('#trainer_id').val(trainerId);
     $('#trainer_email').val(trainerEmail);
     $('#trainer_category').val(trainerCategory);
