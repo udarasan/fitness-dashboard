@@ -21,14 +21,19 @@
     color: #b8b8b8;
     margin-right: -3px;
     margin-left: -3px;
+    padding-right: 35px !important;
 }
 
 .workoutCard .card-body{
     color: #00000080;
 }
 
-.workoutCard .card-body>p:first-child{
+.pPlanDetails{
    font-size: 15px;
+}
+
+.pCalorieCount{
+    font-size: 15px !important;
 }
 
 .btnModal{
@@ -41,6 +46,33 @@
 
 #newWorkoutModal .form-control{
     font-size: 14px;
+}
+
+#updateWorkoutModal .form-label{
+    font-size: 14px;
+}
+
+#updateWorkoutModal .form-control{
+    font-size: 14px;
+}
+
+.threeDots{
+    top: 6.4px;
+    right: 0px;
+}
+
+.threeDots i{
+    font-weight: 600;
+    color: #b8b8b8;
+}
+
+.threeDots .dropdown-toggle::after{
+    display: none;
+}
+
+.threeDots a{
+    background: transparent;
+    border: none;
 }
 
 @media all and (max-width: 1100px) {

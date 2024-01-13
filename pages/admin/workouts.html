@@ -422,16 +422,48 @@
     </div>
 </div>
 
-
-
-<!--new trainer model-->
+<!--update Workout Modal-->
+<div aria-hidden="true" aria-labelledby="updateWorkoutModalLabel" class="modal fade" id="updateWorkoutModal" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" >Update Workout</h6>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-4 mt-3">
+                        <label class="form-label" for="updPlanName">Plan Name</label>
+                        <input class="form-control" id="updPlanName" placeholder="Plan name" type="text"
+                               name="planName">
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label" for="updPlanDetails">Plan Details</label>
+                        <textarea rows="5" class="form-control" id="updPlanDetails" placeholder="Plan description" type="text"
+                                  name="planDescription"></textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label" for="updPlanCalorieCount">Burnt Calorie Count</label>
+                        <input class="form-control" id="updPlanCalorieCount" placeholder="Burning calorie count" type="text"
+                               name="planId">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary btnModal" data-dismiss="modal" type="button">Cancel</button>
+                <a id="modalUpdateBtn" class="btn btn-primary btnModal" style="background-color: #2d324a">Update Workout</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!--end-->
 
 <!-- Bootstrap core JavaScript-->
 <script src="../../vendor/jquery/jquery.min.js"></script>
 <script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
 
 <!-- Core plugin JavaScript-->
 <script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
@@ -445,6 +477,8 @@
 <!-- Page level custom scripts -->
 <script src="../../js/demo/chart-area-demo.js"></script>
 <script src="../../js/demo/chart-pie-demo.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script src="../../js/AdminWorkOut.js"></script>
 
