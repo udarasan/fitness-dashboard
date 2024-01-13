@@ -4,92 +4,221 @@ $.ajax({
     method: 'GET',
     dataType: 'json',
     contentType: 'application/json',  // Set content type to JSON
-    success: function(response) {
+    success: function (response) {
         console.log(response.data);
         console.log(response.data.email);
 
-        $.each(response.data, function(index, mealPlan) {
+        $.each(response.data, function (index, mealPlan) {
             appendMealSection(mealPlan);
             console.log(mealPlan);
 
         });
 
     },
-    error: function(jqXHR, textStatus, errorThrown) {
+    error: function (jqXHR, textStatus, errorThrown) {
         console.error(jqXHR.responseText);  // Log the response text for debugging
     }
 });
 
 
+
 // add new card to meal section using get all data
 function appendMealSection(mealPlan) {
-    const cardContainer = document.getElementById("cardContainer");
 
-    // Create the section
-    const section = document.createElement("section");
-    section.className = "mx-3 my-4";
-    section.style.maxWidth = "20rem";
+    let card = `
+  <section class="mx-3 my-5" style="max-width: 20rem;">
+ 
+    <div id="card" class="card" >
+   
+    <p id="mealId" class="d-none">${mealPlan.mid}</p>
+    
+     <div class="dropdown position-absolute threeDots">
+                                     <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                                     </a>
+                                     <ul class="dropdown-menu">
+                                        <li><a id="edit"  class="dropdown-item edit" href="#" data-toggle="modal" data-target="#updateMealModal" >Edit</a></li>
+                                        <li><a class="dropdown-item delete" href="#" data-toggle="modal" data-target="#deleteMealModal">Delete</a></li>
+                                     </ul>
+                                </div>
+    
+      <div class="bg-image hover-overlay ripple mt-5" data-mdb-ripple-color="light">
+        <img src="https://mdbootstrap.com/img/Photos/Horizontal/Food/8-col/img (5).jpg" class="img-fluid" />
+        <a href="#!">
+          <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+        </a>
+      </div>
+      
+      <div class="card-body">
+      
+        <h5 id="mealPlanName" class="card-title font-weight-bold"><a>${mealPlan.planName}</a></h5>
+    
+        <p id="mealPlanDetail" class="card-text">${mealPlan.planDetails}</p>
+        
+        <hr class="my-4" />
+        <p  class="lead"><strong>Total calorie count : <span id="mealPlanCalorie">${mealPlan.calorieCount}</span> </strong></p>
+      
+      </div>
+      
+    </div>
+    
+  </section>
+`
+    $("#cardContainer").append(card);
 
-    // Create the card
-    const card = document.createElement("div");
-    card.className = "card";
 
-    // Create the background image
-    const bgImage = document.createElement("div");
-    bgImage.className = "bg-image hover-overlay ripple";
-    bgImage.setAttribute("data-mdb-ripple-color", "light");
+    // set click card data to update modal
 
-    // Create the image
-    const img = document.createElement("img");
-    img.className = "img-fluid";
-    img.src = "https://mdbootstrap.com/img/Photos/Horizontal/Food/8-col/img (5).jpg"
-    // Assuming imageUrl is a property in your meal plan object
+    $(".edit").click(function () {
 
-    // Create the mask
-    const mask = document.createElement("div");
-    mask.className = "mask";
-    mask.style.backgroundColor = "rgba(251, 251, 251, 0.15)";
+        // let value1 = $(this).find('#mealPlanName').val();
+        let card = $(this).closest('.card');
 
-    // Append the image and mask to the background image
-    bgImage.appendChild(img);
-    bgImage.appendChild(mask);
+        // Find the #mealPlanName element within the card and get its text content
+        let mealId = card.find("#mealId").text();
+        let mealPlanName = card.find('#mealPlanName').text();
+        let mealPlanDetails = card.find('#mealPlanDetail').text();
+        let calorie = card.find('#mealPlanCalorie').text();
 
-    // Create the card body
-    const cardBody = document.createElement("div");
-    cardBody.className = "card-body";
+        setUpdateModalContent(mealPlanName, mealPlanDetails, calorie, mealId);
 
-    // Create the title
-    const title = document.createElement("h5");
-    title.className = "card-title font-weight-bold";
-    title.innerHTML = `<a>${mealPlan.planName}</a>`;
 
-    // Create the description
-    const description = document.createElement("p");
-    description.className = "card-text planDetailText";
-    description.textContent = mealPlan.planDetails;
+    })
 
-    // Create the HR
-    const hr = document.createElement("hr");
-    hr.className = "my-4";
+    $(".delete").click(function () {
 
-    // Create the calorie count
-    const calorieCount = document.createElement("p");
-    calorieCount.className = "lead";
-    calorieCount.innerHTML = `<strong>Total calorie count : <span style="color: black; font-size: 13px">${mealPlan.calorieCount}</span></strong>`;
+        // let value1 = $(this).find('#mealPlanName').val();
+        let card = $(this).closest('.card');
 
-    // Append all elements to the card body
-    cardBody.appendChild(title);
-    cardBody.appendChild(description);
-    cardBody.appendChild(hr);
-    cardBody.appendChild(calorieCount);
+        // Find the #mealPlanName element within the card and get its text content
+        let mealId = card.find("#mealId").text();
+        let mealPlanName = card.find('#mealPlanName').text();
+        let mealPlanDetails = card.find('#mealPlanDetail').text();
+        let calorie = card.find('#mealPlanCalorie').text();
 
-    // Append the background image and card body to the card
-    card.appendChild(bgImage);
-    card.appendChild(cardBody);
+        setDeleteModalContent(mealPlanName, mealPlanDetails, calorie, mealId);
 
-    // Append the card to the section
-    section.appendChild(card);
+    })
 
-    // Append the section to the card container
-    cardContainer.appendChild(section);
 }
+
+
+// method to set data to update modal text fields
+function setUpdateModalContent(mealPlanName, mealPlanDetails, calorie, mealId) {
+    $("#Update_meal_id").val(mealId);
+    $("#Update_meal_name").val(mealPlanName);
+    $("#Update_meal_plan_details").val(mealPlanDetails);
+    $("#Update_calorie").val(calorie);
+
+}
+
+function setDeleteModalContent(mealPlanName, mealPlanDetails, calorie, mealId) {
+
+    $("#delete_meal_id").val(mealId);
+    $("#delete_meal_name").val(mealPlanName);
+    $("#delete_meal_plan_details").val(mealPlanDetails);
+    $("#delete_calorie").val(calorie);
+
+}
+
+
+
+// meal plan save method
+document.getElementById("saveMeal").addEventListener('click', function () {
+
+    let meal_id = $("#meal_id").val();
+    let meal_name = $("#meal_name").val();
+    let meal_details = $("#meal_plan_details").val();
+    let calorie = $("#calorie").val();
+
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/mealPlan/save',
+        method: 'POST',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            "mid": meal_id,
+            "planName": meal_name,
+            "planDetails": meal_details,
+            "calorieCount": calorie
+        }),
+        success: function (response) {
+            console.log(response);
+        },
+
+        error: function (jqXHR) {
+            console.log(jqXHR);
+
+        }
+    })
+
+})
+
+
+document.getElementById("updateMeal").addEventListener('click',function (){
+    let meal_id = $("#Update_meal_id").val();
+    let meal_name = $("#Update_meal_name").val();
+    let meal_details = $("#Update_meal_plan_details").val();
+    let calorie = $("#Update_calorie").val();
+
+    $.ajax({
+        url:'http://localhost:8080/api/v1/mealPlan/update',
+        method:"post",
+        dataType:"json",
+        contentType:"application/json;",
+        data: JSON.stringify({
+            "mid":meal_id,
+            "planName": meal_name,
+            "planDetails": meal_details,
+            "calorieCount": calorie
+        }),
+
+        success:function (response) {
+            console.log(response);
+
+        },
+
+        error:function (jqXHR){
+            console.log(jqXHR);
+        }
+    })
+})
+
+document.getElementById("deleteMeal").addEventListener('click',function () {
+    let id = $("#delete_meal_id").val();
+
+    Swal.fire({
+        title: 'Are you sure?',
+        text: 'You are about to delete this record!',
+        icon: 'warning', // warning icon
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'Close'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: 'http://localhost:8080/api/v1/mealPlan/delete/'+id,
+                method: "DELETE",
+                success: function (response) {
+                    console.log(response)
+                },
+
+                error: function (jqXHR) {
+                    console.log(jqXHR);
+                }
+            })
+
+            Swal.fire('Deleted!', 'Your record has been deleted.', 'success');
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            // User clicked "Close" or outside the modal
+            Swal.fire('Cancelled', 'Your record is safe :)', 'info');
+        }
+    });
+
+
+
+
+
+})
+
+
