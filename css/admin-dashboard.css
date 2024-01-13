@@ -62,4 +62,21 @@
 }
 
 /*member styles*/
+#memberModal{
+    border-radius: 30px;
+}
+
+#memberForm>div>label{
+    font-size: 13px !important;
+}
+
+#memberForm>div>input::placeholder{
+    font-size: 12px !important
+}
+
+#saveMemeber{
+    background-color:#2d324a ;
+    font-size: 13px;
+    color: white;
+}
 
