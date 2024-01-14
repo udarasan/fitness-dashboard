@@ -79,27 +79,19 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a aria-controls="collapsePages" aria-expanded="true" class="nav-link collapsed"
-               data-target="#collapsePages"
-               data-toggle="collapse" href="#">
-                <i class="fas fa-fw fa-folder"></i>
-                <span>Meal Plan</span>
-            </a>
+            <a class="nav-link" href="mealPlan.html">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>Meal Plan</span></a>
         </li>
 
         <!-- Nav Item - Charts -->
         <li class="nav-item">
-            <a class="nav-link" href="memberRegistration.html">
+            <a class="nav-link" href="workouts.html">
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span>WorkOut Plan</span></a>
         </li>
 
         <!-- Nav Item - Tables -->
-        <li class="nav-item">
-            <a class="nav-link" href="../../pages/components/buttons.html">
-                <i class="fas fa-fw fa-table"></i>
-                <span>Tables</span></a>
-        </li>
 
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
@@ -319,7 +311,7 @@
                     <form class="d-flex" role="search">
                         <input id="searchWorkoutPlans" class="form-control me-2" type="search" placeholder="Search"
                                aria-label="Search">
-                        <button class="btn btn-outline-success d-none" type="submit">Search</button>
+                        <button id="cancelSearch" class="btn btn-outline-success d-none" type="submit">Search</button>
                     </form>
                     <a data-target="#newWorkoutModal" data-toggle="modal" href="#">
                         <button class="btn text-white" data-target="" data-toggle="modal"
@@ -335,13 +327,10 @@
                 </div>
 
             </div>
-
             <!--                End Dashboard-->
-
 
         </div>
         <!-- End of Main Content -->
-
 
         <!-- Footer -->
         <footer class="sticky-footer bg-white">
@@ -459,6 +448,35 @@
     </div>
 </div>
 
+<!--Assign Workout Modal-->
+<div aria-hidden="true" aria-labelledby="assignWorkoutModalLabel" class="modal fade" id="assignWorkoutModal" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" >Assign Workout To</h6>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body mt-2 container-fluid">
+                <div class="row">
+                    <label class="col-auto assignModalLabel">Member ID: &nbsp;</label>
+                    <select class="form-select col" id="memberSelect">
+                    </select>
+                </div>
+                <hr>
+                <div class="row">
+                    <label class="col-auto assignModalLabel">Member Name: &nbsp;</label>
+                    <input id="lblMemberName" class="px-2" disabled></label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary btnModal" data-dismiss="modal" type="button">Cancel</button>
+                <a id="modalAssignBtn" class="btn btn-primary btnModal" style="background-color: #2d324a">Assign</a>
+            </div>
+        </div>
+    </div>
+</div>
 <!--end-->
 
 <!-- Bootstrap core JavaScript-->
@@ -481,6 +499,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script src="../../js/AdminWorkOut.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.5/dist/sweetalert2.all.min.js"></script>
 
 </body>
 
