@@ -87,28 +87,18 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a aria-controls="collapsePages" aria-expanded="true" class="nav-link collapsed"
-               data-target="#collapsePages"
-               data-toggle="collapse" href="#">
-                <i class="fas fa-fw fa-folder"></i>
-                <span>Meal Plan</span>
-            </a>
-
+            <a class="nav-link" href="mealPlan.html">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>Meal Plan</span></a>
         </li>
 
         <!-- Nav Item - Charts -->
         <li class="nav-item">
-            <a class="nav-link" href="../components/charts.html">
+            <a class="nav-link" href="workouts.html">
                 <i class="fas fa-fw fa-chart-area"></i>
-                <span>WokrOut Plan</span></a>
+                <span>WorkOut Plan</span></a>
         </li>
-
-        <!-- Nav Item - Tables -->
-        <li class="nav-item">
-            <a class="nav-link" href="../components/tables.html">
-                <i class="fas fa-fw fa-table"></i>
-                <span>Tables</span></a>
-        </li>
+        
 
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
@@ -451,7 +441,7 @@
                                     <th scope="col">Id</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">Category</th>
-
+                                    <th style="display: none" scope="col">Password</th>
                                 </tr>
                                 </thead>
                                 <tbody id="tblTrainer">
@@ -535,14 +525,14 @@
                     <div class="mb-3">
                         <label class="form-label" for="trainer_email">Trainer Email</label>
                         <input class="form-control" id="trainer_email" name="email" placeholder="Enter trainer Email"
-                               type="text"
+                               type="email"
                         >
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label" for="trainer_password">Trainer Password</label>
                         <input class="form-control" id="trainer_password" name="password"
-                               placeholder="Enter trainer Password" type="text"
+                               placeholder="Enter trainer Password" type="password"
                         >
                     </div>
 
@@ -589,6 +579,9 @@
 <script src="../../js/demo/chart-pie-demo.js"></script>
 <script src="../../js/AdminDashboard.js"></script>
 <script src="../../js/Trainer.js"></script>
+<!--alert-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.5/dist/sweetalert2.all.min.js"></script>
+
 
 
 </body>
