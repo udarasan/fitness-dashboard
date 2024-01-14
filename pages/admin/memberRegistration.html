@@ -63,7 +63,7 @@
 
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link" href="../../pages/components/memberRegistration.html">
+            <a class="nav-link" href="memberRegistration.html">
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span>Members</span></a>
         </li>
@@ -73,17 +73,14 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a aria-controls="collapsePages" aria-expanded="true" class="nav-link collapsed"
-               data-target="#collapsePages"
-               data-toggle="collapse" href="#">
-                <i class="fas fa-fw fa-folder"></i>
-                <span>Meal Plan</span>
-            </a>
+            <a class="nav-link" href="mealPlan.html">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>Meal Plan</span></a>
         </li>
 
         <!-- Nav Item - Charts -->
         <li class="nav-item">
-            <a class="nav-link" href="../components/charts.html">
+            <a class="nav-link" href="workouts.html">
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span>WokrOut Plan</span></a>
         </li>
@@ -423,6 +420,7 @@
                                     <th scope="col">Name</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">Trainer_Id</th>
+                                    <th style="display: none" scope="col"></th>
                                 </tr>
                                 </thead>
                                 <tbody id="tblMember">
@@ -505,7 +503,7 @@
 
                         <div class="mb-3">
                             <label class="form-label" for="member_email">Member Email</label>
-                            <input class="form-control" id="member_email" placeholder="Enter Member Email" type="text"
+                            <input class="form-control" id="member_email" placeholder="Enter Member Email" type="email"
                                    name="email"
                             >
                         </div>
@@ -513,7 +511,7 @@
                         <div class="mb-3">
                             <label class="form-label" for="memeber_password">Member Password</label>
                             <input class="form-control" id="memeber_password" placeholder="Enter Member Password"
-                                   type="text" name="password"
+                                   type="password" name="password"
                             >
                         </div>
 
@@ -524,19 +522,22 @@
                             >
                         </div>
                         <div class="mb-3">
-                            <label class="form-label" for="tra_id">Trainer Id</label>
-                            <input class="form-control" id="tra_id" placeholder="Enter Trainer Id" type="text"
-                                   name="trainer_id"
-                            >
+
+                            <label class="form-label" for="tra_id" >Trainer ID</label>
+                            <select class="form-select form-control col" id="tra_id">
+                                <option class="d-none" value="" selected></option>
+                            </select>
                         </div>
 
                     </form>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="font-size: 13px">
+                        <button id="closeBtn" type="button" class="btn btn-secondary" data-dismiss="modal" style="font-size: 13px">
                             Close
                         </button>
-                        <button type="button" class="btn  " id="saveMemeber">Save Member</button>
+                        <button type="button" class="btn" id="saveMemeber">Save Member</button>
+                        <button class="btn" style="display: none" id="updateMember" type="button">Update Member</button>
+                        <button class="btn" style="display: none" id="deleteMember" type="button">Delete Member</button>
                     </div>
 
                 </div>
@@ -546,6 +547,8 @@
         </div>
     </div>
 </div>
+
+
 <!--end-->
 
 <!-- Bootstrap core JavaScript-->
@@ -565,11 +568,12 @@
 <!-- Page level custom scripts -->
 <script src="../../js/demo/chart-area-demo.js"></script>
 <script src="../../js/demo/chart-pie-demo.js"></script>
-<script src="../../js/AdminDashboard.js"></script>
+
 <!--<script src="../../js/Trainer.js"></script>-->
 <script src="../../js/Member.js"></script>
 
-
+<!--alert-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.5/dist/sweetalert2.all.min.js"></script>
 </body>
 
 </html>
