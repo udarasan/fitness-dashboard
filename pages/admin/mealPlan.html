@@ -408,6 +408,7 @@
                 <!--                end of top four cards-->
 
 
+
                 <!--                start of meal plan card              -->
 
                 <div class="card mt-5">
@@ -419,32 +420,7 @@
                     <div class="card-body">
 
                         <div id="cardContainer" class="container-fluid d-flex flex-wrap justify-content-center mealPlanContainer">
-                            <!--                            Meal card 01-->
-<!--                            <section class="mx-3 my-4" style="max-width: 20rem;">-->
 
-<!--                                <div class="card">-->
-<!--                                    <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">-->
-<!--                                        <img class="img-fluid"-->
-<!--                                             src="https://mdbootstrap.com/img/Photos/Horizontal/Food/8-col/img (5).jpg"/>-->
-<!--                                        <a href="#!">-->
-<!--                                            <div class="mask"-->
-<!--                                                 style="background-color: rgba(251, 251, 251, 0.15);"></div>-->
-<!--                                        </a>-->
-<!--                                    </div>-->
-<!--                                    <div class="card-body">-->
-<!--                                        <h5 class="card-title font-weight-bold"><a> Lean & Mean </a></h5>-->
-
-<!--                                        <p class="card-text planDetailText">This meal plan is designed for individuals-->
-<!--                                            looking to build lean muscle and reduce body fat. It includes a balance of-->
-<!--                                            protein, complex carbohydrates, and healthy fats.</p>-->
-<!--                                        <hr class="my-4"/>-->
-<!--                                        <p class="lead"><strong>Total calorie count : <span-->
-<!--                                                style="color: black; font-size: 13px">2,000 calories</span></strong></p>-->
-
-<!--                                    </div>-->
-<!--                                </div>-->
-
-<!--                            </section>-->
 
                         </div>
 
@@ -512,7 +488,6 @@
                 </div>
 
                 <!--                end of add new meal modal-->
-
 
 
 
@@ -633,6 +608,63 @@
 
 
                 <!--                // end meal modal-->
+
+
+<!--                meal assign modal-->
+
+                <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="assignModal"
+                     tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <!-- Header content goes here -->
+                            </div>
+                            <div class="modal-body">
+
+                                <form id="assignMealForm">
+
+                                    <div class="mb-3">
+
+                                        <select id="memberComboBox" class="form-select w-100" aria-label="Default select example">
+                                            <option selected>Select Member Id</option>
+                                        </select>
+
+
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label" for="Member_name">Member Name</label>
+                                        <input disabled class="form-control" id="Member_name" name="details"
+                                               placeholder="Enter Member Name" type="text"
+                                        >
+                                    </div>
+
+
+
+                                    <div class="mb-3">
+                                        <label class="form-label" for="assign_meal_id">Meal Plan Id</label>
+                                        <input class="form-control" id="assign_meal_id" name="id"
+                                               placeholder="Enter Meal Plan Id" type="text"
+                                        >
+                                    </div>
+
+                                </form>
+
+                                <div class="container miniMealDataCard d-flex align-items-center justify-content-center"></div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" data-dismiss="modal" style="font-size: 13px"
+                                        type="button">Close
+                                </button>
+                                <button class="btn" id="assignMealPlanBtn" type="button">Assign Meal</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--                end meal assign modal-->
 
 
 
