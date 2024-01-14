@@ -1,5 +1,7 @@
-getAllWorkoutPlans();
-loadMembers();
+$(document).ready(function () {
+    getAllWorkoutPlans();
+    loadMembers();
+});
 
 $("#modalAddNew").click(function () {
     let name = $('#planName').val();

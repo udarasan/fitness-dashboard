@@ -103,12 +103,22 @@
     }
 }
 
-@media all and (max-width: 500px) {
+@media all and (max-width: 700px) {
    .searchForm{
        width: 100%;
    }
 
-   #btnNewWorkout{
-       margin-top: 10px;
+    .searchRow{
+        flex-direction: column-reverse;
+        align-items: flex-start !important;
+    }
+   #addNewAnchor{
+       margin-bottom: 20px;
    }
+
+   /*.gridContainer{*/
+   /*    margin-top: 50px;*/
+   /*}*/
+
+
 }
