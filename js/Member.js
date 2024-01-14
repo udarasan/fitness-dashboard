@@ -160,6 +160,11 @@ $('#addMemberBTn').click(function () {
     $('#updateMember').css("display", 'none');
     $('#deleteMember').css("display", 'none');
     $('#saveMemeber').css("display", 'block');
+    $('#member_id').val("");
+    $('#member_name').val("");
+    $('#member_email').val("");
+    $('#tra_id').val("");
+    $('#memeber_password').val("");
 });
 
 function loadTrainerId() {

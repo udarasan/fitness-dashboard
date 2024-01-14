@@ -148,4 +148,18 @@ $('#tblTrainer').on('click', 'tr', function () {
     $('#trainer_password').val(trainerPassword);
 
 });
+$('#closeBtn').click(function () {
+    $('#updateTrainer').css("display", 'none');
+    $('#deleteTrainer').css("display", 'none');
+});
+$('#addTrainerBtn').click(function () {
+    $('#updateTrainer').css("display", 'none');
+    $('#deleteTrainer').css("display", 'none');
+    $('#saveTrainer').css("display", 'block');
+    $('#trainer_id').val("");
+    $('#trainer_email').val("");
+    $('#trainer_category').val("");
+    $('#trainer_password').val("");
+
+});
 
