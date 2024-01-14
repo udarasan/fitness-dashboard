@@ -39,3 +39,48 @@
     background: transparent;
     border: none;
 }
+
+
+@media all and (max-width: 575px){
+    /*#card{*/
+    /*    width: 240px;*/
+    /*    padding: 0 !important;*/
+    /*}*/
+    #cardContainer{
+        padding: 0 !important;
+    }
+
+    .mealMainCar>div{
+        padding: 0 !important;
+    }
+
+    /*#cardContainer>section{*/
+    /*    margin-top: 0 !important;*/
+    /*}*/
+
+    #member{
+      padding: 30px !important;
+    }
+
+    #assignToMemberBtn {
+        font-size: 11px;
+        width: 130px;
+        height: 27px;
+        margin-bottom: 10px;
+        margin-right: 0 !important;
+    }
+
+    #addNewMealPan {
+        font-size: 11px;
+        width: 130px;
+        height: 27px;
+    }
+
+}
+
+@media all and (min-width: 406px) and (max-width: 575px){
+    #assignToMemberBtn {
+        margin-bottom: 0;
+
+    }
+}

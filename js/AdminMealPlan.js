@@ -1,26 +1,36 @@
 // meal plan Get All
-$.ajax({
-    url: 'http://localhost:8080/api/v1/mealPlan/getAllMealPlans',
-    method: 'GET',
-    dataType: 'json',
-    contentType: 'application/json',  // Set content type to JSON
-    success: function (response) {
-        console.log(response.data);
-        console.log(response.data.email);
 
-        $.each(response.data, function (index, mealPlan) {
-            appendMealSection(mealPlan);
-            console.log(mealPlan);
-
-        });
-
-    },
-    error: function (jqXHR, textStatus, errorThrown) {
-        console.error(jqXHR.responseText);  // Log the response text for debugging
-    }
-});
+    getAll();
+    loadAllMembersIds();
 
 
+
+function getAll() {
+    $("#cardContainer").empty();
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/mealPlan/getAllMealPlans',
+        method: 'GET',
+        dataType: 'json',
+        contentType: 'application/json',  // Set content type to JSON
+        success: function (response) {
+            console.log(response.data);
+            console.log(response.data.email);
+
+            $.each(response.data, function (index, mealPlan) {
+                appendMealSection(mealPlan);
+                console.log(mealPlan);
+
+
+            });
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error(jqXHR.responseText);  // Log the response text for debugging
+        }
+    });
+
+
+}
 
 // add new card to meal section using get all data
 function appendMealSection(mealPlan) {
@@ -104,16 +114,16 @@ function appendMealSection(mealPlan) {
     })
 
     // click event to assign data to assign modal
-    $(".assign").click(function (){
+    $(".assign").click(function () {
         let card = $(this).closest('.card');
 
-        let mealID=card.find("#mealId").text();
+        let mealID = card.find("#mealId").text();
         let mealPlanName = card.find('#mealPlanName').text();
         let mealPlanDetails = card.find('#mealPlanDetail').text();
         let calorie = card.find('#mealPlanCalorie').text();
 
 
-        setAssignModalContent(mealID,mealPlanName,mealPlanDetails,calorie);
+        setAssignModalContent(mealID, mealPlanName, mealPlanDetails, calorie);
     })
 
 }
@@ -140,6 +150,12 @@ document.getElementById("saveMeal").addEventListener('click', function () {
         }),
         success: function (response) {
             console.log(response);
+            getAll();
+            $('#newMealModal').data('bs.modal').hide();
+            $("#meal_id").val("");
+            $("#meal_name").val("");
+            $("#meal_plan_details").val("");
+            $("#calorie").val("");
         },
 
         error: function (jqXHR) {
@@ -151,36 +167,38 @@ document.getElementById("saveMeal").addEventListener('click', function () {
 })
 
 
-document.getElementById("updateMeal").addEventListener('click',function (){
+document.getElementById("updateMeal").addEventListener('click', function () {
     let meal_id = $("#Update_meal_id").val();
     let meal_name = $("#Update_meal_name").val();
     let meal_details = $("#Update_meal_plan_details").val();
     let calorie = $("#Update_calorie").val();
 
     $.ajax({
-        url:'http://localhost:8080/api/v1/mealPlan/update',
-        method:"post",
-        dataType:"json",
-        contentType:"application/json;",
+        url: 'http://localhost:8080/api/v1/mealPlan/update',
+        method: "post",
+        dataType: "json",
+        contentType: "application/json;",
         data: JSON.stringify({
-            "mid":meal_id,
+            "mid": meal_id,
             "planName": meal_name,
             "planDetails": meal_details,
             "calorieCount": calorie
         }),
 
-        success:function (response) {
+        success: function (response) {
             console.log(response);
+            $('#updateMealModal').data('bs.modal').hide();
+            getAll();
 
         },
 
-        error:function (jqXHR){
+        error: function (jqXHR) {
             console.log(jqXHR);
         }
     })
 })
 
-document.getElementById("deleteMeal").addEventListener('click',function () {
+document.getElementById("deleteMeal").addEventListener('click', function () {
     let id = $("#delete_meal_id").val();
 
     Swal.fire({
@@ -193,10 +211,14 @@ document.getElementById("deleteMeal").addEventListener('click',function () {
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: 'http://localhost:8080/api/v1/mealPlan/delete/'+id,
+                url: 'http://localhost:8080/api/v1/mealPlan/delete/' + id,
                 method: "DELETE",
                 success: function (response) {
                     console.log(response)
+                    getAll();
+
+                    $('#deleteMealModal').data('bs.modal').hide();
+                    Swal.fire('Deleted!', 'Your record has been deleted.', 'success');
                 },
 
                 error: function (jqXHR) {
@@ -204,7 +226,7 @@ document.getElementById("deleteMeal").addEventListener('click',function () {
                 }
             })
 
-            Swal.fire('Deleted!', 'Your record has been deleted.', 'success');
+
         } else if (result.dismiss === Swal.DismissReason.cancel) {
             // User clicked "Close" or outside the modal
             Swal.fire('Cancelled', 'Your record is safe :)', 'info');
@@ -235,18 +257,15 @@ function setDeleteModalContent(mealPlanName, mealPlanDetails, calorie, mealId) {
 }
 
 // method to set data to assign modal text fields
-function setAssignModalContent(mealID,mealPlanName,mealPlanDetails,calorie) {
-
+function setAssignModalContent(mealID, mealPlanName, mealPlanDetails, calorie) {
+  let miniMealDataCard=  $(".miniMealDataCard").empty();
+  miniMealDataCard.empty();
     $("#assign_meal_id").val(mealID);
 
-
-    let miniCard=`<section class="mx-3 my-5" style="max-width: 15rem;">
+    let miniCard = `<section class="mx-3 my-5" style="max-width: 15rem;">
  
     <div id="card" class="card" >
-   
-<!--    <p id="mealId" class="d-none"></p>-->
-    
-    
+       
       <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
         <img src="https://mdbootstrap.com/img/Photos/Horizontal/Food/8-col/img (5).jpg" class="img-fluid" />
         <a href="#!">
@@ -269,36 +288,38 @@ function setAssignModalContent(mealID,mealPlanName,mealPlanDetails,calorie) {
     
   </section>`
 
-    $(".miniMealDataCard").append(miniCard);
-
+    miniMealDataCard.append(miniCard);
 
 }
 
 // send ajax request to load all members id to combo box
 let getAllMembersResponse;
-$.ajax({
-    url:'http://localhost:8080/api/v1/user/getAllUsers',
-    method:'GET',
-    success:function (response){
-        getAllMembersResponse=response;
-        console.log(response);
+function  loadAllMembersIds(){
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/user/getAllUsers',
+        method: 'GET',
+        success: function (response) {
+            getAllMembersResponse = response;
+            console.log(response);
 
-        $.each(response.data,function (index,members){
-            console.log(members);
-            setMemberDataToComboBox(members);
-        })
+            $.each(response.data, function (index, members) {
+                console.log(members);
+                setMemberDataToComboBox(members);
+            })
 
-    },
-    error:function (xhr){
-        console.log(xhr);
-    }
-})
+        },
+        error: function (xhr) {
+            console.log(xhr);
+        }
+    })
+}
+
 
 // set member data to combobox based on ajax request
 
 function setMemberDataToComboBox(members) {
 
-    let memberData=`<option >${members.uid}</option>`
+    let memberData = `<option >${members.uid}</option>`
     $("#memberComboBox").append(memberData);
 
 }
@@ -308,21 +329,21 @@ let memberName;
 let memberEmail;
 let memberPassword;
 let memberTrainerId;
-document.getElementById("memberComboBox").addEventListener("click",function (){
-    let memberId=$("#memberComboBox").val();
+document.getElementById("memberComboBox").addEventListener("click", function () {
+    let memberId = $("#memberComboBox").val();
     console.log(memberId);
 
-    $.each(getAllMembersResponse.data,function (index,members){
+    $.each(getAllMembersResponse.data, function (index, members) {
         console.log(members);
         console.log(members.uid)
-        memId=members.uid;
-        memberName=members.name;
-        memberEmail=members.email;
-        memberPassword=members.password;
-        memberTrainerId=members.trainer_id;
+        memId = members.uid;
+        memberName = members.name;
+        memberEmail = members.email;
+        memberPassword = members.password;
+        memberTrainerId = members.trainer_id;
 
-        if(memberId==members.uid){
-          let memberName=  members.name;
+        if (memberId == members.uid) {
+            let memberName = members.name;
             $("#Member_name").val(memberName);
         }
 
@@ -331,24 +352,23 @@ document.getElementById("memberComboBox").addEventListener("click",function (){
 })
 
 // update user with mealPlan
+document.getElementById("assignMealPlanBtn").addEventListener('click', function () {
 
-document.getElementById("assignMealPlanBtn").addEventListener('click',function (){
-
-   console.log(memId);
+    console.log(memId);
     console.log(memberName);
     console.log(memberPassword);
     console.log(memberEmail);
     console.log(memberTrainerId);
 
-    let mealId=$("#assign_meal_id").val();
+    let mealId = $("#assign_meal_id").val();
     console.log(mealId);
 
     $.ajax({
-        url:'http://localhost:8080/api/v1/user/update',
-        method:"post",
-        dataType:"json",
-        contentType:"application/json",
-        data:JSON.stringify({"uid":memId,"email":memberEmail,"meal_id":mealId,"password":1234}),
+        url: 'http://localhost:8080/api/v1/user/update',
+        method: "post",
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify({"uid": memId, "email": memberEmail, "meal_id": mealId, "password": 1234}),
 
         success: function (response) {
             console.log(response);
@@ -360,6 +380,5 @@ document.getElementById("assignMealPlanBtn").addEventListener('click',function (
         }
     })
 })
-
 
 
