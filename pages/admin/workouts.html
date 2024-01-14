@@ -308,7 +308,7 @@
 
                 <!-- Content Row -->
                 <div class="row bg-white p-3 w-100 d-flex justify-content-between mx-auto align-items-center">
-                    <form class="d-flex" role="search">
+                    <form class="d-flex searchForm" role="search">
                         <input id="searchWorkoutPlans" class="form-control me-2" type="search" placeholder="Search"
                                aria-label="Search">
                         <button id="cancelSearch" class="btn btn-outline-success d-none" type="submit">Search</button>
@@ -459,9 +459,9 @@
                 </button>
             </div>
             <div class="modal-body mt-2 container-fluid">
-                <div class="row">
-                    <label class="col-auto assignModalLabel">Member ID: &nbsp;</label>
-                    <select class="form-select col" id="memberSelect">
+                <div class="row d-flex align-items-center">
+                    <label class="col-auto assignModalLabel my-auto">Member ID: &nbsp;</label>
+                    <select class="form-select col py-1" id="memberSelect">
                     </select>
                 </div>
                 <hr>
