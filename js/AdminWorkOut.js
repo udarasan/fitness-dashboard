@@ -255,11 +255,11 @@ $("#modalAssignBtn").click(function(){
     let userId = $("#memberSelect").val();
     // Make the AJAX request
     $.ajax({
-        url: 'http://localhost:8080/api/v1/user/updateUser',
+        url: 'http://localhost:8080/api/v1/user/update',
         method: 'POST',
         dataType: 'json',
         contentType: 'application/json',  // Set content type to JSON
-        data: JSON.stringify({"email": currUserEmail, "workout_id": workoutId}),  // Convert data to JSON string
+        data: JSON.stringify({"email": currUserEmail, "workout_id": workoutId, "uid": userId}),  // Convert data to JSON string
         success: function (response) {
             console.log(response);
             $('#assignWorkoutModal').data('bs.modal').hide();
