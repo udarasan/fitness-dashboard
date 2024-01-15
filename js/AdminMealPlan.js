@@ -368,7 +368,7 @@ document.getElementById("assignMealPlanBtn").addEventListener('click', function 
         method: "post",
         dataType: "json",
         contentType: "application/json",
-        data: JSON.stringify({"uid": memId, "email": memberEmail, "meal_id": mealId, "password": 1234}),
+        data: JSON.stringify({"uid": memId, "email": memberEmail, "meal_plan_id": mealId, "password": 1234}),
 
         success: function (response) {
             console.log(response);

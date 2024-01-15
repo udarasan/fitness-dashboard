@@ -26,9 +26,9 @@
     display: inline; !important;
 }
 
-#addTrainerBtn,#addMemberBTn{
+#addTrainerBtn,#addMemberBTn,#addEquipment{
         background-color: #2d324a;
-        width: 120px;
+        width: 150px;
         height: 32px;
         font-size: 11px;
 
@@ -39,7 +39,7 @@
 }
 
 
-#trainerTable,#memberTable{
+#trainerTable,#memberTable,#equipTable{
     font-size: 13px;
 }
 
@@ -62,7 +62,7 @@
 }
 
 /*member styles*/
-#memberModal{
+#memberModal,#equipmentModal{
     border-radius: 30px;
 }
 
@@ -74,17 +74,17 @@
     font-size: 12px !important
 }
 
-#saveMemeber{
+#saveMemeber,#addEquip{
     background-color:#2d324a ;
     font-size: 13px;
     color: white;
 }
-#updateTrainer{
+#updateTrainer,#updateEquip{
     background-color:#2d324a ;
     font-size: 13px;
     color: white;
 }
-#deleteTrainer{
+#deleteTrainer,#deleteEquip{
     background-color:#2d324a ;
     font-size: 13px;
     color: white;
