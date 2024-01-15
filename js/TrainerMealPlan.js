@@ -1,22 +1,12 @@
-// meal plan Get All
-window.onload = function() {
-    getAll();
-    loadAllMembersIds();
-
-    console.log('Window has fully loaded!');
-};
-
-
-function getAll() {
+getAll();
+loadAllMembersIds();
+function getAll(){
     $("#cardContainer").empty();
     $.ajax({
-        url: 'http://localhost:8080/api/v1/mealPlan/getAllMealPlans',
-        method: 'GET',
-        dataType: 'json',
-        contentType: 'application/json',  // Set content type to JSON
-        success: function (response) {
-            console.log(response.data);
-            console.log(response.data.email);
+        url:'http://localhost:8080/api/v1/mealPlan/getAllMealPlans',
+        method:"GET",
+        success:function (response){
+            console.log(response)
 
             $.each(response.data, function (index, mealPlan) {
                 appendMealSection(mealPlan);
@@ -24,26 +14,26 @@ function getAll() {
 
 
             });
-
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+
+        error:function (XHR){
+            console.log(XHR);
         }
-    });
-
-
+    })
 }
+
 
 // add new card to meal section using get all data
 function appendMealSection(mealPlan) {
 
     let card = `
   <section class="mx-3 my-5" style="max-width: 20rem;">
- 
+
     <div id="card" class="card" >
-   
+    <p  >trainer</p>
+
     <p id="mealId" class="d-none">${mealPlan.mid}</p>
-    
+
      <div class="dropdown position-absolute threeDots">
                                      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
@@ -54,27 +44,27 @@ function appendMealSection(mealPlan) {
                                         <li><a class="dropdown-item assign" href="#" data-toggle="modal" data-target="#assignModal">Assign</a></li>
                                      </ul>
                                 </div>
-    
+
       <div class="bg-image hover-overlay ripple mt-5" data-mdb-ripple-color="light">
         <img src="https://mdbootstrap.com/img/Photos/Horizontal/Food/8-col/img (5).jpg" class="img-fluid" />
         <a href="#!">
           <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
         </a>
       </div>
-      
+
       <div class="card-body">
-      
+
         <h5 id="mealPlanName" class="card-title font-weight-bold"><a>${mealPlan.planName}</a></h5>
-    
+
         <p id="mealPlanDetail" class="card-text">${mealPlan.planDetails}</p>
-        
+
         <hr class="my-4" />
         <p  class="lead"><strong>Total calorie count : <span id="mealPlanCalorie">${mealPlan.calorieCount}</span> </strong></p>
-      
+
       </div>
-      
+
     </div>
-    
+
   </section>
 `
     $("#cardContainer").append(card);
@@ -131,13 +121,14 @@ function appendMealSection(mealPlan) {
 }
 
 
+
 // meal plan save method
 document.getElementById("saveMeal").addEventListener('click', function () {
-alert('save');
     let meal_id = $("#meal_id").val();
     let meal_name = $("#meal_name").val();
     let meal_details = $("#meal_plan_details").val();
     let calorie = $("#calorie").val();
+
 
     $.ajax({
         url: 'http://localhost:8080/api/v1/mealPlan/save',
@@ -152,8 +143,10 @@ alert('save');
         }),
         success: function (response) {
             console.log(response);
+            updateMemberWithMealId(meal_id);
+
             getAll();
-            $('#newMealModal').data('bs.modal').hide();
+            $('#TrainerNewMealModal').data('bs.modal').hide();
             $("#meal_id").val("");
             $("#meal_name").val("");
             $("#meal_plan_details").val("");
@@ -169,130 +162,8 @@ alert('save');
 })
 
 
-document.getElementById("updateMeal").addEventListener('click', function () {
-    let meal_id = $("#Update_meal_id").val();
-    let meal_name = $("#Update_meal_name").val();
-    let meal_details = $("#Update_meal_plan_details").val();
-    let calorie = $("#Update_calorie").val();
-
-    $.ajax({
-        url: 'http://localhost:8080/api/v1/mealPlan/update',
-        method: "post",
-        dataType: "json",
-        contentType: "application/json;",
-        data: JSON.stringify({
-            "mid": meal_id,
-            "planName": meal_name,
-            "planDetails": meal_details,
-            "calorieCount": calorie
-        }),
-
-        success: function (response) {
-            console.log(response);
-            $('#updateMealModal').data('bs.modal').hide();
-            getAll();
-
-        },
-
-        error: function (jqXHR) {
-            console.log(jqXHR);
-        }
-    })
-})
-
-document.getElementById("deleteMeal").addEventListener('click', function () {
-    let id = $("#delete_meal_id").val();
-
-    Swal.fire({
-        title: 'Are you sure?',
-        text: 'You are about to delete this record!',
-        icon: 'warning', // warning icon
-        showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'Close'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-                url: 'http://localhost:8080/api/v1/mealPlan/delete/' + id,
-                method: "DELETE",
-                success: function (response) {
-                    console.log(response)
-                    getAll();
-
-                    $('#deleteMealModal').data('bs.modal').hide();
-                    Swal.fire('Deleted!', 'Your record has been deleted.', 'success');
-                },
-
-                error: function (jqXHR) {
-                    console.log(jqXHR);
-                }
-            })
 
 
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-            // User clicked "Close" or outside the modal
-            Swal.fire('Cancelled', 'Your record is safe :)', 'info');
-        }
-    });
-
-
-})
-
-
-// method to set data to update modal text fields
-function setUpdateModalContent(mealPlanName, mealPlanDetails, calorie, mealId) {
-    $("#Update_meal_id").val(mealId);
-    $("#Update_meal_name").val(mealPlanName);
-    $("#Update_meal_plan_details").val(mealPlanDetails);
-    $("#Update_calorie").val(calorie);
-
-}
-
-// method to set data to delete modal text fields
-function setDeleteModalContent(mealPlanName, mealPlanDetails, calorie, mealId) {
-
-    $("#delete_meal_id").val(mealId);
-    $("#delete_meal_name").val(mealPlanName);
-    $("#delete_meal_plan_details").val(mealPlanDetails);
-    $("#delete_calorie").val(calorie);
-
-}
-
-// method to set data to assign modal text fields
-function setAssignModalContent(mealID, mealPlanName, mealPlanDetails, calorie) {
-  let miniMealDataCard=  $(".miniMealDataCard").empty();
-  miniMealDataCard.empty();
-    $("#assign_meal_id").val(mealID);
-
-    let miniCard = `<section class="mx-3 my-5" style="max-width: 15rem;">
- 
-    <div id="card" class="card" >
-       
-      <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-        <img src="https://mdbootstrap.com/img/Photos/Horizontal/Food/8-col/img (5).jpg" class="img-fluid" />
-        <a href="#!">
-          <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-        </a>
-      </div>
-      
-      <div class="card-body">
-      
-        <h5 id="mealPlanName" class="card-title font-weight-bold" style="font-size: 14px" ><a>${mealPlanName}</a></h5>
-    
-        <p id="mealPlanDetail" class="card-text" style="font-size: 11px">${mealPlanDetails}</p>
-        
-        <hr class="my-4" />
-        <p  class="lead"><strong>Total calorie count : <span id="mealPlanCalorie"  style="font-size: 11px"></span>${calorie} </strong></p>
-      
-      </div>
-      
-    </div>
-    
-  </section>`
-
-    miniMealDataCard.append(miniCard);
-
-}
 
 // send ajax request to load all members id to combo box
 let getAllMembersResponse;
@@ -347,18 +218,9 @@ document.getElementById("memberComboBox").addEventListener("click", function () 
 
 })
 
-// update user with mealPlan
-document.getElementById("assignMealPlanBtn").addEventListener('click', function () {
 
-    console.log(memId);
-    console.log(memberName);
-    console.log(memberPassword);
-    console.log(memberEmail);
-    console.log(memberTrainerId);
-
-    let mealId = $("#assign_meal_id").val();
-    console.log(mealId);
-
+// update member with meal id
+function updateMemberWithMealId(mealId) {
     $.ajax({
         url: 'http://localhost:8080/api/v1/user/update',
         method: "post",
@@ -375,6 +237,5 @@ document.getElementById("assignMealPlanBtn").addEventListener('click', function 
 
         }
     })
-})
 
-
+}
