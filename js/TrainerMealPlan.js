@@ -1,6 +1,17 @@
-getAll();
-loadAllMembersIds();
+
+let  trainerEmail;
+window.onload = function() {
+    getAll();
+    loadAllMembersIds();
+   trainerEmail=localStorage.getItem('trainer-email');
+   console.log(trainerEmail+"ss")
+    console.log('Window has fully loaded!');
+};
+
 function getAll(){
+
+
+
     $("#cardContainer").empty();
     $.ajax({
         url:'http://localhost:8080/api/v1/mealPlan/getAllMealPlans',
@@ -166,8 +177,33 @@ document.getElementById("saveMeal").addEventListener('click', function () {
 
 
 // send ajax request to load all members id to combo box
-let getAllMembersResponse;
+// let getAllMembersResponse;
 function  loadAllMembersIds(){
+
+    // $.ajax({
+    //     url: 'http://localhost:8080/api/v1/trainer/getOneTrainer',
+    //     method: 'GET',
+    //     dataType: 'json',
+    //     contentType: 'application/json',
+    //     data:{email:trainerEmail},
+    //
+    //     success: function (response) {
+    //         // getAllMembersResponsse = response;
+    //         console.log(response);
+    //
+    //         // $.each(response.data, function (index, members) {
+    //         //     console.log(members);
+    //         //     setMemberDataToComboBox(members);
+    //         // })
+    //
+    //     },
+    //     error: function (jqXHR) {
+    //         console.log(jqXHR.responseText);
+    //     }
+    // })
+
+
+
     $.ajax({
         url: 'http://localhost:8080/api/v1/user/getAllUsers',
         method: 'GET',
@@ -226,7 +262,7 @@ function updateMemberWithMealId(mealId) {
         method: "post",
         dataType: "json",
         contentType: "application/json",
-        data: JSON.stringify({"uid": memId, "email": memberEmail, "meal_id": mealId}),
+        data: JSON.stringify({"uid": memId, "email": memberEmail, "meal_plan_id": mealId}),
 
         success: function (response) {
             console.log(response);

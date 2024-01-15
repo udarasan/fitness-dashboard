@@ -328,6 +328,12 @@ function setMemberDataToComboBox(members) {
 
 let memId;
 let memberEmail;
+let memberName;
+let memberPassword;
+let trainerId
+let mealId;
+let workoutId
+
 document.getElementById("memberComboBox").addEventListener("click", function () {
     let memberId = $("#memberComboBox").val();
     console.log(memberId);
@@ -335,12 +341,29 @@ document.getElementById("memberComboBox").addEventListener("click", function () 
     $.each(getAllMembersResponse.data, function (index, members) {
         console.log(members);
         console.log(members.uid)
-        memId = members.uid;
-        memberEmail = members.email;
+
 
         if (memberId == members.uid) {
-            let memberName = members.name;
+             memberName = members.name;
             $("#Member_name").val(memberName);
+
+            memId = members.uid;
+            memberEmail = members.email;
+            memberName=members.name;
+            memberPassword=members.password;
+            trainerId=members.trainer_id;
+            mealId=members.meal_plan_id;
+            workoutId=members.workout_id;
+
+            console.log(memberId);
+            console.log(memberEmail);
+            console.log( memberName);
+            console.log(memberPassword);
+            console.log(trainerId);
+            console.log(mealId);
+            console.log(workoutId);
+
+
         }
 
     })
@@ -351,10 +374,8 @@ document.getElementById("memberComboBox").addEventListener("click", function () 
 document.getElementById("assignMealPlanBtn").addEventListener('click', function () {
 
     console.log(memId);
-    console.log(memberName);
-    console.log(memberPassword);
+
     console.log(memberEmail);
-    console.log(memberTrainerId);
 
     let mealId = $("#assign_meal_id").val();
     console.log(mealId);
@@ -364,7 +385,16 @@ document.getElementById("assignMealPlanBtn").addEventListener('click', function 
         method: "post",
         dataType: "json",
         contentType: "application/json",
-        data: JSON.stringify({"uid": memId, "email": memberEmail, "meal_id": mealId}),
+        data: JSON.stringify(
+            {"uid": memId,
+                "email": memberEmail,
+                "meal_plan_id": mealId,
+                "name":memberName,
+                "password":memberPassword,
+                "workout_id":workoutId,
+                "trainer_id":trainerId
+
+            }),
 
         success: function (response) {
             console.log(response);
