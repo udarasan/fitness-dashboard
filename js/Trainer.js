@@ -116,6 +116,7 @@ function getAllTrainers() {
             console.log(response.data.email);
 
             $.each(response.data, function (index, trainer) {
+
                 let row = `<tr><td>${trainer.tid}</td><td>${trainer.email}</td><td>${trainer.category}</td><td style="display: none">${trainer.password}</td></tr>`;
                 $('#tblTrainer').append(row);
             });

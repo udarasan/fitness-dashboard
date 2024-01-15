@@ -1,4 +1,5 @@
-
+let meal_id;
+let workout_id;
 $(document).ready(function () {
     // Your JavaScript code goes here
     getAllMembers();
@@ -62,7 +63,7 @@ $('#updateMember').click(function () {
         dataType: 'json',
         contentType: 'application/json',  // Set content type to JSON
 
-        data: JSON.stringify({"uid": id, "email": email, "password": password, "name": name, "trainer_id": trainer_id}),  // Convert data to JSON string
+        data: JSON.stringify({"uid": id, "email": email, "password": password, "name": name, "trainer_id": trainer_id,"meal_plan_id":meal_id,"workout_id":workout_id}),  // Convert data to JSON string
         success: function (response) {
             console.log(response);
             $('#memberModal').modal('hide');
@@ -121,6 +122,8 @@ function getAllMembers() {
              memberList = response.data;
 
             $.each(response.data, function (index, member) {
+                meal_id = member.meal_plan_id;
+                workout_id = member.workout_id;
                 let row = `<tr><td>${member.uid}</td><td>${member.name}</td><td>${member.email}</td><td>${member.trainer_id}</td><td style="display: none">${member.password}</td></tr>`;
                 $('#tblMember').append(row);
             });
