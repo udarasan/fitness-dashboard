@@ -1,5 +1,3 @@
-
-
 $(document).ready(function () {
     // Your JavaScript code goes here
     getAllEquipments();
@@ -8,8 +6,6 @@ $(document).ready(function () {
 $('#deleteEquip').click(function () {
 
     let id = $('#eId').val();
-
-
     Swal.fire({
         title: 'Are you sure?',
         text: 'You are about to delete this record!',
@@ -69,6 +65,8 @@ $('#updateEquip').click(function () {
     });
 });
 
+
+
 $('#addEquip').click(function () {
 
     let name = $('#equipName').val();
@@ -82,7 +80,7 @@ $('#addEquip').click(function () {
         dataType: 'json',
         contentType: 'application/json',  // Set content type to JSON
 
-        data: JSON.stringify({ "equipmentName": name, "equipmentDetail": desc, "purchaseDate": date,}),  // Convert data to JSON string
+        data: JSON.stringify({"equipmentName": name, "equipmentDetail": desc, "purchaseDate": date,}),  // Convert data to JSON string
         success: function (response) {
             console.log(response);
             $('#equipmentModal').modal('hide');
