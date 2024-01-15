@@ -14,6 +14,9 @@ $('#btnLogin').click(function () {
         data: JSON.stringify({ "email": email, "password": password }),  // Convert data to JSON string
         success: function(response) {
             console.log(response);
+
+                localStorage.setItem("trainer-email", email);
+
             window.location.href = '../trainer/index.html';
 
         },
