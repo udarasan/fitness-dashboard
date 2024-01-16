@@ -1,10 +1,768 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 
+<head>
+
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="" name="description">
+    <meta content="" name="author">
+
+    <title>Trainer Meal Plan</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="../../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="../../css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="../../css/admin-dashboard.css" rel="stylesheet">
+    <link href="../../css/AdminMealPlan.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.5/dist/sweetalert2.min.css" rel="stylesheet">
+
+
+</head>
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../user/index.html">
+            <div class="sidebar-brand-icon rotate-n-15">
+                <!--                    <i class="fas fa-dumbbell"></i>-->
+                <img alt="external-gym-hotel-nawicon-glyph-nawicon" height="25"
+                     src="https://img.icons8.com/external-nawicon-glyph-nawicon/64/ffffff/external-gym-hotel-nawicon-glyph-nawicon.png"
+                     width="25"/>
+            </div>
+            <div class="sidebar-brand-text mx-3">Fitness</div>
+        </a>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item active">
+            <a class="nav-link" href="index.html">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span id="dashboardTab">Dashboard</span></a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link" href="trainerRegistration.html">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>Trainer</span></a>
+        </li>
+
+        <!-- Nav Item - Utilities Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link" href="memberRegistration.html">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>Members</span></a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a aria-controls="collapsePages" aria-expanded="true" class="nav-link collapsed"
+               data-target="#collapsePages"
+               data-toggle="collapse" href="mealPlan.html">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Meal Plan</span>
+            </a>
+        </li>
+
+        <!-- Nav Item - Charts -->
+        <li class="nav-item">
+            <a class="nav-link" href="workouts.htmll">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>WokrOut Plan</span></a>
+        </li>
+
+        <!-- Nav Item - Tables -->
+        <li class="nav-item">
+            <a class="nav-link" href="../components/tables.html">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Tables</span></a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block">
+
+        <!-- Sidebar Toggler (Sidebar) -->
+
+
+    </ul>
+    <!-- End of Sidebar -->
+    <!-- Content Wrapper -->
+    <!--        Dashboard-->
+    <div class="d-flex flex-column" id="content-wrapper">
+        <!-- Main Content -->
+        <div id="content">
+            <!-- Topbar -->
+            <nav class="navbar navbar-expand navbar-light bg-white topbar  static-top shadow">
+                <!-- Sidebar Toggle (Topbar) -->
+                <button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <ul class="navbar-nav ml-auto">
+
+                    <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                    <li class="nav-item dropdown no-arrow d-sm-none">
+                        <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle"
+                           data-toggle="dropdown"
+                           href="#" id="searchDropdown" role="button">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <!-- Dropdown - Messages -->
+                        <div aria-labelledby="searchDropdown"
+                             class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in">
+                            <form class="form-inline mr-auto w-100 navbar-search">
+                                <div class="input-group">
+                                    <input aria-describedby="basic-addon2" aria-label="Search"
+                                           class="form-control bg-light border-0 small" placeholder="Search for..."
+                                           type="text">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="button">
+                                            <i class="fas fa-search fa-sm"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+
+                    <!-- Nav Item - Alerts -->
+                    <li class="nav-item dropdown no-arrow mx-1">
+                        <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle"
+                           data-toggle="dropdown"
+                           href="#" id="alertsDropdown" role="button">
+                            <i class="fas fa-bell fa-fw"></i>
+                            <!-- Counter - Alerts -->
+                            <span class="badge badge-danger badge-counter">3+</span>
+                        </a>
+                        <!-- Dropdown - Alerts -->
+                        <div aria-labelledby="alertsDropdown"
+                             class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in">
+                            <h6 class="dropdown-header">
+                                Alerts Center
+                            </h6>
+                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                <div class="mr-3">
+                                    <div class="icon-circle bg-primary">
+                                        <i class="fas fa-file-alt text-white"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="small text-gray-500">December 12, 2019</div>
+                                    <span class="font-weight-bold">A new monthly report is ready to download!</span>
+                                </div>
+                            </a>
+                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                <div class="mr-3">
+                                    <div class="icon-circle bg-success">
+                                        <i class="fas fa-donate text-white"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="small text-gray-500">December 7, 2019</div>
+                                    $290.29 has been deposited into your account!
+                                </div>
+                            </a>
+                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                <div class="mr-3">
+                                    <div class="icon-circle bg-warning">
+                                        <i class="fas fa-exclamation-triangle text-white"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="small text-gray-500">December 2, 2019</div>
+                                    Spending Alert: We've noticed unusually high spending for your account.
+                                </div>
+                            </a>
+                            <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                        </div>
+                    </li>
+
+                    <!-- Nav Item - Messages -->
+                    <li class="nav-item dropdown no-arrow mx-1">
+                        <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle"
+                           data-toggle="dropdown"
+                           href="#" id="messagesDropdown" role="button">
+                            <i class="fas fa-envelope fa-fw"></i>
+                            <!-- Counter - Messages -->
+                            <span class="badge badge-danger badge-counter">7</span>
+                        </a>
+                        <!-- Dropdown - Messages -->
+                        <div aria-labelledby="messagesDropdown"
+                             class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in">
+                            <h6 class="dropdown-header">
+                                Message Center
+                            </h6>
+                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                <div class="dropdown-list-image mr-3">
+                                    <img alt="..." class="rounded-circle"
+                                         src="img/undraw_profile_1.svg">
+                                    <div class="status-indicator bg-success"></div>
+                                </div>
+                                <div class="font-weight-bold">
+                                    <div class="text-truncate">Hi there! I am wondering if you can help me with a
+                                        problem I've been having.
+                                    </div>
+                                    <div class="small text-gray-500">Emily Fowler · 58m</div>
+                                </div>
+                            </a>
+                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                <div class="dropdown-list-image mr-3">
+                                    <img alt="..." class="rounded-circle"
+                                         src="img/undraw_profile_2.svg">
+                                    <div class="status-indicator"></div>
+                                </div>
+                                <div>
+                                    <div class="text-truncate">I have the photos that you ordered last month, how
+                                        would you like them sent to you?
+                                    </div>
+                                    <div class="small text-gray-500">Jae Chun · 1d</div>
+                                </div>
+                            </a>
+                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                <div class="dropdown-list-image mr-3">
+                                    <img alt="..." class="rounded-circle"
+                                         src="img/undraw_profile_3.svg">
+                                    <div class="status-indicator bg-warning"></div>
+                                </div>
+                                <div>
+                                    <div class="text-truncate">Last month's report looks great, I am very happy with
+                                        the progress so far, keep up the good work!
+                                    </div>
+                                    <div class="small text-gray-500">Morgan Alvarez · 2d</div>
+                                </div>
+                            </a>
+                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                <div class="dropdown-list-image mr-3">
+                                    <img alt="..." class="rounded-circle"
+                                         src="https://source.unsplash.com/Mv9hjnEUHR4/60x60">
+                                    <div class="status-indicator bg-success"></div>
+                                </div>
+                                <div>
+                                    <div class="text-truncate">Am I a good boy? The reason I ask is because someone
+                                        told me that people say this to all dogs, even if they aren't good...
+                                    </div>
+                                    <div class="small text-gray-500">Chicken the Dog · 2w</div>
+                                </div>
+                            </a>
+                            <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+                        </div>
+                    </li>
+
+                    <div class="topbar-divider d-none  d-sm-block"></div>
+
+                    <!-- Nav Item - User Information -->
+                    <li class="nav-item dropdown no-arrow">
+                        <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle"
+                           data-toggle="dropdown"
+                           href="#" id="userDropdown" role="button">
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                            <img class="img-profile rounded-circle"
+                                 src="../../img/undraw_profile_2.svg">
+                        </a>
+                        <!-- Dropdown - User Information -->
+                        <div aria-labelledby="userDropdown"
+                             class="dropdown-menu dropdown-menu-right shadow animated--grow-in">
+                            <a class="dropdown-item" href="#">
+                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Profile
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Settings
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Activity Log
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" data-target="#logoutModal" data-toggle="modal" href="#">
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Logout
+                            </a>
+                        </div>
+                    </li>
+
+                </ul>
+
+            </nav>
+
+
+            <div class="container-fluid mt-5  " id="member">
+
+                <!-- Content Row -->
+                <div class="row">
+
+                    <!--                    card 01-->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            Earnings (Monthly)
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--                    card 02-->
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            Earnings (Annual)
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--                    card 03-->
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-info shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
+                                        </div>
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col-auto">
+                                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="progress progress-sm mr-2">
+                                                    <div aria-valuemax="100" aria-valuemin="0"
+                                                         aria-valuenow="50" class="progress-bar bg-info"
+                                                         role="progressbar"
+                                                         style="width: 50%"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!--                    card 04-->
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            Pending Requests
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--                end of top four cards-->
+
+
+                <!--                start of meal plan card              -->
+
+                <div class="card mt-5 mealMainCard">
+                    <div class="card-header text-right" style="background-color: #2d324a">
+<!--                        <button class="btn btn-info mx-4" id="assignToMemberBtn">Assign to a member</button>-->
+                        <button class="btn btn-info" data-target="#TrainerNewMealModal" data-toggle="modal" id="addNewMealPan">
+                            Add new meal plan
+                        </button>
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="container-fluid d-flex flex-wrap justify-content-center mealPlanContainer"
+                             id="cardContainer">
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <!--                end of meal plan card              -->
+
+
+                <!--                add new meal modal-->
+
+                <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="TrainerNewMealModal"
+                     tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <!-- Header content goes here -->
+                            </div>
+                            <div class="modal-body">
+
+                                <form id="trainerForm">
+
+                                    <div class="mb-3">
+
+                                        <select id="memberComboBox" class="form-select w-100" aria-label="Default select example">
+                                            <option selected>Select Member Id</option>
+                                        </select>
+
+
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label" for="Member_name">Member Name</label>
+                                        <input disabled class="form-control" id="Member_name" name="details"
+                                               placeholder="Enter Member Name" type="text"
+                                        >
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label" for="meal_id">Meal Plan Id</label>
+                                        <input class="form-control" id="meal_id" name="id"
+                                               placeholder="Enter Meal Id" type="text"
+                                        >
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label" for="meal_name">Meal Plan Name</label>
+                                        <input class="form-control" id="meal_name" name="name"
+                                               placeholder="Enter Meal Name"
+                                               type="text"
+                                        >
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label" for="meal_plan_details">Meal Plan Details</label>
+                                        <input class="form-control" id="meal_plan_details" name="details"
+                                               placeholder="Enter Meal Plan Details" type="text"
+                                        >
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label" for="calorie">Total Calorie Count</label>
+                                        <input class="form-control" id="calorie" name="category"
+                                               placeholder="Enter Total Calorie Count"
+                                               type="text"
+                                        >
+                                    </div>
+
+                                </form>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" data-dismiss="modal" style="font-size: 13px"
+                                        type="button">Close
+                                </button>
+                                <button class="btn" id="saveMeal" type="button">Save and Assign</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--                end of add new meal modal-->
+
+
+                <!--                // meal update model-->
+
+                <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="updateMealModal"
+                     tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <!-- Header content goes here -->
+                            </div>
+                            <div class="modal-body">
+
+                                <form id="trainerUpdateForm">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="Update_meal_id">Meal Plan Id</label>
+                                        <input class="form-control" id="Update_meal_id" name="id"
+                                               placeholder="Enter Meal Id" type="text"
+                                        >
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label" for="Update_meal_name">Meal Plan Name</label>
+                                        <input class="form-control" id="Update_meal_name" name="name"
+                                               placeholder="Enter Meal Name"
+                                               type="text"
+                                        >
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label" for="Update_meal_plan_details">Meal Plan
+                                            Details</label>
+                                        <input class="form-control" id="Update_meal_plan_details" name="details"
+                                               placeholder="Enter Meal Plan Details" type="text"
+                                        >
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label" for="Update_calorie">Total Calorie Count</label>
+                                        <input class="form-control" id="Update_calorie" name="category"
+                                               placeholder="Enter Total Calorie Count"
+                                               type="text"
+                                        >
+                                    </div>
+
+                                </form>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" data-dismiss="modal" style="font-size: 13px"
+                                        type="button">Close
+                                </button>
+                                <button class="btn" id="updateMeal" type="button">Update Meal</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--                // end meal modal-->
+
+
+                <!--                // meal delete model-->
+
+                <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="deleteMealModal"
+                     tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <!-- Header content goes here -->
+                            </div>
+                            <div class="modal-body">
+
+                                <form id="trainerDeleteForm">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="delete_meal_id">Meal Plan Id</label>
+                                        <input class="form-control" id="delete_meal_id" name="id"
+                                               placeholder="Enter Meal Id" type="text"
+                                        >
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label" for="delete_meal_name">Meal Plan Name</label>
+                                        <input class="form-control" id="delete_meal_name" name="name"
+                                               placeholder="Enter Meal Name"
+                                               type="text"
+                                        >
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label" for="delete_meal_plan_details">Meal Plan
+                                            Details</label>
+                                        <input class="form-control" id="delete_meal_plan_details" name="details"
+                                               placeholder="Enter Meal Plan Details" type="text"
+                                        >
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label" for="delete_calorie">Total Calorie Count</label>
+                                        <input class="form-control" id="delete_calorie" name="category"
+                                               placeholder="Enter Total Calorie Count"
+                                               type="text"
+                                        >
+                                    </div>
+
+                                </form>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" data-dismiss="modal" style="font-size: 13px"
+                                        type="button">Close
+                                </button>
+                                <button class="btn" id="deleteMeal" type="button">Delete Meal</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--                // end meal modal-->
+
+
+                <!--                meal assign modal-->
+
+<!--                <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="assignModal"-->
+<!--                     tabindex="-1">-->
+<!--                    <div class="modal-dialog">-->
+<!--                        <div class="modal-content">-->
+<!--                            <div class="modal-header">-->
+<!--                                &lt;!&ndash; Header content goes here &ndash;&gt;-->
+<!--                            </div>-->
+<!--                            <div class="modal-body">-->
+
+<!--                                <form id="assignMealForm">-->
+
+<!--                                    <div class="mb-3">-->
+
+<!--                                        <select aria-label="Default select example" class="form-select w-100"-->
+<!--                                                id="memberComboBox">-->
+<!--                                            <option selected>Select Member Id</option>-->
+<!--                                        </select>-->
+
+
+<!--                                    </div>-->
+
+<!--                                    <div class="mb-3">-->
+<!--                                        <label class="form-label" for="Member_name">Member Name</label>-->
+<!--                                        <input class="form-control" disabled id="Member_name" name="details"-->
+<!--                                               placeholder="Enter Member Name" type="text"-->
+<!--                                        >-->
+<!--                                    </div>-->
+
+
+<!--                                    <div class="mb-3">-->
+<!--                                        <label class="form-label" for="assign_meal_id">Meal Plan Id</label>-->
+<!--                                        <input class="form-control" id="assign_meal_id" name="id"-->
+<!--                                               placeholder="Enter Meal Plan Id" type="text"-->
+<!--                                        >-->
+<!--                                    </div>-->
+
+<!--                                </form>-->
+
+<!--                                <div class="container miniMealDataCard d-flex align-items-center justify-content-center"></div>-->
+
+<!--                            </div>-->
+<!--                            <div class="modal-footer">-->
+<!--                                <button class="btn btn-secondary" data-dismiss="modal" style="font-size: 13px"-->
+<!--                                        type="button">Close-->
+<!--                                </button>-->
+<!--                                <button class="btn" id="assignMealPlanBtn" type="button">Assign Meal</button>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+
+                <!--                end meal assign modal-->
+
+
+            </div>
+
+            <!-- End of Main Content -->
+
+
+        </div>
+
+
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; Your Website 2021</span>
+                </div>
+            </div>
+        </footer>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="logoutModal" role="dialog"
+     tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal" type="button">Cancel</button>
+                <a class="btn btn-primary" href="../auth/login.html">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--new member model-->
+
+
+<!--end-->
+
+<!-- Bootstrap core JavaScript-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.5/dist/sweetalert2.all.min.js"></script>
+
+<script src="../../vendor/jquery/jquery.min.js"></script>
+<script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<!-- Core plugin JavaScript-->
+<script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="../../js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="../../vendor/chart.js/Chart.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="../../js/demo/chart-area-demo.js"></script>
+<script src="../../js/demo/chart-pie-demo.js"></script>
+
+<!--<script src="../../js/AdminMealPlan.js"></script>-->
+<script src="../../js/TrainerMealPlan.js"></script>
 </body>
+
 </html>
