@@ -3,29 +3,29 @@ $(document).ready(function () {
     loadMembers();
 });
 
-$("#modalAddNew").click(function () {
-    let name = $('#planName').val();
-    let details = $('#planDetails').val();
-    let calCount = $('#planCalorieCount').val();
-
-    // Make the AJAX request
-    $.ajax({
-        url: 'http://localhost:8080/api/v1/workoutplan/save',
-        method: 'POST',
-        dataType: 'json',
-        contentType: 'application/json',  // Set content type to JSON
-        data: JSON.stringify({"planName": name, "planDetails": details, "burnsCalorieCount": calCount}),  // Convert data to JSON string
-        success: function (response) {
-            console.log(response);
-            $(".gridContainer").empty();
-            getAllWorkoutPlans();
-            $("#newWorkoutModal").data('bs.modal').hide();
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.error(jqXHR.responseText);  // Log the response text for debugging
-        }
-    });
-});
+// $("#modalAddNew").click(function () {
+//     let name = $('#planName').val();
+//     let details = $('#planDetails').val();
+//     let calCount = $('#planCalorieCount').val();
+//
+//     // Make the AJAX request
+//     $.ajax({
+//         url: 'http://localhost:8080/api/v1/workoutplan/save',
+//         method: 'POST',
+//         dataType: 'json',
+//         contentType: 'application/json',  // Set content type to JSON
+//         data: JSON.stringify({"planName": name, "planDetails": details, "burnsCalorieCount": calCount}),  // Convert data to JSON string
+//         success: function (response) {
+//             console.log(response);
+//             $(".gridContainer").empty();
+//             getAllWorkoutPlans();
+//             $("#newWorkoutModal").data('bs.modal').hide();
+//         },
+//         error: function (jqXHR, textStatus, errorThrown) {
+//             console.error(jqXHR.responseText);  // Log the response text for debugging
+//         }
+//     });
+// });
 
 $("#searchWorkoutPlans").keyup(function () {
     let text = $('#searchWorkoutPlans').val();
@@ -62,8 +62,6 @@ $("#searchWorkoutPlans").keyup(function () {
                 $(".gridContainer").append(card);
             });
 
-            btnEditOnCLick();
-            btnDeleteOnClick();
             btnAssignOnClick();
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -105,8 +103,6 @@ function getAllWorkoutPlans() {
                 $(".gridContainer").append(card);
             });
 
-            btnEditOnCLick();
-            btnDeleteOnClick();
             btnAssignOnClick();
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -115,94 +111,29 @@ function getAllWorkoutPlans() {
     });
 }
 
-let id;
-function btnEditOnCLick(){
-    $(".btnEdit").click(function(){
-        let workoutCard = $(this).parents("div.workoutCard");
-        id = workoutCard.children("div.card-body").children("input.hiddenWorkoutId").val();
-        let details = workoutCard.children("div.card-body").children("p.pPlanDetails").text();
-        let calorieCount;
-        let name;
 
-        let countText = workoutCard.children("div.card-body").children("p.pCalorieCount").text();
-        var matches = countText.match(/\d+/);   //get only integer part
-        if (matches && matches.length > 0) {
-            calorieCount = parseInt(matches[0]);
-        } else {
-            console.log("Calorie count not found");
-        }
-
-        // get only text content
-        name = workoutCard.children("div.card-header").contents().filter(function() {
-            return this.nodeType === 3; // Filter out non-text nodes
-        }).text().trim();
-
-        // set values to update model
-        $("#updPlanName").val(name);
-        $("#updPlanDetails").val(details);
-        $("#updPlanCalorieCount").val(calorieCount);
-    });
-}
-
-$("#modalUpdateBtn").click(function () {
-    let name = $("#updPlanName").val();
-    let details = $("#updPlanDetails").val();
-    let calCount = $("#updPlanCalorieCount").val();
-
-    $.ajax({
-        url: 'http://localhost:8080/api/v1/workoutplan/update',
-        method: 'POST',
-        dataType: 'json',
-        contentType: 'application/json',  // Set content type to JSON
-        data: JSON.stringify({"wid": id, "planName": name, "planDetails": details, "burnsCalorieCount": calCount}),  // Convert data to JSON string
-        success: function (response) {
-            $("#updateWorkoutModal").data('bs.modal').hide();
-            console.log(response);
-            $(".gridContainer").empty();
-            getAllWorkoutPlans();
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.error(jqXHR.responseText);  // Log the response text for debugging
-        }
-    });
-});
-
-function btnDeleteOnClick(){
-    $(".btnDelete").click(function(){
-        let workoutCard = $(this).parents("div.workoutCard");
-        let deleteId = workoutCard.children("div.card-body").children("input.hiddenWorkoutId").val();
-
-        Swal.fire({
-            title: 'Are you sure?',
-            text: 'You are about to delete this record!',
-            icon: 'warning', // warning icon
-            showCancelButton: true,
-            confirmButtonText: 'Yes, delete it!',
-            cancelButtonText: 'Close'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: 'http://localhost:8080/api/v1/workoutplan/delete/'+ deleteId,
-                    method: 'DELETE',
-                    contentType: 'application/json',  // Set content type to JSON
-                    success: function (response) {
-                        console.log(response);
-                        $(".gridContainer").empty();
-                        getAllWorkoutPlans();
-                        Swal.fire('Deleted!', 'Your record has been deleted.', 'success');
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        console.error(jqXHR.responseText);  // Log the response text for debugging
-                    }
-                });
-
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                // User clicked "Close" or outside the modal
-                Swal.fire('Cancelled', 'Your record is safe :)', 'info');
-            }
-        });
-    });
-}
+// $("#modalUpdateBtn").click(function () {
+//     let name = $("#updPlanName").val();
+//     let details = $("#updPlanDetails").val();
+//     let calCount = $("#updPlanCalorieCount").val();
+//
+//     $.ajax({
+//         url: 'http://localhost:8080/api/v1/workoutplan/update',
+//         method: 'POST',
+//         dataType: 'json',
+//         contentType: 'application/json',  // Set content type to JSON
+//         data: JSON.stringify({"wid": id, "planName": name, "planDetails": details, "burnsCalorieCount": calCount}),  // Convert data to JSON string
+//         success: function (response) {
+//             $("#updateWorkoutModal").data('bs.modal').hide();
+//             console.log(response);
+//             $(".gridContainer").empty();
+//             getAllWorkoutPlans();
+//         },
+//         error: function (jqXHR, textStatus, errorThrown) {
+//             console.error(jqXHR.responseText);  // Log the response text for debugging
+//         }
+//     });
+// });
 
 let workoutId;
 function btnAssignOnClick(){
@@ -214,9 +145,9 @@ function btnAssignOnClick(){
 
 let memberList;
 function loadMembers(){
-    $("#memberSelect").empty();
+    $(".memberSelect").empty();
     let firstOpt = ` <option class="d-none" value="" selected></option>`;
-    $("#memberSelect").append(firstOpt);
+    $(".memberSelect").append(firstOpt);
     $.ajax({
         url:'http://localhost:8080/api/v1/user/getAllUsers',
         method:'GET',
@@ -226,7 +157,7 @@ function loadMembers(){
             $.each(response.data,function (index,member){
                 console.log(member);
                 let memberData= `<option>${member.uid}</option>`;
-                $("#memberSelect").append(memberData);
+                $(".memberSelect").append(memberData);
             })
         },
         error:function (xhr){
@@ -236,20 +167,31 @@ function loadMembers(){
 }
 
 let currUserEmail;
-$("#memberSelect").change(function(){
+let currUserMealId;
+let currUserTrainerId;
+let currUserName;
+let currUserPassword;
+$(".memberSelect").change(function(){
     let currUserId = $(this).val();
 
     $.each(memberList,function (index,member){
         if(currUserId == member.uid){
             currUserEmail = member.email;
-            $("#lblMemberName").val(member.name);
+            currUserMealId = member.meal_plan_id;
+            currUserTrainerId = member.trainer_id;
+            currUserName = member.name;
+            currUserPassword = member.password;
+
+            console.log(currUserMealId+" "+currUserTrainerId+" "+currUserName+" "+currUserPassword);
+
+            $(".lblMemberName").val(member.name);
         }
     })
 });
 
 $("#modalAssignBtn").click(function(){
-    let userId = $("#memberSelect").val();
-
+    let userId = $("#assignWorkoutModal .memberSelect").val();
+    console.log(userId);
     console.log(workoutId)
     // Make the AJAX request
     $.ajax({
@@ -257,11 +199,13 @@ $("#modalAssignBtn").click(function(){
         method: 'POST',
         dataType: 'json',
         contentType: 'application/json',  // Set content type to JSON
-        data: JSON.stringify({"email": currUserEmail, "workout_id": workoutId, "uid": userId,"trainer_id":1}),  // Convert data to JSON string
+        data: JSON.stringify({"uid": userId, "name":currUserName, "email": currUserEmail,
+            "password":currUserPassword, "trainer_id":currUserTrainerId, "meal_plan_id": currUserMealId,
+            "workout_id": workoutId }),  // Convert data to JSON string
         success: function (response) {
             console.log(response);
             $('#assignWorkoutModal').data('bs.modal').hide();
-            $("#memberSelect").val("");
+            $(".memberSelect").val("");
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error(jqXHR.responseText);  // Log the response text for debugging
@@ -271,6 +215,44 @@ $("#modalAssignBtn").click(function(){
 
 $("#cancelSearch").click(function () {
     getAllWorkoutPlans();
+});
+
+$("#modalAssignNew").click(function () {
+    let name = $('#planName').val();
+    let details = $('#planDetails').val();
+    let calCount = $('#planCalorieCount').val();
+
+    let userId = $("#assignNewWorkoutModal .memberSelect").val();
+
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/trainer/assignNewWorkout',
+        method: 'POST',
+        dataType: 'json',
+        contentType: 'application/json',  // Set content type to JSON
+        data: JSON.stringify( {
+            "workOutPlanDTO": {
+                "planName": name,
+                "planDetails": details,
+                "burnsCalorieCount": calCount
+            },
+            "userDTO": {
+                "uid": userId,
+                "name": currUserName,
+                "email": currUserEmail,
+                "password": currUserPassword,
+                "trainer_id": currUserTrainerId,
+                "meal_plan_id": currUserMealId,
+            }
+        }),   // Convert data to JSON string
+        success: function (response) {
+            console.log(response);
+            $('#assignNewWorkoutModal').data('bs.modal').hide();
+            $(".memberSelect").val("");
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error(jqXHR.responseText);  // Log the response text for debugging
+        }
+    });
 });
 
 

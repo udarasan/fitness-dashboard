@@ -242,12 +242,23 @@ function loadMembers(){
 }
 
 let currUserEmail;
+let currUserMealId;
+let currUserTrainerId;
+let currUserName;
+let currUserPassword;
 $("#memberSelect").change(function(){
     let currUserId = $(this).val();
 
     $.each(memberList,function (index,member){
         if(currUserId == member.uid){
             currUserEmail = member.email;
+            currUserMealId = member.meal_plan_id;
+            currUserTrainerId = member.trainer_id;
+            currUserName = member.name;
+            currUserPassword = member.password;
+
+            console.log(currUserMealId+" "+currUserTrainerId+" "+currUserName+" "+currUserPassword);
+
             $("#lblMemberName").val(member.name);
         }
     })
@@ -263,7 +274,9 @@ $("#modalAssignBtn").click(function(){
         method: 'POST',
         dataType: 'json',
         contentType: 'application/json',  // Set content type to JSON
-        data: JSON.stringify({"email": currUserEmail, "workout_id": workoutId, "uid": userId}),  // Convert data to JSON string
+        data: JSON.stringify({"uid": userId, "name":currUserName, "email": currUserEmail,
+            "password":currUserPassword, "trainer_id":currUserTrainerId, "meal_plan_id": currUserMealId,
+            "workout_id": workoutId }),   // Convert data to JSON string
         success: function (response) {
             console.log(response);
             $('#assignWorkoutModal').data('bs.modal').hide();
