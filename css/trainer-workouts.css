@@ -1,0 +1,155 @@
+#btnNewWorkout{
+    font-size: 12px !important;
+}
+
+.gridContainer{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    justify-content: center;
+    width: 100%;
+}
+
+.workoutCard{
+    min-width: 100%;
+    border-radius: 0px;
+}
+
+.workoutCard .card-header{
+    background-color: #2d324a !important;
+    border-radius: 0px;
+    color: #b8b8b8;
+    margin-right: -3px;
+    margin-left: -3px;
+    padding-right: 35px !important;
+}
+
+.workoutCard .card-body{
+    color: #00000080;
+}
+
+.pPlanDetails{
+    font-size: 15px;
+}
+
+.pCalorieCount{
+    font-size: 15px !important;
+}
+
+.btnModal{
+    font-size: 12px;
+}
+
+#newWorkoutModal .form-label{
+    font-size: 14px;
+}
+
+#newWorkoutModal .form-control{
+    font-size: 14px;
+}
+
+#updateWorkoutModal .form-label{
+    font-size: 14px;
+}
+
+#updateWorkoutModal .form-control{
+    font-size: 14px;
+}
+
+.threeDots{
+    top: 6.4px;
+    right: 0px;
+}
+
+.threeDots i{
+    font-weight: 600;
+    color: #b8b8b8;
+}
+
+.threeDots .dropdown-toggle::after{
+    display: none;
+}
+
+.threeDots a{
+    background: transparent;
+    border: none;
+}
+
+.assignModalLabel{
+    width: max-content;
+}
+
+.memberSelect{
+    border: 1px solid rgba(0, 0, 0, 0.27);
+    border-radius: 10px;
+}
+
+#assignNewWorkoutModal .modal-body label{
+    font-size: 14px;
+}
+
+#assignNewWorkoutModal .modal-body input{
+    font-size: 14px;
+}
+
+#assignNewWorkoutModal .modal-body textarea{
+    font-size: 14px;
+}
+
+#assignNewWorkoutModal .modal-body  {
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+#assignNewWorkoutModal .modal-body>.row:first-of-type {
+    margin-right: 0px;
+}
+
+/*@media (min-width: 576px){*/
+/*    #assignNewWorkoutModal .modal-dialog {*/
+/*        max-width: none;*/
+/*    }*/
+
+/*    #assignNewWorkoutModal .modal-content{*/
+/*        width: 1000px !important;*/
+/*    }*/
+/*}*/
+
+@media all and (max-width: 1100px) {
+    .gridContainer{
+        grid-template-columns: repeat(1, 1fr) !important;
+    }
+}
+
+@media all and (max-width: 450px) {
+    .workoutContainer{
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+@media all and (max-width: 460px) {
+    .lblMemberName{
+        width: 100%;
+    }
+}
+
+@media all and (max-width: 700px) {
+    .searchForm{
+        width: 100%;
+    }
+
+    .searchRow{
+        flex-direction: column-reverse;
+        align-items: flex-start !important;
+    }
+    #addNewAnchor{
+        margin-bottom: 20px;
+    }
+
+    /*.gridContainer{*/
+    /*    margin-top: 50px;*/
+    /*}*/
+
+
+}

@@ -20,7 +20,7 @@
     <!-- Custom styles for this template-->
     <link href="../../css/sb-admin-2.min.css" rel="stylesheet">
     <link href="../../css/admin-dashboard.css" rel="stylesheet">
-    <link href="../../css/adminworkouts.css" rel="stylesheet">
+    <link href="../../css/trainer-workouts.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -301,9 +301,9 @@
                                aria-label="Search">
                         <button id="cancelSearch" class="btn btn-outline-success d-none" type="submit">Search</button>
                     </form>
-                    <a data-target="#newWorkoutModal" id="addNewAnchor" data-toggle="modal" href="#">
+                    <a data-target="#assignNewWorkoutModal" id="addNewAnchor" data-toggle="modal" href="#">
                         <button class="btn text-white" data-target="" data-toggle="modal"
-                                id="btnNewWorkout" style="background-color: #2d324a" type="button">Add
+                                id="btnNewWorkout" style="background-color: #2d324a" type="button">Assign
                             New Workout
                         </button>
                     </a>
@@ -361,76 +361,50 @@
     </div>
 </div>
 
-<!--Add new workout plan modal-->
-<div aria-hidden="true" aria-labelledby="newWorkoutModalLabel" class="modal fade" id="newWorkoutModal" role="dialog"
+<!--Assign new workout plan modal-->
+<div aria-hidden="true" aria-labelledby="newWorkoutModalLabel" class="modal fade" id="assignNewWorkoutModal" role="dialog"
      tabindex="-1">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content container px-1">
             <div class="modal-header">
-                <h6 class="modal-title" id="">Add New Workout</h6>
+                <h6 class="modal-title" >Assign New Workout</h6>
                 <button aria-label="Close" class="close" data-dismiss="modal" type="button">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <form>
-                    <div class="mb-4 mt-3">
-                        <label class="form-label" for="planName">Plan Name</label>
-                        <input class="form-control" id="planName" placeholder="Enter plan name" type="text"
-                               name="planName">
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label" for="planDetails">Plan Details</label>
-                        <textarea rows="5" class="form-control" id="planDetails" placeholder="Enter plan description" type="text"
-                        name="planDescription"></textarea>
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label" for="planCalorieCount">Burnt Calorie Count</label>
-                        <input class="form-control" id="planCalorieCount" placeholder="Enter burning calorie count" type="text"
-                               name="planId">
-                    </div>
-                </form>
+            <div class="modal-body mt-2 container-fluid pb-0">
+                <div class="row d-flex align-items-center">
+                    <label class="col-auto assignModalLabel my-auto">Member ID: &nbsp;</label>
+                    <select class="form-select col py-1 memberSelect" >
+                    </select>
+                </div>
+                <div class="row mt-4">
+                    <label class="col-auto assignModalLabel">Member Name: &nbsp;</label>
+                    <input class="px-2 lblMemberName" disabled></label>
+                </div>
+                <div>
+                    <form>
+                        <div class="mb-4 mt-4">
+                            <label class="form-label" for="planName">Plan Name</label>
+                            <input class="form-control" id="planName" placeholder="Enter plan name" type="text"
+                                   name="planName">
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label" for="planDetails">Plan Details</label>
+                            <textarea rows="5" class="form-control" id="planDetails" placeholder="Enter plan description" type="text"
+                                      name="planDescription"></textarea>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label" for="planCalorieCount">Burning Calorie Count</label>
+                            <input class="form-control" id="planCalorieCount" placeholder="Enter burning calorie count" type="text"
+                                   name="planId">
+                        </div>
+                    </form>
+                </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary btnModal" data-dismiss="modal" type="button">Cancel</button>
-                <a id="modalAddNew" class="btn btn-primary btnModal" style="background-color: #2d324a">Add Workout</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!--update Workout Modal-->
-<div aria-hidden="true" aria-labelledby="updateWorkoutModalLabel" class="modal fade" id="updateWorkoutModal" tabindex="-1">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h6 class="modal-title" >Update Workout</h6>
-                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="mb-4 mt-3">
-                        <label class="form-label" for="updPlanName">Plan Name</label>
-                        <input class="form-control" id="updPlanName" placeholder="Plan name" type="text"
-                               name="planName">
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label" for="updPlanDetails">Plan Details</label>
-                        <textarea rows="5" class="form-control" id="updPlanDetails" placeholder="Plan description" type="text"
-                                  name="planDescription"></textarea>
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label" for="updPlanCalorieCount">Burnt Calorie Count</label>
-                        <input class="form-control" id="updPlanCalorieCount" placeholder="Burning calorie count" type="text"
-                               name="planId">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary btnModal" data-dismiss="modal" type="button">Cancel</button>
-                <a id="modalUpdateBtn" class="btn btn-primary btnModal" style="background-color: #2d324a">Update Workout</a>
+                <a id="modalAddNew" class="btn btn-primary btnModal" style="background-color: #2d324a">Assign</a>
             </div>
         </div>
     </div>
@@ -449,13 +423,13 @@
             <div class="modal-body mt-2 container-fluid">
                 <div class="row d-flex align-items-center">
                     <label class="col-auto assignModalLabel my-auto">Member ID: &nbsp;</label>
-                    <select class="form-select col py-1" id="memberSelect">
+                    <select class="form-select col py-1 memberSelect" >
                     </select>
                 </div>
                 <hr>
                 <div class="row">
                     <label class="col-auto assignModalLabel">Member Name: &nbsp;</label>
-                    <input id="lblMemberName" class="px-2" disabled></label>
+                    <input class="px-2 lblMemberName" disabled></label>
                 </div>
             </div>
             <div class="modal-footer">
