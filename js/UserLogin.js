@@ -14,6 +14,7 @@ $('#btnLogin').click(function () {
         data: JSON.stringify({ "email": email, "password": password }),  // Convert data to JSON string
         success: function(response) {
             console.log(response);
+            localStorage.setItem("userEmail",email);
             window.location.href = '../user/index.html';
         },
         error: function(jqXHR, textStatus, errorThrown) {
