@@ -105,6 +105,31 @@ function loadUserDetailsInFields(uid, name, email,trainer_id,meal_plan_id,workou
                                             </h6>
                                             <span class="text-secondary ">${formattedDate}</span>
                                         </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                            <h6 class="mb-0">
+<!--                                                <svg class="feather feather-facebook me-2 icon-inline text-primary" fill="none" height="24"-->
+<!--                                                     stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"-->
+<!--                                                     stroke-width="2" viewBox="0 0 24 24" width="24"-->
+<!--                                                     xmlns="http://www.w3.org/2000/svg">-->
+<!--                                                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>-->
+<!--                                                </svg>-->
+                                                Height
+                                            </h6>
+                                            <span class="text-secondary ">170 CM</span>
+                                        </li>
+                                        
+                                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                            <h6 class="mb-0">
+<!--                                                <svg class="feather feather-facebook me-2 icon-inline text-primary" fill="none" height="24"-->
+<!--                                                     stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"-->
+<!--                                                     stroke-width="2" viewBox="0 0 24 24" width="24"-->
+<!--                                                     xmlns="http://www.w3.org/2000/svg">-->
+<!--                                                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>-->
+<!--                                                </svg>-->
+                                                Weight
+                                            </h6>
+                                            <span class="text-secondary ">60 KG</span>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
