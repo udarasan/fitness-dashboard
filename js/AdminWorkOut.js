@@ -1,6 +1,13 @@
 $(document).ready(function () {
     getAllWorkoutPlans();
     loadMembers();
+
+    $('#searchWorkoutPlans').on('input', function () {
+        var newValue = $(this).val();
+        if (newValue==""){
+            getAllWorkoutPlans();
+        }
+    });
 });
 
 $("#modalAddNew").click(function () {
@@ -29,7 +36,6 @@ $("#modalAddNew").click(function () {
 
 $("#searchWorkoutPlans").keyup(function () {
     let text = $('#searchWorkoutPlans').val();
-    console.log(text);
     $.ajax({
         url: 'http://localhost:8080/api/v1/workoutplan/plansByPartName',
         method: 'GET',
@@ -288,9 +294,6 @@ $("#modalAssignBtn").click(function(){
     });
 });
 
-$("#cancelSearch").click(function () {
-   getAllWorkoutPlans();
-});
 
 
 

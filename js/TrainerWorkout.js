@@ -1,31 +1,14 @@
 $(document).ready(function () {
     getAllWorkoutPlans();
     loadMembers();
-});
 
-// $("#modalAddNew").click(function () {
-//     let name = $('#planName').val();
-//     let details = $('#planDetails').val();
-//     let calCount = $('#planCalorieCount').val();
-//
-//     // Make the AJAX request
-//     $.ajax({
-//         url: 'http://localhost:8080/api/v1/workoutplan/save',
-//         method: 'POST',
-//         dataType: 'json',
-//         contentType: 'application/json',  // Set content type to JSON
-//         data: JSON.stringify({"planName": name, "planDetails": details, "burnsCalorieCount": calCount}),  // Convert data to JSON string
-//         success: function (response) {
-//             console.log(response);
-//             $(".gridContainer").empty();
-//             getAllWorkoutPlans();
-//             $("#newWorkoutModal").data('bs.modal').hide();
-//         },
-//         error: function (jqXHR, textStatus, errorThrown) {
-//             console.error(jqXHR.responseText);  // Log the response text for debugging
-//         }
-//     });
-// });
+    $('#searchWorkoutPlans').on('input', function () {
+        var newValue = $(this).val();
+        if (newValue==""){
+            getAllWorkoutPlans();
+        }
+    });
+});
 
 $("#searchWorkoutPlans").keyup(function () {
     let text = $('#searchWorkoutPlans').val();
@@ -111,30 +94,6 @@ function getAllWorkoutPlans() {
     });
 }
 
-
-// $("#modalUpdateBtn").click(function () {
-//     let name = $("#updPlanName").val();
-//     let details = $("#updPlanDetails").val();
-//     let calCount = $("#updPlanCalorieCount").val();
-//
-//     $.ajax({
-//         url: 'http://localhost:8080/api/v1/workoutplan/update',
-//         method: 'POST',
-//         dataType: 'json',
-//         contentType: 'application/json',  // Set content type to JSON
-//         data: JSON.stringify({"wid": id, "planName": name, "planDetails": details, "burnsCalorieCount": calCount}),  // Convert data to JSON string
-//         success: function (response) {
-//             $("#updateWorkoutModal").data('bs.modal').hide();
-//             console.log(response);
-//             $(".gridContainer").empty();
-//             getAllWorkoutPlans();
-//         },
-//         error: function (jqXHR, textStatus, errorThrown) {
-//             console.error(jqXHR.responseText);  // Log the response text for debugging
-//         }
-//     });
-// });
-
 let workoutId;
 function btnAssignOnClick(){
     $(".btnAssign").click(function(){
@@ -211,10 +170,6 @@ $("#modalAssignBtn").click(function(){
             console.error(jqXHR.responseText);  // Log the response text for debugging
         }
     });
-});
-
-$("#cancelSearch").click(function () {
-    getAllWorkoutPlans();
 });
 
 $("#modalAssignNew").click(function () {
