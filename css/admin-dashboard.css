@@ -74,17 +74,17 @@
     font-size: 12px !important
 }
 
-#saveMemeber,#addEquip{
+#saveMemeber,#addEquip,#addProgress{
     background-color:#2d324a ;
     font-size: 13px;
     color: white;
 }
-#updateTrainer,#updateEquip{
+#updateTrainer,#updateEquip,#updateProgress{
     background-color:#2d324a ;
     font-size: 13px;
     color: white;
 }
-#deleteTrainer,#deleteEquip{
+#deleteTrainer,#deleteEquip,#deleteProgress{
     background-color:#2d324a ;
     font-size: 13px;
     color: white;
