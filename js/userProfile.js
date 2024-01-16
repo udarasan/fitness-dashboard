@@ -2,7 +2,10 @@
 let userEmail=localStorage.getItem("userEmail");
 console.log(userEmail);
 searchUserWithEmail();
+var today = new Date();
 
+
+var formattedDate = today.toLocaleDateString();
 
 
 function searchUserWithEmail(){
@@ -20,7 +23,9 @@ function searchUserWithEmail(){
                 response.data.uid,
                 response.data.name,
                 response.data.email,
-
+                response.data.trainer_id,
+                response.data.meal_plan_id,
+                response.data.workout_id,
                 );
 
         },
@@ -33,7 +38,7 @@ function searchUserWithEmail(){
 
 let userProfileMain=$(".userProfileMain");
 
-function loadUserDetailsInFields(uid, name, email) {
+function loadUserDetailsInFields(uid, name, email,trainer_id,meal_plan_id,workout_id) {
 
    let userData= `<div class="row">
                         <div class="col-lg-4">
@@ -58,9 +63,9 @@ function loadUserDetailsInFields(uid, name, email) {
 <!--                                                     xmlns="http://www.w3.org/2000/svg">-->
 <!--                                                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>-->
 <!--                                                </svg>-->
-                                                Hieght
+                                                Trainer Id
                                             </h6>
-                                            <span class="text-secondary">bootdey</span>
+                                            <span class="text-secondary">${trainer_id}</span>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                                             <h6 class="mb-0">
@@ -70,9 +75,9 @@ function loadUserDetailsInFields(uid, name, email) {
 <!--                                                     xmlns="http://www.w3.org/2000/svg">-->
 <!--                                                    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>-->
 <!--                                                </svg>-->
-                                                Weight
+                                                MealPlan Id
                                             </h6>
-                                            <span class="text-secondary">@bootdey</span>
+                                            <span class="text-secondary">${meal_plan_id}</span>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                                             <h6 class="mb-0">
@@ -84,9 +89,9 @@ function loadUserDetailsInFields(uid, name, email) {
 <!--                                                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>-->
 <!--                                                    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>-->
 <!--                                                </svg>-->
-                                                BMI
+                                                WorkOut Id
                                             </h6>
-                                            <span class="text-secondary">bootdey</span>
+                                            <span class="text-secondary">${workout_id}</span>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                                             <h6 class="mb-0">
@@ -98,7 +103,7 @@ function loadUserDetailsInFields(uid, name, email) {
 <!--                                                </svg>-->
                                                 Date
                                             </h6>
-                                            <span class="text-secondary ">bootdey</span>
+                                            <span class="text-secondary ">${formattedDate}</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -131,7 +136,7 @@ function loadUserDetailsInFields(uid, name, email) {
 
                                     <div class="mb-3">
                                         <label class="form-label" for="bmi">BMI</label>
-                                        <input disabled class="form-control bmi" id="bmi" 
+                                        <input disabled class="form-control" id="bmi" 
                                                placeholder="" type="text"
                                         >
                                     </div>
@@ -192,22 +197,36 @@ let height;
 let weight;
 
     userProfileMain.on("keyup", ".height", function(event) {
-        let heightText=$(".height");
-        let weightTxt=$(".weight");
-        let bmiTxt=$(".bmi");
+        let heightText = $(".height");
+        let weightTxt = $(".weight");
+        let bmiTxt = $("#bmi");
 
-        height= heightText.val();
+        // Function to calculate and update BMI
+        function updateBMI() {
+            let height = parseFloat(heightText.val());
+            let weight = parseFloat(weightTxt.val());
 
-        if(weightTxt.val().length===0){
-            bmiTxt.val(height);
+            // Input validation
+            if (isNaN(height) || isNaN(weight) || height <= 0 || weight <= 0) {
+                bmiTxt.val("Invalid input");
+                return;
+            }
 
-        }else{
+            // Clear previous results
+            bmiTxt.val("");
 
-            let newHeight= heightText.val()/100;
-            let bmi=weightTxt.val()/(newHeight*newHeight);
+            let newHeight = height / 100;
+            let bmi = parseFloat((weight / (newHeight * newHeight)).toFixed(1));
+
             console.log(bmi);
-            bmiTxt.val(bmi);
+
+            // Update BMI value
+            $('#bmi').val(parseFloat(bmi.toFixed(1)));
         }
+
+        // Attach the updateBMI function to input change events
+        heightText.on("input", updateBMI);
+        weightTxt.on("input", updateBMI);
     });
 
     userProfileMain.on("keyup", ".weight", function(event) {
