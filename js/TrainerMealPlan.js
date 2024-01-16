@@ -1,9 +1,12 @@
 
 let  trainerEmail;
 window.onload = function() {
+    trainerEmail=localStorage.getItem('trainer-email');
+    loadTrainerId();
     getAll();
     loadAllMembersIds();
-   trainerEmail=localStorage.getItem('trainer-email');
+
+
    console.log(trainerEmail+"ss")
     console.log('Window has fully loaded!');
 };
@@ -173,40 +176,45 @@ document.getElementById("saveMeal").addEventListener('click', function () {
 })
 
 
+//load trainer id using email
+let trainerId;
+function loadTrainerId(){
+    console.log(trainerEmail);
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/trainer/getOneTrainer',
+        method: 'GET',
+        dataType: 'json',
+        contentType: 'application/json',
+        data:{email:trainerEmail},
+
+        success: function (response) {
+            console.log(response);
+
+            console.log( response.data.tid);
+            trainerId=response.data.tid;
+
+
+        },
+        error: function (jqXHR) {
+            console.log(jqXHR.responseText);
+        }
+    })
+}
+
 
 
 
 // send ajax request to load all members id to combo box
-// let getAllMembersResponse;
+let getAllMembersResponse;
 function  loadAllMembersIds(){
 
-    // $.ajax({
-    //     url: 'http://localhost:8080/api/v1/trainer/getOneTrainer',
-    //     method: 'GET',
-    //     dataType: 'json',
-    //     contentType: 'application/json',
-    //     data:{email:trainerEmail},
-    //
-    //     success: function (response) {
-    //         // getAllMembersResponsse = response;
-    //         console.log(response);
-    //
-    //         // $.each(response.data, function (index, members) {
-    //         //     console.log(members);
-    //         //     setMemberDataToComboBox(members);
-    //         // })
-    //
-    //     },
-    //     error: function (jqXHR) {
-    //         console.log(jqXHR.responseText);
-    //     }
-    // })
-
-
-
     $.ajax({
-        url: 'http://localhost:8080/api/v1/user/getAllUsers',
+        url: 'http://localhost:8080/api/v1/trainer/getOneTrainer/'+1,
         method: 'GET',
+        dataType: 'json',
+        contentType: 'application/json',
+        // data:{email:trainerId},
+
         success: function (response) {
             getAllMembersResponse = response;
             console.log(response);
@@ -217,10 +225,11 @@ function  loadAllMembersIds(){
             })
 
         },
-        error: function (xhr) {
-            console.log(xhr);
+        error: function (jqXHR) {
+            console.log(jqXHR.responseText);
         }
     })
+
 }
 
 
