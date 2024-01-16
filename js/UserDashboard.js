@@ -1,4 +1,34 @@
 $(document).ready(function () {
+    getDataToAreaChart();
+
+    $(".workoutTab").css({
+        display: "none"
+    })
+
+    mealAndWorkoutCardHandler();
+});
+
+function mealAndWorkoutCardHandler(){
+    $("#workoutLink").click(function(){
+        $(".mealTab").css({
+            display: "none"
+        })
+        $(".workoutTab").css({
+            display: "block"
+        })
+    });
+
+    $("#mealLink").click(function(){
+        $(".workoutTab").css({
+            display: "none"
+        })
+        $(".mealTab").css({
+            display: "block"
+        })
+    });
+}
+
+function getDataToAreaChart(){
     var ctx = $("#myAreaChart")[0].getContext('2d');
 
     // Input data
@@ -26,7 +56,7 @@ $(document).ready(function () {
         data: {
             labels: Object.keys(monthlyAverages),
             datasets: [{
-                label: 'Average BMI Evolution',
+                label: 'Average BMI',
                 data: averageBMIs,
                 lineTension: 0,
                 backgroundColor: "rgba(78, 115, 223, 0.05)",
@@ -102,4 +132,4 @@ $(document).ready(function () {
         }
 
     });
-});
+}
