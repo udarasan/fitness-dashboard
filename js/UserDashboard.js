@@ -6,7 +6,7 @@ $(document).ready(function () {
     })
 
     $("#mealLink").css({
-        color: "rgb(133 135 150 / 50%)"
+        color: "#ffffff96"
     })
 
 
@@ -170,10 +170,10 @@ function setDataToAreaChart(){
                 data: averageBMIs,
                 lineTension: 0.1,
                 backgroundColor: "rgba(78, 115, 223, 0.05)",
-                borderColor: "rgba(92,102,130,0.75)",
+                borderColor: "#2d324a",
                 pointRadius: 3,
                 pointBackgroundColor: "#2d324a",
-                pointBorderColor: "rgba(92,102,130,0.75)",
+                pointBorderColor: "#2d324a",
                 pointHoverRadius: 3,
                 pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
                 pointHoverBorderColor: "rgba(78, 115, 223, 1)",
@@ -253,10 +253,10 @@ function mealAndWorkoutCardHandler(){
             display: "block"
         })
         $("#workoutLink").css({
-            color: "#858796"
+            color: "white"
         })
         $("#mealLink").css({
-            color: "rgb(133 135 150 / 50%)"
+            color: "#ffffff96"
         })
     });
 
@@ -268,10 +268,10 @@ function mealAndWorkoutCardHandler(){
             display: "block"
         })
         $("#mealLink").css({
-            color: "#858796"
+            color: "white"
         })
         $("#workoutLink").css({
-            color: "rgb(133 135 150 / 50%)"
+            color: "#ffffff96"
         })
     });
 };
