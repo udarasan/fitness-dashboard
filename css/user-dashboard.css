@@ -20,12 +20,6 @@ body{
     padding-right: 3.5rem;
 }
 
-#accordionSidebar{
-    height: 100vh !important;
-    position: sticky !important;
-    top: 0px;
-}
-
 #mealLink{
     cursor: pointer;
 }
@@ -66,6 +60,7 @@ body{
     .chart-area {
         height: 250px;
     }
+
 }
 
 @media all and (max-width: 650px) {
