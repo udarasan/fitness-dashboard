@@ -1,39 +1,72 @@
-$(document).ready(function () {
-    getDataToAreaChart();
+let userEmail=localStorage.getItem("userEmail");
 
+$(document).ready(function () {
     $(".workoutTab").css({
         display: "none"
     })
 
     mealAndWorkoutCardHandler();
+    searchUserWithEmail();
 });
 
-function mealAndWorkoutCardHandler(){
-    $("#workoutLink").click(function(){
-        $(".mealTab").css({
-            display: "none"
-        })
-        $(".workoutTab").css({
-            display: "block"
-        })
-    });
-
-    $("#mealLink").click(function(){
-        $(".workoutTab").css({
-            display: "none"
-        })
-        $(".mealTab").css({
-            display: "block"
-        })
-    });
+function searchUserWithEmail(){
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/user/getOneUser',
+        method: 'GET',
+        dataType: 'json',
+        contentType: 'application/json',
+        data:{email:userEmail},
+        success: function (response) {
+            console.log(response);
+            uId= response.data.uid;
+            console.log(uId);
+            getDataToAreaChart(uId);
+        },
+        error: function (jqXHR) {
+            console.log(jqXHR.responseText);
+        }
+    })
 }
 
-function getDataToAreaChart(){
+let progressList;
+function getDataToAreaChart(uId){
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/progress/getAllProgress/'+uId,
+        method: 'GET',
+
+        contentType: 'application/json',  // Set content type to JSON
+        success: function (response) {
+            progressList=response.data;
+            console.log(progressList);
+            formatAreaChartData();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error(jqXHR.responseText);  // Log the response text for debugging
+        }
+    });
+};
+
+let dateList = [];
+let bmiList = [];
+function formatAreaChartData(){
+    $.each(progressList, function (index, progress) {
+        dateList.push(progress.date);
+
+        let weight = progress.weight;
+        let height = progress.height;
+        let newHeight = height / 100;
+        let bmi = parseFloat((weight / (newHeight * newHeight)).toFixed(1));
+        bmiList.push(bmi);
+    });
+    setDataToAreaChart();
+};
+
+function setDataToAreaChart(){
     var ctx = $("#myAreaChart")[0].getContext('2d');
 
     // Input data
-    var labels = ['2024-01-16', '2024-02-17', '2024-02-19', '2024-08-20', '2024-08-30', "2024-08-31"];
-    var data = [20.7, 20.8, 20.6, 21.1, 21.2, 20.7];
+    var labels = dateList;
+    var data = bmiList;
 
     // Calculate average BMI for each month
     var monthlyAverages = {};
@@ -133,3 +166,23 @@ function getDataToAreaChart(){
 
     });
 }
+
+function mealAndWorkoutCardHandler(){
+    $("#workoutLink").click(function(){
+        $(".mealTab").css({
+            display: "none"
+        })
+        $(".workoutTab").css({
+            display: "block"
+        })
+    });
+
+    $("#mealLink").click(function(){
+        $(".workoutTab").css({
+            display: "none"
+        })
+        $(".mealTab").css({
+            display: "block"
+        })
+    });
+};
