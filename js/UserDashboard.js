@@ -1,14 +1,22 @@
 let userEmail=localStorage.getItem("userEmail");
 
 $(document).ready(function () {
-    $(".workoutTab").css({
+    $(".mealTab").css({
         display: "none"
     })
+
+    $("#mealLink").css({
+        color: "rgb(133 135 150 / 50%)"
+    })
+
 
     mealAndWorkoutCardHandler();
     searchUserWithEmail();
 });
 
+let currUserWorkoutId;
+let currUserMealId;
+let currUserTrainerId;
 function searchUserWithEmail(){
     $.ajax({
         url: 'http://localhost:8080/api/v1/user/getOneUser',
@@ -17,15 +25,75 @@ function searchUserWithEmail(){
         contentType: 'application/json',
         data:{email:userEmail},
         success: function (response) {
-            console.log(response);
             uId= response.data.uid;
-            console.log(uId);
+            currUserWorkoutId = response.data.workout_id;
+            currUserMealId = response.data.meal_plan_id;
+            currUserTrainerId = response.data.trainer_id;
+
+            $("#trainerId").text(currUserTrainerId);
+
             getDataToAreaChart(uId);
+            getWorkoutPlan();
         },
         error: function (jqXHR) {
             console.log(jqXHR.responseText);
         }
     })
+}
+
+function getWorkoutPlan(){
+    // get All workout plans
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/workoutplan/getAllWorkOutPlans',
+        method: 'GET',
+        dataType: 'json',
+        contentType: 'application/json',  // Set content type to JSON
+        success: function (response) {
+            $.each(response.data, function (index, workOut) {
+                // check for current users' workout plan
+                if(currUserWorkoutId == workOut.wid){
+                    currUserWorkoutName = workOut.planName;
+                    currUserWorkoutDescription = workOut.planDetails;
+                    currUserWorkoutCalories = workOut.burnsCalorieCount;
+
+                    $("#lblWorkPLanName").text(currUserWorkoutName);
+                    $("#pWorkTab").text(currUserWorkoutDescription);
+                    $("#lblWorkCalories").text(currUserWorkoutCalories+" calories");
+                }
+            });
+            getMealPlan();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error(jqXHR.responseText);  // Log the response text for debugging
+        }
+    });
+};
+
+function getMealPlan(){
+    // get All meal plans
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/mealPlan/getAllMealPlans',
+        method: 'GET',
+        dataType: 'json',
+        contentType: 'application/json',  // Set content type to JSON
+        success: function (response) {
+            $.each(response.data, function (index, meal) {
+                // check for current users' meal plan
+                if(currUserMealId == meal.mid){
+                    currUserMealName = meal.planName;
+                    currUserMealDescription = meal.planDetails;
+                    currUserMealCalories = meal.calorieCount;
+
+                    $("#lblMealPLanName").text(currUserMealName);
+                    $("#pMealTab").text(currUserMealDescription);
+                    $("#lblMealCalories").text(currUserMealCalories+" calories");
+                }
+            });
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error(jqXHR.responseText);  // Log the response text for debugging
+        }
+    });
 }
 
 let progressList;
@@ -37,14 +105,23 @@ function getDataToAreaChart(uId){
         contentType: 'application/json',  // Set content type to JSON
         success: function (response) {
             progressList=response.data;
-            console.log(progressList);
             formatAreaChartData();
+            setCurrentBMIvalue();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error(jqXHR.responseText);  // Log the response text for debugging
         }
     });
 };
+
+function setCurrentBMIvalue() {
+    currentProgressValues = progressList[progressList.length - 1];
+    currentHeight = currentProgressValues.height;
+    currentWeight = currentProgressValues.weight;
+    let currentHeightInMeters = currentHeight / 100;
+    let currentBMI = parseFloat((currentWeight / (currentHeightInMeters * currentHeightInMeters)).toFixed(1));
+    $("#currentBMI").text(currentBMI);
+}
 
 let dateList = [];
 let bmiList = [];
@@ -91,7 +168,7 @@ function setDataToAreaChart(){
             datasets: [{
                 label: 'Average BMI',
                 data: averageBMIs,
-                lineTension: 0,
+                lineTension: 0.1,
                 backgroundColor: "rgba(78, 115, 223, 0.05)",
                 borderColor: "rgba(92,102,130,0.75)",
                 pointRadius: 3,
@@ -175,6 +252,12 @@ function mealAndWorkoutCardHandler(){
         $(".workoutTab").css({
             display: "block"
         })
+        $("#workoutLink").css({
+            color: "#858796"
+        })
+        $("#mealLink").css({
+            color: "rgb(133 135 150 / 50%)"
+        })
     });
 
     $("#mealLink").click(function(){
@@ -183,6 +266,12 @@ function mealAndWorkoutCardHandler(){
         })
         $(".mealTab").css({
             display: "block"
+        })
+        $("#mealLink").css({
+            color: "#858796"
+        })
+        $("#workoutLink").css({
+            color: "rgb(133 135 150 / 50%)"
         })
     });
 };
