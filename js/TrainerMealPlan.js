@@ -1,6 +1,7 @@
 let trainerEmail;
 window.onload = function () {
     trainerEmail = localStorage.getItem('trainer-email');
+    $("#trainerEmail").text(trainerEmail);
     loadTrainerId();
     getAll();
     // loadAllMembersIds();
