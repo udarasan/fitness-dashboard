@@ -11,38 +11,26 @@ $('#deleteMember').click(function () {
 
     let id = $('#member_id').val();
 
-
-    Swal.fire({
-        title: 'Are you sure?',
-        text: 'You are about to delete this record!',
-        icon: 'warning', // warning icon
-        showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'Close'
-    }).then((result) => {
-        if (result.isConfirmed) {
             // Make the AJAX request
             $.ajax({
                 url: 'http://localhost:8080/api/v1/user/delete/' + id,
                 method: 'DELETE',
                 contentType: 'application/json',  // Set content type to JSON
                 success: function (response) {
-                    Swal.fire('Deleted!', 'Your record has been deleted.', 'success');
+                    alert("Member Delete successful!");
                     $('#memberModal').modal('hide');
                     getAllMembers();
                     loadTrainerId();
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
+                    alert("Member Delete failed! Please check your input and try again.");
+
                     console.error(jqXHR.responseText);  // Log the response text for debugging
                 }
             });
 
 
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-            // User clicked "Close" or outside the modal
-            Swal.fire('Cancelled', 'Your record is safe :)', 'info');
-        }
-    });
+
 
 });
 
@@ -66,12 +54,14 @@ $('#updateMember').click(function () {
         data: JSON.stringify({"uid": id, "email": email, "password": password, "name": name, "trainer_id": trainer_id,"meal_plan_id":meal_id,"workout_id":workout_id}),  // Convert data to JSON string
         success: function (response) {
             console.log(response);
+            alert("Member update successful!");
             $('#memberModal').modal('hide');
             getAllMembers();
             loadTrainerId();
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
+            alert("Member update failed! Please check your input and try again.");
             console.error(jqXHR.responseText);  // Log the response text for debugging
         }
     });
@@ -98,11 +88,13 @@ $('#saveMemeber').click(function () {
         data: JSON.stringify({"uid": id, "email": email, "password": password, "name": name, "trainer_id": trainer_id}),  // Convert data to JSON string
         success: function (response) {
             console.log(response);
+            alert("Member registration successful!");
             $('#memberModal').modal('hide');
             getAllMembers();
             loadTrainerId();
         },
         error: function (jqXHR, textStatus, errorThrown) {
+            alert("Member registration failed! Please check your input and try again.");
             console.error(jqXHR.responseText);  // Log the response text for debugging
         }
     });
@@ -120,6 +112,10 @@ function getAllMembers() {
             console.log(response.data);
             console.log(response.data);
              memberList = response.data;
+            if (memberList.length === 0) {
+                alert("No members found.");
+                return;
+            }
 
             $.each(response.data, function (index, member) {
                 meal_id = member.meal_plan_id;
@@ -130,6 +126,7 @@ function getAllMembers() {
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
+            alert("Failed to retrieve members. Please try again.");
             console.error(jqXHR.responseText);  // Log the response text for debugging
         }
     });
