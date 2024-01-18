@@ -11,6 +11,8 @@ var today = new Date();
 var formattedDate = today.toLocaleDateString();
 
 function getDataToAreaChart(uId,userData){
+    $('#nameLbl').text(userData.name);
+
     $.ajax({
         url: 'http://localhost:8080/api/v1/progress/getAllProgress/'+uId,
         method: 'GET',

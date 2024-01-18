@@ -1,3 +1,4 @@
+$('#nameLbl').text(localStorage.getItem("name"));
 var today = new Date();
 var formattedDate = today.toLocaleDateString();
 let userEmail=localStorage.getItem("userEmail");

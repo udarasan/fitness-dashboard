@@ -25,6 +25,8 @@ function searchUserWithEmail(){
         contentType: 'application/json',
         data:{email:userEmail},
         success: function (response) {
+            $('#nameLbl').text(response.data.name);
+            localStorage.setItem("name",response.data.name);
             uId= response.data.uid;
             currUserWorkoutId = response.data.workout_id;
             currUserMealId = response.data.meal_plan_id;
