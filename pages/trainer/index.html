@@ -20,7 +20,7 @@
     <!-- Custom styles for this template-->
     <link href="../../css/sb-admin-2.min.css" rel="stylesheet">
     <link href="../../css/admin-dashboard.css" rel="stylesheet">
-
+    <link href="../../css/sidebarManage.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -34,11 +34,13 @@
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
             <div class="sidebar-brand-icon rotate-n-15">
-                <!--                    <i class="fas fa-dumbbell"></i>-->
-                <img width="25" height="25" src="https://img.icons8.com/external-nawicon-glyph-nawicon/64/ffffff/external-gym-hotel-nawicon-glyph-nawicon.png" alt="external-gym-hotel-nawicon-glyph-nawicon"/>
+                <img id="gymImg" width="25" height="25" src="https://img.icons8.com/external-nawicon-glyph-nawicon/64/ffffff/external-gym-hotel-nawicon-glyph-nawicon.png" alt="external-gym-hotel-nawicon-glyph-nawicon"/>
             </div>
             <div class="sidebar-brand-text mx-3">Fitness</div>
         </a>
+        <div class="threebarsDiv d-flex align-items-center justify-content-center" >
+            <i id="threebars" class="fa fa-bars d-none text-white"></i>
+        </div>
 
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
@@ -584,6 +586,8 @@
 <!-- Page level custom scripts -->
 <script src="../../js/demo/chart-area-demo.js"></script>
 <script src="../../js/demo/chart-pie-demo.js"></script>
+
+<script src="../../js/sidebarManage.js"></script>
 
 </body>
 

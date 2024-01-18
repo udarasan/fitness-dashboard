@@ -21,6 +21,8 @@
     <link href="../../css/sb-admin-2.min.css" rel="stylesheet">
     <link href="../../css/admin-dashboard.css" rel="stylesheet">
     <link href="../../css/AdminMealPlan.css" rel="stylesheet">
+    <link href="../../css/sidebarManage.css" rel="stylesheet">
+
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.5/dist/sweetalert2.min.css" rel="stylesheet">
 
 
@@ -35,15 +37,15 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../user/index.html">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
             <div class="sidebar-brand-icon rotate-n-15">
-                <!--                    <i class="fas fa-dumbbell"></i>-->
-                <img alt="external-gym-hotel-nawicon-glyph-nawicon" height="25"
-                     src="https://img.icons8.com/external-nawicon-glyph-nawicon/64/ffffff/external-gym-hotel-nawicon-glyph-nawicon.png"
-                     width="25"/>
+                <img id="gymImg" width="25" height="25" src="https://img.icons8.com/external-nawicon-glyph-nawicon/64/ffffff/external-gym-hotel-nawicon-glyph-nawicon.png" alt="external-gym-hotel-nawicon-glyph-nawicon"/>
             </div>
             <div class="sidebar-brand-text mx-3">Fitness</div>
         </a>
+        <div class="threebarsDiv d-flex align-items-center justify-content-center" >
+            <i id="threebars" class="fa fa-bars d-none text-white"></i>
+        </div>
 
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
@@ -763,6 +765,7 @@
 
 <!--<script src="../../js/AdminMealPlan.js"></script>-->
 <script src="../../js/TrainerMealPlan.js"></script>
+<script src="../../js/sidebarManage.js"></script>
 </body>
 
 </html>
