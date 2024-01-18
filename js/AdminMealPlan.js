@@ -172,26 +172,20 @@ document.getElementById("saveMeal").addEventListener('click', function () {
 
                         error: function (jqXHR) {
                             console.log(jqXHR);
-
                         }
                     })
                 }else{
-                    alert("invalid input")
+                    alert("Invalid input type")
                 }
-
-
             }else{
-
                 let errorLabel=$("#mealPlanDetailsErrorLabel");
                 errorLabel.css("display", "inline");
                 errorLabel.text("Enter minimum 2 characters !");
             }
-
         }else{
             let errorLabel=$("#mealPlanNameErrorLabel");
             errorLabel.css("display", "inline");
             errorLabel.text("Enter minimum 2 characters !");
-
         }
 
 
