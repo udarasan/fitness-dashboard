@@ -313,7 +313,10 @@ $("#memberSelect").change(function(){
 
 $("#modalAssignBtn").click(function(){
     let userId = $("#memberSelect").val();
-
+    if (!userId) {
+        alert("Please Select User Id.");
+        return;
+    }
     console.log(workoutId)
     // Make the AJAX request
     $.ajax({
