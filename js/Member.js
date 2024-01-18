@@ -43,28 +43,63 @@ $('#updateMember').click(function () {
     let trainer_id = $('#tra_id').val();
     let password = $('#memeber_password').val();
 
+    if ( !email || !name || !password) {
+        alert("Please fill in all required fields.");
+        return;
+    }
+
+    if (!isValidEmail(email)) {
+        $('#emailErrorLabel').text("Please enter a valid email address.");
+
+    } else {
+        $('#emailErrorLabel').text(""); // Clear the error label
+    }
+    if (!isValidPassword(password)) {
+        $('#pwdErrorLabel').text("Please enter a password with 6 to 20 characters.");
+
+    } else {
+        $('#pwdErrorLabel').text(""); // Clear the error label
+    }
+
+    if (!isValidName(name)) {
+        $('#nameErrorLabel').text("Please enter a name with 2 to 50 characters");
+
+    } else {
+        $('#nameErrorLabel').text(""); // Clear the error label
+    }
+
     console.log(trainer_id);
-    // Make the AJAX request
-    $.ajax({
-        url: 'http://localhost:8080/api/v1/user/update',
-        method: 'POST',
-        dataType: 'json',
-        contentType: 'application/json',  // Set content type to JSON
+    if (isValidName(name) && isValidEmail(email) && isValidPassword(password)) {
+        // Make the AJAX request
+        $.ajax({
+            url: 'http://localhost:8080/api/v1/user/update',
+            method: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',  // Set content type to JSON
 
-        data: JSON.stringify({"uid": id, "email": email, "password": password, "name": name, "trainer_id": trainer_id,"meal_plan_id":meal_id,"workout_id":workout_id}),  // Convert data to JSON string
-        success: function (response) {
-            console.log(response);
-            alert("Member update successful!");
-            $('#memberModal').modal('hide');
-            getAllMembers();
-            loadTrainerId();
+            data: JSON.stringify({
+                "uid": id,
+                "email": email,
+                "password": password,
+                "name": name,
+                "trainer_id": trainer_id,
+                "meal_plan_id": meal_id,
+                "workout_id": workout_id
+            }),  // Convert data to JSON string
+            success: function (response) {
+                console.log(response);
+                alert("Member update successful!");
+                $('#memberModal').modal('hide');
+                getAllMembers();
+                loadTrainerId();
 
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            alert("Member update failed! Please check your input and try again.");
-            console.error(jqXHR.responseText);  // Log the response text for debugging
-        }
-    });
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("Member update failed! Please check your input and try again.");
+                console.error(jqXHR.responseText);  // Log the response text for debugging
+            }
+        });
+    }
 });
 
 //save memeber
@@ -77,6 +112,32 @@ $('#saveMemeber').click(function () {
     let trainer_id = $('#tra_id').val();
     let password = $('#memeber_password').val();
 
+    if ( !email || !name || !password) {
+        alert("Please fill in all required fields.");
+        return;
+    }
+
+    if (!isValidEmail(email)) {
+        $('#emailErrorLabel').text("Please enter a valid email address.");
+
+    } else {
+        $('#emailErrorLabel').text(""); // Clear the error label
+    }
+    if (!isValidPassword(password)) {
+        $('#pwdErrorLabel').text("Please enter a password with 6 to 20 characters.");
+
+    } else {
+        $('#pwdErrorLabel').text(""); // Clear the error label
+    }
+
+    if (!isValidName(name)) {
+        $('#nameErrorLabel').text("Please enter a name with 2 to 50 characters");
+
+    } else {
+        $('#nameErrorLabel').text(""); // Clear the error label
+    }
+
+if (isValidName(name) && isValidEmail(email) && isValidPassword(password)) {
     console.log(id);
     // Make the AJAX request
     $.ajax({
@@ -98,6 +159,7 @@ $('#saveMemeber').click(function () {
             console.error(jqXHR.responseText);  // Log the response text for debugging
         }
     });
+}
 });
 
 function getAllMembers() {
@@ -155,6 +217,9 @@ $('#tblMember').on('click', 'tr', function () {
 $('#closeBtn').click(function () {
     $('#updateMember').css("display", 'none');
     $('#deleteMember').css("display", 'none');
+    $('#emailErrorLabel').text("");
+    $('#nameErrorLabel').text("");
+    $('#pwdErrorLabel').text("");
 });
 $('#addMemberBTn').click(function () {
     $('#updateMember').css("display", 'none');
@@ -165,6 +230,9 @@ $('#addMemberBTn').click(function () {
     $('#member_email').val("");
     $('#tra_id').val("");
     $('#memeber_password').val("");
+    $('#emailErrorLabel').text("");
+    $('#nameErrorLabel').text("");
+    $('#pwdErrorLabel').text("");
 });
 
 function loadTrainerId() {
