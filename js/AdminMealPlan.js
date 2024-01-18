@@ -133,38 +133,72 @@ function appendMealSection(mealPlan) {
 
 // meal plan save method
 document.getElementById("saveMeal").addEventListener('click', function () {
-alert('save');
+
     let meal_id = $("#meal_id").val();
     let meal_name = $("#meal_name").val();
     let meal_details = $("#meal_plan_details").val();
     let calorie = $("#calorie").val();
 
-    $.ajax({
-        url: 'http://localhost:8080/api/v1/mealPlan/save',
-        method: 'POST',
-        dataType: 'json',
-        contentType: 'application/json',
-        data: JSON.stringify({
-            "mid": meal_id,
-            "planName": meal_name,
-            "planDetails": meal_details,
-            "calorieCount": calorie
-        }),
-        success: function (response) {
-            console.log(response);
-            getAll();
-            $('#newMealModal').data('bs.modal').hide();
-            $("#meal_id").val("");
-            $("#meal_name").val("");
-            $("#meal_plan_details").val("");
-            $("#calorie").val("");
-        },
+    if(meal_name==="" || meal_details==="" || calorie==="") {
+        alert("please fill all empty fields !!");
+    }else{
 
-        error: function (jqXHR) {
-            console.log(jqXHR);
+        if(isValidName(meal_name)){
+            $("#mealPlanNameErrorLabel").css("display","none");
+
+            if (isValidName(meal_details)){
+                $("#mealPlanDetailsErrorLabel").css("display","none");
+                if(!isNaN(calorie)){
+                    $.ajax({
+                        url: 'http://localhost:8080/api/v1/mealPlan/save',
+                        method: 'POST',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        data: JSON.stringify({
+                            "mid": meal_id,
+                            "planName": meal_name,
+                            "planDetails": meal_details,
+                            "calorieCount": calorie
+                        }),
+                        success: function (response) {
+                            console.log(response);
+                            getAll();
+                            $('#newMealModal').data('bs.modal').hide();
+                            $("#meal_id").val("");
+                            $("#meal_name").val("");
+                            $("#meal_plan_details").val("");
+                            $("#calorie").val("");
+                        },
+
+                        error: function (jqXHR) {
+                            console.log(jqXHR);
+
+                        }
+                    })
+                }else{
+                    alert("invalid input")
+                }
+
+
+            }else{
+
+                let errorLabel=$("#mealPlanDetailsErrorLabel");
+                errorLabel.css("display", "inline");
+                errorLabel.text("Enter minimum 2 characters !");
+            }
+
+        }else{
+            let errorLabel=$("#mealPlanNameErrorLabel");
+            errorLabel.css("display", "inline");
+            errorLabel.text("Enter minimum 2 characters !");
 
         }
-    })
+
+
+    }
+
+
+
 
 })
 
