@@ -40,7 +40,7 @@ function appendMealSection(mealPlan) {
   <section class="mx-3 my-5" style="max-width: 20rem;">
 
     <div id="card" class="card" >
-    <p  >trainer</p>
+   
 
     <p id="mealId" class="d-none">${mealPlan.mid}</p>
 
