@@ -71,36 +71,29 @@ function getAllProgress(uId) {
 $('#deleteProgress').click(function () {
 
     let id = $('#pId').val();
-    Swal.fire({
-        title: 'Are you sure?',
-        text: 'You are about to delete this record!',
-        icon: 'warning', // warning icon
-        showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'Close'
-    }).then((result) => {
-        if (result.isConfirmed) {
+
             // Make the AJAX request
             $.ajax({
                 url: 'http://localhost:8080/api/v1/progress/delete/' + id,
                 method: 'DELETE',
                 contentType: 'application/json',  // Set content type to JSON
                 success: function (response) {
-                    Swal.fire('Deleted!', 'Your record has been deleted.', 'success');
+                    alert("Progress Details Delete successful!");
+                    searchUserWithEmail();
+                    $('#pId').val("");
+                    $('#height').val("");
+                    $('#weight').val("");
+                    $('#date').val("");
 
-                   getAllProgress();
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
+                    alert("Progress Details Delete failed! Please check your input and try again.");
                     console.error(jqXHR.responseText);  // Log the response text for debugging
                 }
             });
 
 
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-            // User clicked "Close" or outside the modal
-            Swal.fire('Cancelled', 'Your record is safe :)', 'info');
-        }
-    });
+
 
 });
 
@@ -113,23 +106,47 @@ $('#updateProgress').click(function () {
     let weight = $('#weight').val();
     let date = $('#date').val();
     console.log(uId);
+    if ( !height || !weight || !date) {
+        alert("Please fill in all required fields.");
+        return;
+    }
 
-    $.ajax({
-        url: 'http://localhost:8080/api/v1/progress/update',
-        method: 'POST',
-        dataType: 'json',
-        contentType: 'application/json',  // Set content type to JSON
+    if(isNaN(height)){
+        $('#heightErrorLabel').text("Invalid input type!! Please input number");
+    }else {
+        $('#heightErrorLabel').text("");
+    }
 
-        data: JSON.stringify({"pid":pid,"height": height, "weight": weight, "userId": uId, "date":date}),  // Convert data to JSON string
-        success: function (response) {
-          getAllProgress();
+    if(isNaN(weight)){
+        $('#weightErrorLabel').text("Invalid input type!! Please input number");
+    }else {
+        $('#weightErrorLabel').text("");
+    }
+
+    if (!isNaN(height) && !isNaN(weight)) {
+        $.ajax({
+            url: 'http://localhost:8080/api/v1/progress/update',
+            method: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',  // Set content type to JSON
+
+            data: JSON.stringify({"pid": pid, "height": height, "weight": weight, "userId": uId, "date": date}),  // Convert data to JSON string
+            success: function (response) {
+                alert("Progress Details Update successful!");
+                searchUserWithEmail();
+               $('#pId').val("");
+               $('#height').val("");
+               $('#weight').val("");
+                $('#date').val("");
 
             },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.error(jqXHR.responseText);  // Log the response text for debugging
-        }
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("Progress Details Update failed! Please check your input and try again.");
+                console.error(jqXHR.responseText);  // Log the response text for debugging
+            }
 
-    });
+        });
+    }
 
 });
 
@@ -139,26 +156,49 @@ $('#addProgress').click(function () {
     let height = $('#height').val();
     let weight = $('#weight').val();
     let date = $('#date').val();
-console.log(uId);
+          console.log(uId);
+    if ( !height || !weight || !date) {
+        alert("Please fill in all required fields.");
+        return;
+    }
 
-    $.ajax({
-        url: 'http://localhost:8080/api/v1/progress/save',
-        method: 'POST',
-        dataType: 'json',
-        contentType: 'application/json',  // Set content type to JSON
+    if(isNaN(height)){
+        $('#heightErrorLabel').text("Invalid input type!! Please input number");
+    }else {
+        $('#heightErrorLabel').text("");
+    }
 
-        data: JSON.stringify({"height": height, "weight": weight, "userId": uId, "date":date}),  // Convert data to JSON string
-        success: function (response) {
-            console.log(response);
-              getAllProgress();
+    if(isNaN(weight)){
+        $('#weightErrorLabel').text("Invalid input type!! Please input number");
+    }else {
+        $('#weightErrorLabel').text("");
+    }
+   if (!isNaN(height) && !isNaN(weight)) {
+       $.ajax({
+           url: 'http://localhost:8080/api/v1/progress/save',
+           method: 'POST',
+           dataType: 'json',
+           contentType: 'application/json',  // Set content type to JSON
+
+           data: JSON.stringify({"height": height, "weight": weight, "userId": uId, "date": date}),  // Convert data to JSON string
+           success: function (response) {
+               console.log(response);
+               alert("Progress Details Added successful!");
+              searchUserWithEmail();
+               $('#pId').val("");
+               $('#height').val("");
+               $('#weight').val("");
+               $('#date').val("");
 
 
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.error(jqXHR.responseText);  // Log the response text for debugging
-        }
+           },
+           error: function (jqXHR, textStatus, errorThrown) {
+               alert("Progress Details Added failed! Please check your input and try again.");
+               console.error(jqXHR.responseText);  // Log the response text for debugging
+           }
 
-    });
+       });
+   }
 
 });
 

@@ -1,12 +1,45 @@
 //search user with user email
+let cheight;
+let cweight;
 let userEmail=localStorage.getItem("userEmail");
 console.log(userEmail);
 searchUserWithEmail();
+
 var today = new Date();
 
 
 var formattedDate = today.toLocaleDateString();
 
+function getDataToAreaChart(uId,userData){
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/progress/getAllProgress/'+uId,
+        method: 'GET',
+
+        contentType: 'application/json',  // Set content type to JSON
+        success: function (response) {
+            progressList=response.data;
+            let currentProgressValues = progressList[progressList.length - 1];
+             cheight = currentProgressValues.height;
+            cweight = currentProgressValues.weight;
+             console.log(cheight);
+            loadUserDetailsInFields(
+                uId,
+                userData.name,
+                userData.email,
+                userData.trainer_id,
+                userData.meal_plan_id,
+                userData.workout_id,
+                cheight,
+                cweight
+            );
+            // console.log(currentProgressValues.height);
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+           // Log the response text for debugging
+        }
+    });
+};
 
 function searchUserWithEmail(){
 
@@ -19,14 +52,19 @@ function searchUserWithEmail(){
 
         success: function (response) {
             console.log(response);
-            loadUserDetailsInFields(
-                response.data.uid,
-                response.data.name,
-                response.data.email,
-                response.data.trainer_id,
-                response.data.meal_plan_id,
-                response.data.workout_id,
-                );
+            console.log(response.data.uid)
+            getDataToAreaChart(response.data.uid, response.data);
+            // console.log(cheight);
+            // loadUserDetailsInFields(
+            //     response.data.uid,
+            //     response.data.name,
+            //     response.data.email,
+            //     response.data.trainer_id,
+            //     response.data.meal_plan_id,
+            //     response.data.workout_id,
+            //
+            //     );
+
 
         },
         error: function (jqXHR) {
@@ -35,13 +73,20 @@ function searchUserWithEmail(){
     })
 
 }
+// function processUserData(cheight) {
+//     // Code that depends on cheight
+//     console.log(cheight);
+//
+//     // The rest of your code that uses cheight
+//     // ...
+// }
 
 let userProfileMain=$(".userProfileMain");
 
-function loadUserDetailsInFields(uid, name, email,trainer_id,meal_plan_id,workout_id) {
-
+function loadUserDetailsInFields(uid, name, email,trainer_id,meal_plan_id,workout_id,height,weight) {
+console.log(height);
    let userData= `<div class="row">
-                        <div class="col-lg-4">
+                        <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="d-flex flex-column align-items-center text-center">
@@ -115,7 +160,7 @@ function loadUserDetailsInFields(uid, name, email,trainer_id,meal_plan_id,workou
 <!--                                                </svg>-->
                                                 Height
                                             </h6>
-                                            <span class="text-secondary ">170 CM</span>
+                                            <span class="text-secondary ">${height} CM</span>
                                         </li>
                                         
                                             <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
@@ -128,88 +173,14 @@ function loadUserDetailsInFields(uid, name, email,trainer_id,meal_plan_id,workou
 <!--                                                </svg>-->
                                                 Weight
                                             </h6>
-                                            <span class="text-secondary ">60 KG</span>
+                                            <span class="text-secondary ">${weight} KG</span>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-8">
-                            <div class="card ">
-                            <div class="card-header" style="background-color: #2d324a;color: white; ">Add New Progress Details</div>
-                                <div class="card-body">
-                                   
-                                     <form id="assignMealForm">
-
-                                    <div class="mb-3">
-
-                                        <label class="form-label" for="height"> Height</label>
-                                        <input  class="form-control height" id="height" 
-                                               placeholder="Enter Height " type="text"
-                                        >
-
-
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label class="form-label" for="weight"> Weight</label>
-                                        <input  class="form-control weight" id="weight" 
-                                               placeholder="Enter Weight" type="text"
-                                        >
-                                    </div>
-
-
-                                    <div class="mb-3">
-                                        <label class="form-label" for="bmi">BMI</label>
-                                        <input disabled class="form-control" id="bmi" 
-                                               placeholder="" type="text"
-                                        >
-                                    </div>
-
-                                </form>
-                                 <button id="save" class="btn btn-primary save">Save Progress</button>
-                                   
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h5 class="d-flex align-items-center mb-3">Project Status</h5>
-                                            <p>Web Design</p>
-                                            <div class="progress mb-3" style="height: 5px">
-                                                <div aria-valuemax="100" aria-valuemin="0"
-                                                     aria-valuenow="80" class="progress-bar bg-primary" role="progressbar"
-                                                     style="width: 80%"></div>
-                                            </div>
-                                            <p>Website Markup</p>
-                                            <div class="progress mb-3" style="height: 5px">
-                                                <div aria-valuemax="100" aria-valuemin="0"
-                                                     aria-valuenow="72" class="progress-bar bg-danger" role="progressbar"
-                                                     style="width: 72%"></div>
-                                            </div>
-                                            <p>One Page</p>
-                                            <div class="progress mb-3" style="height: 5px">
-                                                <div aria-valuemax="100" aria-valuemin="0"
-                                                     aria-valuenow="89" class="progress-bar bg-success" role="progressbar"
-                                                     style="width: 89%"></div>
-                                            </div>
-                                            <p>Mobile Template</p>
-                                            <div class="progress mb-3" style="height: 5px">
-                                                <div aria-valuemax="100" aria-valuemin="0"
-                                                     aria-valuenow="55" class="progress-bar bg-warning" role="progressbar"
-                                                     style="width: 55%"></div>
-                                            </div>
-                                            <p>Backend API</p>
-                                            <div class="progress" style="height: 5px">
-                                                <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="66"
-                                                     class="progress-bar bg-info" role="progressbar" style="width: 66%"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
+                        
                     </div>`
 
 

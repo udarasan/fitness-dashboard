@@ -117,7 +117,7 @@ function getDataToAreaChart(uId){
 function setCurrentBMIvalue() {
     currentProgressValues = progressList[progressList.length - 1];
     currentHeight = currentProgressValues.height;
-    currentWeight = currentProgressValues.weight;
+     currentWeight = currentProgressValues.weight;
     let currentHeightInMeters = currentHeight / 100;
     let currentBMI = parseFloat((currentWeight / (currentHeightInMeters * currentHeightInMeters)).toFixed(1));
     $("#currentBMI").text(currentBMI);
