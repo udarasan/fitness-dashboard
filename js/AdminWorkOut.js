@@ -27,24 +27,31 @@ $("#modalAddNew").click(function () {
     } else {
         $('#nameErrorLabel').text(""); // Clear the error label
     }
+    if(!isNaN(calCount)){
+        $('#calaryErrorLabel').text("Invalid input type");
+    }else {
+        $('#calaryErrorLabel').text("");
+    }
 
-    // Make the AJAX request
-    $.ajax({
-        url: 'http://localhost:8080/api/v1/workoutplan/save',
-        method: 'POST',
-        dataType: 'json',
-        contentType: 'application/json',  // Set content type to JSON
-        data: JSON.stringify({"planName": name, "planDetails": details, "burnsCalorieCount": calCount}),  // Convert data to JSON string
-        success: function (response) {
-            console.log(response);
-            $(".gridContainer").empty();
-            getAllWorkoutPlans();
-            $("#newWorkoutModal").data('bs.modal').hide();
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.error(jqXHR.responseText);  // Log the response text for debugging
-        }
-    });
+    if (isValidName(name) && isNaN(calCount)) {
+        // Make the AJAX request
+        $.ajax({
+            url: 'http://localhost:8080/api/v1/workoutplan/save',
+            method: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',  // Set content type to JSON
+            data: JSON.stringify({"planName": name, "planDetails": details, "burnsCalorieCount": calCount}),  // Convert data to JSON string
+            success: function (response) {
+                console.log(response);
+                $(".gridContainer").empty();
+                getAllWorkoutPlans();
+                $("#newWorkoutModal").data('bs.modal').hide();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error(jqXHR.responseText);  // Log the response text for debugging
+            }
+        });
+    }
 });
 
 $("#searchWorkoutPlans").keyup(function () {
