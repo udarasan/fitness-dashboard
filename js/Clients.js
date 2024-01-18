@@ -16,6 +16,11 @@ function getClients() {
         contentType: 'application/json',
         data: {email: email},
         success: function (response) {
+            let client = response.data.users;
+            if (client.length === 0) {
+                alert("No clients found.");
+                return;
+            }
             console.log(response.data.users);
             $.each(response.data.users, function (index, trainer) {
                 userId = trainer.uid;
@@ -40,6 +45,12 @@ function getClientsWithTrainer() {
         contentType: 'application/json',
 
         success: function (response) {
+            let client = response.data;
+            if (client.length === 0) {
+                alert("No clients found.");
+                return;
+            }
+
             console.log(response.data);
             $.each(response.data, function (index, client) {
 

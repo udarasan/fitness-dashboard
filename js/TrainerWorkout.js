@@ -150,6 +150,11 @@ $(".memberSelect").change(function(){
 
 $("#modalAssignBtn").click(function(){
     let userId = $("#assignWorkoutModal .memberSelect").val();
+
+    if (!userId) {
+        alert("Please Select User Id.");
+        return;
+    }
     console.log(userId);
     console.log(workoutId)
     // Make the AJAX request
@@ -179,35 +184,57 @@ $("#modalAssignNew").click(function () {
 
     let userId = $("#assignNewWorkoutModal .memberSelect").val();
 
-    $.ajax({
-        url: 'http://localhost:8080/api/v1/trainer/assignNewWorkout',
-        method: 'POST',
-        dataType: 'json',
-        contentType: 'application/json',  // Set content type to JSON
-        data: JSON.stringify( {
-            "workOutPlanDTO": {
-                "planName": name,
-                "planDetails": details,
-                "burnsCalorieCount": calCount
+
+    if ( !name || !details || !calCount) {
+        alert("Please fill in all required fields.");
+        return;
+    }
+    if (!isValidName(name)) {
+        $('#nameErrorLabel').text("Please enter a name with 2 to 50 characters");
+        return;
+
+    } else {
+        $('#nameErrorLabel').text(""); // Clear the error label
+    }
+    if(isNaN(calCount)){
+        $('#calaryErrorLabel').text("Invalid input type");
+    }else {
+        $('#calaryErrorLabel').text("");
+    }
+    if (isValidName(name) && !isNaN(calCount)) {
+        $.ajax({
+            url: 'http://localhost:8080/api/v1/trainer/assignNewWorkout',
+            method: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',  // Set content type to JSON
+            data: JSON.stringify({
+                "workOutPlanDTO": {
+                    "planName": name,
+                    "planDetails": details,
+                    "burnsCalorieCount": calCount
+                },
+                "userDTO": {
+                    "uid": userId,
+                    "name": currUserName,
+                    "email": currUserEmail,
+                    "password": currUserPassword,
+                    "trainer_id": currUserTrainerId,
+                    "meal_plan_id": currUserMealId,
+                }
+            }),   // Convert data to JSON string
+            success: function (response) {
+                console.log(response);
+                alert("WorkOut Added successful!");
+                $('#assignNewWorkoutModal').data('bs.modal').hide();
+                $(".memberSelect").val("");
+                getAllWorkoutPlans();
             },
-            "userDTO": {
-                "uid": userId,
-                "name": currUserName,
-                "email": currUserEmail,
-                "password": currUserPassword,
-                "trainer_id": currUserTrainerId,
-                "meal_plan_id": currUserMealId,
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("WorkOut Added failed! Please check your input and try again.");
+                console.error(jqXHR.responseText);  // Log the response text for debugging
             }
-        }),   // Convert data to JSON string
-        success: function (response) {
-            console.log(response);
-            $('#assignNewWorkoutModal').data('bs.modal').hide();
-            $(".memberSelect").val("");
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.error(jqXHR.responseText);  // Log the response text for debugging
-        }
-    });
+        });
+    }
 });
 
 
