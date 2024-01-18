@@ -4,7 +4,7 @@ window.onload = function() {
     trainerEmail=localStorage.getItem('trainer-email');
     loadTrainerId();
     getAll();
-    loadAllMembersIds();
+    // loadAllMembersIds();
 
 
    console.log(trainerEmail+"ss")
@@ -12,8 +12,6 @@ window.onload = function() {
 };
 
 function getAll(){
-
-
 
     $("#cardContainer").empty();
     $.ajax({
@@ -145,19 +143,34 @@ document.getElementById("saveMeal").addEventListener('click', function () {
 
 
     $.ajax({
-        url: 'http://localhost:8080/api/v1/mealPlan/save',
+        url: 'http://localhost:8080/api/v1/trainer/assignNewMealPlan',
         method: 'POST',
         dataType: 'json',
         contentType: 'application/json',
         data: JSON.stringify({
-            "mid": meal_id,
-            "planName": meal_name,
-            "planDetails": meal_details,
-            "calorieCount": calorie
+
+            "mealPlanDTO": {
+                "planName": meal_name,
+                "planDetails": meal_details,
+                "calorieCount": calorie
+            },
+            "userDTO": {
+                "uid": memId,
+                "email": memberEmail,
+                "name":memberName,
+                "password":memberPassword,
+                "workout_id":workoutId,
+                "trainer_id":trainerIdd
+            }
+
         }),
+
+
+
+
         success: function (response) {
             console.log(response);
-            updateMemberWithMealId(meal_id);
+            // updateMemberWithMealId(meal_id);
 
             getAll();
             $('#TrainerNewMealModal').data('bs.modal').hide();
@@ -192,6 +205,7 @@ function loadTrainerId(){
 
             console.log( response.data.tid);
             trainerId=response.data.tid;
+            loadAllMembersIds();
 
 
         },
@@ -205,11 +219,13 @@ function loadTrainerId(){
 
 
 // send ajax request to load all members id to combo box
+// loadTrainerId();
 let getAllMembersResponse;
 function  loadAllMembersIds(){
+    console.log(trainerId);
 
     $.ajax({
-        url: 'http://localhost:8080/api/v1/trainer/getOneTrainer/'+1,
+        url: 'http://localhost:8080/api/v1/trainer/getOneTrainer/'+trainerId,
         method: 'GET',
         dataType: 'json',
         contentType: 'application/json',
@@ -244,15 +260,31 @@ function setMemberDataToComboBox(members) {
 
 let memId;
 let memberEmail;
+let memberName;
+let memberPassword;
+let trainerIdd;
+let workoutId
 document.getElementById("memberComboBox").addEventListener("click", function () {
     let memberId = $("#memberComboBox").val();
     console.log(memberId);
 
     $.each(getAllMembersResponse.data, function (index, members) {
-        console.log(members);
-        console.log(members.uid)
+
         memId = members.uid;
         memberEmail = members.email;
+        memberName = members.name;
+        memberPassword = members.password;
+        trainerIdd=members.trainer_id;
+        workoutId=members.workout_id;
+
+        console.log(members);
+        console.log(members.uid);
+        console.log(memberEmail);
+        console.log(memberPassword);
+        console.log(memberName);
+        console.log(trainerIdd);
+        console.log(workoutId);
+
 
         if (memberId == members.uid) {
             let memberName = members.name;
@@ -265,22 +297,30 @@ document.getElementById("memberComboBox").addEventListener("click", function () 
 
 
 // update member with meal id
-function updateMemberWithMealId(mealId) {
-    $.ajax({
-        url: 'http://localhost:8080/api/v1/user/update',
-        method: "post",
-        dataType: "json",
-        contentType: "application/json",
-        data: JSON.stringify({"uid": memId, "email": memberEmail, "meal_plan_id": mealId}),
-
-        success: function (response) {
-            console.log(response);
-        },
-
-        error: function (jqXHR) {
-            console.log(jqXHR);
-
-        }
-    })
-
-}
+// function updateMemberWithMealId(mealId) {
+//     $.ajax({
+//         url: 'http://localhost:8080/api/v1/user/update',
+//         method: "post",
+//         dataType: "json",
+//         contentType: "application/json",
+//         data: JSON.stringify({
+//             "uid": memId,
+//             "email": memberEmail,
+//             "meal_plan_id": mealId,
+//             "name":memberName,
+//             "password":memberPassword,
+//             "workout_id":workoutId,
+//             "trainer_id":trainerIdd
+//         }),
+//
+//         success: function (response) {
+//             console.log(response);
+//         },
+//
+//         error: function (jqXHR) {
+//             console.log(jqXHR);
+//
+//         }
+//     })
+//
+// }
