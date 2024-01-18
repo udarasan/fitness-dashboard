@@ -445,6 +445,7 @@
                                 <thead class="thead-light">
                                 <tr>
                                     <th scope="col">Id</th>
+                                    <th scope="col">Name</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">Category</th>
                                     <th style="display: none" scope="col">Password</th>
@@ -528,6 +529,13 @@
                         >
                     </div>
 
+
+                    <div class="mb-3">
+                        <label class="form-label" for="trainer_name">Trainer Name</label>
+                        <input class="form-control" id="trainer_name" name="name" placeholder="Enter trainer Name" type="text"
+                        >
+                        <label id="nameErrorLabel" style="color: red;"></label>
+                    </div>
                     <div class="mb-3">
                         <label class="form-label" for="trainer_email">Trainer Email</label>
                         <input class="form-control" id="trainer_email" name="email" placeholder="Enter trainer Email"
