@@ -10434,8 +10434,9 @@ a:focus {
 }
 
 .sidebar.toggled {
-  width: 0 !important;
+  z-index: 1;
   overflow: hidden;
+  position: fixed;
 }
 
 .sidebar.toggled #sidebarToggle::after {
@@ -10569,8 +10570,9 @@ a:focus {
     text-align: left;
   }
   .sidebar.toggled {
+    position: fixed !important;
     overflow: visible;
-    width: 6.5rem !important;
+
   }
   .sidebar.toggled .nav-item .collapse {
     position: absolute;

@@ -14,13 +14,14 @@ $('#btnLogin').click(function () {
         data: JSON.stringify({ "email": email, "password": password }),  // Convert data to JSON string
         success: function(response) {
             console.log(response);
-
-                localStorage.setItem("trainer-email", email);
-
+            alert("Login Successful!");
+            localStorage.setItem("trainer-email", email);
             window.location.href = '../trainer/index.html';
 
         },
         error: function(jqXHR, textStatus, errorThrown) {
+            alert("Login Failed! Please check your credentials. Also, there might be an issue with the server.");
+
             console.error(jqXHR.responseText);  // Log the response text for debugging
         }
     });
