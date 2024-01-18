@@ -1,11 +1,18 @@
 @media all and (max-width: 768px) {
     #accordionSidebar {
         position: fixed;
+        top: 0;
         z-index: 1000;
     }
 
-    #content-wrapper{
-        /*filter: brightness(0.8);*/
+    #accordionSidebar::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: calc(-100vw + 100%);
+        bottom: 0;
+        width: calc(100vw - 100%); /* Adjust the width of the dark area as needed */
+        background-color: rgba(0, 0, 0, 0.7);
     }
 
     #gymImg{
