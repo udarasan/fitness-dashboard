@@ -446,12 +446,12 @@
                             <div class="modal-body">
 
                                 <form id="trainerForm">
-                                    <div class="mb-3">
-                                        <label class="form-label" for="meal_id">Meal Plan Id</label>
-                                        <input class="form-control" id="meal_id" name="id"
-                                               placeholder="Enter Meal Id" type="text"
-                                        >
-                                    </div>
+<!--                                    <div class="mb-3">-->
+<!--                                        <label class="form-label" for="meal_id">Meal Plan Id</label>-->
+<!--                                        <input class="form-control" id="meal_id" name="id"-->
+<!--                                               placeholder="Enter Meal Id" type="text"-->
+<!--                                        >-->
+<!--                                    </div>-->
 
                                     <div class="mb-3">
                                         <label class="form-label" for="meal_name">Meal Plan Name</label>
@@ -459,6 +459,7 @@
                                                placeholder="Enter Meal Name"
                                                type="text"
                                         >
+                                        <label  id="mealPlanNameErrorLabel" style="color: red;display: none"></label>
                                     </div>
 
                                     <div class="mb-3">
@@ -466,6 +467,7 @@
                                         <input class="form-control" id="meal_plan_details" name="details"
                                                placeholder="Enter Meal Plan Details" type="text"
                                         >
+                                        <label  id="mealPlanDetailsErrorLabel" style="color: red;display: none"></label>
                                     </div>
 
                                     <div class="mb-3">
@@ -731,6 +733,7 @@
 <script src="../../vendor/jquery/jquery.min.js"></script>
 <script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../../js/validation/validation.js"></script>
 
 
 <!-- Core plugin JavaScript-->
