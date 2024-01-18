@@ -90,7 +90,7 @@
         <li class="nav-item">
             <a class="nav-link" href="workouts.html">
                 <i class="fas fa-fw fa-chart-area"></i>
-                <span>WokrOut Plan</span></a>
+                <span>WorkOut Plan</span></a>
         </li>
 
         <li class="nav-item">
@@ -291,14 +291,7 @@
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Profile
                             </a>
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Settings
-                            </a>
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Activity Log
-                            </a>
+
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" data-target="#logoutModal" data-toggle="modal" href="#">
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -320,17 +313,17 @@
 
                     <!-- Earnings (Monthly) Card Example -->
                     <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card shadow h-100 py-2">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            Earnings (Monthly)
+                                        <div class="text-xs font-weight-bold text-uppercase mb-1">
+                                            Members
                                         </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                                        <div id="membersCount" class="h5 mb-0 font-weight-bold text-gray-800">No Members</div>
                                     </div>
                                     <div class="col-auto">
-                                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+<!--                                        <i class="fas fa-calendar fa-2x text-gray-300"></i>-->
                                     </div>
                                 </div>
                             </div>
@@ -339,17 +332,17 @@
 
                     <!-- Earnings (Monthly) Card Example -->
                     <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card shadow h-100 py-2">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                            Earnings (Annual)
+                                        <div class="text-xs font-weight-bold text-uppercase mb-1">
+                                            Trainers
                                         </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                                        <div id="trainersCount" class="h5 mb-0 font-weight-bold text-gray-800">No Trainers</div>
                                     </div>
                                     <div class="col-auto">
-                                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+<!--                                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>-->
                                     </div>
                                 </div>
                             </div>
@@ -358,28 +351,19 @@
 
                     <!-- Earnings (Monthly) Card Example -->
                     <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-info shadow h-100 py-2">
+                        <div class="card shadow h-100 py-2">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
-                                        </div>
-                                        <div class="row no-gutters align-items-center">
+                                        <div class="row no-gutters align-items-center mb-1">
                                             <div class="col-auto">
-                                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="progress progress-sm mr-2">
-                                                    <div aria-valuemax="100" aria-valuemin="0"
-                                                         aria-valuenow="50" class="progress-bar bg-info"
-                                                         role="progressbar"
-                                                         style="width: 50%"></div>
-                                                </div>
+                                                <div id="workoutCount" class="h5 mb-0 mr-3 font-weight-bold text-gray-800">0</div>
                                             </div>
                                         </div>
+                                        <div id="lblWorkoutCount" class="text-xs font-weight-bold text-uppercase">Workout Plans</div>
                                     </div>
                                     <div class="col-auto">
-                                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+<!--                                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>-->
                                     </div>
                                 </div>
                             </div>
@@ -388,17 +372,17 @@
 
                     <!-- Pending Requests Card Example -->
                     <div class="col-xl-3 col-md-6 mb-4">
-                        <div class="card border-left-warning shadow h-100 py-2">
+                        <div class="card shadow h-100 py-2">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                            Pending Requests
+                                        <div id="mealCount" class="h5 mb-0 font-weight-bold text-gray-800 mb-1">0</div>
+                                        <div id="lblMealCount" class="text-xs font-weight-bold text-uppercase ">
+                                            Meal PLans
                                         </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
                                     </div>
                                     <div class="col-auto">
-                                        <i class="fas fa-comments fa-2x text-gray-300"></i>
+<!--                                        <i class="fas fa-comments fa-2x text-gray-300"></i>-->
                                     </div>
                                 </div>
                             </div>
@@ -407,24 +391,21 @@
                 </div>
 
                 <!-- Content Row -->
-
                 <div class="row">
 
                     <!-- Area Chart -->
                     <div class="col-xl-8 col-lg-7">
-                        <div class="card shadow mb-4">
+                        <div class="card shadow mb-4 ">
                             <!-- Card Header - Dropdown -->
-                            <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+                            <div class="card-header cardHeaderColor py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 ">BMI Evolution Chart</h6>
                                 <div class="dropdown no-arrow">
-                                    <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle"
-                                       data-toggle="dropdown"
-                                       href="#" id="dropdownMenuLink0" role="button">
+                                    <a class="dropdown-toggle" href="#" role="button" id="areaDropdownMenuLink"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                     </a>
-                                    <div aria-labelledby="dropdownMenuLink"
-                                         class="dropdown-menu dropdown-menu-right shadow animated--fade-in">
+                                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                         aria-labelledby="dropdownMenuLink">
                                         <div class="dropdown-header">Dropdown Header:</div>
                                         <a class="dropdown-item" href="#">Action</a>
                                         <a class="dropdown-item" href="#">Another action</a>
@@ -434,7 +415,7 @@
                                 </div>
                             </div>
                             <!-- Card Body -->
-                            <div class="card-body">
+                            <div class="card-body chartCardBody">
                                 <div class="chart-area">
                                     <canvas id="myAreaChart"></canvas>
                                 </div>
@@ -442,57 +423,51 @@
                         </div>
                     </div>
 
-                    <!-- Pie Chart -->
-                    <div class="col-xl-4 col-lg-5">
-                        <div class="card shadow mb-4">
+                    <div class="col-xl-4 col-lg-5 mb-2">
+                        <div class="card shadow mb-4 toggleCard">
                             <!-- Card Header - Dropdown -->
-                            <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
-                                <div class="dropdown no-arrow">
-                                    <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle"
-                                       data-toggle="dropdown"
-                                       href="#" id="dropdownMenuLink1" role="button">
-                                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                    </a>
-                                    <div aria-labelledby="dropdownMenuLink"
-                                         class="dropdown-menu dropdown-menu-right shadow animated--fade-in">
-                                        <div class="dropdown-header">Dropdown Header:</div>
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-                                    </div>
-                                </div>
+                            <div class="card-header cardHeaderColor py-3 px-0 d-flex flex-row align-items-center justify-content-between">
+                                <ul class="list-unstyled d-flex my-auto ">
+                                    <li class="mx-3 liWorkout">
+                                        <h6 id="workoutLink" class="m-0">Workout Plan</h6>
+                                    </li>
+                                    <li>
+                                        <h6 id="mealLink" class="m-0">Meal Plan</h6>
+                                    </li>
+                                </ul>
+                                <!--                                <div class="dropdown no-arrow">-->
+                                <!--                                    <a class="dropdown-toggle" href="#" role="button" id="pieDropdownMenuLink"-->
+                                <!--                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                                <!--                                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>-->
+                                <!--                                    </a>-->
+                                <!--                                    <div class="dropdown-menu dropdown-menu-right shadow animated&#45;&#45;fade-in"-->
+                                <!--                                         aria-labelledby="dropdownMenuLink">-->
+                                <!--                                        <div class="dropdown-header">Dropdown Header:</div>-->
+                                <!--                                        <a class="dropdown-item" href="#">Action</a>-->
+                                <!--                                        <a class="dropdown-item" href="#">Another action</a>-->
+                                <!--                                        <div class="dropdown-divider"></div>-->
+                                <!--                                        <a class="dropdown-item" href="#">Something else here</a>-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
                             </div>
                             <!-- Card Body -->
-                            <div class="card-body">
-                                <div class="chart-pie pt-4 pb-2">
-                                    <canvas id="myPieChart"></canvas>
-                                </div>
-                                <div class="mt-4 text-center small">
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Direct
-                                        </span>
-                                    <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Social
-                                        </span>
-                                    <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> Referral
-                                        </span>
-                                </div>
+                            <div class="card-body mealTab">
+                                <label id="lblMealPLanName" class="mb-3"></label>
+                                <p id="pMealTab"></p>
+                                <label id="lblMealCalories" class="small"></label>
+                            </div>
+                            <div class="card-body workoutTab">
+                                <label id="lblWorkPLanName" class="mb-3"></label>
+                                <p id="pWorkTab"></p>
+                                <label id="lblWorkCalories" class="small"></label>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
             <!--                End Dashboard-->
-
-
         </div>
         <!-- End of Main Content -->
-
 
         <!-- Footer -->
         <footer class="sticky-footer bg-white">
@@ -534,17 +509,11 @@
         </div>
     </div>
 </div>
-
-
-
-<!--new trainer model-->
-
 <!--end-->
 
 <!-- Bootstrap core JavaScript-->
 <script src="../../vendor/jquery/jquery.min.js"></script>
 <script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
 
 <!-- Core plugin JavaScript-->
 <script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
@@ -558,9 +527,9 @@
 <!-- Page level custom scripts -->
 <script src="../../js/demo/chart-area-demo.js"></script>
 <script src="../../js/demo/chart-pie-demo.js"></script>
+
+<script src="../../js/AdminDashboard.js"></script>
 <script src="../../js/sidebarManage.js"></script>
 
-
 </body>
-
 </html>

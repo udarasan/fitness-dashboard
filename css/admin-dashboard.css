@@ -103,3 +103,9 @@
     font-size: 13px;
     color: white;
 }
+
+.cardHeaderColor{
+    background-color: #2d324a;
+    color: #fff !important;
+    font-weight: 400 !important;
+}

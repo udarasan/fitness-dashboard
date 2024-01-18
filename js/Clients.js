@@ -45,11 +45,7 @@ function getClientsWithTrainer() {
         contentType: 'application/json',
 
         success: function (response) {
-            let client = response.data;
-            if (client.length === 0) {
-                alert("No clients found.");
-                return;
-            }
+
 
             console.log(response.data);
             $.each(response.data, function (index, client) {
