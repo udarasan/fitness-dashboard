@@ -6,36 +6,25 @@ $(document).ready(function () {
 $('#deleteEquip').click(function () {
 
     let id = $('#eId').val();
-    Swal.fire({
-        title: 'Are you sure?',
-        text: 'You are about to delete this record!',
-        icon: 'warning', // warning icon
-        showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'Close'
-    }).then((result) => {
-        if (result.isConfirmed) {
+
             // Make the AJAX request
             $.ajax({
                 url: 'http://localhost:8080/api/v1/equipment/delete/' + id,
                 method: 'DELETE',
                 contentType: 'application/json',  // Set content type to JSON
                 success: function (response) {
-                    Swal.fire('Deleted!', 'Your record has been deleted.', 'success');
+                    alert("Equipment Delete successful!");
                     $('#equipmentModal').modal('hide');
                     getAllEquipments()
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
+                    alert("Equipment Delete failed! Please check your input and try again.");
                     console.error(jqXHR.responseText);  // Log the response text for debugging
                 }
             });
 
 
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-            // User clicked "Close" or outside the modal
-            Swal.fire('Cancelled', 'Your record is safe :)', 'info');
-        }
-    });
+
 
 });
 
@@ -45,6 +34,17 @@ $('#updateEquip').click(function () {
     let desc = $('#equipDesc').val();
     let date = $('#date').val();
 
+    if ( !name || !desc || !date) {
+        alert("Please fill in all required fields.");
+        return;
+    }
+    if (!isValidName(name)) {
+        $('#nameErrorLabel').text("Please enter a name with 2 to 50 characters");
+        return;
+
+    } else {
+        $('#nameErrorLabel').text(""); // Clear the error label
+    }
 
     // Make the AJAX request
     $.ajax({
@@ -56,10 +56,12 @@ $('#updateEquip').click(function () {
         data: JSON.stringify({"eid": eid, "equipmentName": name, "equipmentDetail": desc, "purchaseDate": date,}),  // Convert data to JSON string
         success: function (response) {
             console.log(response);
+            alert("Equipment Update successful!");
             $('#equipmentModal').modal('hide');
             getAllEquipments()
         },
         error: function (jqXHR, textStatus, errorThrown) {
+            alert("Equipment Update failed! Please check your input and try again.");
             console.error(jqXHR.responseText);  // Log the response text for debugging
         }
     });
@@ -73,6 +75,17 @@ $('#addEquip').click(function () {
     let desc = $('#equipDesc').val();
     let date = $('#date').val();
 
+    if ( !name || !desc || !date) {
+        alert("Please fill in all required fields.");
+        return;
+    }
+    if (!isValidName(name)) {
+        $('#nameErrorLabel').text("Please enter a name with 2 to 50 characters");
+        return;
+
+    } else {
+        $('#nameErrorLabel').text(""); // Clear the error label
+    }
 
     $.ajax({
         url: 'http://localhost:8080/api/v1/equipment/save',
@@ -83,11 +96,13 @@ $('#addEquip').click(function () {
         data: JSON.stringify({"equipmentName": name, "equipmentDetail": desc, "purchaseDate": date,}),  // Convert data to JSON string
         success: function (response) {
             console.log(response);
+            alert("Equipment Added successful!");
             $('#equipmentModal').modal('hide');
             getAllEquipments()
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
+            alert("Equipment Added failed! Please check your input and try again.");
             console.error(jqXHR.responseText);  // Log the response text for debugging
         }
 
@@ -108,7 +123,10 @@ function getAllEquipments() {
             console.log(response.data);
             console.log(response.data);
             memberList = response.data;
-
+            if (memberList.length === 0) {
+                alert("No equipments found.");
+                return;
+            }
             $.each(response.data, function (index, equipment) {
                 let row = `<tr><td>${equipment.eid}</td><td>${equipment.equipmentName}</td><td>${equipment.equipmentDetail}</td><td>${equipment.purchaseDate}</td></tr>`;
                 $('#tblEquip').append(row);
@@ -116,6 +134,7 @@ function getAllEquipments() {
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
+            alert("Failed to retrieve equipments. Please try again.");
             console.error(jqXHR.responseText);  // Log the response text for debugging
         }
     });
@@ -145,6 +164,7 @@ $('#tblEquip').on('click', 'tr', function () {
 $('#closeBtn').click(function () {
     $('#updateEquip').css("display", 'none');
     $('#deleteEquip').css("display", 'none');
+    $('#nameErrorLabel').text("");
 });
 $('#addEquipment').click(function () {
     $('#updateEquip').css("display", 'none');
@@ -154,5 +174,6 @@ $('#addEquipment').click(function () {
     $('#equipName').val("");
     $('#equipDesc').val("");
     $('#date').val("");
+    $('#nameErrorLabel').text("");
 
 });
