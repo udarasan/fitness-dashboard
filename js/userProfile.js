@@ -20,9 +20,17 @@ function getDataToAreaChart(uId,userData){
         contentType: 'application/json',  // Set content type to JSON
         success: function (response) {
             progressList=response.data;
+            console.log(progressList)
             let currentProgressValues = progressList[progressList.length - 1];
-             cheight = currentProgressValues.height;
-            cweight = currentProgressValues.weight;
+            if (progressList.length!==0){
+                cheight = currentProgressValues.height;
+                cweight = currentProgressValues.weight;
+            }else {
+                cheight = "Not Added Height";
+                cweight = "Not Added Weight";
+            }
+
+
              console.log(cheight);
             loadUserDetailsInFields(
                 uId,
