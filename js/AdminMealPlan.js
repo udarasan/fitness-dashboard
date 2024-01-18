@@ -1,8 +1,7 @@
 // meal plan Get All
-window.onload = function() {
+window.onload = function () {
     getAll();
     loadAllMembersIds();
-
     console.log('Window has fully loaded!');
 };
 
@@ -22,7 +21,6 @@ function getAll() {
                 appendMealSection(mealPlan);
                 console.log(mealPlan);
 
-
             });
 
         },
@@ -30,7 +28,6 @@ function getAll() {
             console.error(jqXHR.responseText);  // Log the response text for debugging
         }
     });
-
 
 }
 
@@ -139,16 +136,15 @@ document.getElementById("saveMeal").addEventListener('click', function () {
     let meal_details = $("#meal_plan_details").val();
     let calorie = $("#calorie").val();
 
-    if(meal_name==="" || meal_details==="" || calorie==="") {
+    if (meal_name === "" || meal_details === "" || calorie === "") {
         alert("please fill all empty fields !!");
-    }else{
+    } else {
 
-        if(isValidName(meal_name)){
-            $("#mealPlanNameErrorLabel").css("display","none");
-
-            if (isValidName(meal_details)){
-                $("#mealPlanDetailsErrorLabel").css("display","none");
-                if(!isNaN(calorie)){
+        if (isValidName(meal_name)) {
+            $("#mealPlanNameErrorLabel").css("display", "none");
+            if (isValidName(meal_details)) {
+                $("#mealPlanDetailsErrorLabel").css("display", "none");
+                if (!isNaN(calorie)) {
                     $.ajax({
                         url: 'http://localhost:8080/api/v1/mealPlan/save',
                         method: 'POST',
@@ -174,25 +170,23 @@ document.getElementById("saveMeal").addEventListener('click', function () {
                             console.log(jqXHR);
                         }
                     })
-                }else{
-                    alert("Invalid input type")
+                } else {
+                    let errorLabel = $("#mealPlanCalorieErrorLabel");
+                    errorLabel.css("display", "inline");
+                    errorLabel.text("EInvalid input type !");
                 }
-            }else{
-                let errorLabel=$("#mealPlanDetailsErrorLabel");
+            } else {
+                let errorLabel = $("#mealPlanDetailsErrorLabel");
                 errorLabel.css("display", "inline");
                 errorLabel.text("Enter minimum 2 characters !");
             }
-        }else{
-            let errorLabel=$("#mealPlanNameErrorLabel");
+        } else {
+            let errorLabel = $("#mealPlanNameErrorLabel");
             errorLabel.css("display", "inline");
             errorLabel.text("Enter minimum 2 characters !");
         }
 
-
     }
-
-
-
 
 })
 
@@ -203,22 +197,70 @@ document.getElementById("updateMeal").addEventListener('click', function () {
     let meal_details = $("#Update_meal_plan_details").val();
     let calorie = $("#Update_calorie").val();
 
-    $.ajax({
-        url: 'http://localhost:8080/api/v1/mealPlan/update',
-        method: "post",
-        dataType: "json",
-        contentType: "application/json;",
-        data: JSON.stringify({
-            "mid": meal_id,
-            "planName": meal_name,
-            "planDetails": meal_details,
-            "calorieCount": calorie
-        }),
+    if (meal_name === "" || meal_details === "" || calorie === "") {
+        alert("please fill all empty fields !!");
+    } else {
 
+        if (isValidName(meal_name)) {
+            $("#UpdateMealPlanNameErrorLabel").css("display", "none");
+
+            if (isValidName(meal_details)) {
+                $("#UpdateMealPlanDetailsErrorLabel").css("display", "none");
+
+                if (!isNaN(calorie)) {
+                    $("#UpdateMealPlanCalorieErrorLabel").css("display", "none");
+                    $.ajax({
+                        url: 'http://localhost:8080/api/v1/mealPlan/update',
+                        method: "post",
+                        dataType: "json",
+                        contentType: "application/json;",
+                        data: JSON.stringify({
+                            "mid": meal_id,
+                            "planName": meal_name,
+                            "planDetails": meal_details,
+                            "calorieCount": calorie
+                        }),
+
+                        success: function (response) {
+                            console.log(response);
+                            $('#updateMealModal').data('bs.modal').hide();
+                            getAll();
+
+                        },
+
+                        error: function (jqXHR) {
+                            console.log(jqXHR);
+                        }
+                    })
+                } else {
+                    let errorLabel = $("#UpdateMealPlanCalorieErrorLabel");
+                    errorLabel.css("display", "inline");
+                    errorLabel.text("Invalid input type !");
+                }
+
+            } else {
+                let errorLabel = $("#UpdateMealPlanDetailsErrorLabel");
+                errorLabel.css("display", "inline");
+                errorLabel.text("Enter minimum 2 characters !");
+            }
+        } else {
+            let errorLabel = $("#UpdateMealPlanNameErrorLabel");
+            errorLabel.css("display", "inline");
+            errorLabel.text("Enter minimum 2 characters !");
+        }
+    }
+
+})
+
+document.getElementById("deleteMeal").addEventListener('click', function () {
+    let id = $("#delete_meal_id").val();
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/mealPlan/delete/' + id,
+        method: "DELETE",
         success: function (response) {
-            console.log(response);
-            $('#updateMealModal').data('bs.modal').hide();
+            console.log(response)
             getAll();
+            $('#deleteMealModal').data('bs.modal').hide();
 
         },
 
@@ -226,42 +268,6 @@ document.getElementById("updateMeal").addEventListener('click', function () {
             console.log(jqXHR);
         }
     })
-})
-
-document.getElementById("deleteMeal").addEventListener('click', function () {
-    let id = $("#delete_meal_id").val();
-
-    Swal.fire({
-        title: 'Are you sure?',
-        text: 'You are about to delete this record!',
-        icon: 'warning', // warning icon
-        showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'Close'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-                url: 'http://localhost:8080/api/v1/mealPlan/delete/' + id,
-                method: "DELETE",
-                success: function (response) {
-                    console.log(response)
-                    getAll();
-
-                    $('#deleteMealModal').data('bs.modal').hide();
-                    Swal.fire('Deleted!', 'Your record has been deleted.', 'success');
-                },
-
-                error: function (jqXHR) {
-                    console.log(jqXHR);
-                }
-            })
-
-
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-            // User clicked "Close" or outside the modal
-            Swal.fire('Cancelled', 'Your record is safe :)', 'info');
-        }
-    });
 
 
 })
@@ -288,8 +294,8 @@ function setDeleteModalContent(mealPlanName, mealPlanDetails, calorie, mealId) {
 
 // method to set data to assign modal text fields
 function setAssignModalContent(mealID, mealPlanName, mealPlanDetails, calorie) {
-  let miniMealDataCard=  $(".miniMealDataCard").empty();
-  miniMealDataCard.empty();
+    let miniMealDataCard = $(".miniMealDataCard").empty();
+    miniMealDataCard.empty();
     $("#assign_meal_id").val(mealID);
 
     let miniCard = `<section class="mx-3 my-5" style="max-width: 15rem;">
@@ -324,7 +330,8 @@ function setAssignModalContent(mealID, mealPlanName, mealPlanDetails, calorie) {
 
 // send ajax request to load all members id to combo box
 let getAllMembersResponse;
-function  loadAllMembersIds(){
+
+function loadAllMembersIds() {
     $.ajax({
         url: 'http://localhost:8080/api/v1/user/getAllUsers',
         method: 'GET',
@@ -372,20 +379,20 @@ document.getElementById("memberComboBox").addEventListener("click", function () 
 
 
         if (memberId == members.uid) {
-             memberName = members.name;
+            memberName = members.name;
             $("#Member_name").val(memberName);
 
             memId = members.uid;
             memberEmail = members.email;
-            memberName=members.name;
-            memberPassword=members.password;
-            trainerId=members.trainer_id;
-            mealId=members.meal_plan_id;
-            workoutId=members.workout_id;
+            memberName = members.name;
+            memberPassword = members.password;
+            trainerId = members.trainer_id;
+            mealId = members.meal_plan_id;
+            workoutId = members.workout_id;
 
             console.log(memberId);
             console.log(memberEmail);
-            console.log( memberName);
+            console.log(memberName);
             console.log(memberPassword);
             console.log(trainerId);
             console.log(mealId);
@@ -414,13 +421,14 @@ document.getElementById("assignMealPlanBtn").addEventListener('click', function 
         dataType: "json",
         contentType: "application/json",
         data: JSON.stringify(
-            {"uid": memId,
+            {
+                "uid": memId,
                 "email": memberEmail,
                 "meal_plan_id": mealId,
-                "name":memberName,
-                "password":memberPassword,
-                "workout_id":workoutId,
-                "trainer_id":trainerId
+                "name": memberName,
+                "password": memberPassword,
+                "workout_id": workoutId,
+                "trainer_id": trainerId
 
             }),
 
