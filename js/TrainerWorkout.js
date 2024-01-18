@@ -1,6 +1,8 @@
 $(document).ready(function () {
+    $("#trainerEmail").text(localStorage.getItem("trainer-email"));
     getAllWorkoutPlans();
     loadMembers();
+
 
     $('#searchWorkoutPlans').on('input', function () {
         var newValue = $(this).val();

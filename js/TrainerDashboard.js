@@ -7,6 +7,7 @@ let totalWorkoutsCount;
 
 window.onload = function () {
     trainerEmail = localStorage.getItem('trainer-email');
+    $("#trainerEmail").text(trainerEmail);
     loadTrainerIdUsingEmail(trainerEmail)
     loadAndCountTotalMealPlans();
     loadAndCountTotalWorkoutPlans();
