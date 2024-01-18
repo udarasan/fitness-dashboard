@@ -21,6 +21,7 @@
     <link href="../../css/sb-admin-2.min.css" rel="stylesheet">
     <link href="../../css/admin-dashboard.css" rel="stylesheet">
     <link href="../../css/sidebarManage.css" rel="stylesheet">
+    <link href="../../css/trainer-client.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -392,6 +393,38 @@
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                 <a class="btn btn-primary" href="../../pages/auth/login.html">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--progress model-->
+<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="progressModal" role="dialog"
+     tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="">Client's Progress</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-responsive border">
+                    <thead>
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Height(cm)</th>
+                        <th scope="col">Weight(kg)</th>
+                        <th scope="col">BMI(kgm-2)</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tblClientProgress">
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal" type="button">Cancel</button>
             </div>
         </div>
     </div>

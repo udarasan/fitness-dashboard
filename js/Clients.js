@@ -61,3 +61,37 @@ function getClientsWithTrainer() {
     });
 
 }
+
+$('#tblMember').on('click', 'tr', function () {
+    $('#tblClientProgress').empty();
+    let memberId = $(this).find('td:first').text();
+
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/progress/getAllProgress/'+memberId,
+        method: 'GET',
+
+        contentType: 'application/json',  // Set content type to JSON
+        success: function (response) {
+            progressList=response.data;
+
+            $.each(progressList, function (index, progress) {
+                date = progress.date;
+                height = progress.height;
+                weight = progress.weight;
+
+                currentHeightInMeters = height / 100;
+
+                bmi = parseFloat((weight / (currentHeightInMeters * currentHeightInMeters)).toFixed(1));
+
+                row = `<tr><td>${date}</td><td>${height}</td><td>${weight}</td><td>${bmi}</td></tr>`;
+                $('#tblClientProgress').append(row);
+            });
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error(jqXHR.responseText);  // Log the response text for debugging
+        }
+    });
+
+    $('#progressModal').modal('show');
+});

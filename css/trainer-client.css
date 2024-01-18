@@ -1,0 +1,11 @@
+@media (min-width: 576px){
+    #progressModal .modal-dialog {
+        max-width: 570px;
+    }
+
+    #progressModal .table {
+        width: max-content;
+        margin-right: auto;
+        margin-left: auto;
+    }
+}
