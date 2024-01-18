@@ -27,13 +27,13 @@ $("#modalAddNew").click(function () {
     } else {
         $('#nameErrorLabel').text(""); // Clear the error label
     }
-    if(!isNaN(calCount)){
+    if(isNaN(calCount)){
         $('#calaryErrorLabel').text("Invalid input type");
     }else {
         $('#calaryErrorLabel').text("");
     }
 
-    if (isValidName(name) && isNaN(calCount)) {
+    if (isValidName(name) && !isNaN(calCount)) {
         // Make the AJAX request
         $.ajax({
             url: 'http://localhost:8080/api/v1/workoutplan/save',
@@ -43,11 +43,14 @@ $("#modalAddNew").click(function () {
             data: JSON.stringify({"planName": name, "planDetails": details, "burnsCalorieCount": calCount}),  // Convert data to JSON string
             success: function (response) {
                 console.log(response);
+
                 $(".gridContainer").empty();
+                alert("WorkOut Added successful!");
                 getAllWorkoutPlans();
                 $("#newWorkoutModal").data('bs.modal').hide();
             },
             error: function (jqXHR, textStatus, errorThrown) {
+                alert("WorkOut Added failed! Please check your input and try again.");
                 console.error(jqXHR.responseText);  // Log the response text for debugging
             }
         });
@@ -110,7 +113,13 @@ function getAllWorkoutPlans() {
         dataType: 'json',
         contentType: 'application/json',  // Set content type to JSON
         success: function (response) {
+            let workout = response.data;
+            if (workout.length === 0) {
+                alert("No workouts found.");
+                return;
+            }
             $.each(response.data, function (index, workOut) {
+
                 let card = `<div class="card workoutCard text-left p-0 ">
                             <div class="card-header px-4">
                                 ${workOut.planName}                            
@@ -142,6 +151,7 @@ function getAllWorkoutPlans() {
             btnAssignOnClick();
         },
         error: function (jqXHR, textStatus, errorThrown) {
+            alert("Failed to retrieve workouts. Please try again.");
             console.error(jqXHR.responseText);  // Log the response text for debugging
         }
     });
@@ -181,22 +191,42 @@ $("#modalUpdateBtn").click(function () {
     let details = $("#updPlanDetails").val();
     let calCount = $("#updPlanCalorieCount").val();
 
-    $.ajax({
-        url: 'http://localhost:8080/api/v1/workoutplan/update',
-        method: 'POST',
-        dataType: 'json',
-        contentType: 'application/json',  // Set content type to JSON
-        data: JSON.stringify({"wid": id, "planName": name, "planDetails": details, "burnsCalorieCount": calCount}),  // Convert data to JSON string
-        success: function (response) {
-            $("#updateWorkoutModal").data('bs.modal').hide();
-            console.log(response);
-            $(".gridContainer").empty();
-            getAllWorkoutPlans();
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.error(jqXHR.responseText);  // Log the response text for debugging
-        }
-    });
+    if ( !name || !details || !calCount) {
+        alert("Please fill in all required fields.");
+        return;
+    }
+    if (!isValidName(name)) {
+        $('#unameErrorLabel').text("Please enter a name with 2 to 50 characters");
+        return;
+
+    } else {
+        $('#unameErrorLabel').text(""); // Clear the error label
+    }
+    if(isNaN(calCount)){
+        $('#ucalaryErrorLabel').text("Invalid input type");
+    }else {
+        $('#ucalaryErrorLabel').text("");
+    }
+    if (isValidName(name) && !isNaN(calCount)) {
+        $.ajax({
+            url: 'http://localhost:8080/api/v1/workoutplan/update',
+            method: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',  // Set content type to JSON
+            data: JSON.stringify({"wid": id, "planName": name, "planDetails": details, "burnsCalorieCount": calCount}),  // Convert data to JSON string
+            success: function (response) {
+                alert("Workout Update successful!");
+                $("#updateWorkoutModal").data('bs.modal').hide();
+                console.log(response);
+                $(".gridContainer").empty();
+                getAllWorkoutPlans();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("Workout Update failed! Please check your input and try again.");
+                console.error(jqXHR.responseText);  // Log the response text for debugging
+            }
+        });
+    }
 });
 
 function btnDeleteOnClick(){
@@ -204,37 +234,28 @@ function btnDeleteOnClick(){
         let workoutCard = $(this).parents("div.workoutCard");
         let deleteId = workoutCard.children("div.card-body").children("input.hiddenWorkoutId").val();
 
-        Swal.fire({
-            title: 'Are you sure?',
-            text: 'You are about to delete this record!',
-            icon: 'warning', // warning icon
-            showCancelButton: true,
-            confirmButtonText: 'Yes, delete it!',
-            cancelButtonText: 'Close'
-        }).then((result) => {
-            if (result.isConfirmed) {
+
                 $.ajax({
                     url: 'http://localhost:8080/api/v1/workoutplan/delete/'+ deleteId,
                     method: 'DELETE',
                     contentType: 'application/json',  // Set content type to JSON
                     success: function (response) {
                         console.log(response);
+                        alert("Workout Delete successful!");
                         $(".gridContainer").empty();
                         getAllWorkoutPlans();
-                        Swal.fire('Deleted!', 'Your record has been deleted.', 'success');
+
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
+                        alert("Workout Delete failed! Please check your input and try again.");
                         console.error(jqXHR.responseText);  // Log the response text for debugging
                     }
                 });
 
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                // User clicked "Close" or outside the modal
-                Swal.fire('Cancelled', 'Your record is safe :)', 'info');
-            }
+
         });
-    });
-}
+    }
+
 
 let workoutId;
 function btnAssignOnClick(){
