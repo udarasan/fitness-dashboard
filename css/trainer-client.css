@@ -9,3 +9,7 @@
         margin-left: auto;
     }
 }
+
+#tableRowMember .card-header{
+    padding: 0px;
+}
