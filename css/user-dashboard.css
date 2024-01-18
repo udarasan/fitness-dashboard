@@ -65,8 +65,6 @@ body{
 
 @media all and (max-width: 650px) {
     .trainerIdCard,.currBmiCard{
-        margin-right: 10px !important;
-        margin-left: 10px !important;
         border-radius: 5px !important;
     }
 
@@ -76,16 +74,12 @@ body{
     }
 
     .mainContainer{
-        padding-left: 0px;
-        padding-right: 0px;
+        padding-left: 10px;
+        padding-right: 10px;
     }
 
     .card{
-        border-radius: 0px !important;
-        /*border-width: 2px;*/
         box-shadow: none !important;
-        margin-right: -10px;
-        margin-left: -10px;
     }
 
     .card-body{
@@ -99,11 +93,6 @@ body{
 
     .navbar{
         box-shadow: none !important;
-    }
-
-    .chartCardBody{
-        padding: 5px;
-        padding-left: 10px !important;
     }
 
     .liWorkout{
