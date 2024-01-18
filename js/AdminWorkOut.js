@@ -15,6 +15,19 @@ $("#modalAddNew").click(function () {
     let details = $('#planDetails').val();
     let calCount = $('#planCalorieCount').val();
 
+
+    if ( !name || !details || !calCount) {
+        alert("Please fill in all required fields.");
+        return;
+    }
+    if (!isValidName(name)) {
+        $('#nameErrorLabel').text("Please enter a name with 2 to 50 characters");
+        return;
+
+    } else {
+        $('#nameErrorLabel').text(""); // Clear the error label
+    }
+
     // Make the AJAX request
     $.ajax({
         url: 'http://localhost:8080/api/v1/workoutplan/save',
