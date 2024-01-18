@@ -1,4 +1,4 @@
-
+$('#nameLbl').text(localStorage.getItem("name"));
 let height;
 let weight;
 let userProfileMain=$(".userProfileMain");

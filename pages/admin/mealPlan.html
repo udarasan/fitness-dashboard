@@ -464,9 +464,9 @@
 
                                     <div class="mb-3">
                                         <label class="form-label" for="meal_plan_details">Meal Plan Details</label>
-                                        <input class="form-control" id="meal_plan_details" name="details"
+                                        <textarea class="form-control" id="meal_plan_details" name="details"
                                                placeholder="Enter Meal Plan Details" type="text"
-                                        >
+                                        ></textarea>
                                         <label  id="mealPlanDetailsErrorLabel" style="color: red;display: none"></label>
                                     </div>
 
@@ -477,6 +477,7 @@
                                                type="text"
                                         >
                                     </div>
+                                    <label  id="mealPlanCalorieErrorLabel" style="color: red;display: none"></label>
 
                                 </form>
 
@@ -507,8 +508,8 @@
 
                                 <form id="trainerUpdateForm">
                                     <div class="mb-3">
-                                        <label class="form-label" for="Update_meal_id">Meal Plan Id</label>
-                                        <input class="form-control" id="Update_meal_id" name="id"
+                                        <label class="form-label d-none"  for="Update_meal_id">Meal Plan Id</label>
+                                        <input class="form-control d-none" id="Update_meal_id" name="id"
                                                placeholder="Enter Meal Id" type="text"
                                         >
                                     </div>
@@ -519,14 +520,16 @@
                                                placeholder="Enter Meal Name"
                                                type="text"
                                         >
+                                        <label  id="UpdateMealPlanNameErrorLabel" style="color: red;display: none"></label>
                                     </div>
 
                                     <div class="mb-3">
                                         <label class="form-label" for="Update_meal_plan_details">Meal Plan
                                             Details</label>
-                                        <input class="form-control" id="Update_meal_plan_details" name="details"
+                                        <textarea class="form-control" id="Update_meal_plan_details" name="details"
                                                placeholder="Enter Meal Plan Details" type="text"
-                                        >
+                                        ></textarea>
+                                        <label  id="UpdateMealPlanDetailsErrorLabel" style="color: red;display: none"></label>
                                     </div>
 
                                     <div class="mb-3">
@@ -536,6 +539,7 @@
                                                type="text"
                                         >
                                     </div>
+                                    <label  id="UpdateMealPlanCalorieErrorLabel" style="color: red;display: none"></label>
 
                                 </form>
 
@@ -567,8 +571,8 @@
 
                                 <form id="trainerDeleteForm">
                                     <div class="mb-3">
-                                        <label class="form-label" for="delete_meal_id">Meal Plan Id</label>
-                                        <input class="form-control" id="delete_meal_id" name="id"
+                                        <label class="form-label d-none" for="delete_meal_id">Meal Plan Id</label>
+                                        <input class="form-control d-none" id="delete_meal_id" name="id"
                                                placeholder="Enter Meal Id" type="text"
                                         >
                                     </div>
@@ -584,9 +588,9 @@
                                     <div class="mb-3">
                                         <label class="form-label" for="delete_meal_plan_details">Meal Plan
                                             Details</label>
-                                        <input class="form-control" id="delete_meal_plan_details" name="details"
+                                        <textarea class="form-control" id="delete_meal_plan_details" name="details"
                                                placeholder="Enter Meal Plan Details" type="text"
-                                        >
+                                        ></textarea>
                                     </div>
 
                                     <div class="mb-3">

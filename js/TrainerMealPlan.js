@@ -1,23 +1,21 @@
-
-let  trainerEmail;
-window.onload = function() {
-    trainerEmail=localStorage.getItem('trainer-email');
+let trainerEmail;
+window.onload = function () {
+    trainerEmail = localStorage.getItem('trainer-email');
     loadTrainerId();
     getAll();
     // loadAllMembersIds();
 
-
-   console.log(trainerEmail+"ss")
+    console.log(trainerEmail + "ss")
     console.log('Window has fully loaded!');
 };
 
-function getAll(){
+function getAll() {
 
     $("#cardContainer").empty();
     $.ajax({
-        url:'http://localhost:8080/api/v1/mealPlan/getAllMealPlans',
-        method:"GET",
-        success:function (response){
+        url: 'http://localhost:8080/api/v1/mealPlan/getAllMealPlans',
+        method: "GET",
+        success: function (response) {
             console.log(response)
 
             $.each(response.data, function (index, mealPlan) {
@@ -28,12 +26,11 @@ function getAll(){
             });
         },
 
-        error:function (XHR){
+        error: function (XHR) {
             console.log(XHR);
         }
     })
 }
-
 
 // add new card to meal section using get all data
 function appendMealSection(mealPlan) {
@@ -95,7 +92,7 @@ function appendMealSection(mealPlan) {
         let mealPlanDetails = card.find('#mealPlanDetail').text();
         let calorie = card.find('#mealPlanCalorie').text();
 
-        setUpdateModalContent(mealPlanName, mealPlanDetails, calorie, mealId);
+        setTrainerUpdateModalContent(mealPlanName, mealPlanDetails, calorie, mealId);
 
 
     })
@@ -113,100 +110,218 @@ function appendMealSection(mealPlan) {
         let mealPlanDetails = card.find('#mealPlanDetail').text();
         let calorie = card.find('#mealPlanCalorie').text();
 
-        setDeleteModalContent(mealPlanName, mealPlanDetails, calorie, mealId);
+        setTrainerDeleteModalContent(mealPlanName, mealPlanDetails, calorie, mealId);
 
     })
 
     // click event to assign data to assign modal
-    $(".assign").click(function () {
-        let card = $(this).closest('.card');
-
-        let mealID = card.find("#mealId").text();
-        let mealPlanName = card.find('#mealPlanName').text();
-        let mealPlanDetails = card.find('#mealPlanDetail').text();
-        let calorie = card.find('#mealPlanCalorie').text();
-
-
-        setAssignModalContent(mealID, mealPlanName, mealPlanDetails, calorie);
-    })
+    // $(".assign").click(function () {
+    //     let card = $(this).closest('.card');
+    //
+    //     let mealID = card.find("#mealId").text();
+    //     let mealPlanName = card.find('#mealPlanName').text();
+    //     let mealPlanDetails = card.find('#mealPlanDetail').text();
+    //     let calorie = card.find('#mealPlanCalorie').text();
+    //
+    //
+    //     setAssignModalContent(mealID, mealPlanName, mealPlanDetails, calorie);
+    // })
 
 }
 
+function setTrainerUpdateModalContent(mealPlanName, mealPlanDetails, calorie, mealId) {
+    $("#Update_meal_id").val(mealId);
+    $("#Update_meal_name").val(mealPlanName);
+    $("#Update_meal_plan_details").val(mealPlanDetails);
+    $("#Update_calorie").val(calorie);
+
+}
+
+function setTrainerDeleteModalContent(mealPlanName, mealPlanDetails, calorie, mealId) {
+    $("#delete_meal_id").val(mealId);
+    $("#delete_meal_name").val(mealPlanName);
+    $("#delete_meal_plan_details").val(mealPlanDetails);
+    $("#delete_calorie").val(calorie);
+}
 
 
 // meal plan save method
 document.getElementById("saveMeal").addEventListener('click', function () {
-    let meal_id = $("#meal_id").val();
+    // let meal_id = $("#meal_id").val();
     let meal_name = $("#meal_name").val();
     let meal_details = $("#meal_plan_details").val();
     let calorie = $("#calorie").val();
 
+    if (isValidName(meal_name)) {
+        $("#TrainerMealPlanNameErrorLabel").css("display", "none");
+        if (isValidName(meal_details)) {
+            $("#TrainerMealPlanDetailErrorLabel").css("display", "none");
 
-    $.ajax({
-        url: 'http://localhost:8080/api/v1/trainer/assignNewMealPlan',
-        method: 'POST',
-        dataType: 'json',
-        contentType: 'application/json',
-        data: JSON.stringify({
+            if (!isNaN(calorie)) {
+                $("#TrainerMealPlanCalorieErrorLabel").css("display", "none");
 
-            "mealPlanDTO": {
-                "planName": meal_name,
-                "planDetails": meal_details,
-                "calorieCount": calorie
-            },
-            "userDTO": {
-                "uid": memId,
-                "email": memberEmail,
-                "name":memberName,
-                "password":memberPassword,
-                "workout_id":workoutId,
-                "trainer_id":trainerIdd
+                $.ajax({
+                    url: 'http://localhost:8080/api/v1/trainer/assignNewMealPlan',
+                    method: 'POST',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+
+                        "mealPlanDTO": {
+                            "planName": meal_name,
+                            "planDetails": meal_details,
+                            "calorieCount": calorie
+                        },
+                        "userDTO": {
+                            "uid": memId,
+                            "email": memberEmail,
+                            "name": memberName,
+                            "password": memberPassword,
+                            "workout_id": workoutId,
+                            "trainer_id": trainerIdd
+                        }
+
+                    }),
+
+                    success: function (response) {
+                        console.log(response);
+                        // updateMemberWithMealId(meal_id);
+
+                        getAll();
+                        $('#TrainerNewMealModal').data('bs.modal').hide();
+                        $("#meal_id").val("");
+                        $("#meal_name").val("");
+                        $("#meal_plan_details").val("");
+                        $("#calorie").val("");
+                    },
+
+                    error: function (jqXHR) {
+                        console.log(jqXHR);
+
+                    }
+                })
+
+            } else {
+                let errorLabel = $("#TrainerMealPlanCalorieErrorLabel");
+                errorLabel.css("display", "inline");
+                errorLabel.text("Invalid input type !");
             }
 
-        }),
+        } else {
+            let errorLabel = $("#TrainerMealPlanDetailErrorLabel");
+            errorLabel.css("display", "inline");
+            errorLabel.text("Enter minimum 2 characters !");
+
+        }
+
+    } else {
+        let errorLabel = $("#TrainerMealPlanNameErrorLabel");
+        errorLabel.css("display", "inline");
+        errorLabel.text("Enter minimum 2 characters !");
+
+    }
 
 
+})
 
 
+document.getElementById("updateMeal").addEventListener("click", function () {
+    let meal_id = $("#Update_meal_id").val();
+    let meal_name = $("#Update_meal_name").val();
+    let meal_details = $("#Update_meal_plan_details").val();
+    let calorie = $("#Update_calorie").val();
+
+    if (meal_name === "" || meal_details === "" || calorie === "") {
+        alert("please fill all empty fields !!");
+    } else {
+
+        if (isValidName(meal_name)) {
+            $("#UpdateMealPlanNameErrorLabel").css("display", "none");
+
+            if (isValidName(meal_details)) {
+                $("#UpdateMealPlanDetailsErrorLabel").css("display", "none");
+
+                if (!isNaN(calorie)) {
+                    $("#UpdateMealPlanCalorieErrorLabel").css("display", "none");
+                    $.ajax({
+                        url: 'http://localhost:8080/api/v1/mealPlan/update',
+                        method: "post",
+                        dataType: "json",
+                        contentType: "application/json;",
+                        data: JSON.stringify({
+                            "mid": meal_id,
+                            "planName": meal_name,
+                            "planDetails": meal_details,
+                            "calorieCount": calorie
+                        }),
+
+                        success: function (response) {
+                            console.log(response);
+                            $('#updateMealModal').data('bs.modal').hide();
+                            getAll();
+
+                        },
+
+                        error: function (jqXHR) {
+                            console.log(jqXHR);
+                        }
+                    })
+                } else {
+                    let errorLabel = $("#UpdateMealPlanCalorieErrorLabel");
+                    errorLabel.css("display", "inline");
+                    errorLabel.text("Invalid input type !");
+                }
+
+            } else {
+                let errorLabel = $("#UpdateMealPlanDetailsErrorLabel");
+                errorLabel.css("display", "inline");
+                errorLabel.text("Enter minimum 2 characters !");
+            }
+        } else {
+            let errorLabel = $("#UpdateMealPlanNameErrorLabel");
+            errorLabel.css("display", "inline");
+            errorLabel.text("Enter minimum 2 characters !");
+        }
+    }
+})
+
+
+document.getElementById("deleteMeal").addEventListener("click", function () {
+    let id = $("#delete_meal_id").val();
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/mealPlan/delete/' + id,
+        method: "DELETE",
         success: function (response) {
-            console.log(response);
-            // updateMemberWithMealId(meal_id);
-
+            console.log(response)
             getAll();
-            $('#TrainerNewMealModal').data('bs.modal').hide();
-            $("#meal_id").val("");
-            $("#meal_name").val("");
-            $("#meal_plan_details").val("");
-            $("#calorie").val("");
+            $('#deleteMealModal').data('bs.modal').hide();
+
         },
 
         error: function (jqXHR) {
             console.log(jqXHR);
-
         }
     })
-
 })
 
 
 //load trainer id using email
 let trainerId;
-function loadTrainerId(){
+
+function loadTrainerId() {
     console.log(trainerEmail);
     $.ajax({
         url: 'http://localhost:8080/api/v1/trainer/getOneTrainer',
         method: 'GET',
         dataType: 'json',
         contentType: 'application/json',
-        data:{email:trainerEmail},
+        data: {email: trainerEmail},
 
         success: function (response) {
             console.log(response);
-
-            console.log( response.data.tid);
-            trainerId=response.data.tid;
+            console.log(response.data.tid);
+            trainerId = response.data.tid;
             loadAllMembersIds();
-
 
         },
         error: function (jqXHR) {
@@ -216,16 +331,15 @@ function loadTrainerId(){
 }
 
 
-
-
 // send ajax request to load all members id to combo box
 // loadTrainerId();
 let getAllMembersResponse;
-function  loadAllMembersIds(){
+
+function loadAllMembersIds() {
     console.log(trainerId);
 
     $.ajax({
-        url: 'http://localhost:8080/api/v1/trainer/getOneTrainer/'+trainerId,
+        url: 'http://localhost:8080/api/v1/trainer/getOneTrainer/' + trainerId,
         method: 'GET',
         dataType: 'json',
         contentType: 'application/json',
@@ -248,11 +362,9 @@ function  loadAllMembersIds(){
 
 }
 
-
 // set member data to combobox based on ajax request
 
 function setMemberDataToComboBox(members) {
-
     let memberData = `<option >${members.uid}</option>`
     $("#memberComboBox").append(memberData);
 
@@ -274,8 +386,8 @@ document.getElementById("memberComboBox").addEventListener("click", function () 
         memberEmail = members.email;
         memberName = members.name;
         memberPassword = members.password;
-        trainerIdd=members.trainer_id;
-        workoutId=members.workout_id;
+        trainerIdd = members.trainer_id;
+        workoutId = members.workout_id;
 
         console.log(members);
         console.log(members.uid);
@@ -296,31 +408,3 @@ document.getElementById("memberComboBox").addEventListener("click", function () 
 })
 
 
-// update member with meal id
-// function updateMemberWithMealId(mealId) {
-//     $.ajax({
-//         url: 'http://localhost:8080/api/v1/user/update',
-//         method: "post",
-//         dataType: "json",
-//         contentType: "application/json",
-//         data: JSON.stringify({
-//             "uid": memId,
-//             "email": memberEmail,
-//             "meal_plan_id": mealId,
-//             "name":memberName,
-//             "password":memberPassword,
-//             "workout_id":workoutId,
-//             "trainer_id":trainerIdd
-//         }),
-//
-//         success: function (response) {
-//             console.log(response);
-//         },
-//
-//         error: function (jqXHR) {
-//             console.log(jqXHR);
-//
-//         }
-//     })
-//
-// }

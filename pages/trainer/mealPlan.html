@@ -13,9 +13,10 @@
 
     <!-- Custom fonts for this template-->
     <link href="../../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700&display=swap"
+          rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="../../css/sb-admin-2.min.css" rel="stylesheet">
@@ -39,12 +40,14 @@
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
             <div class="sidebar-brand-icon rotate-n-15">
-                <img id="gymImg" width="25" height="25" src="https://img.icons8.com/external-nawicon-glyph-nawicon/64/ffffff/external-gym-hotel-nawicon-glyph-nawicon.png" alt="external-gym-hotel-nawicon-glyph-nawicon"/>
+                <img alt="external-gym-hotel-nawicon-glyph-nawicon" height="25" id="gymImg"
+                     src="https://img.icons8.com/external-nawicon-glyph-nawicon/64/ffffff/external-gym-hotel-nawicon-glyph-nawicon.png"
+                     width="25"/>
             </div>
             <div class="sidebar-brand-text mx-3">Fitness</div>
         </a>
-        <div class="threebarsDiv d-flex align-items-center justify-content-center" >
-            <i id="threebars" class="fa fa-bars d-none text-white"></i>
+        <div class="threebarsDiv d-flex align-items-center justify-content-center">
+            <i class="fa fa-bars d-none text-white" id="threebars"></i>
         </div>
 
         <!-- Divider -->
@@ -60,17 +63,17 @@
         <!-- Divider -->
         <hr class="sidebar-divider">
         <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link" href="trainerRegistration.html">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>Trainer</span></a>
-        </li>
+<!--        <li class="nav-item">-->
+<!--            <a class="nav-link" href="trainerRegistration.html">-->
+<!--                <i class="fas fa-fw fa-chart-area"></i>-->
+<!--                <span>Trainer</span></a>-->
+<!--        </li>-->
 
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link" href="memberRegistration.html">
+            <a class="nav-link" href="clients.html">
                 <i class="fas fa-fw fa-chart-area"></i>
-                <span>Members</span></a>
+                <span>Clients</span></a>
         </li>
 
         <!-- Divider -->
@@ -88,17 +91,17 @@
 
         <!-- Nav Item - Charts -->
         <li class="nav-item">
-            <a class="nav-link" href="workouts.htmll">
+            <a class="nav-link" href="workouts.html">
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span>WokrOut Plan</span></a>
         </li>
 
         <!-- Nav Item - Tables -->
-        <li class="nav-item">
-            <a class="nav-link" href="../components/tables.html">
-                <i class="fas fa-fw fa-table"></i>
-                <span>Tables</span></a>
-        </li>
+<!--        <li class="nav-item">-->
+<!--            <a class="nav-link" href="../components/tables.html">-->
+<!--                <i class="fas fa-fw fa-table"></i>-->
+<!--                <span>Tables</span></a>-->
+<!--        </li>-->
 
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
@@ -413,8 +416,9 @@
 
                 <div class="card mt-5 mealMainCard">
                     <div class="card-header text-right" style="background-color: #2d324a">
-<!--                        <button class="btn btn-info mx-4" id="assignToMemberBtn">Assign to a member</button>-->
-                        <button class="btn btn-info" data-target="#TrainerNewMealModal" data-toggle="modal" id="addNewMealPan">
+                        <!--                        <button class="btn btn-info mx-4" id="assignToMemberBtn">Assign to a member</button>-->
+                        <button class="btn btn-info" data-target="#TrainerNewMealModal" data-toggle="modal"
+                                id="addNewMealPan">
                             Add new meal plan
                         </button>
                     </div>
@@ -449,7 +453,8 @@
 
                                     <div class="mb-3">
 
-                                        <select id="memberComboBox" class="form-select w-100" aria-label="Default select example">
+                                        <select aria-label="Default select example" class="form-select w-100"
+                                                id="memberComboBox">
                                             <option selected>Select Member Id</option>
                                         </select>
 
@@ -458,17 +463,17 @@
 
                                     <div class="mb-3">
                                         <label class="form-label" for="Member_name">Member Name</label>
-                                        <input disabled class="form-control" id="Member_name" name="details"
+                                        <input class="form-control" disabled id="Member_name" name="details"
                                                placeholder="Enter Member Name" type="text"
                                         >
                                     </div>
 
-<!--                                    <div class="mb-3">-->
-<!--                                        <label class="form-label" for="meal_id">Meal Plan Id</label>-->
-<!--                                        <input class="form-control" id="meal_id" name="id"-->
-<!--                                               placeholder="Enter Meal Id" type="text"-->
-<!--                                        >-->
-<!--                                    </div>-->
+                                    <!--                                    <div class="mb-3">-->
+                                    <!--                                        <label class="form-label" for="meal_id">Meal Plan Id</label>-->
+                                    <!--                                        <input class="form-control" id="meal_id" name="id"-->
+                                    <!--                                               placeholder="Enter Meal Id" type="text"-->
+                                    <!--                                        >-->
+                                    <!--                                    </div>-->
 
                                     <div class="mb-3">
                                         <label class="form-label" for="meal_name">Meal Plan Name</label>
@@ -476,13 +481,18 @@
                                                placeholder="Enter Meal Name"
                                                type="text"
                                         >
+                                        <label id="TrainerMealPlanNameErrorLabel"
+                                               style="color: red;display: none"></label>
+
                                     </div>
 
                                     <div class="mb-3">
                                         <label class="form-label" for="meal_plan_details">Meal Plan Details</label>
                                         <textarea class="form-control" id="meal_plan_details" name="details"
-                                               placeholder="Enter Meal Plan Details" type="text"
+                                                  placeholder="Enter Meal Plan Details" type="text"
                                         ></textarea>
+                                        <label id="TrainerMealPlanDetailErrorLabel"
+                                               style="color: red;display: none"></label>
                                     </div>
 
                                     <div class="mb-3">
@@ -491,6 +501,8 @@
                                                placeholder="Enter Total Calorie Count"
                                                type="text"
                                         >
+                                        <label id="TrainerMealPlanCalorieErrorLabel"
+                                               style="color: red;display: none"></label>
                                     </div>
 
                                 </form>
@@ -522,8 +534,8 @@
 
                                 <form id="trainerUpdateForm">
                                     <div class="mb-3">
-                                        <label class="form-label" for="Update_meal_id">Meal Plan Id</label>
-                                        <input class="form-control" id="Update_meal_id" name="id"
+                                        <label class="form-label d-none" for="Update_meal_id">Meal Plan Id</label>
+                                        <input  class="form-control d-none" id="Update_meal_id" name="id"
                                                placeholder="Enter Meal Id" type="text"
                                         >
                                     </div>
@@ -534,14 +546,17 @@
                                                placeholder="Enter Meal Name"
                                                type="text"
                                         >
+                                        <label  id="UpdateMealPlanNameErrorLabel" style="color: red;display: none"></label>
+
                                     </div>
 
                                     <div class="mb-3">
                                         <label class="form-label" for="Update_meal_plan_details">Meal Plan
                                             Details</label>
-                                        <input class="form-control" id="Update_meal_plan_details" name="details"
+                                        <textarea class="form-control" id="Update_meal_plan_details" name="details"
                                                placeholder="Enter Meal Plan Details" type="text"
-                                        >
+                                        ></textarea>
+                                        <label  id="UpdateMealPlanDetailsErrorLabel" style="color: red;display: none"></label>
                                     </div>
 
                                     <div class="mb-3">
@@ -551,6 +566,8 @@
                                                type="text"
                                         >
                                     </div>
+                                    <label  id="UpdateMealPlanCalorieErrorLabel" style="color: red;display: none"></label>
+
 
                                 </form>
 
@@ -582,8 +599,8 @@
 
                                 <form id="trainerDeleteForm">
                                     <div class="mb-3">
-                                        <label class="form-label" for="delete_meal_id">Meal Plan Id</label>
-                                        <input class="form-control" id="delete_meal_id" name="id"
+                                        <label class="form-label d-none" for="delete_meal_id">Meal Plan Id</label>
+                                        <input class="form-control d-none" id="delete_meal_id" name="id"
                                                placeholder="Enter Meal Id" type="text"
                                         >
                                     </div>
@@ -599,9 +616,9 @@
                                     <div class="mb-3">
                                         <label class="form-label" for="delete_meal_plan_details">Meal Plan
                                             Details</label>
-                                        <input class="form-control" id="delete_meal_plan_details" name="details"
+                                        <textarea class="form-control" id="delete_meal_plan_details" name="details"
                                                placeholder="Enter Meal Plan Details" type="text"
-                                        >
+                                        ></textarea>
                                     </div>
 
                                     <div class="mb-3">
@@ -631,56 +648,56 @@
 
                 <!--                meal assign modal-->
 
-<!--                <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="assignModal"-->
-<!--                     tabindex="-1">-->
-<!--                    <div class="modal-dialog">-->
-<!--                        <div class="modal-content">-->
-<!--                            <div class="modal-header">-->
-<!--                                &lt;!&ndash; Header content goes here &ndash;&gt;-->
-<!--                            </div>-->
-<!--                            <div class="modal-body">-->
+                <!--                <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="assignModal"-->
+                <!--                     tabindex="-1">-->
+                <!--                    <div class="modal-dialog">-->
+                <!--                        <div class="modal-content">-->
+                <!--                            <div class="modal-header">-->
+                <!--                                &lt;!&ndash; Header content goes here &ndash;&gt;-->
+                <!--                            </div>-->
+                <!--                            <div class="modal-body">-->
 
-<!--                                <form id="assignMealForm">-->
+                <!--                                <form id="assignMealForm">-->
 
-<!--                                    <div class="mb-3">-->
+                <!--                                    <div class="mb-3">-->
 
-<!--                                        <select aria-label="Default select example" class="form-select w-100"-->
-<!--                                                id="memberComboBox">-->
-<!--                                            <option selected>Select Member Id</option>-->
-<!--                                        </select>-->
-
-
-<!--                                    </div>-->
-
-<!--                                    <div class="mb-3">-->
-<!--                                        <label class="form-label" for="Member_name">Member Name</label>-->
-<!--                                        <input class="form-control" disabled id="Member_name" name="details"-->
-<!--                                               placeholder="Enter Member Name" type="text"-->
-<!--                                        >-->
-<!--                                    </div>-->
+                <!--                                        <select aria-label="Default select example" class="form-select w-100"-->
+                <!--                                                id="memberComboBox">-->
+                <!--                                            <option selected>Select Member Id</option>-->
+                <!--                                        </select>-->
 
 
-<!--                                    <div class="mb-3">-->
-<!--                                        <label class="form-label" for="assign_meal_id">Meal Plan Id</label>-->
-<!--                                        <input class="form-control" id="assign_meal_id" name="id"-->
-<!--                                               placeholder="Enter Meal Plan Id" type="text"-->
-<!--                                        >-->
-<!--                                    </div>-->
+                <!--                                    </div>-->
 
-<!--                                </form>-->
+                <!--                                    <div class="mb-3">-->
+                <!--                                        <label class="form-label" for="Member_name">Member Name</label>-->
+                <!--                                        <input class="form-control" disabled id="Member_name" name="details"-->
+                <!--                                               placeholder="Enter Member Name" type="text"-->
+                <!--                                        >-->
+                <!--                                    </div>-->
 
-<!--                                <div class="container miniMealDataCard d-flex align-items-center justify-content-center"></div>-->
 
-<!--                            </div>-->
-<!--                            <div class="modal-footer">-->
-<!--                                <button class="btn btn-secondary" data-dismiss="modal" style="font-size: 13px"-->
-<!--                                        type="button">Close-->
-<!--                                </button>-->
-<!--                                <button class="btn" id="assignMealPlanBtn" type="button">Assign Meal</button>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
+                <!--                                    <div class="mb-3">-->
+                <!--                                        <label class="form-label" for="assign_meal_id">Meal Plan Id</label>-->
+                <!--                                        <input class="form-control" id="assign_meal_id" name="id"-->
+                <!--                                               placeholder="Enter Meal Plan Id" type="text"-->
+                <!--                                        >-->
+                <!--                                    </div>-->
+
+                <!--                                </form>-->
+
+                <!--                                <div class="container miniMealDataCard d-flex align-items-center justify-content-center"></div>-->
+
+                <!--                            </div>-->
+                <!--                            <div class="modal-footer">-->
+                <!--                                <button class="btn btn-secondary" data-dismiss="modal" style="font-size: 13px"-->
+                <!--                                        type="button">Close-->
+                <!--                                </button>-->
+                <!--                                <button class="btn" id="assignMealPlanBtn" type="button">Assign Meal</button>-->
+                <!--                            </div>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
 
 
                 <!--                end meal assign modal-->
@@ -748,6 +765,7 @@
 <script src="../../vendor/jquery/jquery.min.js"></script>
 <script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../../js/validation/validation.js"></script>
 
 
 <!-- Core plugin JavaScript-->

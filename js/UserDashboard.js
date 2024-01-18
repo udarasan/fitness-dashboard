@@ -25,6 +25,8 @@ function searchUserWithEmail(){
         contentType: 'application/json',
         data:{email:userEmail},
         success: function (response) {
+            $('#nameLbl').text(response.data.name);
+            localStorage.setItem("name",response.data.name);
             uId= response.data.uid;
             currUserWorkoutId = response.data.workout_id;
             currUserMealId = response.data.meal_plan_id;
@@ -117,7 +119,7 @@ function getDataToAreaChart(uId){
 function setCurrentBMIvalue() {
     currentProgressValues = progressList[progressList.length - 1];
     currentHeight = currentProgressValues.height;
-    currentWeight = currentProgressValues.weight;
+     currentWeight = currentProgressValues.weight;
     let currentHeightInMeters = currentHeight / 100;
     let currentBMI = parseFloat((currentWeight / (currentHeightInMeters * currentHeightInMeters)).toFixed(1));
     $("#currentBMI").text(currentBMI);
