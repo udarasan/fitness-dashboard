@@ -217,6 +217,7 @@ $('#addTrainerBtn').click(function () {
     $('#deleteTrainer').css("display", 'none');
     $('#saveTrainer').css("display", 'block');
     $('#trainer_id').val("");
+    $('#trainer_name').val("");
     $('#trainer_email').val("");
     $('#trainer_category').val("");
     $('#trainer_password').val("");
