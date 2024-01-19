@@ -147,6 +147,7 @@ $("#saveMeal").click(function (){
             if (isValidName(meal_details)) {
                 $("#mealPlanDetailsErrorLabel").css("display", "none");
                 if (!isNaN(calorie)) {
+                    $("#mealPlanCalorieErrorLabel").css("display", "none");
                     $.ajax({
                         url: 'http://localhost:8080/api/v1/mealPlan/save',
                         method: 'POST',
