@@ -5,9 +5,8 @@ function isValidEmail(email) {
 }
 
 function isValidName(name) {
-    const nameRegex = /^[A-Za-z\s]{2,50}$/;
-    return nameRegex.test(name)
-
+    const nameRegex = /^[A-Za-z\s\-_@#$%^&*()+=<>?/\\{}[\]|\,.:;'"`!]{2,50}$/;
+    return nameRegex.test(name);
 }
 
 function isValidPassword(name) {

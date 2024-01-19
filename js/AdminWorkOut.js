@@ -70,8 +70,7 @@ $("#searchWorkoutPlans").keyup(function () {
             $.each(response.data, function (index, workOut) {
                 let card = `<div class="card workoutCard text-left p-0 ">
                             <div class="card-header px-4">                          
-                                <h6 class="mb-1 mt-1">${workOut.planName}</h6>  
-                                <p class="mb-0 small text-light">workout id: &nbsp; ${workOut.wid}</p>  
+                                ${workOut.planName}
                                 <div class="dropdown position-absolute threeDots">
                                      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
@@ -123,8 +122,7 @@ function getAllWorkoutPlans() {
 
                 let card = `<div class="card workoutCard text-left p-0 ">
                             <div class="card-header px-4">
-                                <h6 class="mb-1 mt-1">${workOut.planName}</h6>  
-                                <p class="mb-0 small text-light">workout id: &nbsp; ${workOut.wid}</p>                      
+                                ${workOut.planName}                            
                                 <div class="dropdown position-absolute threeDots">
                                      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="fa fa-ellipsis-v" aria-hidden="true"></i>

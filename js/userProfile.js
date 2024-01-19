@@ -26,8 +26,9 @@ function getDataToAreaChart(uId,userData){
                 cheight = currentProgressValues.height;
                 cweight = currentProgressValues.weight;
             }else {
-                cheight = "Not Added Height";
-                cweight = "Not Added Weight";
+                cheight = "Not Added";
+                cweight = "Not Added";
+                $('#span').text("")
             }
 
 
@@ -170,7 +171,7 @@ console.log(height);
 <!--                                                </svg>-->
                                                 Height
                                             </h6>
-                                            <span class="text-secondary ">${height} CM</span>
+                                            <span id="span" class="text-secondary ">${height} CM</span>
                                         </li>
                                         
                                             <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
