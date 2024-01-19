@@ -226,8 +226,6 @@ $('#tblProgress').on('click', 'tr', function () {
 function generatePdf(progressData) {
 
 
-
-
     var pdfObject = jsPDFInvoiceTemplate.default(getPdfProps(progressData));
     console.log(pdfObject);
 

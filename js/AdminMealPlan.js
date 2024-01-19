@@ -38,6 +38,8 @@ function appendMealSection(mealPlan) {
   <section class="mx-3 my-5" style="max-width: 20rem;">
  
     <div id="card" class="card" >
+    
+    <div class="card-header" style="background-color: #2d324a;height: 40px"></div>
    
     <p id="mealId" class="d-none">${mealPlan.mid}</p>
     
@@ -52,12 +54,12 @@ function appendMealSection(mealPlan) {
                                      </ul>
                                 </div>
     
-      <div class="bg-image hover-overlay ripple mt-5" data-mdb-ripple-color="light">
-        <img src="https://mdbootstrap.com/img/Photos/Horizontal/Food/8-col/img (5).jpg" class="img-fluid" />
-        <a href="#!">
-          <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-        </a>
-      </div>
+<!--      <div class="bg-image hover-overlay ripple mt-5" data-mdb-ripple-color="light">-->
+<!--        <img src="https://mdbootstrap.com/img/Photos/Horizontal/Food/8-col/img (5).jpg" class="img-fluid" />-->
+<!--        <a href="#!">-->
+<!--          <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>-->
+<!--        </a>-->
+<!--      </div>-->
       
       <div class="card-body">
       
@@ -129,7 +131,7 @@ function appendMealSection(mealPlan) {
 
 
 // meal plan save method
-document.getElementById("saveMeal").addEventListener('click', function () {
+$("#saveMeal").click(function (){
 
     let meal_id = $("#meal_id").val();
     let meal_name = $("#meal_name").val();
@@ -159,6 +161,7 @@ document.getElementById("saveMeal").addEventListener('click', function () {
                         success: function (response) {
                             console.log(response);
                             getAll();
+                            alert("Meal Plan Saved Successfully !!")
                             $('#newMealModal').data('bs.modal').hide();
                             $("#meal_id").val("");
                             $("#meal_name").val("");
@@ -188,10 +191,13 @@ document.getElementById("saveMeal").addEventListener('click', function () {
 
     }
 
+
 })
 
 
-document.getElementById("updateMeal").addEventListener('click', function () {
+
+$("#updateMeal").click(function (){
+
     let meal_id = $("#Update_meal_id").val();
     let meal_name = $("#Update_meal_name").val();
     let meal_details = $("#Update_meal_plan_details").val();
@@ -225,6 +231,7 @@ document.getElementById("updateMeal").addEventListener('click', function () {
                             console.log(response);
                             $('#updateMealModal').data('bs.modal').hide();
                             getAll();
+                            alert("Meal Plan Updated Successfully !!")
 
                         },
 
@@ -252,7 +259,9 @@ document.getElementById("updateMeal").addEventListener('click', function () {
 
 })
 
-document.getElementById("deleteMeal").addEventListener('click', function () {
+
+$("#deleteMeal").click(function (){
+
     let id = $("#delete_meal_id").val();
     $.ajax({
         url: 'http://localhost:8080/api/v1/mealPlan/delete/' + id,
@@ -260,6 +269,7 @@ document.getElementById("deleteMeal").addEventListener('click', function () {
         success: function (response) {
             console.log(response)
             getAll();
+            alert("Meal Plan Deleted Successfully !!")
             $('#deleteMealModal').data('bs.modal').hide();
 
         },
@@ -271,6 +281,8 @@ document.getElementById("deleteMeal").addEventListener('click', function () {
 
 
 })
+
+
 
 
 // method to set data to update modal text fields
@@ -369,7 +381,8 @@ let trainerId
 let mealId;
 let workoutId
 
-document.getElementById("memberComboBox").addEventListener("click", function () {
+$("#memberComboBox").click(function () {
+    alert("wokk al")
     let memberId = $("#memberComboBox").val();
     console.log(memberId);
 
@@ -403,11 +416,12 @@ document.getElementById("memberComboBox").addEventListener("click", function () 
 
     })
 
-})
+    })
+
+
 
 // update user with mealPlan
-document.getElementById("assignMealPlanBtn").addEventListener('click', function () {
-
+$("#assignMealPlanBtn").click(function (){
     console.log(memId);
 
     console.log(memberEmail);
@@ -441,6 +455,9 @@ document.getElementById("assignMealPlanBtn").addEventListener('click', function 
 
         }
     })
+
 })
+
+
 
 
