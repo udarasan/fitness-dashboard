@@ -12,7 +12,6 @@ window.onload = function () {
     loadAndCountTotalMealPlans();
     loadAndCountTotalWorkoutPlans();
 
-
 }
 
 function loadTrainerIdUsingEmail(trainerEmail) {
