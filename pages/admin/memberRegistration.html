@@ -311,10 +311,18 @@
                 <div id="tableRowMember" class="row  ">
                     <div class="card">
                         <div class="card-header border-0 bg-white text-right">
+                            <div class="searchRow row bg-white p-3 w-100 d-flex justify-content-between mx-auto align-items-center">
+
+                            <form class="d-flex searchForm mt-3" role="search">
+                                <input id="searchMembers" class="form-control me-2" type="search" placeholder="Search"
+                                       aria-label="Search">
+                                <button class="btn btn-outline-success d-none" type="submit">Search</button>
+                            </form>
                             <button type="button" id="addMemberBTn" data-toggle="modal" data-target="#memberModal"
                                     data-whatever="@mdo" class="btn text-white mt-3" style="background-color: #2d324a">Add
                                 New Member
                             </button>
+                        </div>
                         </div>
 
                         <div class="card-body">

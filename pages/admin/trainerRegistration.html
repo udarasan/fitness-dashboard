@@ -330,10 +330,18 @@
                 <div class="row  " id="tableRowTrainer">
                     <div class="card">
                         <div class="card-header bg-white border-0 text-right">
+                            <div class="searchRow row bg-white p-3 w-100 d-flex justify-content-between mx-auto align-items-center">
+
+                            <form class="d-flex searchForm mt-3" role="search">
+                                <input id="searchTrainers" class="form-control me-2" type="search" placeholder="Search"
+                                       aria-label="Search">
+                                <button class="btn btn-outline-success d-none" type="submit">Search</button>
+                            </form>
                             <button class="btn text-white mt-3" data-target="#trainerModal" data-toggle="modal" data-whatever="@mdo"
                                     id="addTrainerBtn" style="background-color: #2d324a" type="button">Add
                                 New Trainer
                             </button>
+                        </div>
                         </div>
 
                         <div class="card-body">
