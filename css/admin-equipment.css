@@ -1,10 +1,10 @@
-#trainerTable{
+#equipTable{
     width: max-content !important;
     max-width: 100% !important;
 }
 
-@media all and (max-width: 1000px) {
-    .admTrainerMainCard{
+@media all and (max-width: 1200px) {
+    #member{
         padding-left: 10px !important;
         padding-right: 10px !important;
     }
