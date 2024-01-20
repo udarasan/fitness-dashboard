@@ -317,16 +317,29 @@
 
                 <div class="card mt-5 mealMainCard">
                     <div class="card-header text-right bg-white border-0">
-                        <!--                        <button class="btn btn-info mx-4" id="assignToMemberBtn">Assign to a member</button>-->
-                        <button class="btn mt-3" data-target="#newMealModal" data-toggle="modal" id="addNewMealPan"
-                                style="background-color: #2d324a; color: white">
-                            Add new meal plan
-                        </button>
+
+                        <div class="row">
+                            <div class="col">
+                                <input class="form-control" id="SearchMeal"
+                                       placeholder="Search Meals..."
+                                       type="text" style="width: 350px"
+                                >
+                            </div>
+
+                            <div class="col">
+                                <button class="btn mt-3" data-target="#newMealModal" data-toggle="modal" id="addNewMealPan"
+                                        style="background-color: #2d324a; color: white">
+                                    Add new meal plan
+                                </button>
+                            </div>
+                        </div>
+
+
                     </div>
 
                     <div class="card-body mainCardBody">
 
-                        <div class="container-fluid d-flex flex-wrap text-left mealPlanContainer px-3"
+                        <div class="container-fluid d-flex flex-wrap text-left  mealPlanContainer px-3"
                              id="cardContainer">
 
 
@@ -514,7 +527,7 @@
                                 <button class="btn btn-secondary" data-dismiss="modal" style="font-size: 13px"
                                         type="button">Close
                                 </button>
-                                <button class="btn" id="deleteMeal" type="button">Delete Meal</button>
+                                <button class="btn"  type="button">Delete Meal</button>
                             </div>
                         </div>
                     </div>
@@ -557,7 +570,7 @@
 
                                     <div class="mb-3">
                                         <label class="form-label" for="assign_meal_id">Meal Plan Id</label>
-                                        <input class="form-control" id="assign_meal_id" name="id"
+                                        <input disabled  class="form-control " id="assign_meal_id" name="id"
                                                placeholder="Enter Meal Plan Id" type="text"
                                         >
                                     </div>
