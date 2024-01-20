@@ -322,8 +322,12 @@
                                     <th scope="col">Id</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Email</th>
-                                    <th scope="col">Trainer_Id</th>
+                                    <th scope="col">Trainer Id</th>
                                     <th style="display: none" scope="col"></th>
+                                    <th scope="col">Meal Plan Id</th>
+                                    <th scope="col">WorkOut Id</th>
+                                    <th scope="col">Age</th>
+                                    <th scope="col">Gender</th>
                                 </tr>
                                 </thead>
                                 <tbody id="tblMember">
@@ -426,6 +430,35 @@
                                    name="name"
                             >
                             <label id="nameErrorLabel" style="color: red;"></label>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label " for="age">Age</label>
+                            <input class="form-control " id="age" placeholder="Enter Member Age" type="text"
+                                   name="uId"
+                            >
+                            <label id="ageErrorLabel" style="color: red;"></label>
+                        </div>
+
+                        <div class="mb-3">
+                            <fieldset style="font-size: 13px !important;" class="">
+                            <legend class="col-form-label ">Gender</legend>
+<!--                            <input class="form-control " id="gender" placeholder="Enter Gender(male/female/custom)" type="checkbox"-->
+<!--                                   name="uId"-->
+<!--                            >-->
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input " type="radio" name="inlineRadioOptions" id="inlineRadio1" value="male">
+                                <label class="form-check-label" for="inlineRadio1">Male</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input " type="radio" name="inlineRadioOptions" id="inlineRadio2"  value="female">
+                                <label class="form-check-label" for="inlineRadio2">Female</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input " type="radio" name="inlineRadioOptions" id="inlineRadio3"  value="custom" >
+                                <label class="form-check-label" for="inlineRadio3">Custom</label>
+                            </div>
+                            </fieldset>
                         </div>
                         <div class="mb-3">
 
