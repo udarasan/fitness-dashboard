@@ -111,7 +111,7 @@ function appendMealSection(mealPlan) {
         let mealId = card.find("#mealId").text();
         console.log(mealId)
 
-        setTrainerDeleteModalContent( mealId);
+        setTrainerDeleteModalContent(mealId);
 
     })
 
@@ -126,26 +126,32 @@ function setTrainerUpdateModalContent(mealPlanName, mealPlanDetails, calorie, me
 
 }
 
-function setTrainerDeleteModalContent( mealId) {
-    $.ajax({
-        url: 'http://localhost:8080/api/v1/mealPlan/delete/' +mealId,
-        method: "DELETE",
-        success: function (response) {
-            console.log(response)
-            getAll();
-            alert("Meal Plan Deleted Successfully !!")
+function setTrainerDeleteModalContent(mealId) {
 
-        },
+    var result = window.confirm("Do you want to proceed?");
+    if (result) {
+        $.ajax({
+            url: 'http://localhost:8080/api/v1/mealPlan/delete/' + mealId,
+            method: "DELETE",
+            success: function (response) {
+                console.log(response)
+                getAll();
+                alert("Meal Plan Deleted Successfully !!")
+            },
 
-        error: function (jqXHR) {
-            console.log(jqXHR);
-        }
-    })
+            error: function (jqXHR) {
+                console.log(jqXHR);
+            }
+        })
+    } else {
+        alert("Your Meal Plan Is Safe !!")
+    }
+
 }
 
 
 // meal plan save method
-$("#saveMeal").click(function (){
+$("#saveMeal").click(function () {
 
     let meal_name = $("#meal_name").val();
     let meal_details = $("#meal_plan_details").val();
@@ -221,11 +227,10 @@ $("#saveMeal").click(function (){
 
     }
 })
-    // let meal_id = $("#meal_id").val();
+// let meal_id = $("#meal_id").val();
 
 
-
-$("#updateMeal").click(function (){
+$("#updateMeal").click(function () {
 
     let meal_id = $("#Update_meal_id").val();
     let meal_name = $("#Update_meal_name").val();
@@ -288,8 +293,6 @@ $("#updateMeal").click(function (){
 })
 
 
-
-
 // $("#deleteMeal").click(function (){
 //
 //     let id = $("#delete_meal_id").val();
@@ -309,7 +312,6 @@ $("#updateMeal").click(function (){
 //         }
 //     })
 // })
-
 
 
 //load trainer id using email
@@ -384,7 +386,7 @@ let memberPassword;
 let trainerIdd;
 let workoutId
 
-$("#memberComboBox").click(function (){
+$("#memberComboBox").click(function () {
 
     let memberId = $("#memberComboBox").val();
     console.log(memberId);
@@ -415,6 +417,76 @@ $("#memberComboBox").click(function (){
     })
 })
 
+
+// meal plan search by name
+
+$("#SearchMeal").keyup(function () {
+    let text = $('#SearchMeal').val();
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/mealPlan/searchMealByName',
+        method: 'GET',
+        dataType: 'json',
+        data: {partialName: text},   // Convert data to JSON string
+        success: function (response) {
+            console.log(response);
+            if ($("#SearchMeal").val() === "") {
+                // $("#cardContainer").empty();
+                getAll();
+
+            } else {
+                let cardContainer = $("#cardContainer");
+                cardContainer.empty();
+                $.each(response.data, function (index, mealPlan) {
+                    console.log(mealPlan);
+
+                    let card = `
+  <section class="mx-3 my-5" style="max-width: 20rem;">
+
+    <div id="card" class="card" >
+   
+      <div class="card-header px-4" style="background-color: #2d324a; color: white">
+      <p id="mealPlanName" class="mb-0" style="font-size: 1rem; font-weight: 400 !important;"><a>${mealPlan.planName}</a></p>
+     <p class="small mb-0">meal plan id:&nbsp;&nbsp;<span id="mealId">${mealPlan.mid}</span></p>
+</div>
+
+     <div class="dropdown position-absolute threeDots">
+                                     <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                                     </a>
+                                     <ul class="dropdown-menu">
+                                        <li><a id="edit"  class="dropdown-item edit" href="#" data-toggle="modal" data-target="#updateMealModal" >Edit</a></li>
+                                        <li><a class="dropdown-item delete" href="#" >Delete</a></li>
+                                        <li><a class="dropdown-item assign" href="#" data-toggle="modal" data-target="#assignModal">Assign</a></li>
+                                     </ul>
+                                </div>
+
+      <div class="card-body">
+
+      
+
+        <p id="mealPlanDetail" class="card-text">${mealPlan.planDetails}</p>
+
+        <hr class="my-4" />
+        <p  class="lead"><strong>Total calorie count : <span id="mealPlanCalorie">${mealPlan.calorieCount}</span> </strong></p>
+
+      </div>
+
+    </div>
+
+  </section>
+`
+                    $("#cardContainer").append(card);
+
+
+                });
+
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error(jqXHR.responseText);  // Log the response text for debugging
+        }
+    });
+})
 
 
 
