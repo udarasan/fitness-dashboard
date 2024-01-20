@@ -9,3 +9,23 @@
         padding-right: 10px !important;
     }
 }
+
+@media all and (max-width: 700px) {
+    .searchForm{
+        width: 100%;
+    }
+
+    .searchRow{
+        flex-direction: column-reverse;
+        align-items: flex-start !important;
+    }
+    #addNewAnchor{
+        margin-bottom: 20px;
+    }
+
+    /*.gridContainer{*/
+    /*    margin-top: 50px;*/
+    /*}*/
+
+
+}
