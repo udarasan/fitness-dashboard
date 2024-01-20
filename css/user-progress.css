@@ -15,3 +15,30 @@
 #tblClient{
     max-width: max-content !important;
 }
+
+@media all and (max-width: 500px){
+    .progressMainContainer{
+        padding-right: 20px !important;
+        padding-left: 20px !important;
+    }
+
+    #memberForm{
+        column-gap: 0px;
+        row-gap: 0px;
+    }
+}
+
+@media all and (max-width: 450px){
+    #memberForm{
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+    }
+
+    .progBtnContainer{
+        text-align: center !important;
+    }
+
+    #addProgress, #updateProgress, #deleteProgress {
+        width: 100%;
+    }
+}
