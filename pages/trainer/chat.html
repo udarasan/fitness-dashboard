@@ -21,13 +21,8 @@
     <!-- Custom styles for this template-->
     <link href="../../css/sb-admin-2.min.css" rel="stylesheet">
     <link href="../../css/admin-dashboard.css" rel="stylesheet">
-    <link href="../../css/AdminMealPlan.css" rel="stylesheet">
     <link href="../../css/sidebarManage.css" rel="stylesheet">
-    <link href="../../css/trainerChat.css">
-
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.5/dist/sweetalert2.min.css" rel="stylesheet">
-
-
+    <link href="../../css/trainer-chat.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -319,31 +314,28 @@
 <!--            chat start here-->
 
 
-            <div class="container-fluid mt-5 " id="chat">
+            <div class="container-fluid mt-5 mb-5" id="chat">
 
                 <main class="content">
 
                     <div class="container-fluid p-0">
 
-                        <h1 class="h3 mb-3" style="font-size: 18px">Messages</h1>
+<!--                        <h1 class="h3 mb-3" style="font-size: 18px">Messages</h1>-->
 
-                        <div class="card " >
+                        <div class="card" >
 
                             <div class="row g-0">
+                                <div class="col-12 col-lg-5 col-xl-3 border-right memberNamesCont">
 
-<!--                                start here-->
-
-                                <div class="col-12 col-lg-5 col-xl-3 border-right ">
-
-                                    <div class="px-4 d-none d-md-block">
+                                    <div class="px-4 d-md-block">
                                         <div class="d-flex align-items-center">
                                             <div class="flex-grow-1">
-                                                <input id="searchUser" type="text" class="form-control my-3" placeholder="Search...">
+                                                <input id="searchUser" type="text" class="form-control my-3" placeholder="Search">
                                             </div>
                                         </div>
                                     </div>
 
-                                    <a href="#" class="list-group-item list-group-item-action border-0 trainerMemberNameSection">
+                                    <a class="list-group-item list-group-item-action border-0 trainerMemberNameSection">
 <!--                                        <div class="d-flex align-items-start">-->
 <!--                                            <img src="../../img/user.png" class="rounded-circle mr-1" alt="Vanessa Tucker" width="40" height="40">-->
 <!--                                            <div class="flex-grow-1 ml-3">-->
@@ -360,12 +352,12 @@
                                 <div class="col-12 col-lg-7 col-xl-9">
                                     <div class="py-2 px-4 border-bottom d-none d-lg-block">
                                         <div class="d-flex align-items-center py-1">
-                                            <div class="position-relative">
+                                            <div class="position-relative d-none memberSelectVisible">
                                                 <img src="../../img/user.png" class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
                                             </div>
-                                            <div class="flex-grow-1 pl-3">
-                                                <strong>Sharon Lessman</strong>
-
+                                            <div class="flex-grow-1 py-1 ml-2">
+                                                <strong id="selectedMemberName">Chat</strong><br>
+                                                <small class="d-none memberSelectVisible">client id: <span id="selectedMemberId"></span> </small>
                                             </div>
                                             <div>
 
@@ -377,46 +369,36 @@
                                     <div class="position-relative">
                                         <div class="chat-messages p-4">
 
-                                            <div class="chat-message-right pb-4">
-                                                <div>
-                                                    <img src="../../img/user.png" class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40">
-                                                    <div class="text-muted small text-nowrap mt-2">2:33 am</div>
-                                                </div>
-                                                <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
-                                                    <div class="font-weight-bold mb-1">You</div>
-                                                    Lorem ipsum dolor sit amet, vis erat denique in, dicunt prodesset te vix.
-                                                </div>
-                                            </div>
+                                            <p class="mt-4">Select a client to chat with</p>
+<!--                                            <div class="chat-message-right pb-4">-->
+<!--                                                <div class="d-flex">-->
+<!--                                                    <div class="text-muted small text-nowrap mt-2">2022-04-05</div>&nbsp;&nbsp;-->
+<!--                                                    <div class="text-muted small text-nowrap mt-2">2:33 am</div>-->
+<!--                                                </div>-->
+<!--                                                <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">-->
+<!--                                                    <div class="font-weight-bold mb-1">Sharon Lessman</div>-->
+<!--                                                    Lorem ipsum dolor sit amet, vis erat denique in, dicunt prodesset te vix.-->
+<!--                                                </div>-->
+<!--                                            </div>-->
 
-                                            <div class="chat-message-left pb-4">
-                                                <div>
-                                                    <img src="../../img/user.png" class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
-                                                    <div class="text-muted small text-nowrap mt-2">2:34 am</div>
-                                                </div>
-                                                <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
-                                                    <div class="font-weight-bold mb-1">Sharon Lessman</div>
-                                                    Sit meis deleniti eu, pri vidit meliore docendi ut, an eum erat animal commodo.
-                                                </div>
-                                            </div>
-
-                                            <div class="chat-message-right mb-4">
-                                                <div>
-                                                    <img src="../../img/user.png" class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40">
-                                                    <div class="text-muted small text-nowrap mt-2">2:35 am</div>
-                                                </div>
-                                                <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
-                                                    <div class="font-weight-bold mb-1">You</div>
-                                                    Cum ea graeci tractatos.
-                                                </div>
-                                            </div>
+<!--                                            <div class="chat-message-left pb-4">-->
+<!--                                                <div class="d-flex justify-content-end">-->
+<!--                                                    <div class="text-muted small text-nowrap mt-2">2022-04-05</div>&nbsp;&nbsp;-->
+<!--                                                    <div class="text-muted small text-nowrap mt-2">2:34 am</div>-->
+<!--                                                </div>-->
+<!--                                                <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">-->
+<!--                                                    <div class="font-weight-bold mb-1">You</div>-->
+<!--                                                    Sit meis deleniti eu, pri vidit meliore docendi ut, an eum erat animal commodo.-->
+<!--                                                </div>-->
+<!--                                            </div>-->
 
                                         </div>
                                     </div>
 
-                                    <div class="flex-grow-0 py-3 px-4 border-top">
+                                    <div class="flex-grow-0 py-3 px-4">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Type your message">
-                                            <button class="btn btn-primary">Send</button>
+                                            <input id="msgInputField" type="text" class="form-control" placeholder="Type your message">
+                                            <button id="btnSend" class="btn mx-3">Send</button>
                                         </div>
                                     </div>
 
