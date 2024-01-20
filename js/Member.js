@@ -315,7 +315,7 @@ function loadTrainerId() {
     });
 }
 
-
+let card;
 $("#searchMembers").keyup(function () {
     $('#tblMember').empty();
     let text = $('#searchMembers').val();
@@ -326,15 +326,34 @@ $("#searchMembers").keyup(function () {
         data: {partialName: text},   // Convert data to JSON string
         success: function (response) {
 
-            $.each(response.data, function (index, member) {
-                let row = `<tr><td>${member.uid}</td><td>${member.name}</td><td>${member.email}</td><td>${member.trainer_id}</td><td style="display: none">${member.password}</td><td>${member.meal_plan_id}</td><td>${member.workout_id}</td><td>${member.age}</td><td>${member.gender}</td></tr>`;
-                $('#tblMember').append(row);
-            });
+            if ($("#searchMembers").val() === "") {
+                let cardContainer=$(".card-body");
+
+                $('.npResImg').css("display","none");
+
+                $('#memberTable').css("display","block");
+                getAllMembers();
+
+            } else {
+
+                $.each(response.data, function (index, member) {
+                    let row = `<tr><td>${member.uid}</td><td>${member.name}</td><td>${member.email}</td><td>${member.trainer_id}</td><td style="display: none">${member.password}</td><td>${member.meal_plan_id}</td><td>${member.workout_id}</td><td>${member.age}</td><td>${member.gender}</td></tr>`;
+                    $('#tblMember').append(row);
+                });
+            }
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            alert("No Members found.");
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            console.log(jqXHR.data);
+            if (jqXHR.data == null) {
+                let cardContainer=$(".card-body");
+                $('#memberTable').css("display","none");
+
+                $('.npResImg').css("display","block");
+                // Clear the card container
+
+
+            }
         }
     });
 });

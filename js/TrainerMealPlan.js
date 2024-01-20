@@ -489,7 +489,7 @@ $("#SearchMeal").keyup(function () {
                 $("#cardContainer").empty();
 
                 let card = `
- <img src="https://cdn.dribbble.com/users/1242216/screenshots/9326781/media/6384fef8088782664310666d3b7d4bf2.png" alt="no" width="620px">
+ <img  src="https://cdn.dribbble.com/users/1242216/screenshots/9326781/media/6384fef8088782664310666d3b7d4bf2.png" alt="no" width="620px">
 
   
 `

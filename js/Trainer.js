@@ -14,21 +14,32 @@ $("#searchTrainers").keyup(function () {
         dataType: 'json',
         data: {partialName: text},   // Convert data to JSON string
         success: function (response) {
-            let trainerList = response.data;
-            if (trainerList.length === 0) {
-                alert("No Trainers found.");
-                return;
-            }
-            $.each(response.data, function (index, trainer) {
+            if ($("#searchTrainers").val() === "") {
+                $('#trainerTable').css("display","block");
+                $('.npResImg').css("display","none");
+                getAllTrainers();
 
-                let row = `<tr><td>${trainer.tid}</td><td>${trainer.name}</td><td>${trainer.email}</td><td>${trainer.category}</td><td style="display: none">${trainer.password}</td></tr>`;
-                $('#tblTrainer').append(row);
-            });
+            } else {
+                $.each(response.data, function (index, trainer) {
+
+                    let row = `<tr><td>${trainer.tid}</td><td>${trainer.name}</td><td>${trainer.email}</td><td>${trainer.category}</td><td style="display: none">${trainer.password}</td></tr>`;
+                    $('#tblTrainer').append(row);
+                });
+            }
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            alert("No Trainers found.");
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            if (jqXHR.data == null) {
+
+                $('#trainerTable').css("display","none");
+                let card = `
+ <img  class="npResImg" src="https://cdn.dribbble.com/users/1242216/screenshots/9326781/media/6384fef8088782664310666d3b7d4bf2.png" alt="no" width="620px">
+              
+`
+                let cardContainer=$(".card-body");
+                cardContainer.css("justify-content","center")
+                cardContainer.append(card);
+            }
         }
     });
 });
