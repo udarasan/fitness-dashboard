@@ -21,6 +21,7 @@
     <link href="../../css/sb-admin-2.min.css" rel="stylesheet">
     <link href="../../css/admin-dashboard.css" rel="stylesheet">
     <link href="../../css/sidebarManage.css" rel="stylesheet">
+    <link href="../../css/user-progress.css" rel="stylesheet">
 
 </head>
 
@@ -278,7 +279,7 @@
                 <div class="row">
                     <form id="memberForm" class="mx-auto">
                         <input class="d-none" id="pId">
-                        <div class="mb-3">
+                        <div class="mb-2">
                             <label class="form-label " for="height">Height</label>
                             <input class="form-control " id="height" placeholder="Enter Your Height" type="text"
                                    name="uId"
@@ -286,7 +287,7 @@
                             <label id="heightErrorLabel" style="color: red;"></label>
                         </div>
 
-                        <div class="mb-3">
+                        <div class="mb-2">
                             <label class="form-label" for="weight">Weight</label>
                             <input class="form-control" id="weight" placeholder="Enter Your Weight" type="text"
                                    name="email"
@@ -295,7 +296,7 @@
 
                         </div>
 
-                        <div class="mb-3">
+                        <div class="mb-2">
                             <label class="form-label" for="date">Date</label>
                             <input class="form-control" id="date"  type="date"
                                    name="email"
@@ -308,9 +309,9 @@
 
                 </div>
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 text-center">
-                        <button  type="button" class="btn mt-2" id="addProgress">Add Progress</button>
-                        <button class="btn mt-2"  id="updateProgress" type="button">Update Progress</button>
+                    <div class="col-sm-12 col-md-12 col-lg-12 text-left">
+                        <button  type="button" class="btn mt-2 mr-2" id="addProgress">Add Progress</button>
+                        <button class="btn mt-2 mr-2"  id="updateProgress" type="button">Update Progress</button>
                         <button class="btn mt-2" id="deleteProgress" type="button">Delete Progress</button>
                     </div>
 
@@ -318,19 +319,18 @@
                 <!-- Content Row -->
 
                     <div id="tableRowMember" class="row  ">
-                        <div class="card mt-5">
+                        <div class="card mt-3">
 
-                                <div class="card-header text-right">
-                                    <button class="btn text-white" data-target="#trainerModal" data-toggle="modal" data-whatever="@mdo"
+                                <div class="card-header bg-white border-0 text-right">
+                                    <button class="btn text-white mt-3" data-target="#trainerModal" data-toggle="modal" data-whatever="@mdo"
                                             id="pdf" style="background-color: #2d324a" type="button">Print
                                         Progress Report
                                     </button>
                                 </div>
 
-
                             <div class="card-body">
 
-                                <table id="tblClient" class="table">
+                                <table id="tblClient" class="table table-responsive mx-auto">
                                     <thead class="thead-light">
                                     <tr>
                                         <th style="display: none" scope="col">Id</th>

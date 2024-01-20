@@ -1,0 +1,17 @@
+#memberForm{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    column-gap: 20px;
+    row-gap: 0px;
+}
+
+#memberForm>div{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#tblClient{
+    max-width: max-content !important;
+}
