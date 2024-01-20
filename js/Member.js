@@ -327,15 +327,10 @@ $("#searchMembers").keyup(function () {
         success: function (response) {
 
             if ($("#searchMembers").val() === "") {
-                let cardContainer=$(".card-body");
-
-                $('.npResImg').css("display","none");
-
+                $('.npResImg').addClass("d-none");
                 $('#memberTable').css("display","block");
                 getAllMembers();
-
             } else {
-
                 $.each(response.data, function (index, member) {
                     let row = `<tr><td>${member.uid}</td><td>${member.name}</td><td>${member.email}</td><td>${member.trainer_id}</td><td style="display: none">${member.password}</td><td>${member.meal_plan_id}</td><td>${member.workout_id}</td><td>${member.age}</td><td>${member.gender}</td></tr>`;
                     $('#tblMember').append(row);
@@ -344,15 +339,9 @@ $("#searchMembers").keyup(function () {
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR.data);
             if (jqXHR.data == null) {
-                let cardContainer=$(".card-body");
                 $('#memberTable').css("display","none");
-
-                $('.npResImg').css("display","block");
-                // Clear the card container
-
-
+                $('.npResImg').removeClass("d-none");
             }
         }
     });
