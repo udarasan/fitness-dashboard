@@ -35,14 +35,13 @@ function getAll() {
 function appendMealSection(mealPlan) {
 
     let card = `
-  <section class="mx-3 my-5" style="max-width: 20rem;">
+  <section class="mx-3 mb-5 mt-3" style="max-width: 25rem;">
  
     <div id="card" class="card" >
-    
-    <div class="card-header" style="background-color: #2d324a;height: 40px"></div>
-   
-    <p id="mealId" class="d-none">${mealPlan.mid}</p>
-    
+    <div class="card-header px-4" style="background-color: #2d324a; color: white">
+    <p id="mealPlanName" class="mb-0" style="font-size: 1rem; font-weight: 400 !important;"><a>${mealPlan.planName}</a></p>
+    <p class="small mb-0">meal plan id:&nbsp;&nbsp;<span id="mealId">${mealPlan.mid}</span></p>
+    </div>
      <div class="dropdown position-absolute threeDots">
                                      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
@@ -61,10 +60,7 @@ function appendMealSection(mealPlan) {
 <!--        </a>-->
 <!--      </div>-->
       
-      <div class="card-body">
-      
-        <h5 id="mealPlanName" class="card-title font-weight-bold"><a>${mealPlan.planName}</a></h5>
-    
+      <div class="card-body">    
         <p id="mealPlanDetail" class="card-text">${mealPlan.planDetails}</p>
         
         <hr class="my-4" />

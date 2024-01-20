@@ -12,13 +12,13 @@
 
 .workoutCard{
     min-width: 100%;
-    border-radius: 0px;
+    border-radius: 5px !important;
 }
 
 .workoutCard .card-header{
     background-color: #2d324a !important;
-    border-radius: 0px;
-    color: #b8b8b8;
+    border-radius: 5px;
+    color: white;
     margin-right: -3px;
     margin-left: -3px;
     padding-right: 35px !important;

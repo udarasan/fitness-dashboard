@@ -122,7 +122,8 @@ function getAllWorkoutPlans() {
 
                 let card = `<div class="card workoutCard text-left p-0 ">
                             <div class="card-header px-4">
-                                ${workOut.planName}                            
+                                ${workOut.planName}   
+                                <p class="small mb-0">workout id:<span> ${workOut.wid}</span></p>                         
                                 <div class="dropdown position-absolute threeDots">
                                      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="fa fa-ellipsis-v" aria-hidden="true"></i>

@@ -40,6 +40,33 @@
     border: none;
 }
 
+@media all and (max-width: 1300px){
+    #member{
+        padding: 15px;
+    }
+}
+
+@media all and (max-width: 1200px){
+    #member{
+        padding: 10px;
+    }
+
+    .mealPlanContainer{
+        padding-right: 0px !important;
+        padding-left: 0px !important;
+    }
+
+    .mainCardBody{
+        padding-right: 0px !important;
+        padding-left: 0px !important;
+    }
+}
+
+@media all and (max-width: 1000px){
+    #cardContainer{
+        justify-content: center;
+    }
+}
 
 @media all and (max-width: 575px){
     /*#card{*/
