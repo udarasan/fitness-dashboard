@@ -198,12 +198,21 @@ $("#modalAssignNew").click(function () {
     } else {
         $('#nameErrorLabel').text(""); // Clear the error label
     }
+
+    if (!isValidPlan(details)) {
+        $('#workOutPlanDetailsErrorLabel').text("Please enter a description minimum 2 characters");
+        return;
+
+    } else {
+        $('#workOutPlanDetailsErrorLabel').text(""); // Clear the error label
+    }
+
     if(isNaN(calCount)){
         $('#calaryErrorLabel').text("Invalid input type");
     }else {
         $('#calaryErrorLabel').text("");
     }
-    if (isValidPlan(name) && !isNaN(calCount)) {
+    if (isValidPlan(name) && isValidPlan(details) && !isNaN(calCount)) {
         $.ajax({
             url: 'http://localhost:8080/api/v1/trainer/assignNewWorkout',
             method: 'POST',

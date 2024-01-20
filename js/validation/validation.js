@@ -9,7 +9,7 @@ function isValidName(name) {
     return nameRegex.test(name);
 }
 function isValidPlan(name) {
-    const nameRegex = /^[A-Za-z0-9\s\-_@#$%^&*()+=<>?/\\{}[\]|\,.:;'"`!]{2,50}$/;
+    const nameRegex = /^[A-Za-z0-9\s\-_@#$%^&*()+=<>?/\\{}[\]|\,.:;'"`!]{2,}$/;
     return nameRegex.test(name);
 }
 function isValidPassword(name) {
