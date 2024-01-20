@@ -61,7 +61,7 @@ $('#updateMember').click(function () {
     // if (custom!=null){
     //     gender=custom;
     // }
-    if ( !email || !name || !password) {
+    if ( !email || !name || !password || !gender) {
         alert("Please fill in all required fields.");
         return;
     }
@@ -151,7 +151,7 @@ $('#saveMemeber').click(function () {
     // if (custom!=null){
     //     gender=custom;
     // }
-    if ( !email || !name || !password ) {
+    if ( !email || !name || !password || !gender ) {
         alert("Please fill in all required fields.");
         return;
     }
