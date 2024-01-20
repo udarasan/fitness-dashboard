@@ -116,18 +116,6 @@ function appendMealSection(mealPlan) {
 
     })
 
-    // click event to assign data to assign modal
-    // $(".assign").click(function () {
-    //     let card = $(this).closest('.card');
-    //
-    //     let mealID = card.find("#mealId").text();
-    //     let mealPlanName = card.find('#mealPlanName').text();
-    //     let mealPlanDetails = card.find('#mealPlanDetail').text();
-    //     let calorie = card.find('#mealPlanCalorie').text();
-    //
-    //
-    //     setAssignModalContent(mealID, mealPlanName, mealPlanDetails, calorie);
-    // })
 
 }
 
