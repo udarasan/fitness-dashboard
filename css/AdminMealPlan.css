@@ -68,11 +68,21 @@
     }
 }
 
+@media all and (max-width: 768px){
+    .topRow{
+        flex-direction: column-reverse;
+    }
+
+    #addNewMealPan{
+        margin-bottom: 15px;
+    }
+
+    #addNewMealBtnDiv{
+        text-align: left;
+    }
+}
+
 @media all and (max-width: 575px){
-    /*#card{*/
-    /*    width: 240px;*/
-    /*    padding: 0 !important;*/
-    /*}*/
     #cardContainer{
         padding: 0 !important;
     }
@@ -81,12 +91,8 @@
         padding: 0 !important;
     }
 
-    /*#cardContainer>section{*/
-    /*    margin-top: 0 !important;*/
-    /*}*/
-
     #member{
-      padding: 30px !important;
+      padding: 10px !important;
     }
 
     #assignToMemberBtn {
@@ -97,11 +103,11 @@
         margin-right: 0 !important;
     }
 
-    #addNewMealPan {
-        font-size: 11px;
-        width: 130px;
-        height: 27px;
-    }
+    /*#addNewMealPan {*/
+    /*    font-size: 11px;*/
+    /*    width: 130px;*/
+    /*    height: 27px;*/
+    /*}*/
 
 }
 
