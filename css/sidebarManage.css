@@ -16,7 +16,7 @@
     }
 
     #gymImg{
-        display: none;
+        display: none !important;
     }
 
     #threebars{
@@ -32,5 +32,32 @@
         height: 4.375rem !important;
         cursor: pointer;
     }
+}
 
+@media (width: 768px){
+    .sidebar {
+        width: 6.5rem !important;
+        min-height: 100vh !important;
+    }
+
+    .sidebar .nav-item .nav-link span {
+        font-size: .65rem;
+        display: block;
+    }
+
+    .sidebar .nav-item .nav-link, .topbar .nav-item .nav-link {
+        position: relative;
+        text-align: center;
+        padding: 0.75rem 1rem;
+        width: 6.5rem;
+    }
+
+    .sidebar.toggled {
+        overflow: hidden;
+        max-width: 0px !important;
+    }
+
+    #sidebarToggleTop{
+        display: block !important;
+    }
 }
