@@ -191,7 +191,7 @@ $("#modalAssignNew").click(function () {
         alert("Please fill in all required fields.");
         return;
     }
-    if (!isValidName(name)) {
+    if (!isValidPlan(name)) {
         $('#nameErrorLabel').text("Please enter a name with 2 to 50 characters");
         return;
 
@@ -203,7 +203,7 @@ $("#modalAssignNew").click(function () {
     }else {
         $('#calaryErrorLabel').text("");
     }
-    if (isValidName(name) && !isNaN(calCount)) {
+    if (isValidPlan(name) && !isNaN(calCount)) {
         $.ajax({
             url: 'http://localhost:8080/api/v1/trainer/assignNewWorkout',
             method: 'POST',

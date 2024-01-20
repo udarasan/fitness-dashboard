@@ -138,9 +138,9 @@ $("#saveMeal").click(function (){
         alert("please fill all empty fields !!");
     } else {
 
-        if (isValidName(meal_name)) {
+        if (isValidPlan(meal_name)) {
             $("#mealPlanNameErrorLabel").css("display", "none");
-            if (isValidName(meal_details)) {
+            if (isValidPlan(meal_details)) {
                 $("#mealPlanDetailsErrorLabel").css("display", "none");
                 if (!isNaN(calorie)) {
                     $("#mealPlanCalorieErrorLabel").css("display", "none");
@@ -204,10 +204,10 @@ $("#updateMeal").click(function (){
         alert("please fill all empty fields !!");
     } else {
 
-        if (isValidName(meal_name)) {
+        if (isValidPlan(meal_name)) {
             $("#UpdateMealPlanNameErrorLabel").css("display", "none");
 
-            if (isValidName(meal_details)) {
+            if (isValidPlan(meal_details)) {
                 $("#UpdateMealPlanDetailsErrorLabel").css("display", "none");
 
                 if (!isNaN(calorie)) {
