@@ -1,11 +1,16 @@
 let meal_id;
 let workout_id;
+var selectedValue;
 $(document).ready(function () {
     // Your JavaScript code goes here
     getAllMembers();
     loadTrainerId();
 });
-
+$(".form-check-input").on("click", function () {
+     selectedValue = $("input[name='inlineRadioOptions']:checked").val();
+    console.log("Selected value: " + selectedValue);
+    // Perform additional actions with the selected value as needed
+});
 //delete member
 $('#deleteMember').click(function () {
 
@@ -42,7 +47,20 @@ $('#updateMember').click(function () {
     let name = $('#member_name').val();
     let trainer_id = $('#tra_id').val();
     let password = $('#memeber_password').val();
-
+    let age = $('#age').val();
+    let gender = selectedValue  ;
+    // let male = $('#inlineRadio1').val();
+    // let female = $('#inlineRadio2').val();
+    // let custom = $('#inlineRadio3').val();
+    // if (male!=null){
+    //     gender=male;
+    // }
+    // if (female!=null){
+    //     gender=female;
+    // }
+    // if (custom!=null){
+    //     gender=custom;
+    // }
     if ( !email || !name || !password) {
         alert("Please fill in all required fields.");
         return;
@@ -67,9 +85,14 @@ $('#updateMember').click(function () {
     } else {
         $('#nameErrorLabel').text(""); // Clear the error label
     }
+    if (isNaN(age)) {
+        $('#ageErrorLabel').text("Invalid input type");
 
+    } else {
+        $('#ageErrorLabel').text(""); // Clear the error label
+    }
     console.log(trainer_id);
-    if (isValidName(name) && isValidEmail(email) && isValidPassword(password)) {
+    if (isValidName(name) && isValidEmail(email) && isValidPassword(password)  && !isNaN(age)) {
         // Make the AJAX request
         $.ajax({
             url: 'http://localhost:8080/api/v1/user/update',
@@ -84,7 +107,9 @@ $('#updateMember').click(function () {
                 "name": name,
                 "trainer_id": trainer_id,
                 "meal_plan_id": meal_id,
-                "workout_id": workout_id
+                "workout_id": workout_id,
+                "age":age ,
+                "gender":gender
             }),  // Convert data to JSON string
             success: function (response) {
                 console.log(response);
@@ -111,8 +136,22 @@ $('#saveMemeber').click(function () {
     let name = $('#member_name').val();
     let trainer_id = $('#tra_id').val();
     let password = $('#memeber_password').val();
-
-    if ( !email || !name || !password) {
+    let age = $('#age').val();
+    let gender =  selectedValue ;
+    // let male = $('#inlineRadio1').val();
+    // let female = $('#inlineRadio2').val();
+    // let custom = $('#inlineRadio3').val();
+    // if (male!=null){
+    //     gender=male;
+    //
+    // }
+    // if (female!=null){
+    //     gender=female;
+    // }
+    // if (custom!=null){
+    //     gender=custom;
+    // }
+    if ( !email || !name || !password ) {
         alert("Please fill in all required fields.");
         return;
     }
@@ -136,8 +175,14 @@ $('#saveMemeber').click(function () {
     } else {
         $('#nameErrorLabel').text(""); // Clear the error label
     }
+    if (isNaN(age)) {
+        $('#ageErrorLabel').text("Invalid input type");
 
-if (isValidName(name) && isValidEmail(email) && isValidPassword(password)) {
+    } else {
+        $('#ageErrorLabel').text(""); // Clear the error label
+    }
+
+if (isValidName(name) && isValidEmail(email) && isValidPassword(password) && !isNaN(age)) {
     console.log(id);
     // Make the AJAX request
     $.ajax({
@@ -146,7 +191,7 @@ if (isValidName(name) && isValidEmail(email) && isValidPassword(password)) {
         dataType: 'json',
         contentType: 'application/json',  // Set content type to JSON
 
-        data: JSON.stringify({"uid": id, "email": email, "password": password, "name": name, "trainer_id": trainer_id}),  // Convert data to JSON string
+        data: JSON.stringify({"uid": id, "email": email, "password": password, "name": name, "trainer_id": trainer_id, "age":age ,"gender":gender}),  // Convert data to JSON string
         success: function (response) {
             console.log(response);
             alert("Member registration successful!");
@@ -171,8 +216,6 @@ function getAllMembers() {
         dataType: 'json',
         contentType: 'application/json',  // Set content type to JSON
         success: function (response) {
-            console.log(response.data);
-            console.log(response.data);
              memberList = response.data;
             if (memberList.length === 0) {
                 alert("No members found.");
@@ -182,7 +225,7 @@ function getAllMembers() {
             $.each(response.data, function (index, member) {
                 meal_id = member.meal_plan_id;
                 workout_id = member.workout_id;
-                let row = `<tr><td>${member.uid}</td><td>${member.name}</td><td>${member.email}</td><td>${member.trainer_id}</td><td style="display: none">${member.password}</td></tr>`;
+                let row = `<tr><td>${member.uid}</td><td>${member.name}</td><td>${member.email}</td><td>${member.trainer_id}</td><td style="display: none">${member.password}</td><td>${member.meal_plan_id}</td><td>${member.workout_id}</td><td>${member.age}</td><td>${member.gender}</td></tr>`;
                 $('#tblMember').append(row);
             });
 
@@ -202,6 +245,8 @@ $('#tblMember').on('click', 'tr', function () {
     let memberEmail = $(this).find('td:nth-child(3)').text();
     let trainerId = $(this).find('td:nth-child(4)').text();
     let password = $(this).find('td:nth-child(5)').text();
+    let age = $(this).find('td:nth-child(8)').text();
+    let gender = $(this).find('td:nth-child(9)').text();
     // Perform actions with the retrieved data
     $('#memberModal').modal('show');
     $('#saveMemeber').css("display", 'none');
@@ -212,6 +257,15 @@ $('#tblMember').on('click', 'tr', function () {
     $('#member_email').val(memberEmail);
     $('#tra_id').val(trainerId);
     $('#memeber_password').val(password);
+    $('#age').val(age);
+    // $('#gender').val(gender);
+    if (gender === 'male') {
+        $('#inlineRadio1').prop('checked', true);
+    } else if (gender === 'female') {
+        $('#inlineRadio2').prop('checked', true);
+    } else if (gender === 'custom') {
+        $('#inlineRadio3').prop('checked', true);
+    }
 
 });
 $('#closeBtn').click(function () {
