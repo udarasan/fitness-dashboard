@@ -1,6 +1,7 @@
 let userEmail = localStorage.getItem("userEmail");
 window.onload = function () {
     loadUserUsingEmail(userEmail);
+    $('#nameLbl').text(localStorage.getItem("name"));
 };
 
 let userId;
