@@ -5,7 +5,33 @@ $(document).ready(function () {
     getAllTrainers();
 });
 
+$("#searchTrainers").keyup(function () {
+    $('#tblTrainer').empty();
+    let text = $('#searchTrainers').val();
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/trainer/searchTrainerByName',
+        method: 'GET',
+        dataType: 'json',
+        data: {partialName: text},   // Convert data to JSON string
+        success: function (response) {
+            let trainerList = response.data;
+            if (trainerList.length === 0) {
+                alert("No Trainers found.");
+                return;
+            }
+            $.each(response.data, function (index, trainer) {
 
+                let row = `<tr><td>${trainer.tid}</td><td>${trainer.name}</td><td>${trainer.email}</td><td>${trainer.category}</td><td style="display: none">${trainer.password}</td></tr>`;
+                $('#tblTrainer').append(row);
+            });
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert("No Trainers found.");
+            console.error(jqXHR.responseText);  // Log the response text for debugging
+        }
+    });
+});
 //delete trainer
 $('#deleteTrainer').click(function () {
 

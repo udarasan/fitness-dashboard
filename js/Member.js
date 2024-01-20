@@ -274,6 +274,7 @@ $('#closeBtn').click(function () {
     $('#emailErrorLabel').text("");
     $('#nameErrorLabel').text("");
     $('#pwdErrorLabel').text("");
+    $('#ageErrorLabel').text("");
 });
 $('#addMemberBTn').click(function () {
     $('#updateMember').css("display", 'none');
@@ -287,6 +288,11 @@ $('#addMemberBTn').click(function () {
     $('#emailErrorLabel').text("");
     $('#nameErrorLabel').text("");
     $('#pwdErrorLabel').text("");
+    $('#ageErrorLabel').text("");
+    $('#age').val("");
+    $('#inlineRadio1').prop('checked', false);
+    $('#inlineRadio2').prop('checked', false);
+    $('#inlineRadio3').prop('checked', false);
 });
 
 function loadTrainerId() {
@@ -308,3 +314,27 @@ function loadTrainerId() {
         }
     });
 }
+
+
+$("#searchMembers").keyup(function () {
+    $('#tblMember').empty();
+    let text = $('#searchMembers').val();
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/user/searchUserByName',
+        method: 'GET',
+        dataType: 'json',
+        data: {partialName: text},   // Convert data to JSON string
+        success: function (response) {
+
+            $.each(response.data, function (index, member) {
+                let row = `<tr><td>${member.uid}</td><td>${member.name}</td><td>${member.email}</td><td>${member.trainer_id}</td><td style="display: none">${member.password}</td><td>${member.meal_plan_id}</td><td>${member.workout_id}</td><td>${member.age}</td><td>${member.gender}</td></tr>`;
+                $('#tblMember').append(row);
+            });
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert("No Members found.");
+            console.error(jqXHR.responseText);  // Log the response text for debugging
+        }
+    });
+});
