@@ -15,8 +15,8 @@ $("#searchTrainers").keyup(function () {
         data: {partialName: text},   // Convert data to JSON string
         success: function (response) {
             if ($("#searchTrainers").val() === "") {
+                $('.npResImg').addClass("d-none");
                 $('#trainerTable').css("display","block");
-                $('.npResImg').css("display","none");
                 getAllTrainers();
 
             } else {
@@ -30,15 +30,8 @@ $("#searchTrainers").keyup(function () {
         },
         error: function (jqXHR, textStatus, errorThrown) {
             if (jqXHR.data == null) {
-
                 $('#trainerTable').css("display","none");
-                let card = `
- <img  class="npResImg" src="https://cdn.dribbble.com/users/1242216/screenshots/9326781/media/6384fef8088782664310666d3b7d4bf2.png" alt="no" width="620px">
-              
-`
-                let cardContainer=$(".card-body");
-                cardContainer.css("justify-content","center")
-                cardContainer.append(card);
+                $('.npResImg').removeClass("d-none");
             }
         }
     });

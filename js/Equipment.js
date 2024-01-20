@@ -3,6 +3,42 @@ $(document).ready(function () {
     getAllEquipments();
 
 });
+
+$("#searchEquipments").keyup(function () {
+    $('#tblEquip').empty();
+    let text = $('#searchEquipments').val();
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/equipment/searchEquipmentByName',
+        method: 'GET',
+        dataType: 'json',
+        data: {partialName: text},   // Convert data to JSON string
+        success: function (response) {
+
+            if ($("#searchEquipments").val() === "") {
+                $('.npResImg').addClass("d-none");
+                $('#equipTable').css("display","block");
+                getAllEquipments();
+
+            } else {
+
+                $.each(response.data, function (index, equipment) {
+                    let row = `<tr><td>${equipment.eid}</td><td>${equipment.equipmentName}</td><td>${equipment.equipmentDetail}</td><td>${equipment.purchaseDate}</td></tr>`;
+                    $('#tblEquip').append(row);
+                });
+            }
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR.data);
+            if (jqXHR.data == null) {
+                $('#equipTable').css("display","none");
+                $('.npResImg').removeClass("d-none");
+
+
+            }
+        }
+    });
+});
 $('#deleteEquip').click(function () {
 
     let id = $('#eId').val();
@@ -178,41 +214,3 @@ $('#addEquipment').click(function () {
 
 });
 
-$("#searchEquipments").keyup(function () {
-    $('#tblEquip').empty();
-    let text = $('#searchEquipments').val();
-    $.ajax({
-        url: 'http://localhost:8080/api/v1/equipment/searchEquipmentByName',
-        method: 'GET',
-        dataType: 'json',
-        data: {partialName: text},   // Convert data to JSON string
-        success: function (response) {
-
-            if ($("#searchMembers").val() === "") {
-
-                getAllMembers();
-
-            } else {
-
-                $.each(response.data, function (index, equipment) {
-                    let row = `<tr><td>${equipment.eid}</td><td>${equipment.equipmentName}</td><td>${equipment.equipmentDetail}</td><td>${equipment.purchaseDate}</td></tr>`;
-                    $('#tblEquip').append(row);
-                });
-            }
-
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR.data);
-            if (jqXHR.data == null) {
-                alert("No Result")
-
-                // $('#memberTable').css("display","none");
-                //
-                // $('.npResImg').css("display","block");
-                // Clear the card container
-
-
-            }
-        }
-    });
-});
