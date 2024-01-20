@@ -20,7 +20,7 @@ $("#modalAddNew").click(function () {
         alert("Please fill in all required fields.");
         return;
     }
-    if (!isValidName(name)) {
+    if (!isValidPlan(name)) {
         $('#nameErrorLabel').text("Please enter a name with 2 to 50 characters");
         return;
 
@@ -195,7 +195,7 @@ $("#modalUpdateBtn").click(function () {
         alert("Please fill in all required fields.");
         return;
     }
-    if (!isValidName(name)) {
+    if (!isValidPlan(name)) {
         $('#unameErrorLabel').text("Please enter a name with 2 to 50 characters");
         return;
 

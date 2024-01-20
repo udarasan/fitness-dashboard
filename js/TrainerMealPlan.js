@@ -142,9 +142,9 @@ $("#saveMeal").click(function (){
     let meal_details = $("#meal_plan_details").val();
     let calorie = $("#calorie").val();
 
-    if (isValidName(meal_name)) {
+    if (isValidPlan(meal_name)) {
         $("#TrainerMealPlanNameErrorLabel").css("display", "none");
-        if (isValidName(meal_details)) {
+        if (isValidPlan(meal_details)) {
             $("#TrainerMealPlanDetailErrorLabel").css("display", "none");
 
             if (!isNaN(calorie)) {
@@ -229,10 +229,10 @@ $("#updateMeal").click(function (){
         alert("please fill all empty fields !!");
     } else {
 
-        if (isValidName(meal_name)) {
+        if (isValidPlan(meal_name)) {
             $("#UpdateMealPlanNameErrorLabel").css("display", "none");
 
-            if (isValidName(meal_details)) {
+            if (isValidPlan(meal_details)) {
                 $("#UpdateMealPlanDetailsErrorLabel").css("display", "none");
 
                 if (!isNaN(calorie)) {
