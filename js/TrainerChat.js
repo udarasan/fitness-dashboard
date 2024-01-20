@@ -85,8 +85,8 @@ $("#searchUser").keyup(function () {
         success: function (response) {
             console.log(response);
             if($("#searchUser").val()===""){
-                loadTrainerIdUsingEmail(trainerEmail);
                 $(".trainerMemberNameSection").empty();
+                getAllMembersAssociatedToTrainer(trainerId);
             }else{
                 let trainerChat = $(".trainerMemberNameSection");
                 trainerChat.empty();
@@ -104,6 +104,7 @@ $("#searchUser").keyup(function () {
                     </a>`;
                     trainerChat.append(memberName);
                 });
+                onMemberNameClicked();
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
