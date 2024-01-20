@@ -430,7 +430,7 @@ $("#SearchMeal").keyup(function () {
         success: function (response) {
             console.log(response);
             if ($("#SearchMeal").val() === "") {
-                // $("#cardContainer").empty();
+                $("#cardContainer").css("justifyContent","start")
                 getAll();
 
             } else {
@@ -484,6 +484,19 @@ $("#SearchMeal").keyup(function () {
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error(jqXHR.responseText);  // Log the response text for debugging
+
+            if (jqXHR.data == null) {
+                $("#cardContainer").empty();
+
+                let card = `
+ <img src="https://cdn.dribbble.com/users/1242216/screenshots/9326781/media/6384fef8088782664310666d3b7d4bf2.png" alt="no" width="620px">
+
+  
+`
+                let cardContainer=$("#cardContainer");
+                cardContainer.css("justify-content","center")
+                cardContainer.append(card);
+            }
         }
     });
 })
