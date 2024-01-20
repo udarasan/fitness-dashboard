@@ -41,9 +41,10 @@ function appendMealSection(mealPlan) {
 
     <div id="card" class="card" >
    
-      <div class="card-header" style="background-color: #2d324a;height: 40px"></div>
-
-    <p id="mealId" class="d-none">${mealPlan.mid}</p>
+      <div class="card-header px-4" style="background-color: #2d324a; color: white">
+      <p id="mealPlanName" class="mb-0" style="font-size: 1rem; font-weight: 400 !important;"><a>${mealPlan.planName}</a></p>
+     <p class="small mb-0">meal plan id:&nbsp;&nbsp;<span id="mealId">${mealPlan.mid}</span></p>
+</div>
 
      <div class="dropdown position-absolute threeDots">
                                      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -51,7 +52,7 @@ function appendMealSection(mealPlan) {
                                      </a>
                                      <ul class="dropdown-menu">
                                         <li><a id="edit"  class="dropdown-item edit" href="#" data-toggle="modal" data-target="#updateMealModal" >Edit</a></li>
-                                        <li><a class="dropdown-item delete" href="#" data-toggle="modal" data-target="#deleteMealModal">Delete</a></li>
+                                        <li><a class="dropdown-item delete" href="#" >Delete</a></li>
                                         <li><a class="dropdown-item assign" href="#" data-toggle="modal" data-target="#assignModal">Assign</a></li>
                                      </ul>
                                 </div>
@@ -65,7 +66,7 @@ function appendMealSection(mealPlan) {
 
       <div class="card-body">
 
-        <h5 id="mealPlanName" class="card-title font-weight-bold"><a>${mealPlan.planName}</a></h5>
+      
 
         <p id="mealPlanDetail" class="card-text">${mealPlan.planDetails}</p>
 
@@ -108,11 +109,9 @@ function appendMealSection(mealPlan) {
 
         // Find the #mealPlanName element within the card and get its text content
         let mealId = card.find("#mealId").text();
-        let mealPlanName = card.find('#mealPlanName').text();
-        let mealPlanDetails = card.find('#mealPlanDetail').text();
-        let calorie = card.find('#mealPlanCalorie').text();
+        console.log(mealId)
 
-        setTrainerDeleteModalContent(mealPlanName, mealPlanDetails, calorie, mealId);
+        setTrainerDeleteModalContent( mealId);
 
     })
 
@@ -127,11 +126,21 @@ function setTrainerUpdateModalContent(mealPlanName, mealPlanDetails, calorie, me
 
 }
 
-function setTrainerDeleteModalContent(mealPlanName, mealPlanDetails, calorie, mealId) {
-    $("#delete_meal_id").val(mealId);
-    $("#delete_meal_name").val(mealPlanName);
-    $("#delete_meal_plan_details").val(mealPlanDetails);
-    $("#delete_calorie").val(calorie);
+function setTrainerDeleteModalContent( mealId) {
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/mealPlan/delete/' +mealId,
+        method: "DELETE",
+        success: function (response) {
+            console.log(response)
+            getAll();
+            alert("Meal Plan Deleted Successfully !!")
+
+        },
+
+        error: function (jqXHR) {
+            console.log(jqXHR);
+        }
+    })
 }
 
 
@@ -216,8 +225,6 @@ $("#saveMeal").click(function (){
 
 
 
-
-
 $("#updateMeal").click(function (){
 
     let meal_id = $("#Update_meal_id").val();
@@ -283,26 +290,25 @@ $("#updateMeal").click(function (){
 
 
 
-$("#deleteMeal").click(function (){
-
-    let id = $("#delete_meal_id").val();
-    $.ajax({
-        url: 'http://localhost:8080/api/v1/mealPlan/delete/' + id,
-        method: "DELETE",
-        success: function (response) {
-            console.log(response)
-            getAll();
-            alert("Meal Plan Deleted Successfully !!")
-            $('#deleteMealModal').data('bs.modal').hide();
-
-        },
-
-        error: function (jqXHR) {
-            console.log(jqXHR);
-        }
-    })
-})
-
+// $("#deleteMeal").click(function (){
+//
+//     let id = $("#delete_meal_id").val();
+//     $.ajax({
+//         url: 'http://localhost:8080/api/v1/mealPlan/delete/' + id,
+//         method: "DELETE",
+//         success: function (response) {
+//             console.log(response)
+//             getAll();
+//             alert("Meal Plan Deleted Successfully !!")
+//             $('#deleteMealModal').data('bs.modal').hide();
+//
+//         },
+//
+//         error: function (jqXHR) {
+//             console.log(jqXHR);
+//         }
+//     })
+// })
 
 
 

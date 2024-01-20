@@ -48,8 +48,8 @@ function appendMealSection(mealPlan) {
                                      </a>
                                      <ul class="dropdown-menu">
                                         <li><a id="edit"  class="dropdown-item edit" href="#" data-toggle="modal" data-target="#updateMealModal" >Edit</a></li>
-                                        <li><a class="dropdown-item delete" href="#" data-toggle="modal" data-target="#deleteMealModal">Delete</a></li>
-                                        <li><a class="dropdown-item assign" href="#" data-toggle="modal" data-target="#assignModal">Assign</a></li>
+                                        <li><a class="dropdown-item delete" href="#" >Delete</a></li>
+                                        <li><a  class="dropdown-item assign " href="#" data-toggle="modal" data-target="#assignModal">Assign</a></li>
                                      </ul>
                                 </div>
     
@@ -102,11 +102,8 @@ function appendMealSection(mealPlan) {
 
         // Find the #mealPlanName element within the card and get its text content
         let mealId = card.find("#mealId").text();
-        let mealPlanName = card.find('#mealPlanName').text();
-        let mealPlanDetails = card.find('#mealPlanDetail').text();
-        let calorie = card.find('#mealPlanCalorie').text();
-
-        setDeleteModalContent(mealPlanName, mealPlanDetails, calorie, mealId);
+        console.log(mealId);
+        setDeleteModalContent( mealId);
 
     })
 
@@ -118,7 +115,6 @@ function appendMealSection(mealPlan) {
         let mealPlanName = card.find('#mealPlanName').text();
         let mealPlanDetails = card.find('#mealPlanDetail').text();
         let calorie = card.find('#mealPlanCalorie').text();
-
 
         setAssignModalContent(mealID, mealPlanName, mealPlanDetails, calorie);
     })
@@ -257,27 +253,28 @@ $("#updateMeal").click(function (){
 })
 
 
-$("#deleteMeal").click(function (){
-
-    let id = $("#delete_meal_id").val();
-    $.ajax({
-        url: 'http://localhost:8080/api/v1/mealPlan/delete/' + id,
-        method: "DELETE",
-        success: function (response) {
-            console.log(response)
-            getAll();
-            alert("Meal Plan Deleted Successfully !!")
-            $('#deleteMealModal').data('bs.modal').hide();
-
-        },
-
-        error: function (jqXHR) {
-            console.log(jqXHR);
-        }
-    })
-
-
-})
+// $(".delete").click(function (){
+// alert("po");
+//     let id = $("#mealId").val();
+//     console.log(id)
+//     $.ajax({
+//         url: 'http://localhost:8080/api/v1/mealPlan/delete/' + id,
+//         method: "DELETE",
+//         success: function (response) {
+//             console.log(response)
+//             getAll();
+//             alert("Meal Plan Deleted Successfully !!")
+//             $('#deleteMealModal').data('bs.modal').hide();
+//
+//         },
+//
+//         error: function (jqXHR) {
+//             console.log(jqXHR);
+//         }
+//     })
+//
+//
+// })
 
 
 
@@ -292,48 +289,29 @@ function setUpdateModalContent(mealPlanName, mealPlanDetails, calorie, mealId) {
 }
 
 // method to set data to delete modal text fields
-function setDeleteModalContent(mealPlanName, mealPlanDetails, calorie, mealId) {
+function setDeleteModalContent( mealId) {
 
-    $("#delete_meal_id").val(mealId);
-    $("#delete_meal_name").val(mealPlanName);
-    $("#delete_meal_plan_details").val(mealPlanDetails);
-    $("#delete_calorie").val(calorie);
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/mealPlan/delete/' + mealId,
+        method: "DELETE",
+        success: function (response) {
+            console.log(response)
+            getAll();
+            alert("Meal Plan Deleted Successfully !!")
+            $('#deleteMealModal').data('bs.modal').hide();
+        },
+
+        error: function (jqXHR) {
+            console.log(jqXHR);
+        }
+    })
 
 }
 
 // method to set data to assign modal text fields
 function setAssignModalContent(mealID, mealPlanName, mealPlanDetails, calorie) {
-    let miniMealDataCard = $(".miniMealDataCard").empty();
-    miniMealDataCard.empty();
+
     $("#assign_meal_id").val(mealID);
-
-    let miniCard = `<section class="mx-3 my-5" style="max-width: 15rem;">
- 
-    <div id="card" class="card" >
-       
-      <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-        <img src="https://mdbootstrap.com/img/Photos/Horizontal/Food/8-col/img (5).jpg" class="img-fluid" />
-        <a href="#!">
-          <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-        </a>
-      </div>
-      
-      <div class="card-body">
-      
-        <h5 id="mealPlanName" class="card-title font-weight-bold" style="font-size: 14px" ><a>${mealPlanName}</a></h5>
-    
-        <p id="mealPlanDetail" class="card-text" style="font-size: 11px">${mealPlanDetails}</p>
-        
-        <hr class="my-4" />
-        <p  class="lead"><strong>Total calorie count : <span id="mealPlanCalorie"  style="font-size: 11px"></span>${calorie} </strong></p>
-      
-      </div>
-      
-    </div>
-    
-  </section>`
-
-    miniMealDataCard.append(miniCard);
 
 }
 
@@ -379,14 +357,13 @@ let mealId;
 let workoutId
 
 $("#memberComboBox").click(function () {
-    alert("wokk al")
+
     let memberId = $("#memberComboBox").val();
     console.log(memberId);
 
     $.each(getAllMembersResponse.data, function (index, members) {
         console.log(members);
-        console.log(members.uid)
-
+        console.log(members.uid);
 
         if (memberId == members.uid) {
             memberName = members.name;
