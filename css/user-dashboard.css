@@ -47,13 +47,13 @@ body{
 }
 
 .cardHeaderColor .dropdown i{
-    color: rgba(255, 255, 255, 0.91) !important;
+    /*color: rgba(255, 255, 255, 0.91) !important;*/
 }
 
 .cardHeaderColor{
-    background-color: #2d324a;
-    color: #fff !important;
-    font-weight: 400 !important;
+    /*background-color: #2d324a;*/
+    /*color: #fff !important;*/
+    /*font-weight: 400 !important;*/
 }
 
 @media all and (max-width: 768px) {
@@ -79,7 +79,7 @@ body{
     }
 
     .card{
-        box-shadow: none !important;
+        /*box-shadow: none !important;*/
     }
 
     .card-body{
@@ -92,7 +92,7 @@ body{
     }
 
     .navbar{
-        box-shadow: none !important;
+        /*box-shadow: none !important;*/
     }
 
     .liWorkout{

@@ -5,8 +5,9 @@ $(document).ready(function () {
         display: "none"
     })
 
+    $("#mealLink").removeClass("text-primary")
     $("#mealLink").css({
-        color: "#ffffff96"
+        color: "#5c7ddcb5"
     })
 
 
@@ -170,15 +171,15 @@ function setDataToAreaChart(){
             datasets: [{
                 label: 'Average BMI',
                 data: averageBMIs,
-                lineTension: 0.1,
+                lineTension: 0.2,
                 backgroundColor: "rgba(78, 115, 223, 0.05)",
-                borderColor: "#2d324a",
+                borderColor: "rgba(78, 115, 223, 1)",
                 pointRadius: 3,
-                pointBackgroundColor: "#2d324a",
-                pointBorderColor: "#2d324a",
+                pointBackgroundColor: "rgba(78, 115, 223, 1)",
+                pointBorderColor: "rgba(78, 115, 223, 1)",
                 pointHoverRadius: 3,
-                pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-                pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+                pointHoverBackgroundColor: "rgb(255,0,0)",
+                pointHoverBorderColor: "rgb(255,0,0)",
                 pointHitRadius: 10,
                 pointBorderWidth: 2,
             }]
@@ -255,10 +256,10 @@ function mealAndWorkoutCardHandler(){
             display: "block"
         })
         $("#workoutLink").css({
-            color: "white"
+            color: "#4e73df"
         })
         $("#mealLink").css({
-            color: "#ffffff96"
+            color: "#5c7ddcb5"
         })
     });
 
@@ -270,10 +271,11 @@ function mealAndWorkoutCardHandler(){
             display: "block"
         })
         $("#mealLink").css({
-            color: "white"
+            color: "#4e73df"
         })
+        $("#workoutLink").removeClass("text-primary")
         $("#workoutLink").css({
-            color: "#ffffff96"
+            color: "#5c7ddcb5"
         })
     });
 };

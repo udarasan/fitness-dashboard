@@ -21,7 +21,7 @@
     <!-- Custom styles for this template-->
     <link href="../../css/sb-admin-2.min.css" rel="stylesheet">
     <link href="../../css/user-dashboard.css" rel="stylesheet">
-    <link href="../../css/sidebarManage.css" rel="stylesheet">
+    <link href="../../css/sidebar-manage.css" rel="stylesheet">
 
 </head>
 
@@ -284,7 +284,7 @@
 
 
                     <div class="col-xl-6 col-md-6 mb-4">
-                        <div class="card shadow h-100 py-2 trainerIdCard">
+                        <div class="card border-left-primary shadow h-100 py-2 trainerIdCard">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
@@ -301,7 +301,7 @@
                     </div>
 
                     <div class="col-xl-6 col-md-6 mb-4">
-                        <div class="card shadow h-100 py-2 currBmiCard">
+                        <div class="card border-left-primary shadow h-100 py-2 currBmiCard">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
@@ -327,22 +327,23 @@
                     <div class="col-xl-8 col-lg-7">
                         <div class="card shadow mb-4 ">
                             <!-- Card Header - Dropdown -->
-                            <div class="card-header cardHeaderColor py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 ">BMI Evolution Chart</h6>
-                                <div class="dropdown no-arrow">
-                                    <a class="dropdown-toggle" href="#" role="button" id="areaDropdownMenuLink"
-                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                         aria-labelledby="dropdownMenuLink">
-                                        <div class="dropdown-header">Dropdown Header:</div>
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-                                    </div>
-                                </div>
+                            <div class="card-header cardHeaderColor text-primary
+                                               py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold">BMI Evolution Chart</h6>
+<!--                                <div class="dropdown no-arrow">-->
+<!--                                    <a class="dropdown-toggle" href="#" role="button" id="areaDropdownMenuLink"-->
+<!--                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>-->
+<!--                                    </a>-->
+<!--                                    <div class="dropdown-menu dropdown-menu-right shadow animated&#45;&#45;fade-in"-->
+<!--                                         aria-labelledby="dropdownMenuLink">-->
+<!--                                        <div class="dropdown-header">Dropdown Header:</div>-->
+<!--                                        <a class="dropdown-item" href="#">Action</a>-->
+<!--                                        <a class="dropdown-item" href="#">Another action</a>-->
+<!--                                        <div class="dropdown-divider"></div>-->
+<!--                                        <a class="dropdown-item" href="#">Something else here</a>-->
+<!--                                    </div>-->
+<!--                                </div>-->
                             </div>
                             <!-- Card Body -->
                             <div class="card-body chartCardBody">
@@ -359,10 +360,10 @@
                             <div class="card-header cardHeaderColor py-3 px-0 d-flex flex-row align-items-center justify-content-between">
                                 <ul class="list-unstyled d-flex my-auto ">
                                     <li class="mx-3 liWorkout">
-                                        <h6 id="workoutLink" class="m-0">Workout Plan</h6>
+                                        <h6 id="workoutLink" class="m-0 font-weight-bold text-primary">Workout Plan</h6>
                                     </li>
                                     <li>
-                                        <h6 id="mealLink" class="m-0">Meal Plan</h6>
+                                        <h6 id="mealLink" class="m-0 font-weight-bold text-primary">Meal Plan</h6>
                                     </li>
                                 </ul>
 <!--                                <div class="dropdown no-arrow">-->
@@ -460,8 +461,8 @@
 <script src="../../js/demo/chart-pie-demo.js"></script>
 
 <!--custom js for user dashboard-->
-<script src="../../js/UserDashboard.js"></script>
-<script src="../../js/sidebarManage.js"></script>
+<script src="../../js/user-dashboard.js"></script>
+<script src="../../js/sidebar-manage.js"></script>
 </body>
 
 </html>
