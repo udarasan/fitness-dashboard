@@ -80,7 +80,7 @@ $('#updateTrainer').click(function () {
     }
 
     if (!isValidName(name)) {
-        $('#nameErrorLabel').text("Please enter a name with 2 to 50 characters");
+        $('#nameErrorLabel').text("Please enter a name with 2 to 50 characters and only use letters");
 
     } else {
         $('#nameErrorLabel').text(""); // Clear the error label
@@ -140,7 +140,7 @@ $('#saveTrainer').click(function () {
         return;
     }
     if (!isValidName(name)) {
-        $('#nameErrorLabel').text("Please enter a name with 2 to 50 characters");
+        $('#nameErrorLabel').text("Please enter a name with 2 to 50 characters and only use letters");
 
     } else {
         $('#nameErrorLabel').text(""); // Clear the error label
