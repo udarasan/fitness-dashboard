@@ -1,3 +1,19 @@
+#tableRowMember .card-header{
+    padding: 0px;
+}
+
+#tblClient{
+    width: max-content !important;
+    max-width: 100% !important;
+}
+
+@media (max-width: 1100px){
+    .clientMainContainer{
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
 @media (min-width: 576px){
     #progressModal .modal-dialog {
         max-width: 570px;
@@ -8,8 +24,4 @@
         margin-right: auto;
         margin-left: auto;
     }
-}
-
-#tableRowMember .card-header{
-    padding: 0px;
 }
