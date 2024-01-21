@@ -42,7 +42,8 @@ $("#searchEquipments").keyup(function () {
 $('#deleteEquip').click(function () {
 
     let id = $('#eId').val();
-
+    var result = window.confirm("Do you want to proceed?");
+    if (result) {
             // Make the AJAX request
             $.ajax({
                 url: 'http://localhost:8080/api/v1/equipment/delete/' + id,
@@ -58,7 +59,9 @@ $('#deleteEquip').click(function () {
                     console.error(jqXHR.responseText);  // Log the response text for debugging
                 }
             });
-
+    } else {
+        alert("Equipment Details Is Safe !!")
+    }
 
 
 

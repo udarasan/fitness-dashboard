@@ -40,6 +40,8 @@ $("#searchTrainers").keyup(function () {
 $('#deleteTrainer').click(function () {
 
     let id = $('#trainer_id').val();
+    var result = window.confirm("Do you want to proceed?");
+    if (result) {
            // Make the AJAX request
             $.ajax({
                 url: 'http://localhost:8080/api/v1/trainer/delete/'+ id,
@@ -56,6 +58,9 @@ $('#deleteTrainer').click(function () {
                     console.error(jqXHR.responseText);  // Log the response text for debugging
                 }
             });
+    } else {
+        alert("Trainer Details Is Safe !!")
+    }
 });
 
 

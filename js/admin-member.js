@@ -15,7 +15,8 @@ $(".form-check-input").on("click", function () {
 $('#deleteMember').click(function () {
 
     let id = $('#member_id').val();
-
+    var result = window.confirm("Do you want to proceed?");
+    if (result) {
             // Make the AJAX request
             $.ajax({
                 url: 'http://localhost:8080/api/v1/user/delete/' + id,
@@ -33,6 +34,9 @@ $('#deleteMember').click(function () {
                     console.error(jqXHR.responseText);  // Log the response text for debugging
                 }
             });
+    } else {
+        alert("Member Details Is Safe !!")
+    }
 
 
 

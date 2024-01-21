@@ -252,7 +252,8 @@ function btnDeleteOnClick(){
         let workoutCard = $(this).parents("div.workoutCard");
         let deleteId = workoutCard.children("div.card-body").children("input.hiddenWorkoutId").val();
 
-
+        var result = window.confirm("Do you want to proceed?");
+        if (result) {
                 $.ajax({
                     url: 'http://localhost:8080/api/v1/workoutplan/delete/'+ deleteId,
                     method: 'DELETE',
@@ -269,7 +270,9 @@ function btnDeleteOnClick(){
                         console.error(jqXHR.responseText);  // Log the response text for debugging
                     }
                 });
-
+        } else {
+            alert("WorkOut Plan  Is Safe !!")
+        }
 
         });
     }
