@@ -31,7 +31,6 @@ function getDataToAreaChart(uId,userData){
                 $('#span').text("")
             }
 
-
              console.log(cheight);
             loadUserDetailsInFields(
                 uId,
@@ -45,8 +44,6 @@ function getDataToAreaChart(uId,userData){
                 userData.age,
                 userData.gender,
             );
-            // console.log(currentProgressValues.height);
-
         },
         error: function (jqXHR, textStatus, errorThrown) {
            // Log the response text for debugging
@@ -55,7 +52,6 @@ function getDataToAreaChart(uId,userData){
 };
 
 function searchUserWithEmail(){
-
     $.ajax({
         url: 'http://localhost:8080/api/v1/user/getOneUser',
         method: 'GET',
@@ -77,8 +73,6 @@ function searchUserWithEmail(){
             //     response.data.workout_id,
             //
             //     );
-
-
         },
         error: function (jqXHR) {
             console.log(jqXHR.responseText);
@@ -98,135 +92,73 @@ let userProfileMain=$(".userProfileMain");
 
 function loadUserDetailsInFields(uid, name, email,trainer_id,meal_plan_id,workout_id,height,weight,age,gender) {
 console.log(height);
-   let userData= `<div class="row">
-                        <div class="col-lg-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="d-flex flex-column align-items-center text-center">
-                                        <img id="img" alt="Admin" class="rounded-circle p-1 bg-primary"
-                                             src="https://bootdey.com/img/Content/avatar/avatar6.png" width="110">
-                                        <div class="mt-3">
-                                            <h4>${name}</h4>
-                                            <p class="text-muted font-size-sm">${email}</p>
-
+   let userData= `<div class="row">                     
+                            <div class="card w-100 mb-5 py-3">
+                                <div class="card-body container-fluid insideContainer">
+                                    <div class="row">
+                                        <div class="col-md-12 col-lg-5 d-flex align-items-center justify-content-center">
+                                             <div class="d-flex flex-column align-items-center text-center mb-4">
+                                                 <img id="img" alt="Admin" class="rounded-circle p-1 bg-dark"
+                                                    src="../../img/undraw_profile_2.svg" width="110">
+                                                 <div class="mt-3">
+                                                    <h4>${name}</h4>
+                                                    <p class="text-muted font-size-sm">${email}</p>
+                                                 </div>
+                                             </div>
+                                        </div>
+                                        <div class="col-md-12 col-lg-7">                                                                       
+                                            <ul class="list-group list-group-flush border rounded py-2">
+                                                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                                    <h6  class="mb-0 ">
+                                                        Trainer Id
+                                                    </h6>
+                                                    <span class="text-secondary">${trainer_id}</span>
+                                                </li>
+                                                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                                    <h6 class="mb-0">
+                                                        MealPlan Id
+                                                    </h6>
+                                                    <span class="text-secondary">${meal_plan_id}</span>
+                                                </li>
+                                                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                                    <h6 class="mb-0">
+                                                        WorkOut Id
+                                                    </h6>
+                                                    <span class="text-secondary">${workout_id}</span>
+                                                </li>                                             
+                                                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                                    <h6 class="mb-0">
+                                                        Height
+                                                    </h6>
+                                                    <span id="span" class="text-secondary ">${height} CM</span>
+                                                </li>                                       
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                                    <h6 class="mb-0">
+                                                        Weight
+                                                    </h6>
+                                                    <span class="text-secondary ">${weight} KG</span>
+                                                </li>                                        
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                                    <h6 class="mb-0">
+                                                        Age
+                                                    </h6>
+                                                    <span class="text-secondary ">${age}</span>
+                                                </li>                                                                             
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                                    <h6 class="mb-0">
+                                                        Gender
+                                                    </h6>
+                                                    <span class="text-secondary ">${gender}</span>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
-                                    <hr class="my-4">
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                            <h6  class="mb-0 ">
-<!--                                                <svg class="feather feather-github me-2 icon-inline" fill="none" height="24"-->
-<!--                                                     stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"-->
-<!--                                                     stroke-width="2" viewBox="0 0 24 24" width="24"-->
-<!--                                                     xmlns="http://www.w3.org/2000/svg">-->
-<!--                                                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>-->
-<!--                                                </svg>-->
-                                                Trainer Id
-                                            </h6>
-                                            <span class="text-secondary">${trainer_id}</span>
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                            <h6 class="mb-0">
-<!--                                                <svg class="feather feather-twitter me-2 icon-inline text-info" fill="none" height="24"-->
-<!--                                                     stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"-->
-<!--                                                     stroke-width="2" viewBox="0 0 24 24" width="24"-->
-<!--                                                     xmlns="http://www.w3.org/2000/svg">-->
-<!--                                                    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>-->
-<!--                                                </svg>-->
-                                                MealPlan Id
-                                            </h6>
-                                            <span class="text-secondary">${meal_plan_id}</span>
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                            <h6 class="mb-0">
-<!--                                                <svg class="feather feather-instagram me-2 icon-inline text-danger" fill="none" height="24"-->
-<!--                                                     stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"-->
-<!--                                                     stroke-width="2" viewBox="0 0 24 24" width="24"-->
-<!--                                                     xmlns="http://www.w3.org/2000/svg">-->
-<!--                                                    <rect height="20" rx="5" ry="5" width="20" x="2" y="2"></rect>-->
-<!--                                                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>-->
-<!--                                                    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>-->
-<!--                                                </svg>-->
-                                                WorkOut Id
-                                            </h6>
-                                            <span class="text-secondary">${workout_id}</span>
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                            <h6 class="mb-0">
-<!--                                                <svg class="feather feather-facebook me-2 icon-inline text-primary" fill="none" height="24"-->
-<!--                                                     stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"-->
-<!--                                                     stroke-width="2" viewBox="0 0 24 24" width="24"-->
-<!--                                                     xmlns="http://www.w3.org/2000/svg">-->
-<!--                                                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>-->
-<!--                                                </svg>-->
-                                                Date
-                                            </h6>
-                                            <span class="text-secondary ">${formattedDate}</span>
-                                        </li>
-                                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                            <h6 class="mb-0">
-<!--                                                <svg class="feather feather-facebook me-2 icon-inline text-primary" fill="none" height="24"-->
-<!--                                                     stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"-->
-<!--                                                     stroke-width="2" viewBox="0 0 24 24" width="24"-->
-<!--                                                     xmlns="http://www.w3.org/2000/svg">-->
-<!--                                                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>-->
-<!--                                                </svg>-->
-                                                Height
-                                            </h6>
-                                            <span id="span" class="text-secondary ">${height} CM</span>
-                                        </li>
-                                        
-                                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                            <h6 class="mb-0">
-<!--                                                <svg class="feather feather-facebook me-2 icon-inline text-primary" fill="none" height="24"-->
-<!--                                                     stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"-->
-<!--                                                     stroke-width="2" viewBox="0 0 24 24" width="24"-->
-<!--                                                     xmlns="http://www.w3.org/2000/svg">-->
-<!--                                                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>-->
-<!--                                                </svg>-->
-                                                Weight
-                                            </h6>
-                                            <span class="text-secondary ">${weight} KG</span>
-                                        </li>
-                                         
-                                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                            <h6 class="mb-0">
-<!--                                                <svg class="feather feather-facebook me-2 icon-inline text-primary" fill="none" height="24"-->
-<!--                                                     stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"-->
-<!--                                                     stroke-width="2" viewBox="0 0 24 24" width="24"-->
-<!--                                                     xmlns="http://www.w3.org/2000/svg">-->
-<!--                                                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>-->
-<!--                                                </svg>-->
-                                                Age
-                                            </h6>
-                                            <span class="text-secondary ">${age}</span>
-                                        </li>
-                                        
-                                         
-                                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                            <h6 class="mb-0">
-<!--                                                <svg class="feather feather-facebook me-2 icon-inline text-primary" fill="none" height="24"-->
-<!--                                                     stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"-->
-<!--                                                     stroke-width="2" viewBox="0 0 24 24" width="24"-->
-<!--                                                     xmlns="http://www.w3.org/2000/svg">-->
-<!--                                                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>-->
-<!--                                                </svg>-->
-                                                Gender
-                                            </h6>
-                                            <span class="text-secondary ">${gender}</span>
-                                        </li>
-                                    </ul>
                                 </div>
-                            </div>
-                        </div>
-                        
-                        
+                            </div>                                            
                     </div>`
 
 
     userProfileMain.append(userData);
-
-
 }
 
 let height;

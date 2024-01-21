@@ -1,0 +1,11 @@
+@media all and (max-width: 550px){
+    .userProfileContainer{
+        padding-right: 20px !important;
+        padding-left: 20px !important;
+    }
+
+    .insideContainer{
+        padding-right: 15px !important;
+        padding-left: 15px !important;
+    }
+}
