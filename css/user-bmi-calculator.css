@@ -1,0 +1,30 @@
+.fourcard{
+    padding-right: 0px;
+}
+
+@media all and (max-width: 550px){
+     .bmiMainContainer{
+         padding-right: 30px !important;
+         padding-left: 30px !important;
+     }
+
+    .userProfileMain>.card{
+        min-width: 100% !important;
+    }
+}
+
+@media all and (max-width: 450px){
+    .bmiMainContainer{
+        padding-right: 10px !important;
+        padding-left: 10px !important;
+    }
+
+    .fourcard{
+        padding-right: 10px;
+    }
+
+    .fourCardBody{
+        padding-right: 10px !important;
+        padding-left: 10px !important;
+    }
+}

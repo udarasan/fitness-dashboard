@@ -19,9 +19,9 @@
 
 
     <!-- Custom styles for this template-->
-    <link href="../../css/sb-admin-2.css" rel="stylesheet">
+    <link href="../../css/sb-admin-2.min.css" rel="stylesheet">
     <link href="../../css/admin-dashboard.css" rel="stylesheet">
-    <link href="../../css/user-profile.css">
+    <link href="../../css/user-bmi-calculator.css" rel="stylesheet">
     <link href="../../css/sidebar-manage.css" rel="stylesheet">
 
 </head>
@@ -37,12 +37,14 @@
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
             <div class="sidebar-brand-icon rotate-n-15">
-                <img id="gymImg" width="25" height="25" src="https://img.icons8.com/external-nawicon-glyph-nawicon/64/ffffff/external-gym-hotel-nawicon-glyph-nawicon.png" alt="external-gym-hotel-nawicon-glyph-nawicon"/>
+                <img alt="external-gym-hotel-nawicon-glyph-nawicon" height="25" id="gymImg"
+                     src="https://img.icons8.com/external-nawicon-glyph-nawicon/64/ffffff/external-gym-hotel-nawicon-glyph-nawicon.png"
+                     width="25"/>
             </div>
             <div class="sidebar-brand-text mx-3">Fitness</div>
         </a>
-        <div class="threebarsDiv d-flex align-items-center justify-content-center" >
-            <i id="threebars" class="fa fa-bars d-none text-white"></i>
+        <div class="threebarsDiv d-flex align-items-center justify-content-center">
+            <i class="fa fa-bars d-none text-white" id="threebars"></i>
         </div>
 
         <!-- Divider -->
@@ -275,48 +277,145 @@
             <!-- End of Topbar -->
 
             <!-- Begin Page Content -->
-            <div class="container-fluid mt-5">
+            <div class="container-fluid mt-5 bmiMainContainer">
 
-                <div class="main-body userProfileMain">
+                <div class="row mb-5">
+                    <div class="col-md-12 col-lg-6 mb-5">
+                        <div class="card shadow">
+                            <div class="card-header bg-white text-muted text-right border-0" >
+                                <h5 class="mb-0 mt-2">BMI Calculator</h5>
+                            </div>
+                            <hr>
+                            <div class="card-body">
 
-                    <div class="card ">
-                        <div class="card-header" style="background-color: #2d324a;color: white; ">BMI Calculator</div>
-                        <div class="card-body">
+                                <form id="assignMealForm">
 
-                            <form id="assignMealForm">
+                                    <div class="mb-3">
 
-                                <div class="mb-3">
-
-                                    <label class="form-label" for="height"> Height(CM)</label>
-                                    <input  class="form-control height" id="height"
-                                            placeholder="Enter Height " type="text"
-                                    >
-
-
-                                </div>
-
-                                <div class="mb-3">
-                                    <label class="form-label" for="weight"> Weight(KG)</label>
-                                    <input  class="form-control weight" id="weight"
-                                            placeholder="Enter Weight" type="text"
-                                    >
-                                </div>
+                                        <label class="form-label" for="height"> Height(CM)</label>
+                                        <input  class="form-control height" id="height"
+                                                placeholder="Enter Height " type="text"
+                                        >
 
 
-                                <div class="mb-3">
-                                    <label class="form-label" for="bmi">BMI</label>
-                                    <input disabled class="form-control" id="bmi"
-                                           placeholder="" type="text"
-                                    >
-                                </div>
+                                    </div>
 
-                            </form>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="weight"> Weight(KG)</label>
+                                        <input  class="form-control weight" id="weight"
+                                                placeholder="Enter Weight" type="text"
+                                        >
+                                    </div>
 
 
+                                    <div class="mb-3">
+                                        <label class="form-label" for="bmi">BMI</label>
+                                        <input disabled class="form-control" id="bmi"
+                                               placeholder="" type="text"
+                                        >
+                                    </div>
+
+                                </form>
+
+
+                            </div>
                         </div>
                     </div>
+                    <div class="col-md-12 col-lg-6">
+                        <div class="card bg-transparent mb-5 shadow h-100" style="max-width: 100%">
+                            <div class="card-header text-muted text-right border-0 p-0" >
+                            </div>
+                            <div class="card-body bg-transparent container-fluid d-flex align-items-center fourCardBody">
+                                <div class="row">
+                                    <div class="col-xl-6 col-lg-12 col-md-6 col-sm-6 mb-4 fourcard">
+                                        <div class="card shadow h-100 py-2">
+                                            <div class="card-body">
+                                                <div class="row no-gutters align-items-center">
+                                                    <div class="col mr-2">
+                                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                            underweight</div>
+                                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                            <18.5
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <!--                                        <i class="fas fa-user fa-2x text-gray-300"></i>-->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
+                                    <div class="col-xl-6 col-lg-12 col-md-6 col-sm-6 mb-4 fourcard">
+                                        <div class="card shadow h-100 py-2">
+                                            <div class="card-body">
+                                                <div class="row no-gutters align-items-center">
+                                                    <div class="col mr-2">
+                                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                            normal</div>
+                                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                            18.5-24.9
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <!--                                        <i class="fas fa-hamburger fa-2x text-gray-300"></i>-->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
+                                    <div class="col-xl-6 col-lg-12 col-md-6 col-sm-6 mb-4 fourcard">
+                                        <div class="card shadow h-100 py-2">
+                                            <div class="card-body">
+                                                <div class="row no-gutters align-items-center">
+                                                    <div class="col mr-2">
+                                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">overweight
+                                                        </div>
+                                                        <div class="row no-gutters align-items-center">
+                                                            <div class="col-auto">
+                                                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                                                    25-29.9
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <!--                                        <i class="fas fa-dumbbell fa-2x text-gray-300"></i>-->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-6 col-lg-12 col-md-6 col-sm-6 mb-4 fourcard">
+                                        <div class="card shadow h-100 py-2">
+                                            <div class="card-body">
+                                                <div class="row no-gutters align-items-center">
+                                                    <div class="col mr-2">
+                                                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Obese
+                                                        </div>
+                                                        <div class="row no-gutters align-items-center">
+                                                            <div class="col-auto">
+                                                                <div id="totalWorkoutPlans" class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                                                    >35
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <!--                                        <i class="fas fa-dumbbell fa-2x text-gray-300"></i>-->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
 
@@ -380,7 +479,7 @@
 <!--<script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>-->
 
 <!-- Custom scripts for all pages-->
-<script src="../../js/sb-admin-2.js"></script>
+<script src="../../js/sb-admin-2.min.js"></script>
 
 <!-- Page level plugins -->
 <script src="../../vendor/chart.js/Chart.min.js"></script>
