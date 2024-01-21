@@ -21,11 +21,8 @@
     <!-- Custom styles for this template-->
     <link href="../../css/sb-admin-2.min.css" rel="stylesheet">
     <link href="../../css/admin-dashboard.css" rel="stylesheet">
-    <link href="../../css/admin-meal.css" rel="stylesheet">
+    <link href="../../css/trainer-meal.css" rel="stylesheet">
     <link href="../../css/sidebar-manage.css" rel="stylesheet">
-
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.5/dist/sweetalert2.min.css" rel="stylesheet">
-
 
 </head>
 
@@ -118,7 +115,7 @@
         <!-- Main Content -->
         <div id="content">
             <!-- Topbar -->
-            <nav class="navbar navbar-expand navbar-light bg-white topbar  static-top shadow">
+            <nav class="navbar navbar-expand navbar-light bg-white topbar static-top shadow">
                 <!-- Sidebar Toggle (Topbar) -->
                 <button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop">
                     <i class="fa fa-bars"></i>
@@ -315,27 +312,20 @@
             <div class="container-fluid mt-5  " id="member">
 
                 <!-- Content Row -->
-
-
-                <!--                end of top four cards-->
-
-
                 <!--                start of meal plan card              -->
 
-                <div class="card mt-5 mealMainCard">
-                    <div class="card-header  text-right border-bottom-0" >
-
-                        <div class="row">
+                <div class="card mt-5 mealMainCard pb-4">
+                    <div class="card-header bg-white text-right border-bottom-0" >
+                        <div class="row topRow">
                             <div class="col">
-                                <input class="form-control" id="SearchMeal"
+                                <input class="form-control mt-3" id="SearchMeal"
                                        placeholder="Search Meals..."
-                                       type="text" style="width: 350px"
-                                >
+                                       type="text">
 
                             </div>
-                            <div class="col">
-                                <button class="btn btn-info" data-target="#TrainerNewMealModal" data-toggle="modal"
-                                        id="addNewMealPan" style="background-color: #2d324a ;">
+                            <div class="col" id="addNewMealBtnDiv">
+                                <button class="btn btn-info mt-3" data-target="#TrainerNewMealModal" data-toggle="modal"
+                                        id="addNewMealPlan" style="background-color: #2d324a ;">
                                     Add new meal plan
                                 </button>
                             </div>

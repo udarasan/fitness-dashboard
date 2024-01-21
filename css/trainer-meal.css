@@ -1,0 +1,120 @@
+.lead{
+    font-size: 13px;
+}
+
+.planDetailText{
+    font-size: 13px;
+}
+
+#assignToMemberBtn{
+    font-size: 13px;
+}
+
+#addNewMealPan{
+    font-size: 13px;
+}
+
+#saveMeal,#updateMeal,#assignMealPlanBtn,#deleteMeal{
+    background-color:#2d324a ;
+    font-size: 13px;
+    color: white;
+}
+
+
+.threeDots{
+    top: 6.4px;
+    right: 0px;
+}
+
+.threeDots i{
+    font-weight: 600;
+    color: #b8b8b8;
+}
+
+.threeDots .dropdown-toggle::after{
+    display: none;
+}
+
+.threeDots a{
+    background: transparent;
+    border: none;
+}
+
+@media all and (max-width: 1300px){
+    #member{
+        padding: 15px;
+        margin-top: 0px !important;
+    }
+}
+
+@media all and (max-width: 1200px){
+    #member{
+        padding: 10px;
+    }
+
+    .mealPlanContainer{
+        padding-right: 0px !important;
+        padding-left: 0px !important;
+    }
+
+    .mainCardBody{
+        padding-right: 0px !important;
+        padding-left: 0px !important;
+    }
+}
+
+@media all and (max-width: 1000px){
+    #cardContainer{
+        justify-content: center;
+    }
+}
+
+@media all and (max-width: 768px){
+    .topRow{
+        flex-direction: column-reverse;
+    }
+
+    #addNewMealPlan{
+        margin-bottom: 15px;
+    }
+
+    #addNewMealBtnDiv{
+        text-align: left;
+    }
+}
+
+@media all and (max-width: 575px){
+    #cardContainer{
+        padding: 0 !important;
+    }
+
+    .mealMainCar>div{
+        padding: 0 !important;
+    }
+
+    #member{
+        padding: 10px !important;
+    }
+
+    #assignToMemberBtn {
+        font-size: 11px;
+        width: 130px;
+        height: 27px;
+        margin-bottom: 10px;
+        margin-right: 0 !important;
+    }
+
+    /*#addNewMealPan {*/
+    /*    font-size: 11px;*/
+    /*    width: 130px;*/
+    /*    height: 27px;*/
+    /*}*/
+
+}
+
+@media all and (min-width: 406px) and (max-width: 575px){
+    #assignToMemberBtn {
+        margin-bottom: 0;
+
+    }
+}

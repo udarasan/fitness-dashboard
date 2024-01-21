@@ -37,7 +37,7 @@ function getAll() {
 function appendMealSection(mealPlan) {
 
     let card = `
-  <section class="mx-3 my-5" style="max-width: 20rem;">
+  <section class="mx-3 mb-3 mt-4" style="max-width: 20rem;">
 
     <div id="card" class="card" >
    
@@ -430,7 +430,7 @@ $("#SearchMeal").keyup(function () {
         success: function (response) {
             console.log(response);
             if ($("#SearchMeal").val() === "") {
-                $("#cardContainer").css("justifyContent","start")
+                $("#cardContainer").css("justifyContent", "start")
                 getAll();
 
             } else {
@@ -493,8 +493,8 @@ $("#SearchMeal").keyup(function () {
 
   
 `
-                let cardContainer=$("#cardContainer");
-                cardContainer.css("justify-content","center")
+                let cardContainer = $("#cardContainer");
+                cardContainer.css("justify-content", "center")
                 cardContainer.append(card);
             }
         }
