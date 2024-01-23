@@ -1,5 +1,5 @@
 let trainerEmail;
-window.onload = function () {
+$(window).on('load', function() {
     trainerEmail = localStorage.getItem('trainer-email');
     $("#trainerEmail").text(trainerEmail);
     loadTrainerId();
@@ -8,7 +8,7 @@ window.onload = function () {
 
     console.log(trainerEmail + "ss")
     console.log('Window has fully loaded!');
-};
+});
 
 function getAll() {
 

@@ -1,11 +1,11 @@
 let trainerEmail;
 
-window.onload = function () {
+$(window).on('load', function() {
     trainerEmail = localStorage.getItem('trainer-email');
     $("#trainerEmail").text(trainerEmail);
 
     loadTrainerIdUsingEmail(trainerEmail);
-};
+});
 
 let trainerId;
 function loadTrainerIdUsingEmail(trainerEmail) {

@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(window).on('load', function() {
     $("#trainerEmail").text(localStorage.getItem("trainer-email"));
     getAllWorkoutPlans();
     loadMembers();

@@ -4,15 +4,14 @@ let totalMealPlansCount;
 let totalWorkoutsCount;
 
 
-
-window.onload = function () {
+$(window).on('load', function() {
     trainerEmail = localStorage.getItem('trainer-email');
     $("#trainerEmail").text(trainerEmail);
     loadTrainerIdUsingEmail(trainerEmail)
     loadAndCountTotalMealPlans();
     loadAndCountTotalWorkoutPlans();
 
-}
+});
 
 function loadTrainerIdUsingEmail(trainerEmail) {
     console.log(trainerEmail);

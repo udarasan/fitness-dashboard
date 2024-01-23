@@ -7,8 +7,9 @@ let height;
 let weight;
 let date
 let cname;
-searchUserWithEmail();
-
+$(window).on('load', function() {
+    searchUserWithEmail();
+});
 
 function searchUserWithEmail(){
 

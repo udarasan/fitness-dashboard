@@ -1,6 +1,6 @@
 
 
-$(document).ready(function () {
+$(window).on('load', function() {
     // Your JavaScript code goes here
     getAllTrainers();
 });

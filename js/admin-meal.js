@@ -1,9 +1,9 @@
 // meal plan Get All
-window.onload = function () {
+$(window).on('load', function() {
     getAll();
     loadAllMembersIds();
     console.log('Window has fully loaded!');
-};
+});
 
 
 function getAll() {

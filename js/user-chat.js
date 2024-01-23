@@ -1,8 +1,8 @@
 let userEmail = localStorage.getItem("userEmail");
-window.onload = function () {
+$(window).on('load', function() {
     loadUserUsingEmail(userEmail);
     $('#nameLbl').text(localStorage.getItem("name"));
-};
+});
 
 let userId;
 let trainerId;

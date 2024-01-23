@@ -4,6 +4,7 @@ let weight;
 let userProfileMain=$(".userProfileMain");
 
 userProfileMain.on("keyup", ".height", function(event) {
+    console.log("hi")
     let heightText = $(".height");
     let weightTxt = $(".weight");
     let bmiTxt = $("#bmi");

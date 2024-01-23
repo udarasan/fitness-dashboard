@@ -1,6 +1,6 @@
 let userEmail=localStorage.getItem("userEmail");
 
-$(document).ready(function () {
+$(window).on('load', function() {
     $(".mealTab").css({
         display: "none"
     })
