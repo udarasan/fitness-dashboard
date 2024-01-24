@@ -132,6 +132,8 @@ let currUserMealId;
 let currUserTrainerId;
 let currUserName;
 let currUserPassword;
+let currUserAge;
+let currUserGender;
 $(".memberSelect").change(function(){
     let currUserId = $(this).val();
 
@@ -142,8 +144,12 @@ $(".memberSelect").change(function(){
             currUserTrainerId = member.trainer_id;
             currUserName = member.name;
             currUserPassword = member.password;
+            currUserAge=member.age;
+            currUserGender=member.gender;
 
             console.log(currUserMealId+" "+currUserTrainerId+" "+currUserName+" "+currUserPassword);
+            console.log(currUserAge)
+            console.log(currUserGender)
 
             $(".lblMemberName").val(member.name);
         }
@@ -165,11 +171,19 @@ $("#modalAssignBtn").click(function(){
         method: 'POST',
         dataType: 'json',
         contentType: 'application/json',  // Set content type to JSON
-        data: JSON.stringify({"uid": userId, "name":currUserName, "email": currUserEmail,
-            "password":currUserPassword, "trainer_id":currUserTrainerId, "meal_plan_id": currUserMealId,
-            "workout_id": workoutId }),  // Convert data to JSON string
+        data: JSON.stringify({"uid": userId,
+            "name":currUserName,
+            "email": currUserEmail,
+            "password":currUserPassword,
+            "trainer_id":currUserTrainerId,
+            "meal_plan_id": currUserMealId,
+            "workout_id": workoutId ,
+            "age":currUserAge,
+            "gender":currUserGender
+        }),  // Convert data to JSON string
         success: function (response) {
             console.log(response);
+            alert("Workout Assigned Successfully !!")
             $('#assignWorkoutModal').data('bs.modal').hide();
             $(".memberSelect").val("");
         },
@@ -231,6 +245,8 @@ $("#modalAssignNew").click(function () {
                     "password": currUserPassword,
                     "trainer_id": currUserTrainerId,
                     "meal_plan_id": currUserMealId,
+                    "age":currUserAge,
+                    "gender":currUserGender
                 }
             }),   // Convert data to JSON string
             success: function (response) {
