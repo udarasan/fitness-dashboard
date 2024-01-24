@@ -49,8 +49,9 @@ $('#deleteTrainer').click(function () {
                 contentType: 'application/json',  // Set content type to JSON
                 success: function (response) {
                     alert("Trainer Delete successful!");
-                    $('#trainerModal').modal('hide');
                     getAllTrainers();
+                    $('#trainerModal').modal('hide');
+
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     alert("Trainer Delete failed! Please check your input and try again.");
@@ -101,7 +102,7 @@ $('#updateTrainer').click(function () {
     }
 
     // Make the AJAX request
-    if ( isValidEmail(email) && isValidPassword(password)) {
+    if ( isValidName(name) && isValidEmail(email) && isValidPassword(password)) {
         $.ajax({
             url: 'http://localhost:8080/api/v1/trainer/update',
             method: 'POST',
@@ -111,8 +112,9 @@ $('#updateTrainer').click(function () {
             success: function (response) {
                 console.log(response);
                 alert("Trainer update successful!");
-                $('#trainerModal').modal('hide');
                 getAllTrainers();
+                $('#trainerModal').modal('hide');
+
 
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -169,8 +171,9 @@ $('#saveTrainer').click(function () {
             data: JSON.stringify({"name":name , "id": id, "email": email, "password": password, "category": category}),  // Convert data to JSON string
             success: function (response) {
                 alert("Trainer registration successful!");
-                $('#trainerModal').modal('hide');
                 getAllTrainers();
+                $('#trainerModal').modal('hide');
+
                 console.log(response);
 
 
