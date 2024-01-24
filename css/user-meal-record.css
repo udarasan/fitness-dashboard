@@ -26,3 +26,13 @@
     border-top: none;
     padding-right: 0px;
 }
+
+.modalBtnStyle{
+    background-color: #2d324a;
+    font-size: 13px;
+    color: white;
+}
+
+#mngDate,#mngMeal,#mngMealDetails,#mngCalories{
+    font-size: 13px;
+}

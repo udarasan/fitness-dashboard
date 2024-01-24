@@ -280,7 +280,7 @@
       </nav>
 
       <!-- start member tab -->
-      <div class="container-fluid mt-5  " id="member">
+      <div class="container-fluid mt-5  " id="mealRecordContainer">
         <!-- Content Row -->
         <!-- start of table -->
         <div id="tableMealRecord" class="row">
@@ -301,7 +301,7 @@
 
             <div class="card-body d-flex justify-content-center">
 
-              <table id="mealRecTable" class="table table-responsive mx-auto">
+              <table id="mealRecTable" class="table table-responsive table-bordered mx-auto">
                 <thead class="thead-light">
                 <tr>
                   <th scope="col">Date</th>
@@ -362,13 +362,13 @@
   </div>
 </div>
 
-<!--new member model-->
+<!--add new record model-->
 <div class="modal fade" id="mealRecModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <div class="modal-body">
-          <form id="memberForm">
+          <form>
             <div class="mb-3">
               <label class="form-label" for="date">Date</label>
               <input class="form-control" id="date" type="date">
@@ -390,8 +390,8 @@
               <label id="descriptionErrorLabel" style="color: red;"></label>
             </div>
             <div class="">
-              <label class="form-label" for="member_name">Calories Gained</label>
-              <input class="form-control" id="member_name" placeholder="Enter Calories per Meal" type="text"
+              <label class="form-label" for="calories">Calories Gained</label>
+              <input class="form-control" id="calories" placeholder="Enter Calories per Meal" type="text"
                      name="name">
               <label id="calorieErrorLabel" style="color: red;"></label>
             </div>
@@ -400,7 +400,57 @@
             <button id="closeBtn" type="button" class="btn btn-secondary" data-dismiss="modal" style="font-size: 13px">
               Close
             </button>
-            <button type="button" class="btn" id="saveMemeber">Add Record</button>
+            <button type="button" class="btn modalBtnStyle" id="addRecord">Add Record</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--manage record model-->
+<div class="modal fade" id="manageRecModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-body">
+          <form >
+            <div class="mb-3 d-none">
+              <input class="form-control" id="mngRecordId" type="text">
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="mngDate">Date</label>
+              <input class="form-control" id="mngDate" type="date">
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="mngMeal">Meal</label>
+              <select id="mngMeal" class="d-block w-100 fieldStyle form-control">
+                <option class="d-none" value="" selected></option>
+                <option class="small">Breakfast</option>
+                <option class="small">Lunch</option>
+                <option class="small">Dinner</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="mngMealDetails">Meal Details</label>
+              <textarea id="mngMealDetails" placeholder="Enter Meal Details" class="d-block fieldStyle w-100
+                    form-control"
+                        rows="4"></textarea>
+<!--              <label id="mngDescriptionErrorLabel" style="color: red;"></label>-->
+            </div>
+            <div class="">
+              <label class="form-label" for="mngCalories">Calories Gained</label>
+              <input class="form-control" id="mngCalories" placeholder="Enter Calories per Meal" type="text"
+                     name="name">
+              <label id="mngCalorieErrorLabel" style="color: red;"></label>
+            </div>
+          </form>
+          <div class="modal-footer">
+            <button id="mngCloseBtn" type="button" class="btn btn-secondary" data-dismiss="modal" style="font-size: 13px">
+              Close
+            </button>
+            <button type="button" class="btn modalBtnStyle" id="updateRecord">Update Record</button>
+            <button type="button" class="btn modalBtnStyle" id="deleteRecord">Delete Record</button>
           </div>
         </div>
       </div>
