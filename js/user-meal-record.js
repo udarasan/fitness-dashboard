@@ -88,6 +88,9 @@ $("#addRecord").click(function (){
 });
 
 $('#tblMemberRecBody').on('click', 'tr', function () {
+    $('#mngDescriptionErrorLabel').text("");
+    $('#mngCalorieErrorLabel').text("");
+
     let date = $(this).find('td:first').text();
     let mealType = $(this).find('td:nth-child(2)').text();
     let details = $(this).find('td:nth-child(3)').text();
@@ -155,5 +158,22 @@ $('#updateRecord').click(function () {
             console.error(jqXHR.responseText);
         }
     });
+});
 
+$('#deleteRecord').click(function () {
+    let id = $("#mngRecordId").val();
+
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/mealRecords/delete/'+id,
+        method: 'DELETE',
+        success: function (response) {
+            console.log(response);
+            alert("Record Deleted successfully!");
+            $("#manageRecModal").data('bs.modal').hide();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert("Record deleting process failed!");
+            console.error(jqXHR.responseText);  // Log the response text for debugging
+        }
+    });
 });

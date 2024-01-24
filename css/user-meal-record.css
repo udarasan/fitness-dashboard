@@ -36,3 +36,10 @@
 #mngDate,#mngMeal,#mngMealDetails,#mngCalories{
     font-size: 13px;
 }
+
+@media all and (max-width:1000px){
+    #mealRecordContainer{
+        padding-right: 20px !important;
+        padding-left: 20px !important;
+    }
+}
