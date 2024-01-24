@@ -14,7 +14,7 @@
     font-size: 13px;
 }
 
-#saveMeal,#updateMeal,#assignMealPlanBtn,#deleteMeal{
+#saveMeal,#updateMeal,#assignMealPlanBtn,#deleteMeal,#assignTrainerMealPlanBtn{
     background-color:#2d324a ;
     font-size: 13px;
     color: white;

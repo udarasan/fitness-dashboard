@@ -74,7 +74,6 @@ function appendMealSection(mealPlan) {
 `
     $("#cardContainer").append(card);
 
-
     // /click event to assign data to update modal
 
     $(".edit").click(function () {
@@ -345,7 +344,8 @@ function loadAllMembersIds() {
 // set member data to combobox based on ajax request
 
 function setMemberDataToComboBox(members) {
-
+    let firstOpt = ` <option class="d-none" value="" selected></option>`;
+    $("#memberComboBox").append(firstOpt);
     let memberData = `<option >${members.uid}</option>`
     $("#memberComboBox").append(memberData);
 
@@ -357,7 +357,9 @@ let memberName;
 let memberPassword;
 let trainerId
 let mealId;
-let workoutId
+let workoutId;
+let age;
+let gender;
 
 $("#memberComboBox").click(function () {
 
@@ -379,6 +381,8 @@ $("#memberComboBox").click(function () {
             trainerId = members.trainer_id;
             mealId = members.meal_plan_id;
             workoutId = members.workout_id;
+            age=members.age;
+            gender=members.gender;
 
             console.log(memberId);
             console.log(memberEmail);
@@ -405,32 +409,42 @@ $("#assignMealPlanBtn").click(function () {
     let mealId = $("#assign_meal_id").val();
     console.log(mealId);
 
-    $.ajax({
-        url: 'http://localhost:8080/api/v1/user/update',
-        method: "post",
-        dataType: "json",
-        contentType: "application/json",
-        data: JSON.stringify(
-            {
-                "uid": memId,
-                "email": memberEmail,
-                "meal_plan_id": mealId,
-                "name": memberName,
-                "password": memberPassword,
-                "workout_id": workoutId,
-                "trainer_id": trainerId
 
-            }),
+    if( $("#memberComboBox").val()===""){
+        alert("Please Select Member To Assign !!")
 
-        success: function (response) {
-            console.log(response);
-        },
+    }else{
+        $.ajax({
+            url: 'http://localhost:8080/api/v1/user/update',
+            method: "post",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(
+                {
+                    "uid": memId,
+                    "email": memberEmail,
+                    "meal_plan_id": mealId,
+                    "name": memberName,
+                    "password": memberPassword,
+                    "workout_id": workoutId,
+                    "trainer_id": trainerId,
+                    "age":age,
+                    "gender":gender
 
-        error: function (jqXHR) {
-            console.log(jqXHR);
+                }),
 
-        }
-    })
+            success: function (response) {
+                console.log(response);
+                alert("Meal Plan Assigned Successfully !!")
+            },
+
+            error: function (jqXHR) {
+                console.log(jqXHR);
+
+            }
+        })
+
+    }
 
 })
 

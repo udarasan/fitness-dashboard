@@ -33,6 +33,8 @@ function getAll() {
     })
 }
 
+
+
 // add new card to meal section using get all data
 function appendMealSection(mealPlan) {
 
@@ -51,8 +53,8 @@ function appendMealSection(mealPlan) {
                                         <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                                      </a>
                                      <ul class="dropdown-menu">
-                                        <li><a id="edit"  class="dropdown-item edit" href="#" data-toggle="modal" data-target="#updateMealModal" >Edit</a></li>
-                                        <li><a class="dropdown-item delete" href="#" >Delete</a></li>
+<!--                                        <li><a id="edit"  class="dropdown-item edit" href="#" data-toggle="modal" data-target="#updateMealModal" >Edit</a></li>-->
+<!--                                        <li><a class="dropdown-item delete" href="#" >Delete</a></li>-->
                                         <li><a class="dropdown-item assign" href="#" data-toggle="modal" data-target="#assignModal">Assign</a></li>
                                      </ul>
                                 </div>
@@ -80,7 +82,6 @@ function appendMealSection(mealPlan) {
   </section>
 `
     $("#cardContainer").append(card);
-
 
     // /click event to assign data to update modal
 
@@ -115,7 +116,22 @@ function appendMealSection(mealPlan) {
 
     })
 
+    $(".assign").click(function () {
+        let card = $(this).closest('.card');
 
+        let mealID = card.find("#mealId").text();
+        // let mealPlanName = card.find('#mealPlanName').text();
+        // let mealPlanDetails = card.find('#mealPlanDetail').text();
+        // let calorie = card.find('#mealPlanCalorie').text();
+
+        setTrainerAssignModalContent(mealID);
+    })
+
+
+}
+
+function setTrainerAssignModalContent(mealID) {
+    $("#assign_meal_id").val(mealID);
 }
 
 function setTrainerUpdateModalContent(mealPlanName, mealPlanDetails, calorie, mealId) {
@@ -157,75 +173,83 @@ $("#saveMeal").click(function () {
     let meal_details = $("#meal_plan_details").val();
     let calorie = $("#calorie").val();
 
-    if (isValidPlan(meal_name)) {
-        $("#TrainerMealPlanNameErrorLabel").css("display", "none");
-        if (isValidPlan(meal_details)) {
-            $("#TrainerMealPlanDetailErrorLabel").css("display", "none");
+    if (meal_name === "" || meal_details === "" || calorie === "" ||  $("#memberComboBox").val()==="") {
+        alert("please fill all empty fields !!");
+    }else{
+        if (isValidPlan(meal_name)) {
+            $("#TrainerMealPlanNameErrorLabel").css("display", "none");
+            if (isValidPlan(meal_details)) {
+                $("#TrainerMealPlanDetailErrorLabel").css("display", "none");
 
-            if (!isNaN(calorie)) {
-                $("#TrainerMealPlanCalorieErrorLabel").css("display", "none");
+                if (!isNaN(calorie)) {
+                    $("#TrainerMealPlanCalorieErrorLabel").css("display", "none");
 
-                $.ajax({
-                    url: 'http://localhost:8080/api/v1/trainer/assignNewMealPlan',
-                    method: 'POST',
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    data: JSON.stringify({
+                    $.ajax({
+                        url: 'http://localhost:8080/api/v1/trainer/assignNewMealPlan',
+                        method: 'POST',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        data: JSON.stringify({
 
-                        "mealPlanDTO": {
-                            "planName": meal_name,
-                            "planDetails": meal_details,
-                            "calorieCount": calorie
+                            "mealPlanDTO": {
+                                "planName": meal_name,
+                                "planDetails": meal_details,
+                                "calorieCount": calorie
+                            },
+                            "userDTO": {
+                                "uid": memId,
+                                "email": memberEmail,
+                                "name": memberName,
+                                "password": memberPassword,
+                                "workout_id": workoutId,
+                                "trainer_id": trainerIdd,
+                                "age":age,
+                                "gender":gender
+                            }
+
+                        }),
+
+                        success: function (response) {
+                            console.log(response);
+                            // updateMemberWithMealId(meal_id);
+                            alert("Meal Plan Saved Successfully !!")
+
+                            getAll();
+                            $('#TrainerNewMealModal').data('bs.modal').hide();
+                            $("#meal_id").val("");
+                            $("#meal_name").val("");
+                            $("#meal_plan_details").val("");
+                            $("#calorie").val("");
                         },
-                        "userDTO": {
-                            "uid": memId,
-                            "email": memberEmail,
-                            "name": memberName,
-                            "password": memberPassword,
-                            "workout_id": workoutId,
-                            "trainer_id": trainerIdd
+
+                        error: function (jqXHR) {
+                            console.log(jqXHR);
+
                         }
+                    })
 
-                    }),
-
-                    success: function (response) {
-                        console.log(response);
-                        // updateMemberWithMealId(meal_id);
-                        alert("Meal Plan Saved Successfully !!")
-
-                        getAll();
-                        $('#TrainerNewMealModal').data('bs.modal').hide();
-                        $("#meal_id").val("");
-                        $("#meal_name").val("");
-                        $("#meal_plan_details").val("");
-                        $("#calorie").val("");
-                    },
-
-                    error: function (jqXHR) {
-                        console.log(jqXHR);
-
-                    }
-                })
+                } else {
+                    let errorLabel = $("#TrainerMealPlanCalorieErrorLabel");
+                    errorLabel.css("display", "inline");
+                    errorLabel.text("Invalid input type !");
+                }
 
             } else {
-                let errorLabel = $("#TrainerMealPlanCalorieErrorLabel");
+                let errorLabel = $("#TrainerMealPlanDetailErrorLabel");
                 errorLabel.css("display", "inline");
-                errorLabel.text("Invalid input type !");
+                errorLabel.text("Enter minimum 2 characters !");
+
             }
 
         } else {
-            let errorLabel = $("#TrainerMealPlanDetailErrorLabel");
+            let errorLabel = $("#TrainerMealPlanNameErrorLabel");
             errorLabel.css("display", "inline");
             errorLabel.text("Enter minimum 2 characters !");
 
         }
-
-    } else {
-        let errorLabel = $("#TrainerMealPlanNameErrorLabel");
-        errorLabel.css("display", "inline");
-        errorLabel.text("Enter minimum 2 characters !");
-
     }
+
+
 })
 // let meal_id = $("#meal_id").val();
 
@@ -347,6 +371,7 @@ let getAllMembersResponse;
 function loadAllMembersIds() {
     console.log(trainerId);
 
+
     $.ajax({
         url: 'http://localhost:8080/api/v1/trainer/getOneTrainer/' + trainerId,
         method: 'GET',
@@ -374,8 +399,14 @@ function loadAllMembersIds() {
 // set member data to combobox based on ajax request
 
 function setMemberDataToComboBox(members) {
+
+    let firstOpt = ` <option class="d-none" value="" selected></option>`;
+    $("#assign_member_id").append(firstOpt);
+    $("#memberComboBox").append(firstOpt);
+
     let memberData = `<option >${members.uid}</option>`
     $("#memberComboBox").append(memberData);
+    $("#assign_member_id").append(memberData);
 
 }
 
@@ -384,7 +415,9 @@ let memberEmail;
 let memberName;
 let memberPassword;
 let trainerIdd;
-let workoutId
+let workoutId;
+let  age;
+let gender;
 
 $("#memberComboBox").click(function () {
 
@@ -399,6 +432,8 @@ $("#memberComboBox").click(function () {
         memberPassword = members.password;
         trainerIdd = members.trainer_id;
         workoutId = members.workout_id;
+        age=members.age;
+        gender=members.gender;
 
         console.log(members);
         console.log(members.uid);
@@ -407,6 +442,8 @@ $("#memberComboBox").click(function () {
         console.log(memberName);
         console.log(trainerIdd);
         console.log(workoutId);
+        console.log(age);
+        console.log(gender);
 
 
         if (memberId == members.uid) {
@@ -416,6 +453,96 @@ $("#memberComboBox").click(function () {
 
     })
 })
+
+
+
+// set selected name to assign meal plan modal
+$("#assign_member_id").click(function () {
+
+    let memberId = $("#assign_member_id").val();
+    console.log(memberId);
+
+    $.each(getAllMembersResponse.data, function (index, members) {
+
+        memId = members.uid;
+        memberEmail = members.email;
+        memberName = members.name;
+        memberPassword = members.password;
+        trainerIdd = members.trainer_id;
+        workoutId = members.workout_id;
+        age=members.age;
+        gender=members.gender;
+
+        console.log(members);
+        console.log(members.uid);
+        console.log(memberEmail);
+        console.log(memberPassword);
+        console.log(memberName);
+        console.log(trainerIdd);
+        console.log(workoutId);
+        console.log(age);
+        console.log(gender);
+
+
+        if (memberId == members.uid) {
+            let memberName = members.name;
+            $("#assign_member_name").val(memberName);
+        }
+
+    })
+})
+
+
+
+// update user with mealPlan
+$("#assignTrainerMealPlanBtn").click(function () {
+
+    console.log(memId);
+    console.log(memberEmail);
+
+    let mealId = $("#assign_meal_id").val();
+    console.log(mealId);
+
+    if($("#assign_member_id").val()===""){
+        alert("please select member to assign !!")
+    }else{
+        $.ajax({
+            url: 'http://localhost:8080/api/v1/user/update',
+            method: "post",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(
+                {
+                    "uid": memId,
+                    "email": memberEmail,
+                    "meal_plan_id": mealId,
+                    "name": memberName,
+                    "password": memberPassword,
+                    "workout_id": workoutId,
+                    "trainer_id": trainerId,
+                    "age":age,
+                    "gender":gender
+
+                }),
+
+            success: function (response) {
+                console.log(response);
+                alert("Meal Plan Assigned successfully !!")
+                $('#assignModal').data('bs.modal').hide();
+            },
+
+            error: function (jqXHR) {
+                console.log(jqXHR);
+
+            }
+        })
+    }
+
+
+
+})
+
+
 
 
 // meal plan search by name
