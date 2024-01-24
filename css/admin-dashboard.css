@@ -30,7 +30,7 @@
     display: inline; !important;
 }
 
-#addTrainerBtn,#addMemberBTn,#addEquipment,#pdf{
+#addTrainerBtn,#addMemberBTn,#addEquipment,#pdf,#planDetails{
         background-color: #2d324a;
         width: 150px;
         height: 32px;

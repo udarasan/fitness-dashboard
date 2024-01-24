@@ -63,16 +63,6 @@ function searchUserWithEmail(){
             console.log(response);
             console.log(response.data.uid)
             getDataToAreaChart(response.data.uid, response.data);
-            // console.log(cheight);
-            // loadUserDetailsInFields(
-            //     response.data.uid,
-            //     response.data.name,
-            //     response.data.email,
-            //     response.data.trainer_id,
-            //     response.data.meal_plan_id,
-            //     response.data.workout_id,
-            //
-            //     );
         },
         error: function (jqXHR) {
             console.log(jqXHR.responseText);
@@ -80,13 +70,6 @@ function searchUserWithEmail(){
     })
 
 }
-// function processUserData(cheight) {
-//     // Code that depends on cheight
-//     console.log(cheight);
-//
-//     // The rest of your code that uses cheight
-//     // ...
-// }
 
 let userProfileMain=$(".userProfileMain");
 

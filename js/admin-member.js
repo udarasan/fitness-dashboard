@@ -65,7 +65,7 @@ $('#updateMember').click(function () {
     // if (custom!=null){
     //     gender=custom;
     // }
-    if ( !email || !name || !password || !gender) {
+    if ( !email || !name || !password ) {
         alert("Please fill in all required fields.");
         return;
     }
@@ -118,9 +118,14 @@ $('#updateMember').click(function () {
             success: function (response) {
                 console.log(response);
                 alert("Member update successful!");
-                $('#memberModal').modal('hide');
                 getAllMembers();
                 loadTrainerId();
+
+                $('#memberModal').modal('hide');
+
+                    // Your JavaScript code goes here
+
+
 
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -264,10 +269,13 @@ $('#tblMember').on('click', 'tr', function () {
     $('#age').val(age);
     // $('#gender').val(gender);
     if (gender === 'male') {
+        selectedValue= 'male'
         $('#inlineRadio1').prop('checked', true);
     } else if (gender === 'female') {
+        selectedValue= 'female'
         $('#inlineRadio2').prop('checked', true);
     } else if (gender === 'custom') {
+        selectedValue= 'custom'
         $('#inlineRadio3').prop('checked', true);
     }
 
