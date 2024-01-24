@@ -5,6 +5,7 @@ $(window).on('load', function() {
 var today = new Date();
 var formattedDate = today.toLocaleDateString();
 let clientList;
+let trainerList;
 function loadTrainerId() {
 
     $('#tra_id').empty();
@@ -14,6 +15,7 @@ function loadTrainerId() {
         dataType: 'json',
         contentType: 'application/json',  // Set content type to JSON
         success: function (response) {
+            trainerList = response.data
             $('#tra_id').append(`<option selected disabled>Select Trainer</option>`);
             $.each(response.data, function (index, trainer) {
                 $('#tra_id').append(`<option>${trainer.tid}</option>`);
@@ -64,49 +66,21 @@ function setClientDetails() {
             console.log(xhr);
         }
     })
-    // $.each(memberList,function (index,member){
-    //     if(trainerId == member.trainer_id){
-    //         currUserEmail = member.email;
-    //         currUserMealId = member.meal_plan_id;
-    //         currUserTrainerId = member.trainer_id;
-    //         currUserName = member.name;
-    //         currUserPassword = member.password;
-    //         currUserAge=member.age;
-    //         currUserGender=member.gender;
-    //         $("#lblMemberName").text(member.name);
-    //         $("#lblTrainerId").text(member.trainer_id);
-    //         $("#lblEmail").text(member.email);
-    //         if (member.meal_plan_id==null){
-    //             $('#lblMealPlanId').text("Not Assigned");
-    //         }
-    //         if (member.workout_id==null){
-    //             $('#workOutPlanId').text("Not Assigned");
-    //         }
-    //         if (member.height==null){
-    //             $('#height').text("Not Assigned");
-    //         }
-    //         if (member.weight==null){
-    //             $('#weight').text("Not Assigned");
-    //         }
-    //         if (member.age==null){
-    //             $('#age').text("Not Assigned");
-    //         }
-    //         if (member.gender==null){
-    //             $('#gender').text("Not Assigned");
-    //         }
-    //         $('#lblMealPlanId').text(member.meal_plan_id);
-    //         $('#workOutPlanId').text(member.workout_id);
-    //         $('#height').text(member.height);
-    //         $('#weight').text(member.weight);
-    //         $('#age').text(member.age);
-    //         $('#gender').text(member.gender);
-    //     }
-    // })
 }
 
-
+let currntTrainerName;
+let currntTrainerEmail;
 $('#tra_id').on('click', function () {
+    let trainerId = $("#tra_id").val();
     setClientDetails();
+
+    $.each(trainerList,function (index,trainer){
+        if(trainerId == trainer.tid){
+         currntTrainerName = trainer.name;
+         currntTrainerEmail = trainer.email;
+         console.log(currntTrainerName);
+        }
+    })
 
 });
 
@@ -135,7 +109,14 @@ function getPdfProps(clientList) {
             email_1: "info@fitness.al",
             website: "www.fitness.al",
         },
+        contact: {
+            label: "Trainer :",
+            name: currntTrainerName,
+            phone: "(+355) 069 22 22 222",
+            email: currntTrainerEmail,
 
+
+        },
 
         invoice: {
             label: "Report #: ",
