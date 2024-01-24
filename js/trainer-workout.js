@@ -206,7 +206,7 @@ $("#modalAssignNew").click(function () {
         return;
     }
     if (!isValidPlan(name)) {
-        $('#nameErrorLabel').text("Please enter a name with 2 to 50 characters");
+        $('#nameErrorLabel').text("Please enter a name with more than 2 characters");
         return;
 
     } else {

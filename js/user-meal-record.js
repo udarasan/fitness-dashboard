@@ -76,7 +76,6 @@ $("#addRecord").click(function (){
             $("#mealRecModal").data('bs.modal').hide();
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR.status);
             if(jqXHR.status == 409){
                 alert("Record already added. Please try updating the record");
                 return;
@@ -105,15 +104,24 @@ $('#tblMemberRecBody').on('click', 'tr', function () {
 });
 
 $('#updateRecord').click(function () {
-    let date =  $("#mngDate").val(date);
-    let mealType = $("#mngMeal").val(mealType);
-    let details =   $("#mngMealDetails").val(details);
-    let calories =   $("#mngCalories").val(calories);
-    let recordId =    $("#mngRecordId").val(recordId);
+    let date = $("#mngDate").val();
+    let mealType = $("#mngMeal").val();
+    let details = $("#mngMealDetails").val();
+    let calories = $("#mngCalories").val();
+    let recordId = $("#mngRecordId").val();
+
+    console.log(date, mealType, details, calories, recordId);
 
     if ( !date || !mealType || !details || !calories) {
         alert("Please fill in all required fields.");
         return;
+    }
+
+    if (!isValidPlan(details)) {
+        $('#mngDescriptionErrorLabel').text("Please enter a description minimum 2 characters");
+        return;
+    } else {
+        $('#mngDescriptionErrorLabel').text(""); // Clear the error label
     }
 
     if(isNaN(calories)){
@@ -128,19 +136,23 @@ $('#updateRecord').click(function () {
         dataType: 'json',
         contentType: 'application/json',  // Set content type to JSON
 
-        data: JSON.stringify({"pid": pid, "height": height, "weight": weight, "userId": uId, "date": date}),  // Convert data to JSON string
+        data: JSON.stringify({"date": date, "meal": mealType, "details": details, "calories": calories,
+            "userId" : userId, "mrID" : recordId }), // Convert data to JSON string
         success: function (response) {
-            alert("Progress Details Update successful!");
-            searchUserWithEmail();
-            $('#pId').val("");
-            $('#height').val("");
-            $('#weight').val("");
-            $('#date').val("");
-
+            console.log(response);
+            alert("Record Updated successfully!");
+            $('#meal').val("");
+            $('#mealDetails').val("");
+            $('#calories').val("");
+            $("#manageRecModal").data('bs.modal').hide();
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            alert("Progress Details Update failed! Please check your input and try again.");
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            if(jqXHR.status == 409){
+                alert("Duplicate Record Values. Please check your details again");
+                return;
+            }
+            alert("Record Updating Process Failed! Please check your input and try again.");
+            console.error(jqXHR.responseText);
         }
     });
 
