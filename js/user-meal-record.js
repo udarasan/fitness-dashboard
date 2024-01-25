@@ -58,6 +58,25 @@ $("#addRecord").click(function (){
     mealDetails = $("#mealDetails").val();
     calories = $("#calories").val();
 
+    if ( !date || !mealType || !mealDetails || !calories) {
+        alert("Please fill in all required fields.");
+        return;
+    }
+
+    if (!isValidPlan(mealDetails)) {
+        $('#mngDescriptionErrorLabel').text("Please enter a description minimum 2 characters");
+        return;
+    } else {
+        $('#mngDescriptionErrorLabel').text(""); // Clear the error label
+    }
+
+    if(isNaN(calories)){
+        $('#mngCalorieErrorLabel').text("Invalid input type!! Please input number");
+        return;
+    }else {
+        $('#mngCalorieErrorLabel').text("");
+    }
+
     $.ajax({
         url: 'http://localhost:8080/api/v1/mealRecords/save',
         method: 'POST',
@@ -129,6 +148,7 @@ $('#updateRecord').click(function () {
 
     if(isNaN(calories)){
         $('#mngCalorieErrorLabel').text("Invalid input type!! Please input number");
+        return;
     }else {
         $('#mngCalorieErrorLabel').text("");
     }

@@ -296,15 +296,18 @@
                 <form class="d-flex searchForm" role="search">
                   <div class="d-flex justify-content-start flex-column pr-5">
                     <select class="form-control mb-2" id="searchByStatus">
-                      <option class="text-muted" disabled selected>-- Filter by Status --</option>
+                      <option class="text-muted" disabled selected value="1">-- Filter by Status --</option>
+                      <option class="">Not Yet Started</option>
+                      <option class="">Ongoing</option>
                       <option class="">Completed</option>
-                      <option class="">In Progress</option>
                     </select>
-                    <input id="searchByGoal" class="form-control me-2" type="text" placeholder="Search by Goal Name"
+                    <button class="btn mb-4 w-50 d-none" id="btnSeeAllStatus">See All</button>
+                    <input id="searchByGoal" class="form-control me-2 mb-2" type="text" placeholder="Search by Goal Name"
                            aria-label="Search">
+                    <button class="btn mb-4 w-50 d-none" id="btnSeeAllName">See All</button>
                   </div>
                 </form>
-                <button type="button" id="btnAddNewGoal" data-toggle="modal" data-target="#mealRecModal"
+                <button type="button" id="btnAddNewGoal" data-toggle="modal" data-target="#fitnessGoalModal"
                         class="btn text-white align-self-start" style="background-color: #2d324a">Add
                   New Goal
                 </button>
@@ -312,36 +315,7 @@
             </div>
 
             <div class="card-body d-flex justify-content-center bg-transparent mainCardBody px-0">
-<!--              //////////-->
-              <div class="card rounded-0">
-                <div class="card-body">
-                  <div class="d-flex mb-2">
-                    <h6 id="goalName" class="mb-1 flex-grow-1 text-primary pr-4">Profile Page Structure</h6>
-                    <div class="dropdown position-absolute threeDots">
-                      <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa fa-ellipsis-v" aria-hidden="true" style="transform: rotate(90deg)"></i>
-                      </a>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item btnEdit" data-target=""
-                               data-toggle="modal" href="#">Edit</a></li>
-                        <li><a class="dropdown-item btnDelete" href="#">Delete</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                  <p id="goalDetails" class="text-muted">Profile Page means a web page accessible to the public or to guests.</p>
-                  <div>
-                    <label class="small d-inline-block">Start Date:&nbsp;</label>
-                    <label id="startDate" class="small d-inline-block">2024-01-24</label>
-                  </div>
-                  <div>
-                    <label class="small d-inline-block">End Date:&nbsp;</label>
-                    <label id="endDate" class="small d-inline-block">2024-01-31</label>
-                  </div>
-                  <span class="badge bg-gradient-info text-white py-2 px-3 mt-2">In Progress</span>
-                </div>
-              </div>
-<!--              //////////-->
-              <!--              <img class="npResImg d-none "  src="https://cdn.dribbble.com/users/1242216/screenshots/9326781/media/6384fef8088782664310666d3b7d4bf2.png" alt="no" width="500px">-->
+              <!-- <img class="npResImg d-none" src="https://cdn.dribbble.com/users/1242216/screenshots/9326781/media/6384fef8088782664310666d3b7d4bf2.png" alt="no" width="500px">-->
             </div>
           </div>
         </div>
@@ -389,45 +363,50 @@
   </div>
 </div>
 
-<!--add new record model-->
-<div class="modal fade" id="mealRecModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!--add new goal modal-->
+<div class="modal fade" id="fitnessGoalModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <div class="modal-body">
-          <form>
+          <form id="addGoalForm">
             <div class="mb-3">
-              <label class="form-label" for="date">Date</label>
-              <input class="form-control" id="date" type="date">
-            </div>
-            <div class="mb-3">
-              <label class="form-label" for="meal">Meal</label>
-              <select id="meal" class="d-block w-100 fieldStyle form-control">
-                <option class="d-none" value="" selected></option>
-                <option class="small">Breakfast</option>
-                <option class="small">Lunch</option>
-                <option class="small">Dinner</option>
-              </select>
+              <label class="form-label" for="modalGoalName">Goal Name</label>
+              <input class="form-control" id="modalGoalName" type="text">
+              <label id="nameErrorLabel" style="color: red;"></label>
             </div>
             <div class="">
-              <label class="form-label" for="mealDetails">Meal Details</label>
-              <textarea id="mealDetails" placeholder="Enter Meal Details" class="d-block fieldStyle w-100 pb-0
+              <label class="form-label" for="modalGoalDetails">Goal Details</label>
+              <textarea id="modalGoalDetails" placeholder="Enter Goal Details" class="d-block pb-0
                     form-control"
                         rows="4"></textarea>
               <label id="descriptionErrorLabel" style="color: red;"></label>
             </div>
-            <div class="">
-              <label class="form-label" for="calories">Calories Gained</label>
-              <input class="form-control" id="calories" placeholder="Enter Calories per Meal" type="text"
+            <div class="mb-3">
+              <label class="form-label" for="modalStartDate">Start Date</label>
+              <input class="form-control" id="modalStartDate" type="date"
                      name="name">
-              <label id="calorieErrorLabel" style="color: red;"></label>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="modalEndDate">End Date</label>
+              <input class="form-control" id="modalEndDate" type="date"
+                     name="name">
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="modalStatus">Status</label>
+              <select id="modalStatus" class="d-block form-control">
+                <option class="d-none" value="" selected></option>
+                <option class="small">Not Yet Started</option>
+                <option class="small">Ongoing</option>
+                <option class="small">Completed</option>
+              </select>
             </div>
           </form>
-          <div class="modal-footer">
+          <div class="modal-footer border-0">
             <button id="closeBtn" type="button" class="btn btn-secondary" data-dismiss="modal" style="font-size: 13px">
               Close
             </button>
-            <button type="button" class="btn modalBtnStyle" id="addRecord">Add Record</button>
+            <button type="button" class="btn modalBtnStyle" id="addGoal">Add Goal</button>
           </div>
         </div>
       </div>
@@ -435,49 +414,50 @@
   </div>
 </div>
 
-<!--manage record model-->
-<div class="modal fade" id="manageRecModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!--update goal model-->
+<div class="modal fade" id="updFitnessGoalModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <div class="modal-body">
-          <form >
-            <div class="mb-3 d-none">
-              <input class="form-control" id="mngRecordId" type="text">
-            </div>
+          <form id="updGoalForm">
             <div class="mb-3">
-              <label class="form-label" for="mngDate">Date</label>
-              <input class="form-control" id="mngDate" type="date">
-            </div>
-            <div class="mb-3">
-              <label class="form-label" for="mngMeal">Meal</label>
-              <select id="mngMeal" class="d-block w-100 fieldStyle form-control">
-                <option class="d-none" value="" selected></option>
-                <option class="small">Breakfast</option>
-                <option class="small">Lunch</option>
-                <option class="small">Dinner</option>
-              </select>
+              <label class="form-label" for="updModalGoalName">Goal Name</label>
+              <input class="form-control" id="updModalGoalName" type="text">
+              <label id="updNameErrorLabel" style="color: red;"></label>
             </div>
             <div class="">
-              <label class="form-label" for="mngMealDetails">Meal Details</label>
-              <textarea id="mngMealDetails" placeholder="Enter Meal Details" class="d-block fieldStyle w-100 pb-0
+              <label class="form-label" for="updModalGoalDetails">Goal Details</label>
+              <textarea id="updModalGoalDetails" placeholder="Enter Goal Details" class="d-block pb-0
                     form-control"
                         rows="4"></textarea>
-              <label id="mngDescriptionErrorLabel" style="color: red;"></label>
+              <label id="updDescriptionErrorLabel" style="color: red;"></label>
             </div>
-            <div class="">
-              <label class="form-label" for="mngCalories">Calories Gained</label>
-              <input class="form-control" id="mngCalories" placeholder="Enter Calories per Meal" type="text"
+            <div class="mb-3">
+              <label class="form-label" for="updModalStartDate">Start Date</label>
+              <input class="form-control" id="updModalStartDate" type="date"
                      name="name">
-              <label id="mngCalorieErrorLabel" style="color: red;"></label>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="updModalEndDate">End Date</label>
+              <input class="form-control" id="updModalEndDate" type="date"
+                     name="name">
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="updModalStatus">Status</label>
+              <select id="updModalStatus" class="d-block form-control">
+                <option class="d-none" value="" selected></option>
+                <option class="small">Not Yet Started</option>
+                <option class="small">Ongoing</option>
+                <option class="small">Completed</option>
+              </select>
             </div>
           </form>
-          <div class="modal-footer">
-            <button id="mngCloseBtn" type="button" class="btn btn-secondary" data-dismiss="modal" style="font-size: 13px">
+          <div class="modal-footer border-0">
+            <button id="updCloseBtn" type="button" class="btn btn-secondary" data-dismiss="modal" style="font-size: 13px">
               Close
             </button>
-            <button type="button" class="btn modalBtnStyle" id="updateRecord">Update Record</button>
-            <button type="button" class="btn modalBtnStyle" id="deleteRecord">Delete Record</button>
+            <button type="button" class="btn modalBtnStyle" id="updateGoal">Update Goal</button>
           </div>
         </div>
       </div>

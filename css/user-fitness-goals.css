@@ -7,7 +7,7 @@
 }
 
 .mainCardHeader{
-    padding: 10px 10px;
+    padding: 0px;
 }
 
 .mainCardBody{
@@ -39,6 +39,35 @@
 
 #goalDetails{
     font-size: 14px;
+}
+
+#modalGoalName, #modalGoalDetails, #modalStartDate, #modalEndDate, #modalStatus{
+    font-size: 13px;
+}
+
+#updModalGoalName, #updModalGoalDetails, #updModalStartDate, #updModalEndDate, #updModalStatus{
+    font-size: 13px;
+}
+
+#addGoalForm label{
+    font-size: 14px;
+}
+
+#updGoalForm label{
+    font-size: 14px;
+}
+
+#addGoal, #updateGoal{
+    background-color: #2d324a;
+    color: white;
+    font-size: 13px;
+}
+
+#btnSeeAllStatus, #btnSeeAllName{
+    background-color: #2d324a;
+    color: white;
+    font-size: 11px;
+    padding: 6px 12px !important;
 }
 
 @media all and (max-width: 1200px){
