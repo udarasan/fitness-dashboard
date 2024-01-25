@@ -26,3 +26,32 @@
     border-top: none;
     padding-right: 0px;
 }
+
+.modalBtnStyle{
+    background-color: #2d324a;
+    font-size: 13px;
+    color: white;
+}
+
+#mngDate,#mngMeal,#mngMealDetails,#mngCalories{
+    font-size: 13px;
+}
+
+#searchByDate{
+    margin-right: 40px;
+    font-size: 13px;
+}
+
+#btnSeeAll{
+    background-color: #2d324a;
+    color: white;
+    font-size: 11px;
+    padding: 6px 12px !important;
+}
+
+@media all and (max-width:1000px){
+    #mealRecordContainer{
+        padding-right: 20px !important;
+        padding-left: 20px !important;
+    }
+}
