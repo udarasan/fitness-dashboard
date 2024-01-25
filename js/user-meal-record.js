@@ -1,5 +1,5 @@
 let userEmail=localStorage.getItem("userEmail");
-
+$('#lblName').text(localStorage.getItem("name"));
 window.onload = function() {
     setDateInModal();
     searchUserWithEmail();
@@ -14,14 +14,19 @@ function setDateInModal(){
 }
 
 function getMealRecordsByUser(){
+    $('#tblMemberRecBody').empty();
     console.log(userId);
     $.ajax({
         url: 'http://localhost:8080/api/v1/mealRecords/getAllMealRecords/'+userId,
         method: 'GET',
         success: function (response) {
-            $('#tblMemberRecBody').empty();
-            console.log(response);
 
+            console.log(response);
+            let mealList = response.data;
+            if (mealList.length === 0) {
+                alert("No meal records found.");
+                return;
+            }
             $.each(response.data, function (index, mealRecord) {
                 let row = `<tr><td>${mealRecord.date}</td><td>${mealRecord.meal}</td><td>${mealRecord.details}</td>
                             <td>${mealRecord.calories}</td><td class="d-none">${mealRecord.mrID}</td></tr>`;
@@ -199,6 +204,7 @@ $('#deleteRecord').click(function () {
 });
 
 $("#searchByDate").on('input', function () {
+    $("#tblMemberRecBody").empty();
     value = $("#searchByDate").val();
     console.log(typeof(value));
     $.ajax({
@@ -208,22 +214,35 @@ $("#searchByDate").on('input', function () {
         data: {date: value},   // Convert data to JSON string
         success: function (response) {
             console.log(response);
-            $("#tblMemberRecBody").empty();
-            $.each(response.data, function (index, mealRecord) {
-                let row = `<tr><td>${mealRecord.date}</td><td>${mealRecord.meal}</td><td>${mealRecord.details}</td>
+
+                $('.npResImg').addClass("d-none");
+                $('#mealRecTable').css("display","block");
+                getMealRecordsByUser();
+
+
+                $.each(response.data, function (index, mealRecord) {
+                    let row = `<tr><td>${mealRecord.date}</td><td>${mealRecord.meal}</td><td>${mealRecord.details}</td>
                             <td>${mealRecord.calories}</td><td class="d-none">${mealRecord.mrID}</td></tr>`;
-                $('#tblMemberRecBody').append(row);
-            });
-            $("#btnSeeAll").removeClass("d-none");
+                    $('#tblMemberRecBody').append(row);
+                });
+                $("#btnSeeAll").removeClass("d-none");
+
+
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error(jqXHR.responseText);  // Log the response text for debugging
+            if (jqXHR.data == null) {
+                $('#mealRecTable').css("display","none");
+                $('.npResImg').removeClass("d-none");
+            }
         }
     });
 });
 
 $("#btnSeeAll").click(function () {
     $("#btnSeeAll").addClass("d-none");
+    $('.npResImg').addClass("d-none");
     $("#searchByDate").val("");
+    $('#mealRecTable').css("display","block");
     getMealRecordsByUser();
 });
