@@ -136,6 +136,20 @@ $('#updateMember').click(function () {
     }
 });
 
+
+//encode password for security
+let newPassword;
+async function hashPassword(password) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password);
+
+    const buffer = await crypto.subtle.digest('SHA-256', data);
+    const hashedArray = Array.from(new Uint8Array(buffer));
+    const hashedPassword = hashedArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+     console.log(hashedPassword);
+
+    return hashedPassword;
+}
 //save memeber
 
 $('#saveMemeber').click(function () {
@@ -144,22 +158,43 @@ $('#saveMemeber').click(function () {
     let email = $('#member_email').val();
     let name = $('#member_name').val();
     let trainer_id = $('#tra_id').val();
-    let password = $('#memeber_password').val();
+
+    let password = $('#memeber_password').val() ;
+    console.log(password);
+    hashPassword( $('#memeber_password').val())
+        .then(hashedPassword => {
+            console.log('Hashed Password:', hashedPassword);
+          newPassword = hashedPassword;
+            if (isValidName(name) && isValidEmail(email) && isValidPassword(password) && !isNaN(age)) {
+                console.log(id);
+                // Make the AJAX request
+                $.ajax({
+                    url: 'http://localhost:8080/api/v1/user/registration',
+                    method: 'POST',
+                    dataType: 'json',
+                    contentType: 'application/json',  // Set content type to JSON
+
+                    data: JSON.stringify({"uid": id, "email": email, "password": newPassword, "name": name, "trainer_id": trainer_id, "age":age ,"gender":gender}),  // Convert data to JSON string
+                    success: function (response) {
+                        console.log(response);
+                        alert("Member registration successful!");
+                        $('#memberModal').modal('hide');
+                        getAllMembers();
+                        loadTrainerId();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert("Member registration failed! Please check your input and try again.");
+                        console.error(jqXHR.responseText);  // Log the response text for debugging
+                    }
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error hashing password:', error);
+        });
     let age = $('#age').val();
     let gender =  selectedValue ;
-    // let male = $('#inlineRadio1').val();
-    // let female = $('#inlineRadio2').val();
-    // let custom = $('#inlineRadio3').val();
-    // if (male!=null){
-    //     gender=male;
-    //
-    // }
-    // if (female!=null){
-    //     gender=female;
-    // }
-    // if (custom!=null){
-    //     gender=custom;
-    // }
+
     if ( !email || !name || !password || !gender ) {
         alert("Please fill in all required fields.");
         return;
@@ -191,29 +226,7 @@ $('#saveMemeber').click(function () {
         $('#ageErrorLabel').text(""); // Clear the error label
     }
 
-if (isValidName(name) && isValidEmail(email) && isValidPassword(password) && !isNaN(age)) {
-    console.log(id);
-    // Make the AJAX request
-    $.ajax({
-        url: 'http://localhost:8080/api/v1/user/registration',
-        method: 'POST',
-        dataType: 'json',
-        contentType: 'application/json',  // Set content type to JSON
 
-        data: JSON.stringify({"uid": id, "email": email, "password": password, "name": name, "trainer_id": trainer_id, "age":age ,"gender":gender}),  // Convert data to JSON string
-        success: function (response) {
-            console.log(response);
-            alert("Member registration successful!");
-            $('#memberModal').modal('hide');
-            getAllMembers();
-            loadTrainerId();
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            alert("Member registration failed! Please check your input and try again.");
-            console.error(jqXHR.responseText);  // Log the response text for debugging
-        }
-    });
-}
 });
 
 function getAllMembers() {
