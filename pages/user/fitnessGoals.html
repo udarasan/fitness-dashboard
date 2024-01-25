@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+  <meta content="" name="description">
+  <meta content="" name="author">
+
+  <title>Fitness Gym</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="../../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="../../css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="../../css/admin-dashboard.css" rel="stylesheet">
+  <link href="../../css/sidebar-manage.css" rel="stylesheet">
+  <link href="../../css/user-fitness-goals.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+  <!-- Sidebar -->
+  <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion d-none d-md-block" id="accordionSidebar">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <div class="sidebar-brand-icon rotate-n-15">
+        <img id="gymImg" width="25" height="25" src="https://img.icons8.com/external-nawicon-glyph-nawicon/64/ffffff/external-gym-hotel-nawicon-glyph-nawicon.png" alt="external-gym-hotel-nawicon-glyph-nawicon"/>
+      </div>
+      <div class="sidebar-brand-text mx-3">Fitness</div>
+    </a>
+    <div class="threebarsDiv d-flex align-items-center justify-content-center" >
+      <i id="threebars" class="fa fa-bars d-none text-white"></i>
+    </div>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item">
+      <a class="nav-link" href="index.html">
+        <i class="fas fa-fw fa-tachometer-alt"></i>
+        <span>Dashboard</span></a>
+    </li>
+
+    <!-- Divider -->
+
+
+    <!-- Heading -->
+
+    <!-- Nav Item - Pages Collapse Menu -->
+
+
+    <hr class="sidebar-divider d-none d-md-block">
+    <li class="nav-item">
+      <a class="nav-link" href="bmiCalculator.html">
+        <i class="fas fa-fw fa-chart-area"></i>
+        <span>BMI Calculator</span></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="progress.html">
+        <i class="fas fa-fw fa-chart-area"></i>
+        <span>Manage Progress</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="mealRecord.html">
+        <i class="fas fa-fw fa-chart-area"></i>
+        <span>Meal Record</span>
+      </a>
+    </li>
+    <li class="nav-item active">
+      <a class="nav-link" href="fitnessGoals.html">
+        <i class="fas fa-fw fa-chart-area"></i>
+        <span>Fitness Goals</span>
+      </a>
+    </li>
+    <li class="nav-item ">
+      <a class="nav-link" href="chat.html">
+        <i class="fas fa-fw fa-chart-area"></i>
+        <span>Chat</span></a>
+    </li>
+
+  </ul>
+  <!-- End of Sidebar -->
+  <!-- Content Wrapper -->
+  <!--        Dashboard-->
+  <div class="d-flex flex-column" id="content-wrapper">
+    <!-- Main Content -->
+    <div id="content">
+      <!-- Topbar -->
+      <nav class="navbar navbar-expand navbar-light bg-white topbar  static-top shadow">
+        <!-- Sidebar Toggle (Topbar) -->
+        <button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop">
+          <i class="fa fa-bars"></i>
+        </button>
+        <ul class="navbar-nav ml-auto">
+
+          <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+          <li class="nav-item dropdown no-arrow d-sm-none">
+            <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle"
+               data-toggle="dropdown"
+               href="#" id="searchDropdown" role="button">
+              <i class="fas fa-search fa-fw"></i>
+            </a>
+            <!-- Dropdown - Messages -->
+            <div aria-labelledby="searchDropdown"
+                 class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in">
+              <form class="form-inline mr-auto w-100 navbar-search">
+                <div class="input-group">
+                  <input aria-describedby="basic-addon2" aria-label="Search"
+                         class="form-control bg-light border-0 small" placeholder="Search for..."
+                         type="text">
+                  <div class="input-group-append">
+                    <button class="btn btn-primary" type="button">
+                      <i class="fas fa-search fa-sm"></i>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </li>
+
+          <!-- Nav Item - Alerts -->
+          <li class="nav-item dropdown no-arrow mx-1">
+            <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle"
+               data-toggle="dropdown"
+               href="#" id="alertsDropdown" role="button">
+              <i class="fas fa-bell fa-fw"></i>
+              <!-- Counter - Alerts -->
+              <span class="badge badge-danger badge-counter">3+</span>
+            </a>
+            <!-- Dropdown - Alerts -->
+            <div aria-labelledby="alertsDropdown"
+                 class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in">
+              <h6 class="dropdown-header">
+                Alerts Center
+              </h6>
+              <a class="dropdown-item d-flex align-items-center" href="#">
+                <div class="mr-3">
+                  <div class="icon-circle bg-primary">
+                    <i class="fas fa-file-alt text-white"></i>
+                  </div>
+                </div>
+                <div>
+                  <div class="small text-gray-500">December 12, 2019</div>
+                  <span class="font-weight-bold">A new monthly report is ready to download!</span>
+                </div>
+              </a>
+              <a class="dropdown-item d-flex align-items-center" href="#">
+                <div class="mr-3">
+                  <div class="icon-circle bg-success">
+                    <i class="fas fa-donate text-white"></i>
+                  </div>
+                </div>
+                <div>
+                  <div class="small text-gray-500">December 7, 2019</div>
+                  $290.29 has been deposited into your account!
+                </div>
+              </a>
+              <a class="dropdown-item d-flex align-items-center" href="#">
+                <div class="mr-3">
+                  <div class="icon-circle bg-warning">
+                    <i class="fas fa-exclamation-triangle text-white"></i>
+                  </div>
+                </div>
+                <div>
+                  <div class="small text-gray-500">December 2, 2019</div>
+                  Spending Alert: We've noticed unusually high spending for your account.
+                </div>
+              </a>
+              <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+            </div>
+          </li>
+
+          <!-- Nav Item - Messages -->
+          <li class="nav-item dropdown no-arrow mx-1">
+            <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle"
+               data-toggle="dropdown"
+               href="#" id="messagesDropdown" role="button">
+              <i class="fas fa-envelope fa-fw"></i>
+              <!-- Counter - Messages -->
+              <span class="badge badge-danger badge-counter">7</span>
+            </a>
+            <!-- Dropdown - Messages -->
+            <div aria-labelledby="messagesDropdown"
+                 class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in">
+              <h6 class="dropdown-header">
+                Message Center
+              </h6>
+              <a class="dropdown-item d-flex align-items-center" href="#">
+                <div class="dropdown-list-image mr-3">
+                  <img alt="..." class="rounded-circle"
+                       src="img/undraw_profile_1.svg">
+                  <div class="status-indicator bg-success"></div>
+                </div>
+                <div class="font-weight-bold">
+                  <div class="text-truncate">Hi there! I am wondering if you can help me with a
+                    problem I've been having.
+                  </div>
+                  <div class="small text-gray-500">Emily Fowler · 58m</div>
+                </div>
+              </a>
+              <a class="dropdown-item d-flex align-items-center" href="#">
+                <div class="dropdown-list-image mr-3">
+                  <img alt="..." class="rounded-circle"
+                       src="img/undraw_profile_2.svg">
+                  <div class="status-indicator"></div>
+                </div>
+                <div>
+                  <div class="text-truncate">I have the photos that you ordered last month, how
+                    would you like them sent to you?
+                  </div>
+                  <div class="small text-gray-500">Jae Chun · 1d</div>
+                </div>
+              </a>
+              <a class="dropdown-item d-flex align-items-center" href="#">
+                <div class="dropdown-list-image mr-3">
+                  <img alt="..." class="rounded-circle"
+                       src="img/undraw_profile_3.svg">
+                  <div class="status-indicator bg-warning"></div>
+                </div>
+                <div>
+                  <div class="text-truncate">Last month's report looks great, I am very happy with
+                    the progress so far, keep up the good work!
+                  </div>
+                  <div class="small text-gray-500">Morgan Alvarez · 2d</div>
+                </div>
+              </a>
+              <a class="dropdown-item d-flex align-items-center" href="#">
+                <div class="dropdown-list-image mr-3">
+                  <img alt="..." class="rounded-circle"
+                       src="https://source.unsplash.com/Mv9hjnEUHR4/60x60">
+                  <div class="status-indicator bg-success"></div>
+                </div>
+                <div>
+                  <div class="text-truncate">Am I a good boy? The reason I ask is because someone
+                    told me that people say this to all dogs, even if they aren't good...
+                  </div>
+                  <div class="small text-gray-500">Chicken the Dog · 2w</div>
+                </div>
+              </a>
+              <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+            </div>
+          </li>
+
+          <div class="topbar-divider d-none  d-sm-block"></div>
+
+          <!-- Nav Item - User Information -->
+          <li class="nav-item dropdown no-arrow">
+            <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle"
+               data-toggle="dropdown"
+               href="#" id="userDropdown" role="button">
+              <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+              <img class="img-profile rounded-circle"
+                   src="../../img/undraw_profile_2.svg">
+            </a>
+            <!-- Dropdown - User Information -->
+            <div aria-labelledby="userDropdown"
+                 class="dropdown-menu dropdown-menu-right shadow animated--grow-in">
+              <a class="dropdown-item" href="#">
+                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                Profile
+              </a>
+
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" data-target="#logoutModal" data-toggle="modal" href="#">
+                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                Logout
+              </a>
+            </div>
+          </li>
+
+        </ul>
+      </nav>
+
+      <!-- start goals tab -->
+      <div class="container-fluid mt-5 mb-5" id="goalCardContainer">
+        <!-- Content Row -->
+        <!-- start of table -->
+        <div class="row cardContainer">
+          <div class="card w-100 bg-transparent border-0">
+            <div class="card-header mainCardHeader border bg-white text-right">
+              <div class="searchRow row bg-white p-3 w-100 d-flex justify-content-between mx-auto align-items-center">
+                <form class="d-flex searchForm" role="search">
+                  <div class="d-flex justify-content-start flex-column pr-5">
+                    <select class="form-control mb-2" id="searchByStatus">
+                      <option class="text-muted" disabled selected>-- Filter by Status --</option>
+                      <option class="">Completed</option>
+                      <option class="">In Progress</option>
+                    </select>
+                    <input id="searchByGoal" class="form-control me-2" type="text" placeholder="Search by Goal Name"
+                           aria-label="Search">
+                  </div>
+                </form>
+                <button type="button" id="btnAddNewGoal" data-toggle="modal" data-target="#mealRecModal"
+                        class="btn text-white align-self-start" style="background-color: #2d324a">Add
+                  New Goal
+                </button>
+              </div>
+            </div>
+
+            <div class="card-body d-flex justify-content-center bg-transparent mainCardBody px-0">
+<!--              //////////-->
+              <div class="card rounded-0">
+                <div class="card-body">
+                  <div class="d-flex mb-2">
+                    <h6 id="goalName" class="mb-1 flex-grow-1 text-primary pr-4">Profile Page Structure</h6>
+                    <div class="dropdown position-absolute threeDots">
+                      <a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-ellipsis-v" aria-hidden="true" style="transform: rotate(90deg)"></i>
+                      </a>
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item btnEdit" data-target=""
+                               data-toggle="modal" href="#">Edit</a></li>
+                        <li><a class="dropdown-item btnDelete" href="#">Delete</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <p id="goalDetails" class="text-muted">Profile Page means a web page accessible to the public or to guests.</p>
+                  <div>
+                    <label class="small d-inline-block">Start Date:&nbsp;</label>
+                    <label id="startDate" class="small d-inline-block">2024-01-24</label>
+                  </div>
+                  <div>
+                    <label class="small d-inline-block">End Date:&nbsp;</label>
+                    <label id="endDate" class="small d-inline-block">2024-01-31</label>
+                  </div>
+                  <span class="badge bg-gradient-info text-white py-2 px-3 mt-2">In Progress</span>
+                </div>
+              </div>
+<!--              //////////-->
+              <!--              <img class="npResImg d-none "  src="https://cdn.dribbble.com/users/1242216/screenshots/9326781/media/6384fef8088782664310666d3b7d4bf2.png" alt="no" width="500px">-->
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end member tab -->
+    </div>
+    <!-- End of Main Content -->
+
+    <!-- Footer -->
+    <footer class="sticky-footer bg-white">
+      <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+          <span>Copyright &copy; Your Website 2021</span>
+        </div>
+      </div>
+    </footer>
+    <!-- End of Footer -->
+  </div>
+  <!-- End of Content Wrapper -->
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="logoutModal" role="dialog"
+     tabindex="-1">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-dismiss="modal" type="button">Cancel</button>
+        <a class="btn btn-primary" href="../auth/login.html">Logout</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--add new record model-->
+<div class="modal fade" id="mealRecModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label class="form-label" for="date">Date</label>
+              <input class="form-control" id="date" type="date">
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="meal">Meal</label>
+              <select id="meal" class="d-block w-100 fieldStyle form-control">
+                <option class="d-none" value="" selected></option>
+                <option class="small">Breakfast</option>
+                <option class="small">Lunch</option>
+                <option class="small">Dinner</option>
+              </select>
+            </div>
+            <div class="">
+              <label class="form-label" for="mealDetails">Meal Details</label>
+              <textarea id="mealDetails" placeholder="Enter Meal Details" class="d-block fieldStyle w-100 pb-0
+                    form-control"
+                        rows="4"></textarea>
+              <label id="descriptionErrorLabel" style="color: red;"></label>
+            </div>
+            <div class="">
+              <label class="form-label" for="calories">Calories Gained</label>
+              <input class="form-control" id="calories" placeholder="Enter Calories per Meal" type="text"
+                     name="name">
+              <label id="calorieErrorLabel" style="color: red;"></label>
+            </div>
+          </form>
+          <div class="modal-footer">
+            <button id="closeBtn" type="button" class="btn btn-secondary" data-dismiss="modal" style="font-size: 13px">
+              Close
+            </button>
+            <button type="button" class="btn modalBtnStyle" id="addRecord">Add Record</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--manage record model-->
+<div class="modal fade" id="manageRecModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-body">
+          <form >
+            <div class="mb-3 d-none">
+              <input class="form-control" id="mngRecordId" type="text">
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="mngDate">Date</label>
+              <input class="form-control" id="mngDate" type="date">
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="mngMeal">Meal</label>
+              <select id="mngMeal" class="d-block w-100 fieldStyle form-control">
+                <option class="d-none" value="" selected></option>
+                <option class="small">Breakfast</option>
+                <option class="small">Lunch</option>
+                <option class="small">Dinner</option>
+              </select>
+            </div>
+            <div class="">
+              <label class="form-label" for="mngMealDetails">Meal Details</label>
+              <textarea id="mngMealDetails" placeholder="Enter Meal Details" class="d-block fieldStyle w-100 pb-0
+                    form-control"
+                        rows="4"></textarea>
+              <label id="mngDescriptionErrorLabel" style="color: red;"></label>
+            </div>
+            <div class="">
+              <label class="form-label" for="mngCalories">Calories Gained</label>
+              <input class="form-control" id="mngCalories" placeholder="Enter Calories per Meal" type="text"
+                     name="name">
+              <label id="mngCalorieErrorLabel" style="color: red;"></label>
+            </div>
+          </form>
+          <div class="modal-footer">
+            <button id="mngCloseBtn" type="button" class="btn btn-secondary" data-dismiss="modal" style="font-size: 13px">
+              Close
+            </button>
+            <button type="button" class="btn modalBtnStyle" id="updateRecord">Update Record</button>
+            <button type="button" class="btn modalBtnStyle" id="deleteRecord">Delete Record</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--end-->
+
+<!-- Bootstrap core JavaScript-->
+<script src="../../vendor/jquery/jquery.min.js"></script>
+<script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Core plugin JavaScript-->
+<script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
+<!-- Custom scripts for all pages-->
+<script src="../../js/sb-admin-2.min.js"></script>
+<!-- Page level plugins -->
+<script src="../../vendor/chart.js/Chart.min.js"></script>
+<!-- Page level custom scripts -->
+<script src="../../js/demo/chart-area-demo.js"></script>
+<script src="../../js/demo/chart-pie-demo.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!--validation-->
+<script src="../../js/validation/validation.js"></script>
+
+<script src="../../js/user-fitness-goals.js"></script>
+<script src="../../js/sidebar-manage.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+#btnAddNewGoal, #searchByStatus, #searchByGoal{
+    font-size: 13px;
+}
+
+#searchByStatus, #searchByGoal{
+    font-size: 14px;
+}
+
+.mainCardHeader{
+    padding: 10px 10px;
+}
+
+.mainCardBody{
+    display: grid !important;
+    grid-template-columns: repeat(3,1fr);
+    column-gap: 15px;
+    row-gap: 15px;
+}
+
+.threeDots{
+    top: 10px;
+    right: 10px;
+}
+
+.threeDots i{
+    font-weight: 600;
+    color: #b8b8b8;
+    font-size: 12px;
+}
+
+.threeDots .dropdown-toggle::after{
+    display: none;
+}
+
+.threeDots a{
+    background: transparent;
+    border: none;
+}
+
+#goalDetails{
+    font-size: 14px;
+}
+
+@media all and (max-width: 1200px){
+    .mainCardBody{
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    #goalCardContainer{
+        padding-left: 24px !important;
+        padding-right: 24px !important;
+    }
+}
+
+@media all and (max-width: 950px){
+    .mainCardBody{
+        grid-template-columns: repeat(1,1fr);
+    }
+}
+
+@media all and (max-width: 457px){
+    #btnAddNewGoal{
+        margin-top: 20px;
+    }
+}
