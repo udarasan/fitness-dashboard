@@ -14,13 +14,13 @@ function setDateInModal(){
 }
 
 function getMealRecordsByUser(){
-    $('#tblMemberRecBody').empty();
+
     console.log(userId);
     $.ajax({
         url: 'http://localhost:8080/api/v1/mealRecords/getAllMealRecords/'+userId,
         method: 'GET',
         success: function (response) {
-
+            $('#tblMemberRecBody').empty();
             console.log(response);
             let mealList = response.data;
             if (mealList.length === 0) {
@@ -204,7 +204,7 @@ $('#deleteRecord').click(function () {
 });
 
 $("#searchByDate").on('input', function () {
-    $("#tblMemberRecBody").empty();
+
     value = $("#searchByDate").val();
     console.log(typeof(value));
     $.ajax({
@@ -214,10 +214,10 @@ $("#searchByDate").on('input', function () {
         data: {date: value},   // Convert data to JSON string
         success: function (response) {
             console.log(response);
-
+            $("#tblMemberRecBody").empty();
                 $('.npResImg').addClass("d-none");
                 $('#mealRecTable').css("display","block");
-                getMealRecordsByUser();
+
 
 
                 $.each(response.data, function (index, mealRecord) {
