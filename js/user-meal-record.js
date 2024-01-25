@@ -177,3 +177,33 @@ $('#deleteRecord').click(function () {
         }
     });
 });
+
+$("#searchByDate").on('input', function () {
+    value = $("#searchByDate").val();
+    console.log(typeof(value));
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/mealRecords/recordsByDate',
+        method: 'GET',
+        dataType: 'json',
+        data: {date: value},   // Convert data to JSON string
+        success: function (response) {
+            console.log(response);
+            $("#tblMemberRecBody").empty();
+            $.each(response.data, function (index, mealRecord) {
+                let row = `<tr><td>${mealRecord.date}</td><td>${mealRecord.meal}</td><td>${mealRecord.details}</td>
+                            <td>${mealRecord.calories}</td><td class="d-none">${mealRecord.mrID}</td></tr>`;
+                $('#tblMemberRecBody').append(row);
+            });
+            $("#btnSeeAll").removeClass("d-none");
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error(jqXHR.responseText);  // Log the response text for debugging
+        }
+    });
+});
+
+$("#btnSeeAll").click(function () {
+    $("#btnSeeAll").addClass("d-none");
+    $("#searchByDate").val("");
+    getMealRecordsByUser();
+});
