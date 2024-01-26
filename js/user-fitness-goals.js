@@ -279,6 +279,7 @@ $("#searchByStatus").on('input', function () {
         success: function (response) {
             console.log(response);
             $(".mainCardBody").empty();
+            $('.npResImg').addClass("d-none");
 
             $("#btnSeeAllStatus").removeClass("d-none");
 
@@ -338,16 +339,18 @@ $("#searchByStatus").on('input', function () {
         error: function (jqXHR, textStatus, errorThrown) {
             console.error(jqXHR.responseText);  // Log the response text for debugging
             if (jqXHR.data == null) {
+                $("#btnSeeAllStatus").removeClass("d-none");
                 $(".mainCardBody").empty();
 
-                let card = `
- <img src="https://cdn.dribbble.com/users/1242216/screenshots/9326781/media/6384fef8088782664310666d3b7d4bf2.png" alt="no" width="620px">
-
-  
-`
-                let cardContainer=$(".mainCardBody");
-                cardContainer.css("justify-content","center")
-                cardContainer.append(card);
+//                 let card = `
+//  <img style="max-width: 100%" src="https://cdn.dribbble.com/users/1242216/screenshots/9326781/media/6384fef8088782664310666d3b7d4bf2.png" alt="no" width="500px">
+//
+//
+// `
+//                 let cardContainer=$(".mainCardBody");
+//                 cardContainer.css("justify-content","center")
+//                 cardContainer.append(card);
+                $('.npResImg').removeClass("d-none");
             }
 
         }
@@ -367,6 +370,7 @@ $("#searchByGoal").keyup(function () {
         success: function (response) {
             console.log(response);
             $(".mainCardBody").empty();
+            $('.npResImg').addClass("d-none");
             $("#btnSeeAllName").removeClass("d-none");
 
             $.each(response.data, function (index, goal) {
@@ -425,16 +429,18 @@ $("#searchByGoal").keyup(function () {
         error: function (jqXHR, textStatus, errorThrown) {
             console.error(jqXHR.responseText);  // Log the response text for debugging
             if (jqXHR.data == null) {
+                $("#btnSeeAllName").removeClass("d-none");
                 $(".mainCardBody").empty();
 
-                let card = `
- <img src="https://cdn.dribbble.com/users/1242216/screenshots/9326781/media/6384fef8088782664310666d3b7d4bf2.png" alt="no" width="620px">
-
-  
-`
-                let cardContainer=$(".mainCardBody");
-                cardContainer.css("justify-content","center")
-                cardContainer.append(card);
+//                 let card = `
+//  <img style="max-width: 100%;" class="mx-auto" src="https://cdn.dribbble.com/users/1242216/screenshots/9326781/media/6384fef8088782664310666d3b7d4bf2.png" alt="no" width="500px">
+//
+//
+// `
+//                 let cardContainer=$(".mainCardBody");
+//                 cardContainer.css("justify-content","center")
+//                 cardContainer.append(card);
+                $('.npResImg').removeClass("d-none");
             }
         }
     });

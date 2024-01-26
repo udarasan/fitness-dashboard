@@ -218,8 +218,6 @@ $("#searchByDate").on('input', function () {
                 $('.npResImg').addClass("d-none");
                 $('#mealRecTable').css("display","block");
 
-
-
                 $.each(response.data, function (index, mealRecord) {
                     let row = `<tr><td>${mealRecord.date}</td><td>${mealRecord.meal}</td><td>${mealRecord.details}</td>
                             <td>${mealRecord.calories}</td><td class="d-none">${mealRecord.mrID}</td></tr>`;
@@ -232,7 +230,8 @@ $("#searchByDate").on('input', function () {
         error: function (jqXHR, textStatus, errorThrown) {
             console.error(jqXHR.responseText);  // Log the response text for debugging
             if (jqXHR.data == null) {
-                $('#mealRecTable').css("display","none");
+                $('#mealRecTable').css("display","none")
+                $("#btnSeeAll").removeClass("d-none");
                 $('.npResImg').removeClass("d-none");
             }
         }
