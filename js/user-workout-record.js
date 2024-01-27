@@ -1,4 +1,5 @@
 let userEmail=localStorage.getItem("userEmail");
+$('#lblName').text(localStorage.getItem("name"));
 
 window.onload = function() {
     // setDateInModal();
@@ -214,7 +215,7 @@ $("#searchByDate").on('input', function () {
             console.log(response);
             $("#tblMemberRecBody").empty();
             $('.npResImg').addClass("d-none");
-            $('#mealRecTable').css("display","block");
+            $('#workOutRecTable').css("display","block");
 
             $.each(response.data, function (index, workOutRec) {
                 let row = `<tr><td>${workOutRec.date}</td><td>${workOutRec.workout}</td><td>${workOutRec.details}</td>
@@ -228,7 +229,7 @@ $("#searchByDate").on('input', function () {
         error: function (jqXHR, textStatus, errorThrown) {
             console.error(jqXHR.responseText);  // Log the response text for debugging
             if (jqXHR.data == null) {
-                $('#mealRecTable').css("display","none")
+                $('#workOutRecTable').css("display","none")
                 $("#btnSeeAll").removeClass("d-none");
                 $('.npResImg').removeClass("d-none");
             }
@@ -240,6 +241,6 @@ $("#btnSeeAll").click(function () {
     $("#btnSeeAll").addClass("d-none");
     $('.npResImg').addClass("d-none");
     $("#searchByDate").val("");
-    $('#mealRecTable').css("display","block");
-    getMealRecordsByUser();
+    $('#workOutRecTable').css("display","block");
+    getWorkoutRecordsByUser();
 });
