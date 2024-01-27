@@ -1,3 +1,6 @@
+
+$('#nameLbl').text(localStorage.getItem('adminEmail'));
+
 // meal plan Get All
 $(window).on('load', function() {
     getAll();
@@ -52,13 +55,7 @@ function appendMealSection(mealPlan) {
                                         <li><a  class="dropdown-item assign " href="#" data-toggle="modal" data-target="#assignModal">Assign</a></li>
                                      </ul>
                                 </div>
-    
-<!--      <div class="bg-image hover-overlay ripple mt-5" data-mdb-ripple-color="light">-->
-<!--        <img src="https://mdbootstrap.com/img/Photos/Horizontal/Food/8-col/img (5).jpg" class="img-fluid" />-->
-<!--        <a href="#!">-->
-<!--          <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>-->
-<!--        </a>-->
-<!--      </div>-->
+
       
       <div class="card-body">    
         <p id="mealPlanDetail" class="card-text">${mealPlan.planDetails}</p>
@@ -251,28 +248,6 @@ $("#updateMeal").click(function () {
 })
 
 
-// $(".delete").click(function (){
-// alert("po");
-//     let id = $("#mealId").val();
-//     console.log(id)
-//     $.ajax({
-//         url: 'http://localhost:8080/api/v1/mealPlan/delete/' + id,
-//         method: "DELETE",
-//         success: function (response) {
-//             console.log(response)
-//             getAll();
-//             alert("Meal Plan Deleted Successfully !!")
-//             $('#deleteMealModal').data('bs.modal').hide();
-//
-//         },
-//
-//         error: function (jqXHR) {
-//             console.log(jqXHR);
-//         }
-//     })
-//
-//
-// })
 
 
 // method to set data to update modal text fields

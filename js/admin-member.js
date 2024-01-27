@@ -1,3 +1,5 @@
+
+$('#nameLbl').text(localStorage.getItem('adminEmail'));
 let meal_id;
 let workout_id;
 var selectedValue;

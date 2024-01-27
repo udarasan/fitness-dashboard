@@ -1,3 +1,5 @@
+
+$('#nameLbl').text(localStorage.getItem('adminEmail'));
 $(window).on('load', function() {
     getAllWorkoutPlans();
     loadMembers();
