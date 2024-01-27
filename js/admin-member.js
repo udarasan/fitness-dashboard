@@ -145,45 +145,7 @@ $('#updateMember').click(function () {
     } else {
         $('#ageErrorLabel').text(""); // Clear the error label
     }
-    console.log(trainer_id);
-    // if (isValidName(name) && isValidEmail(email) && isValidPassword(password)  && !isNaN(age)) {
-    //     // Make the AJAX request
-    //     $.ajax({
-    //         url: 'http://localhost:8080/api/v1/user/update',
-    //         method: 'POST',
-    //         dataType: 'json',
-    //         contentType: 'application/json',  // Set content type to JSON
-    //
-    //         data: JSON.stringify({
-    //             "uid": id,
-    //             "email": email,
-    //             "password": password,
-    //             "name": name,
-    //             "trainer_id": trainer_id,
-    //             "meal_plan_id": meal_id,
-    //             "workout_id": workout_id,
-    //             "age":age ,
-    //             "gender":gender
-    //         }),  // Convert data to JSON string
-    //         success: function (response) {
-    //             console.log(response);
-    //             alert("Member update successful!");
-    //             getAllMembers();
-    //             loadTrainerId();
-    //
-    //             $('#memberModal').modal('hide');
-    //
-    //                 // Your JavaScript code goes here
-    //
-    //
-    //
-    //         },
-    //         error: function (jqXHR, textStatus, errorThrown) {
-    //             alert("Member update failed! Please check your input and try again.");
-    //             console.error(jqXHR.responseText);  // Log the response text for debugging
-    //         }
-    //     });
-    // }
+
 });
 
 
