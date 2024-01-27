@@ -1,4 +1,5 @@
 
+$('#nameLbl').text(localStorage.getItem('adminEmail'));
 
 $(window).on('load', function() {
     // Your JavaScript code goes here
