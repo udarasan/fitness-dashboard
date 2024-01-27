@@ -18,6 +18,7 @@ $(window).on('load', function() {
     var currentYear = new Intl.DateTimeFormat('en-US', { year: 'numeric' }).format(currentDate);
 
     $("#lblCalorieIntake").text("Daily Calorie Intake - " + currentMonthName +" "+ currentYear);
+    $("#lblCalorieBurnOut").text("Daily Calorie Burnout - " + currentMonthName +" "+ currentYear);
 });
 
 let currUserWorkoutId;
@@ -311,28 +312,6 @@ function getMealRecordsByUser(uId){
 }
 
 
-let workOutCalorieDateList = [];
-let workOutCalorieAmountList = [];
-function getWorkOutRecordsByUser(uId){
-    console.log(uId);
-    $.ajax({
-        url: 'http://localhost:8080/api/v1/workoutRecords/getAllWorkOutRecords/'+uId,
-        method: 'GET',
-        success: function (response) {
-            console.log(response);
-            $.each(response.data, function (index, workOutRec) {
-                workOutCalorieDateList.push(workOutRec.date);
-                workOutCalorieAmountList.push(workOutRec.calories);
-
-            });
-
-        },
-        error: function (jqXHR) {
-            console.log(jqXHR.responseText);
-        }
-    })
-}
-
 function setDataToCalorieIntakeChart(){
     var ctx = $("#areaChartCalorieIntake")[0].getContext('2d');
 
@@ -350,6 +329,141 @@ function setDataToCalorieIntakeChart(){
                 aggregatedData[formattedDate] = 0;
             }
             aggregatedData[formattedDate] += calorieAmountList[i];
+        }
+    }
+
+    // Extract aggregated dates and amounts
+    var aggregatedDates = Object.keys(aggregatedData);
+    var aggregatedAmounts = Object.values(aggregatedData);
+
+    var dynamicChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: aggregatedDates,
+            datasets: [{
+                label: 'Calorie Count',
+                data: aggregatedAmounts,
+                lineTension: 0.2,
+                backgroundColor: "rgba(78, 115, 223, 0.05)",
+                borderColor: "rgba(78, 115, 223, 1)",
+                pointRadius: 3,
+                pointBackgroundColor: "rgba(78, 115, 223, 1)",
+                pointBorderColor: "rgba(78, 115, 223, 1)",
+                pointHoverRadius: 3,
+                pointHoverBackgroundColor: "rgb(255,0,0)",
+                pointHoverBorderColor: "rgb(255,0,0)",
+                pointHitRadius: 10,
+                pointBorderWidth: 2,
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            layout: {
+                padding: {
+                    left: 10,
+                    right: 25,
+                    top: 25,
+                    bottom: 0
+                }
+            },
+            scales: {
+                xAxes: [{
+                    time: {
+                        unit: 'day',
+                    },
+                    gridLines: {
+                        display: false,
+                        drawBorder: false
+                    },
+                    ticks: {
+                        // maxTicksLimit: 7,
+                        padding: 10
+                    },
+                }],
+                yAxes: [{
+                    ticks: {
+                        // maxTicksLimit: 5,
+                        padding: 10,
+                        // suggestedMin: 5,
+                        // beginAtZero: true,
+                    },
+                    gridLines: {
+                        color: "rgb(234, 236, 244)",
+                        zeroLineColor: "rgb(234, 236, 244)",
+                        drawBorder: false,
+                        borderDash: [2],
+                        zeroLineBorderDash: [2]
+                    }
+                }],
+            },
+            legend: {
+                display: false
+            },
+            tooltips: {
+                backgroundColor: "rgb(255,255,255)",
+                bodyFontColor: "#858796",
+                titleMarginBottom: 10,
+                titleFontColor: '#6e707e',
+                titleFontSize: 14,
+                borderColor: '#dddfeb',
+                borderWidth: 1,
+                xPadding: 15,
+                yPadding: 15,
+                displayColors: false,
+                intersect: false,
+                mode: 'index',
+                caretPadding: 10,
+            }
+        }
+    });
+}
+
+
+
+// calorie burnOut chart ------------------------------------------------------------------------------------------------
+
+let workOutCalorieDateList = [];
+let workOutCalorieAmountList = [];
+function getWorkOutRecordsByUser(uId){
+    console.log(uId);
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/workoutRecords/getAllWorkOutRecords/'+uId,
+        method: 'GET',
+        success: function (response) {
+            console.log(response);
+            $.each(response.data, function (index, workOutRec) {
+                workOutCalorieDateList.push(workOutRec.date);
+                workOutCalorieAmountList.push(workOutRec.calories);
+                console.log(workOutCalorieAmountList);
+
+            });
+            setDataToCalorieBurnOutChart();
+
+        },
+        error: function (jqXHR) {
+            console.log(jqXHR.responseText);
+        }
+    })
+}
+
+
+function setDataToCalorieBurnOutChart(){
+    var ctx = $("#areaChartCalorieBurnOut")[0].getContext('2d');
+
+    // Get current year and month
+    var currentYear = new Date().getFullYear();
+    var currentMonth = new Date().getMonth() + 1; // Months are zero-based, so add 1
+
+    // Aggregate data by date
+    var aggregatedData = {};
+    for (var i = 0; i < workOutCalorieDateList.length; i++) {
+        var date = new Date(workOutCalorieDateList[i]);
+        if (date.getFullYear() === currentYear && date.getMonth() + 1 === currentMonth) {
+            var formattedDate = ('0' + date.getDate()).slice(-2); // Convert to YYYY-MM-DD format
+            if (!aggregatedData[formattedDate]) {
+                aggregatedData[formattedDate] = 0;
+            }
+            aggregatedData[formattedDate] += workOutCalorieAmountList[i];
         }
     }
 
