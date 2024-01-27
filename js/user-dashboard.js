@@ -42,6 +42,7 @@ function searchUserWithEmail(){
 
             getDataToAreaChart(uId);
             getMealRecordsByUser(uId);
+            getWorkOutRecordsByUser(uId)
             getWorkoutPlan();
         },
         error: function (jqXHR) {
@@ -299,6 +300,29 @@ function getMealRecordsByUser(uId){
             $.each(response.data, function (index, mealRecord) {
                 calorieDateList.push(mealRecord.date);
                 calorieAmountList.push(mealRecord.calories);
+            });
+
+        },
+        error: function (jqXHR) {
+            console.log(jqXHR.responseText);
+        }
+    })
+}
+
+
+
+let workOutCalorieDateList = [];
+let workOutCalorieAmountList = [];
+function getWorkOutRecordsByUser(uId){
+    console.log(uId);
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/workoutRecords/getAllWorkOutRecords/'+uId,
+        method: 'GET',
+        success: function (response) {
+            console.log(response);
+            $.each(response.data, function (index, workOutRec) {
+                workOutCalorieDateList.push(workOutRec.date);
+                workOutCalorieAmountList.push(workOutRec.calories);
             });
 
         },
