@@ -25,6 +25,7 @@ $('#btnLogin').click(function () {
         data: JSON.stringify({"email": email, "password": password}),  // Convert data to JSON string
         success: function (response) {
             console.log(response)
+            localStorage.setItem("adminEmail", email);
             alert("Login Successful!");
             window.location.href = '../admin/index.html';
         },
