@@ -173,28 +173,6 @@ function getClientsWithTrainer() {
     });
 
 }
-// function loadMemberId() {
-//
-//
-//     $.ajax({
-//         url: 'http://localhost:8080/api/v1/user/getAllUsers',
-//         method: 'GET',
-//         dataType: 'json',
-//         contentType: 'application/json',  // Set content type to JSON
-//         success: function (response) {
-//
-//
-//             $.each(response.data, function (index, member) {
-//                 $('#searchByUser').append(`<option>${member.uid}</option>`);
-//
-//             });
-//
-//         },
-//         error: function (jqXHR, textStatus, errorThrown) {
-//             console.error(jqXHR.responseText);  // Log the response text for debugging
-//         }
-//     });
-// }
 
 
 function getMealRecordsByUser(uId){
