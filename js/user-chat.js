@@ -1,11 +1,12 @@
 let userEmail = localStorage.getItem("userEmail");
-$(window).on('load', function() {
+$(window).on('load', function () {
     loadUserUsingEmail(userEmail);
     $('#nameLbl').text(localStorage.getItem("name"));
 });
 
 let userId;
 let trainerId;
+
 function loadUserUsingEmail(userEmail) {
     $.ajax({
         url: 'http://localhost:8080/api/v1/user/getOneUser',
@@ -28,21 +29,23 @@ function loadUserUsingEmail(userEmail) {
 }
 
 
-$("#btnSend").click(function() {
+$("#btnSend").click(function () {
     msg = $("#msgInputField").val();
 
     var currentDate = new Date();
     var formattedDate = currentDate.toISOString().slice(0, 10);
     var formattedTime = currentDate.toTimeString().slice(0, 8);
 
-    if(msg != "" && trainerId != 0){
+    if (msg != "" && trainerId != 0) {
         $.ajax({
             url: 'http://localhost:8080/api/v1/chat/save',
             method: 'POST',
             dataType: 'json',
             contentType: 'application/json',
-            data: JSON.stringify({"message": msg, "userSent": true, "user_id": userId,
-                "trainer_id": trainerId, "date": formattedDate, "time": formattedTime}),  // Convert data to JSON string
+            data: JSON.stringify({
+                "message": msg, "userSent": true, "user_id": userId,
+                "trainer_id": trainerId, "date": formattedDate, "time": formattedTime
+            }),  // Convert data to JSON string
             success: function (response) {
                 console.log(response);
 
@@ -56,18 +59,18 @@ $("#btnSend").click(function() {
     }
 });
 
-function getAllMessages(){
+function getAllMessages() {
     $(".chat-messages").empty();
 
     $.ajax({
-        url: 'http://localhost:8080/api/v1/chat/getAllChats/'+trainerId+"/"+userId,
+        url: 'http://localhost:8080/api/v1/chat/getAllChats/' + trainerId + "/" + userId,
         method: 'GET',
         dataType: 'json',
         contentType: 'application/json',  // Set content type to JSON
         success: function (response) {
             console.log(response.data);
 
-            if(response.data.length==0){
+            if (response.data.length == 0) {
                 let element = `
                              <p>No Messages Yet</p>`
                 $(".chat-messages").append(element);
@@ -77,8 +80,8 @@ function getAllMessages(){
             $.each(response.data, function (index, msg) {
                 sentByUser = msg.userSent;
 
-                if (sentByUser){
-                     let element = `
+                if (sentByUser) {
+                    let element = `
                           <div class="chat-message-right pb-4">
                                 <div class="d-flex justify-content-end">
                                     <div class="text-muted small text-nowrap mt-2">${msg.date}</div>&nbsp;&nbsp;
@@ -92,7 +95,7 @@ function getAllMessages(){
                                 </div>
                           </div>`
                     $(".chat-messages").append(element);
-                }else{
+                } else {
                     let element = `
                              <div class="chat-message-left pb-4">
                                     <div class="d-flex">

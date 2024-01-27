@@ -1,11 +1,11 @@
-let userEmail=localStorage.getItem("userEmail");
+let userEmail = localStorage.getItem("userEmail");
 $('#lblName').text(localStorage.getItem("name"));
-window.onload = function() {
+window.onload = function () {
     setDateInModal();
     searchUserWithEmail();
 };
 
-function setDateInModal(){
+function setDateInModal() {
     dateField = $("#date");
 
     var currentDate = new Date();
@@ -13,11 +13,11 @@ function setDateInModal(){
     dateField.val(formattedDate);
 }
 
-function getMealRecordsByUser(){
+function getMealRecordsByUser() {
 
     console.log(userId);
     $.ajax({
-        url: 'http://localhost:8080/api/v1/mealRecords/getAllMealRecords/'+userId,
+        url: 'http://localhost:8080/api/v1/mealRecords/getAllMealRecords/' + userId,
         method: 'GET',
         success: function (response) {
             $('#tblMemberRecBody').empty();
@@ -40,15 +40,16 @@ function getMealRecordsByUser(){
 }
 
 let userId;
-function searchUserWithEmail(){
+
+function searchUserWithEmail() {
     $.ajax({
         url: 'http://localhost:8080/api/v1/user/getOneUser',
         method: 'GET',
         dataType: 'json',
         contentType: 'application/json',
-        data:{email:userEmail},
+        data: {email: userEmail},
         success: function (response) {
-            userId= response.data.uid;
+            userId = response.data.uid;
             getMealRecordsByUser();
         },
         error: function (jqXHR) {
@@ -57,13 +58,13 @@ function searchUserWithEmail(){
     })
 }
 
-$("#addRecord").click(function (){
+$("#addRecord").click(function () {
     date = $("#date").val();
     mealType = $("#meal").val();
     mealDetails = $("#mealDetails").val();
     calories = $("#calories").val();
 
-    if ( !date || !mealType || !mealDetails || !calories) {
+    if (!date || !mealType || !mealDetails || !calories) {
         alert("Please fill in all required fields.");
         return;
     }
@@ -75,10 +76,10 @@ $("#addRecord").click(function (){
         $('#mngDescriptionErrorLabel').text(""); // Clear the error label
     }
 
-    if(isNaN(calories)){
+    if (isNaN(calories)) {
         $('#mngCalorieErrorLabel').text("Invalid input type!! Please input number");
         return;
-    }else {
+    } else {
         $('#mngCalorieErrorLabel').text("");
     }
 
@@ -87,8 +88,10 @@ $("#addRecord").click(function (){
         method: 'POST',
         dataType: 'json',
         contentType: 'application/json',  // Set content type to JSON
-        data: JSON.stringify({  "date": date, "meal": mealType, "details": mealDetails, "calories": calories,
-            "userId" : userId }),  // Convert data to JSON string
+        data: JSON.stringify({
+            "date": date, "meal": mealType, "details": mealDetails, "calories": calories,
+            "userId": userId
+        }),  // Convert data to JSON string
         success: function (response) {
             console.log(response);
             alert("New Record Added successfully!");
@@ -100,7 +103,7 @@ $("#addRecord").click(function (){
             $("#mealRecModal").data('bs.modal').hide();
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            if(jqXHR.status == 409){
+            if (jqXHR.status == 409) {
                 alert("Record already added. Please try updating the record");
                 return;
             }
@@ -139,7 +142,7 @@ $('#updateRecord').click(function () {
 
     console.log(date, mealType, details, calories, recordId);
 
-    if ( !date || !mealType || !details || !calories) {
+    if (!date || !mealType || !details || !calories) {
         alert("Please fill in all required fields.");
         return;
     }
@@ -151,10 +154,10 @@ $('#updateRecord').click(function () {
         $('#mngDescriptionErrorLabel').text(""); // Clear the error label
     }
 
-    if(isNaN(calories)){
+    if (isNaN(calories)) {
         $('#mngCalorieErrorLabel').text("Invalid input type!! Please input number");
         return;
-    }else {
+    } else {
         $('#mngCalorieErrorLabel').text("");
     }
 
@@ -164,8 +167,10 @@ $('#updateRecord').click(function () {
         dataType: 'json',
         contentType: 'application/json',  // Set content type to JSON
 
-        data: JSON.stringify({"date": date, "meal": mealType, "details": details, "calories": calories,
-            "userId" : userId, "mrID" : recordId }), // Convert data to JSON string
+        data: JSON.stringify({
+            "date": date, "meal": mealType, "details": details, "calories": calories,
+            "userId": userId, "mrID": recordId
+        }), // Convert data to JSON string
         success: function (response) {
             console.log(response);
             alert("Record Updated successfully!");
@@ -175,7 +180,7 @@ $('#updateRecord').click(function () {
             $("#manageRecModal").data('bs.modal').hide();
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            if(jqXHR.status == 409){
+            if (jqXHR.status == 409) {
                 alert("Duplicate Record Values. Please check your details again");
                 return;
             }
@@ -189,7 +194,7 @@ $('#deleteRecord').click(function () {
     let id = $("#mngRecordId").val();
 
     $.ajax({
-        url: 'http://localhost:8080/api/v1/mealRecords/delete/'+id,
+        url: 'http://localhost:8080/api/v1/mealRecords/delete/' + id,
         method: 'DELETE',
         success: function (response) {
             console.log(response);
@@ -206,7 +211,7 @@ $('#deleteRecord').click(function () {
 $("#searchByDate").on('input', function () {
 
     value = $("#searchByDate").val();
-    console.log(typeof(value));
+    console.log(typeof (value));
     $.ajax({
         url: 'http://localhost:8080/api/v1/mealRecords/recordsByDate',
         method: 'GET',
@@ -215,22 +220,22 @@ $("#searchByDate").on('input', function () {
         success: function (response) {
             console.log(response);
             $("#tblMemberRecBody").empty();
-                $('.npResImg').addClass("d-none");
-                $('#mealRecTable').css("display","block");
+            $('.npResImg').addClass("d-none");
+            $('#mealRecTable').css("display", "block");
 
-                $.each(response.data, function (index, mealRecord) {
-                    let row = `<tr><td>${mealRecord.date}</td><td>${mealRecord.meal}</td><td>${mealRecord.details}</td>
+            $.each(response.data, function (index, mealRecord) {
+                let row = `<tr><td>${mealRecord.date}</td><td>${mealRecord.meal}</td><td>${mealRecord.details}</td>
                             <td>${mealRecord.calories}</td><td class="d-none">${mealRecord.mrID}</td></tr>`;
-                    $('#tblMemberRecBody').append(row);
-                });
-                $("#btnSeeAll").removeClass("d-none");
+                $('#tblMemberRecBody').append(row);
+            });
+            $("#btnSeeAll").removeClass("d-none");
 
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error(jqXHR.responseText);  // Log the response text for debugging
             if (jqXHR.data == null) {
-                $('#mealRecTable').css("display","none")
+                $('#mealRecTable').css("display", "none")
                 $("#btnSeeAll").removeClass("d-none");
                 $('.npResImg').removeClass("d-none");
             }
@@ -242,6 +247,6 @@ $("#btnSeeAll").click(function () {
     $("#btnSeeAll").addClass("d-none");
     $('.npResImg').addClass("d-none");
     $("#searchByDate").val("");
-    $('#mealRecTable').css("display","block");
+    $('#mealRecTable').css("display", "block");
     getMealRecordsByUser();
 });

@@ -1,8 +1,6 @@
-
 $('#nameLbl').text(localStorage.getItem('adminEmail'));
-$(window).on('load', function() {
+$(window).on('load', function () {
     getTrainerCount();
-
 
 
 });
@@ -11,10 +9,11 @@ var memberCount;
 var workoutCount;
 var mealCount;
 var equipmentCount;
+
 function pieChart() {
     const chartData = {
-        labels: ["Trainers", "Members", "MealPlans", "WorkOutPlans","Equipments"],
-        data: [trainerCount, memberCount, mealCount, workoutCount,equipmentCount],
+        labels: ["Trainers", "Members", "MealPlans", "WorkOutPlans", "Equipments"],
+        data: [trainerCount, memberCount, mealCount, workoutCount, equipmentCount],
     };
 
     const myChart = document.querySelector(".my-chart");
@@ -54,7 +53,7 @@ function pieChart() {
     populateUl();
 }
 
-function getTrainerCount(){
+function getTrainerCount() {
     $.ajax({
         url: 'http://localhost:8080/api/v1/admin/getTrainerCount',
         method: 'GET',
@@ -73,7 +72,7 @@ function getTrainerCount(){
     })
 }
 
-function getMemberCount(){
+function getMemberCount() {
     $.ajax({
         url: 'http://localhost:8080/api/v1/admin/getMemberCount',
         method: 'GET',
@@ -90,7 +89,7 @@ function getMemberCount(){
     })
 }
 
-function getWorkoutPlansCount(){
+function getWorkoutPlansCount() {
     $.ajax({
         url: 'http://localhost:8080/api/v1/admin/getWorkoutPlanCount',
         method: 'GET',
@@ -99,10 +98,10 @@ function getWorkoutPlansCount(){
         success: function (response) {
             workoutCount = response.data;
 
-            if(workoutCount==1){
+            if (workoutCount == 1) {
                 $("#workoutCount").text(workoutCount);
                 $("#lblWorkoutCount").text("Workout Plan");
-            }else{
+            } else {
                 $("#workoutCount").text(workoutCount);
             }
 
@@ -114,7 +113,7 @@ function getWorkoutPlansCount(){
     })
 }
 
-function getMealPlansCount(){
+function getMealPlansCount() {
     $.ajax({
         url: 'http://localhost:8080/api/v1/admin/getMealPlanCount',
         method: 'GET',
@@ -123,10 +122,10 @@ function getMealPlansCount(){
         success: function (response) {
             mealCount = response.data;
 
-            if(mealCount==1){
+            if (mealCount == 1) {
                 $("#mealCount").text(mealCount);
                 $("#lblMealCount").text("Meal Plan");
-            }else{
+            } else {
                 $("#mealCount").text(workoutCount);
             }
             getEquipmentCount()
@@ -137,7 +136,7 @@ function getMealPlansCount(){
     })
 }
 
-function getEquipmentCount(){
+function getEquipmentCount() {
     $.ajax({
         url: 'http://localhost:8080/api/v1/admin/getEquipmentCount',
         method: 'GET',

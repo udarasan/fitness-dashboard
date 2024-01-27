@@ -1,30 +1,30 @@
 $('#nameLbl').text(localStorage.getItem("name"));
 var today = new Date();
 var formattedDate = today.toLocaleDateString();
-let userEmail=localStorage.getItem("userEmail");
+let userEmail = localStorage.getItem("userEmail");
 let uId;
 let height;
 let weight;
 let date
 let cname;
-$(window).on('load', function() {
+$(window).on('load', function () {
     searchUserWithEmail();
 });
 
-function searchUserWithEmail(){
+function searchUserWithEmail() {
 
     $.ajax({
         url: 'http://localhost:8080/api/v1/user/getOneUser',
         method: 'GET',
         dataType: 'json',
         contentType: 'application/json',
-        data:{email:userEmail},
+        data: {email: userEmail},
 
         success: function (response) {
             console.log(response);
-          uId= response.data.uid;
-          cname = response.data.name;
-          console.log(uId);
+            uId = response.data.uid;
+            cname = response.data.name;
+            console.log(uId);
             getAllProgress(uId);
 
         },
@@ -39,23 +39,23 @@ function getAllProgress(uId) {
     $('#tblProgress').empty();
     // members get All
     $.ajax({
-        url: 'http://localhost:8080/api/v1/progress/getAllProgress/'+uId,
+        url: 'http://localhost:8080/api/v1/progress/getAllProgress/' + uId,
         method: 'GET',
 
         contentType: 'application/json',  // Set content type to JSON
         success: function (response) {
             const progressData = response.data;
-               height = response.data.height;
-               weight = response.data.weight;
-               date =  response.data.date;
+            height = response.data.height;
+            weight = response.data.weight;
+            date = response.data.date;
 
-               $.each(response.data, function (index, progress) {
+            $.each(response.data, function (index, progress) {
                 let row = `<tr><td style="display: none">${progress.pid}</td><td>${progress.height}</td><td>${progress.weight}</td><td>${progress.date}</td></tr>`;
                 $('#tblProgress').append(row);
             });
 
 
-               //get report
+            //get report
             $('#pdf').click(function () {
                 generatePdf(progressData);
             });
@@ -69,36 +69,32 @@ function getAllProgress(uId) {
 }
 
 
-
 $('#deleteProgress').click(function () {
 
     let id = $('#pId').val();
 
-            // Make the AJAX request
-            $.ajax({
-                url: 'http://localhost:8080/api/v1/progress/delete/' + id,
-                method: 'DELETE',
-                contentType: 'application/json',  // Set content type to JSON
-                success: function (response) {
-                    alert("Progress Details Delete successful!");
-                    searchUserWithEmail();
-                    $('#pId').val("");
-                    $('#height').val("");
-                    $('#weight').val("");
-                    $('#date').val("");
+    // Make the AJAX request
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/progress/delete/' + id,
+        method: 'DELETE',
+        contentType: 'application/json',  // Set content type to JSON
+        success: function (response) {
+            alert("Progress Details Delete successful!");
+            searchUserWithEmail();
+            $('#pId').val("");
+            $('#height').val("");
+            $('#weight').val("");
+            $('#date').val("");
 
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert("Progress Details Delete failed! Please check your input and try again.");
-                    console.error(jqXHR.responseText);  // Log the response text for debugging
-                }
-            });
-
-
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert("Progress Details Delete failed! Please check your input and try again.");
+            console.error(jqXHR.responseText);  // Log the response text for debugging
+        }
+    });
 
 
 });
-
 
 
 $('#updateProgress').click(function () {
@@ -108,20 +104,20 @@ $('#updateProgress').click(function () {
     let weight = $('#weight').val();
     let date = $('#date').val();
     console.log(uId);
-    if ( !height || !weight || !date) {
+    if (!height || !weight || !date) {
         alert("Please fill in all required fields.");
         return;
     }
 
-    if(isNaN(height)){
+    if (isNaN(height)) {
         $('#heightErrorLabel').text("Invalid input type!! Please input number");
-    }else {
+    } else {
         $('#heightErrorLabel').text("");
     }
 
-    if(isNaN(weight)){
+    if (isNaN(weight)) {
         $('#weightErrorLabel').text("Invalid input type!! Please input number");
-    }else {
+    } else {
         $('#weightErrorLabel').text("");
     }
 
@@ -136,9 +132,9 @@ $('#updateProgress').click(function () {
             success: function (response) {
                 alert("Progress Details Update successful!");
                 searchUserWithEmail();
-               $('#pId').val("");
-               $('#height').val("");
-               $('#weight').val("");
+                $('#pId').val("");
+                $('#height').val("");
+                $('#weight').val("");
                 $('#date').val("");
 
             },
@@ -158,49 +154,49 @@ $('#addProgress').click(function () {
     let height = $('#height').val();
     let weight = $('#weight').val();
     let date = $('#date').val();
-          console.log(uId);
-    if ( !height || !weight || !date) {
+    console.log(uId);
+    if (!height || !weight || !date) {
         alert("Please fill in all required fields.");
         return;
     }
 
-    if(isNaN(height)){
+    if (isNaN(height)) {
         $('#heightErrorLabel').text("Invalid input type!! Please input number");
-    }else {
+    } else {
         $('#heightErrorLabel').text("");
     }
 
-    if(isNaN(weight)){
+    if (isNaN(weight)) {
         $('#weightErrorLabel').text("Invalid input type!! Please input number");
-    }else {
+    } else {
         $('#weightErrorLabel').text("");
     }
-   if (!isNaN(height) && !isNaN(weight)) {
-       $.ajax({
-           url: 'http://localhost:8080/api/v1/progress/save',
-           method: 'POST',
-           dataType: 'json',
-           contentType: 'application/json',  // Set content type to JSON
+    if (!isNaN(height) && !isNaN(weight)) {
+        $.ajax({
+            url: 'http://localhost:8080/api/v1/progress/save',
+            method: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',  // Set content type to JSON
 
-           data: JSON.stringify({"height": height, "weight": weight, "userId": uId, "date": date}),  // Convert data to JSON string
-           success: function (response) {
-               console.log(response);
-               alert("Progress Details Added successful!");
-              searchUserWithEmail();
-               $('#pId').val("");
-               $('#height').val("");
-               $('#weight').val("");
-               $('#date').val("");
+            data: JSON.stringify({"height": height, "weight": weight, "userId": uId, "date": date}),  // Convert data to JSON string
+            success: function (response) {
+                console.log(response);
+                alert("Progress Details Added successful!");
+                searchUserWithEmail();
+                $('#pId').val("");
+                $('#height').val("");
+                $('#weight').val("");
+                $('#date').val("");
 
 
-           },
-           error: function (jqXHR, textStatus, errorThrown) {
-               alert("Progress Details Added failed! Please check your input and try again.");
-               console.error(jqXHR.responseText);  // Log the response text for debugging
-           }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("Progress Details Added failed! Please check your input and try again.");
+                console.error(jqXHR.responseText);  // Log the response text for debugging
+            }
 
-       });
-   }
+        });
+    }
 
 });
 
@@ -232,6 +228,7 @@ function generatePdf(progressData) {
 
 
 }
+
 //returns number of pages created
 
 function getPdfProps(progressData) {
@@ -271,7 +268,7 @@ function getPdfProps(progressData) {
         invoice: {
             label: "Report #: ",
 
-            invGenDate: "Report Date: "+formattedDate,
+            invGenDate: "Report Date: " + formattedDate,
 
             headerBorder: true,
             tableBodyBorder: true,
@@ -296,16 +293,16 @@ function getPdfProps(progressData) {
                         width: 80
                     }
                 },
-                {title: "Date",
+                {
+                    title: "Date",
 
 
                 },
 
 
-
             ],
             styles: {
-               margin:500
+                margin: 500
             },
             table: progressData.map((progress, index) => [
                 index + 1,

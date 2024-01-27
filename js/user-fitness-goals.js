@@ -1,19 +1,20 @@
-let userEmail=localStorage.getItem("userEmail");
+let userEmail = localStorage.getItem("userEmail");
 $('#lblName').text(localStorage.getItem("name"));
-window.onload = function() {
+window.onload = function () {
     searchUserWithEmail();
 };
 
 let userId;
-function searchUserWithEmail(){
+
+function searchUserWithEmail() {
     $.ajax({
         url: 'http://localhost:8080/api/v1/user/getOneUser',
         method: 'GET',
         dataType: 'json',
         contentType: 'application/json',
-        data:{email:userEmail},
+        data: {email: userEmail},
         success: function (response) {
-            userId= response.data.uid;
+            userId = response.data.uid;
             getGoalsByUser();
         },
         error: function (jqXHR) {
@@ -22,9 +23,9 @@ function searchUserWithEmail(){
     })
 }
 
-function getGoalsByUser(){
+function getGoalsByUser() {
     $.ajax({
-        url: 'http://localhost:8080/api/v1/fitnessGoals/getAllGoals/'+userId,
+        url: 'http://localhost:8080/api/v1/fitnessGoals/getAllGoals/' + userId,
         method: 'GET',
         success: function (response) {
             let fitGoals = response.data;
@@ -36,11 +37,11 @@ function getGoalsByUser(){
             $('.mainCardBody').empty();
             console.log(response);
             $.each(response.data, function (index, goal) {
-                if(goal.startDate === null){
-                    goal.startDate= "N/A";
+                if (goal.startDate === null) {
+                    goal.startDate = "N/A";
                 }
-                if(goal.endDate === null){
-                    goal.endDate= "N/A";
+                if (goal.endDate === null) {
+                    goal.endDate = "N/A";
                 }
 
                 let card = `
@@ -76,11 +77,11 @@ function getGoalsByUser(){
 
                 $('.mainCardBody').append(card);
 
-                if(goal.status === 'Not Yet Started'){
+                if (goal.status === 'Not Yet Started') {
                     $('.mainCardBody .card:last-of-type .status').addClass("bg-gradient-secondary");
-                }else if(goal.status === 'Ongoing'){
+                } else if (goal.status === 'Ongoing') {
                     $('.mainCardBody .card:last-of-type .status').addClass("bg-gradient-info");
-                }else if(goal.status === 'Completed'){
+                } else if (goal.status === 'Completed') {
                     $('.mainCardBody .card:last-of-type .status').addClass("bg-gradient-success");
                 }
             });
@@ -95,8 +96,9 @@ function getGoalsByUser(){
 }
 
 let id;
-function btnEditOnCLick(){
-    $(".btnEdit").click(function(){
+
+function btnEditOnCLick() {
+    $(".btnEdit").click(function () {
         let cardBody = $(this).parents("div.card-body");
         id = cardBody.children("input.hiddenId").val();
         let name = cardBody.children().children("h6#goalName").text();
@@ -105,10 +107,10 @@ function btnEditOnCLick(){
         let endDate = cardBody.children().children("label#endDate").text();
         let status = cardBody.children("span.status").text();
 
-        if(startDate === "N/A"){
+        if (startDate === "N/A") {
             startDate = "";
         }
-        if(endDate === "N/A"){
+        if (endDate === "N/A") {
             endDate = "";
         }
 
@@ -128,7 +130,7 @@ $('#updateGoal').click(function () {
     let endDate = $("#updModalEndDate").val();
     let status = $("#updModalStatus").val();
 
-    if( !goalName || !goalDetails || !status ) {
+    if (!goalName || !goalDetails || !status) {
         alert("Please fill in all required fields. (Goal Name, Description & Status)");
         return;
     }
@@ -153,8 +155,10 @@ $('#updateGoal').click(function () {
         dataType: 'json',
         contentType: 'application/json',  // Set content type to JSON
 
-        data: JSON.stringify({"goalId": id, "goalName": goalName, "goalDetails": goalDetails, "startDate": startDate, "endDate": endDate,
-            "userId" : userId, "status" : status }), // Convert data to JSON string
+        data: JSON.stringify({
+            "goalId": id, "goalName": goalName, "goalDetails": goalDetails, "startDate": startDate, "endDate": endDate,
+            "userId": userId, "status": status
+        }), // Convert data to JSON string
         success: function (response) {
             console.log(response);
             alert("Goal Details Updated successfully!");
@@ -178,15 +182,15 @@ $('#updateGoal').click(function () {
     });
 });
 
-function btnDeleteOnClick(){
-    $(".btnDelete").click(function(){
+function btnDeleteOnClick() {
+    $(".btnDelete").click(function () {
         let cardBody = $(this).parents("div.card-body");
         id = cardBody.children("input.hiddenId").val();
 
         var result = window.confirm("Do you want to proceed?");
         if (result) {
             $.ajax({
-                url: 'http://localhost:8080/api/v1/fitnessGoals/delete/'+ id,
+                url: 'http://localhost:8080/api/v1/fitnessGoals/delete/' + id,
                 method: 'DELETE',
                 contentType: 'application/json',  // Set content type to JSON
                 success: function (response) {
@@ -203,20 +207,20 @@ function btnDeleteOnClick(){
                     console.error(jqXHR.responseText);  // Log the response text for debugging
                 }
             });
-        }else {
+        } else {
             alert("Goal not deleted.");
         }
     });
 }
 
-$("#addGoal").click(function (){
+$("#addGoal").click(function () {
     name = $("#modalGoalName").val();
     details = $("#modalGoalDetails").val();
     startDate = $("#modalStartDate").val();
     endDate = $("#modalEndDate").val();
     status = $("#modalStatus").val();
 
-    if ( !name || !status || !details ) {
+    if (!name || !status || !details) {
         alert("Please fill in all required fields. (Goal Name, Description & Status)");
         return;
     }
@@ -240,8 +244,10 @@ $("#addGoal").click(function (){
         method: 'POST',
         dataType: 'json',
         contentType: 'application/json',  // Set content type to JSON
-        data: JSON.stringify({  "goalName": name, "goalDetails": details, "startDate": startDate, "endDate": endDate,
-            "status": status, "userId" : userId }),  // Convert data to JSON string
+        data: JSON.stringify({
+            "goalName": name, "goalDetails": details, "startDate": startDate, "endDate": endDate,
+            "status": status, "userId": userId
+        }),  // Convert data to JSON string
         success: function (response) {
             console.log(response);
             alert("New Goal Added successfully!");
@@ -284,11 +290,11 @@ $("#searchByStatus").on('input', function () {
             $("#btnSeeAllStatus").removeClass("d-none");
 
             $.each(response.data, function (index, goal) {
-                if(goal.startDate === null){
-                    goal.startDate= "N/A";
+                if (goal.startDate === null) {
+                    goal.startDate = "N/A";
                 }
-                if(goal.endDate === null){
-                    goal.endDate= "N/A";
+                if (goal.endDate === null) {
+                    goal.endDate = "N/A";
                 }
 
                 let card = `
@@ -324,11 +330,11 @@ $("#searchByStatus").on('input', function () {
 
                 $('.mainCardBody').append(card);
 
-                if(goal.status === 'Not Yet Started'){
+                if (goal.status === 'Not Yet Started') {
                     $('.mainCardBody .card:last-of-type .status').addClass("bg-gradient-secondary");
-                }else if(goal.status === 'Ongoing'){
+                } else if (goal.status === 'Ongoing') {
                     $('.mainCardBody .card:last-of-type .status').addClass("bg-gradient-info");
-                }else if(goal.status === 'Completed'){
+                } else if (goal.status === 'Completed') {
                     $('.mainCardBody .card:last-of-type .status').addClass("bg-gradient-success");
                 }
             });
@@ -342,14 +348,6 @@ $("#searchByStatus").on('input', function () {
                 $("#btnSeeAllStatus").removeClass("d-none");
                 $(".mainCardBody").empty();
 
-//                 let card = `
-//  <img style="max-width: 100%" src="https://cdn.dribbble.com/users/1242216/screenshots/9326781/media/6384fef8088782664310666d3b7d4bf2.png" alt="no" width="500px">
-//
-//
-// `
-//                 let cardContainer=$(".mainCardBody");
-//                 cardContainer.css("justify-content","center")
-//                 cardContainer.append(card);
                 $('.npResImg').removeClass("d-none");
             }
 
@@ -374,11 +372,11 @@ $("#searchByGoal").keyup(function () {
             $("#btnSeeAllName").removeClass("d-none");
 
             $.each(response.data, function (index, goal) {
-                if(goal.startDate === null){
-                    goal.startDate= "N/A";
+                if (goal.startDate === null) {
+                    goal.startDate = "N/A";
                 }
-                if(goal.endDate === null){
-                    goal.endDate= "N/A";
+                if (goal.endDate === null) {
+                    goal.endDate = "N/A";
                 }
 
                 let card = `
@@ -414,11 +412,11 @@ $("#searchByGoal").keyup(function () {
 
                 $('.mainCardBody').append(card);
 
-                if(goal.status === 'Not Yet Started'){
+                if (goal.status === 'Not Yet Started') {
                     $('.mainCardBody .card:last-of-type .status').addClass("bg-gradient-secondary");
-                }else if(goal.status === 'Ongoing'){
+                } else if (goal.status === 'Ongoing') {
                     $('.mainCardBody .card:last-of-type .status').addClass("bg-gradient-info");
-                }else if(goal.status === 'Completed'){
+                } else if (goal.status === 'Completed') {
                     $('.mainCardBody .card:last-of-type .status').addClass("bg-gradient-success");
                 }
             });
@@ -431,15 +429,6 @@ $("#searchByGoal").keyup(function () {
             if (jqXHR.data == null) {
                 $("#btnSeeAllName").removeClass("d-none");
                 $(".mainCardBody").empty();
-
-//                 let card = `
-//  <img style="max-width: 100%;" class="mx-auto" src="https://cdn.dribbble.com/users/1242216/screenshots/9326781/media/6384fef8088782664310666d3b7d4bf2.png" alt="no" width="500px">
-//
-//
-// `
-//                 let cardContainer=$(".mainCardBody");
-//                 cardContainer.css("justify-content","center")
-//                 cardContainer.append(card);
                 $('.npResImg').removeClass("d-none");
             }
         }

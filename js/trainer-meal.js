@@ -1,5 +1,5 @@
 let trainerEmail;
-$(window).on('load', function() {
+$(window).on('load', function () {
     trainerEmail = localStorage.getItem('trainer-email');
     $("#trainerEmail").text(trainerEmail);
     loadTrainerId();
@@ -32,7 +32,6 @@ function getAll() {
         }
     })
 }
-
 
 
 // add new card to meal section using get all data
@@ -173,9 +172,9 @@ $("#saveMeal").click(function () {
     let meal_details = $("#meal_plan_details").val();
     let calorie = $("#calorie").val();
 
-    if (meal_name === "" || meal_details === "" || calorie === "" ||  $("#memberComboBox").val()==="") {
+    if (meal_name === "" || meal_details === "" || calorie === "" || $("#memberComboBox").val() === "") {
         alert("please fill all empty fields !!");
-    }else{
+    } else {
         if (isValidPlan(meal_name)) {
             $("#TrainerMealPlanNameErrorLabel").css("display", "none");
             if (isValidPlan(meal_details)) {
@@ -203,8 +202,8 @@ $("#saveMeal").click(function () {
                                 "password": memberPassword,
                                 "workout_id": workoutId,
                                 "trainer_id": trainerIdd,
-                                "age":age,
-                                "gender":gender
+                                "age": age,
+                                "gender": gender
                             }
 
                         }),
@@ -317,26 +316,6 @@ $("#updateMeal").click(function () {
 })
 
 
-// $("#deleteMeal").click(function (){
-//
-//     let id = $("#delete_meal_id").val();
-//     $.ajax({
-//         url: 'http://localhost:8080/api/v1/mealPlan/delete/' + id,
-//         method: "DELETE",
-//         success: function (response) {
-//             console.log(response)
-//             getAll();
-//             alert("Meal Plan Deleted Successfully !!")
-//             $('#deleteMealModal').data('bs.modal').hide();
-//
-//         },
-//
-//         error: function (jqXHR) {
-//             console.log(jqXHR);
-//         }
-//     })
-// })
-
 
 //load trainer id using email
 let trainerId;
@@ -416,7 +395,7 @@ let memberName;
 let memberPassword;
 let trainerIdd;
 let workoutId;
-let  age;
+let age;
 let gender;
 
 $("#memberComboBox").click(function () {
@@ -432,8 +411,8 @@ $("#memberComboBox").click(function () {
         memberPassword = members.password;
         trainerIdd = members.trainer_id;
         workoutId = members.workout_id;
-        age=members.age;
-        gender=members.gender;
+        age = members.age;
+        gender = members.gender;
 
         console.log(members);
         console.log(members.uid);
@@ -455,7 +434,6 @@ $("#memberComboBox").click(function () {
 })
 
 
-
 // set selected name to assign meal plan modal
 $("#assign_member_id").click(function () {
 
@@ -470,8 +448,8 @@ $("#assign_member_id").click(function () {
         memberPassword = members.password;
         trainerIdd = members.trainer_id;
         workoutId = members.workout_id;
-        age=members.age;
-        gender=members.gender;
+        age = members.age;
+        gender = members.gender;
 
         console.log(members);
         console.log(members.uid);
@@ -493,7 +471,6 @@ $("#assign_member_id").click(function () {
 })
 
 
-
 // update user with mealPlan
 $("#assignTrainerMealPlanBtn").click(function () {
 
@@ -503,9 +480,9 @@ $("#assignTrainerMealPlanBtn").click(function () {
     let mealId = $("#assign_meal_id").val();
     console.log(mealId);
 
-    if($("#assign_member_id").val()===""){
+    if ($("#assign_member_id").val() === "") {
         alert("please select member to assign !!")
-    }else{
+    } else {
         $.ajax({
             url: 'http://localhost:8080/api/v1/user/update',
             method: "post",
@@ -520,8 +497,8 @@ $("#assignTrainerMealPlanBtn").click(function () {
                     "password": memberPassword,
                     "workout_id": workoutId,
                     "trainer_id": trainerId,
-                    "age":age,
-                    "gender":gender
+                    "age": age,
+                    "gender": gender
 
                 }),
 
@@ -539,10 +516,7 @@ $("#assignTrainerMealPlanBtn").click(function () {
     }
 
 
-
 })
-
-
 
 
 // meal plan search by name

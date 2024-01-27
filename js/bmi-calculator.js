@@ -1,9 +1,9 @@
 $('#nameLbl').text(localStorage.getItem("name"));
 let height;
 let weight;
-let userProfileMain=$(".userProfileMain");
+let userProfileMain = $(".userProfileMain");
 
-userProfileMain.on("keyup", ".height", function(event) {
+userProfileMain.on("keyup", ".height", function (event) {
     console.log("hi")
     let heightText = $(".height");
     let weightTxt = $(".weight");
@@ -37,19 +37,19 @@ userProfileMain.on("keyup", ".height", function(event) {
     weightTxt.on("input", updateBMI);
 });
 
-userProfileMain.on("keyup", ".weight", function(event) {
-    let heightText=$(".height");
-    let weightTxt=$(".weight");
-    let bmiTxt=$(".bmi");
+userProfileMain.on("keyup", ".weight", function (event) {
+    let heightText = $(".height");
+    let weightTxt = $(".weight");
+    let bmiTxt = $(".bmi");
 
-    weight= weightTxt.val();
+    weight = weightTxt.val();
 
-    if(heightText.val().length===0){
+    if (heightText.val().length === 0) {
         bmiTxt.val(weight);
 
-    }else{
-        let height=heightText.val()/100;
-        let bmi=weightTxt.val()/(height*height);
+    } else {
+        let height = heightText.val() / 100;
+        let bmi = weightTxt.val() / (height * height);
         bmiTxt.val(bmi);
     }
 
