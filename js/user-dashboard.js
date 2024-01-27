@@ -302,7 +302,7 @@ function getMealRecordsByUser(uId){
                 calorieAmountList.push(mealRecord.calories);
 
             });
-
+            setDataToCalorieIntakeChart();
         },
         error: function (jqXHR) {
             console.log(jqXHR.responseText);
