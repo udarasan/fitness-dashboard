@@ -42,7 +42,7 @@ $('#deleteMember').click(function () {
 
 
 });
-
+let newPassword;
 //update member
 $('#updateMember').click(function () {
 
@@ -50,7 +50,57 @@ $('#updateMember').click(function () {
     let email = $('#member_email').val();
     let name = $('#member_name').val();
     let trainer_id = $('#tra_id').val();
-    let password = $('#memeber_password').val();
+
+    let password = $('#memeber_password').val() ;
+    console.log(password);
+    hashPassword( $('#memeber_password').val())
+        .then(hashedPassword => {
+            console.log('Hashed Password:', hashedPassword);
+            newPassword = hashedPassword;
+            if (isValidName(name) && isValidEmail(email) && isValidPassword(password)  && !isNaN(age)) {
+                // Make the AJAX request
+                $.ajax({
+                    url: 'http://localhost:8080/api/v1/user/update',
+                    method: 'POST',
+                    dataType: 'json',
+                    contentType: 'application/json',  // Set content type to JSON
+
+                    data: JSON.stringify({
+                        "uid": id,
+                        "email": email,
+                        "password": newPassword,
+                        "name": name,
+                        "trainer_id": trainer_id,
+                        "meal_plan_id": meal_id,
+                        "workout_id": workout_id,
+                        "age":age ,
+                        "gender":gender
+                    }),  // Convert data to JSON string
+                    success: function (response) {
+                        console.log(response);
+                        alert("Member update successful!");
+                        getAllMembers();
+                        loadTrainerId();
+
+                        $('#memberModal').modal('hide');
+
+                        // Your JavaScript code goes here
+
+
+
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert("Member update failed! Please check your input and try again.");
+                        console.error(jqXHR.responseText);  // Log the response text for debugging
+                    }
+                });
+            }
+
+        })
+        .catch(error => {
+            console.error('Error hashing password:', error);
+        });
+
     let age = $('#age').val();
     let gender = selectedValue  ;
     // let male = $('#inlineRadio1').val();
@@ -95,50 +145,12 @@ $('#updateMember').click(function () {
     } else {
         $('#ageErrorLabel').text(""); // Clear the error label
     }
-    console.log(trainer_id);
-    if (isValidName(name) && isValidEmail(email) && isValidPassword(password)  && !isNaN(age)) {
-        // Make the AJAX request
-        $.ajax({
-            url: 'http://localhost:8080/api/v1/user/update',
-            method: 'POST',
-            dataType: 'json',
-            contentType: 'application/json',  // Set content type to JSON
 
-            data: JSON.stringify({
-                "uid": id,
-                "email": email,
-                "password": password,
-                "name": name,
-                "trainer_id": trainer_id,
-                "meal_plan_id": meal_id,
-                "workout_id": workout_id,
-                "age":age ,
-                "gender":gender
-            }),  // Convert data to JSON string
-            success: function (response) {
-                console.log(response);
-                alert("Member update successful!");
-                getAllMembers();
-                loadTrainerId();
-
-                $('#memberModal').modal('hide');
-
-                    // Your JavaScript code goes here
-
-
-
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert("Member update failed! Please check your input and try again.");
-                console.error(jqXHR.responseText);  // Log the response text for debugging
-            }
-        });
-    }
 });
 
 
 //encode password for security
-let newPassword;
+
 async function hashPassword(password) {
     const encoder = new TextEncoder();
     const data = encoder.encode(password);
