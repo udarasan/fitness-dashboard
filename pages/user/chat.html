@@ -13,6 +13,7 @@
 
   <!-- Custom fonts for this template-->
   <link href="../../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="../../vendor/fontawesome-free-6.5.1-web/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700&display=swap"
@@ -31,19 +32,17 @@
 <div id="wrapper">
 
   <!-- Sidebar -->
-  <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+  <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion d-none d-md-block" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
       <div class="sidebar-brand-icon rotate-n-15">
-        <img alt="external-gym-hotel-nawicon-glyph-nawicon" height="25" id="gymImg"
-             src="https://img.icons8.com/external-nawicon-glyph-nawicon/64/ffffff/external-gym-hotel-nawicon-glyph-nawicon.png"
-             width="25"/>
+        <img id="gymImg" width="25" height="25" src="https://img.icons8.com/external-nawicon-glyph-nawicon/64/ffffff/external-gym-hotel-nawicon-glyph-nawicon.png" alt="external-gym-hotel-nawicon-glyph-nawicon"/>
       </div>
       <div class="sidebar-brand-text mx-3">Fitness</div>
     </a>
-    <div class="threebarsDiv d-flex align-items-center justify-content-center">
-      <i class="fa fa-bars d-none text-white" id="threebars"></i>
+    <div class="threebarsDiv d-flex align-items-center justify-content-center" >
+      <i id="threebars" class="fa fa-bars d-none text-white"></i>
     </div>
 
     <!-- Divider -->
@@ -53,60 +52,53 @@
     <li class="nav-item ">
       <a class="nav-link" href="index.html">
         <i class="fas fa-fw fa-tachometer-alt"></i>
-        <span id="dashboardTab">Dashboard</span></a>
+        <span>Dashboard</span></a>
     </li>
 
     <!-- Divider -->
-    <hr class="sidebar-divider">
-    <!-- Nav Item - Pages Collapse Menu -->
-    <!--        <li class="nav-item">-->
-    <!--            <a class="nav-link" href="trainerRegistration.html">-->
-    <!--                <i class="fas fa-fw fa-chart-area"></i>-->
-    <!--                <span>Trainer</span></a>-->
-    <!--        </li>-->
 
-    <!-- Nav Item - Utilities Collapse Menu -->
+
+    <!-- Heading -->
+
+    <!-- Nav Item - Pages Collapse Menu -->
+
+
+    <hr class="sidebar-divider d-none d-md-block">
     <li class="nav-item">
       <a class="nav-link" href="bmiCalculator.html">
-        <i class="fas fa-fw fa-chart-area"></i>
+        <i class="fa-solid fa-calculator"></i>
         <span>BMI Calculator</span></a>
     </li>
-
     <li class="nav-item">
       <a class="nav-link" href="progress.html">
-        <i class="fas fa-fw fa-chart-area"></i>
+        <i class="fa-solid fa-bars-progress"></i>
         <span>Manage Progress</span>
       </a>
     </li>
-
     <li class="nav-item">
       <a class="nav-link" href="mealRecord.html">
-        <i class="fas fa-fw fa-chart-area"></i>
+        <i class="fa-solid fa-clipboard"></i>
         <span>Meal Record</span>
       </a>
     </li>
 
     <li class="nav-item">
       <a class="nav-link" href="workoutRecord.html">
-        <i class="fas fa-fw fa-chart-area"></i>
+        <i class="fa-solid fa-clipboard"></i>
         <span>Workout Record</span>
       </a>
     </li>
-
     <li class="nav-item">
       <a class="nav-link" href="fitnessGoals.html">
-        <i class="fas fa-fw fa-chart-area"></i>
+        <i class="fa-solid fa-compass"></i>
         <span>Fitness Goals</span>
       </a>
     </li>
-    <li class="nav-item active">
+    <li class="nav-item active ">
       <a class="nav-link" href="chat.html">
-        <i class="fas fa-fw fa-chart-area"></i>
+        <i class="fa-solid fa-message"></i>
         <span>Chat</span></a>
     </li>
-
-    <!-- Sidebar Toggler (Sidebar) -->
-
 
   </ul>
   <!-- End of Sidebar -->
