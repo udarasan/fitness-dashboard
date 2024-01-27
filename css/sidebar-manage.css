@@ -1,4 +1,31 @@
+#accordionSidebar{
+    position: sticky;
+    top: 0;
+    max-height: 100vh;
+    z-index: 1000;
+}
+
+#content>nav{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 500;
+}
+
+.mainContainer, #member, .userProfileContainer, #dashboard, .admTrainerMainCard, .mainTrainerDashboard, #chat,
+.clientMainContainer, .userProfileMain, #goalCardContainer, #mealRecordContainer, .progressMainContainer{
+    margin-top: 120px !important;
+}
+
+/*@media all and (min-width: 768px) {*/
+/*    .mainContainer{*/
+/*        margin-left: 14rem !important;*/
+/*    }*/
+/*}*/
+
 @media all and (max-width: 768px) {
+
     #accordionSidebar {
         position: fixed;
         top: 0;
