@@ -10,7 +10,7 @@ $(window).on('load', function() {
     loadTrainerIdUsingEmail(trainerEmail)
     loadAndCountTotalMealPlans();
     loadAndCountTotalWorkoutPlans();
-    loadMemberId();
+    loadMembers();
     var currentDate = new Date();
     var currentMonthName = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(currentDate);
     var currentYear = new Intl.DateTimeFormat('en-US', { year: 'numeric' }).format(currentDate);
@@ -121,17 +121,46 @@ $('#searchByUser').click(function () {
     console.log(uid)
     getMealRecordsByUser(uid)
 });
-function loadMemberId() {
-
-
+function loadMembers() {
     $.ajax({
-        url: 'http://localhost:8080/api/v1/user/getAllUsers',
+        url: 'http://localhost:8080/api/v1/trainer/getOneTrainer',
         method: 'GET',
         dataType: 'json',
-        contentType: 'application/json',  // Set content type to JSON
+        contentType: 'application/json',
+        data: {email: trainerEmail},
+        success: function (response) {
+            let client = response.data.users;
+            if (client.length === 0) {
+                alert("No clients found.");
+                return;
+            }
+            console.log(response.data.users);
+            $.each(response.data.users, function (index, trainer) {
+                userId = trainer.uid;
+                getClientsWithTrainer();
+                // let row = `<tr><td>${trainer.uid}</td><td>${trainer.name}</td><td>${trainer.email}</td><td>${trainer.meal_plan_id}</td><td >${trainer.workout_id}</td></tr>`;
+                // $('#tblClient').append(row);
+            });
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error(jqXHR.responseText);  // Log the response text for debugging
+        }
+    });
+
+}
+
+function getClientsWithTrainer() {
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/trainer/getOneTrainer/'+userId,
+        method: 'GET',
+
+        contentType: 'application/json',
+
         success: function (response) {
 
 
+            console.log(response.data);
             $.each(response.data, function (index, member) {
                 $('#searchByUser').append(`<option>${member.uid}</option>`);
 
@@ -142,7 +171,30 @@ function loadMemberId() {
             console.error(jqXHR.responseText);  // Log the response text for debugging
         }
     });
+
 }
+// function loadMemberId() {
+//
+//
+//     $.ajax({
+//         url: 'http://localhost:8080/api/v1/user/getAllUsers',
+//         method: 'GET',
+//         dataType: 'json',
+//         contentType: 'application/json',  // Set content type to JSON
+//         success: function (response) {
+//
+//
+//             $.each(response.data, function (index, member) {
+//                 $('#searchByUser').append(`<option>${member.uid}</option>`);
+//
+//             });
+//
+//         },
+//         error: function (jqXHR, textStatus, errorThrown) {
+//             console.error(jqXHR.responseText);  // Log the response text for debugging
+//         }
+//     });
+// }
 
 
 function getMealRecordsByUser(uId){
