@@ -1,12 +1,11 @@
-
 $('#nameLbl').text(localStorage.getItem('adminEmail'));
-$(window).on('load', function() {
+$(window).on('load', function () {
     getAllWorkoutPlans();
     loadMembers();
 
     $('#searchWorkoutPlans').on('input', function () {
         var newValue = $(this).val();
-        if (newValue==""){
+        if (newValue == "") {
             getAllWorkoutPlans();
         }
     });
@@ -18,7 +17,7 @@ $("#modalAddNew").click(function () {
     let calCount = $('#planCalorieCount').val();
 
 
-    if ( !name || !details || !calCount) {
+    if (!name || !details || !calCount) {
         alert("Please fill in all required fields.");
         return;
     }
@@ -36,9 +35,9 @@ $("#modalAddNew").click(function () {
     } else {
         $('#workOutPlanDetailsErrorLabel').text(""); // Clear the error label
     }
-    if(isNaN(calCount)){
+    if (isNaN(calCount)) {
         $('#calaryErrorLabel').text("Invalid input type");
-    }else {
+    } else {
         $('#calaryErrorLabel').text("");
     }
 
@@ -168,8 +167,9 @@ function getAllWorkoutPlans() {
 }
 
 let id;
-function btnEditOnCLick(){
-    $(".btnEdit").click(function(){
+
+function btnEditOnCLick() {
+    $(".btnEdit").click(function () {
         let workoutCard = $(this).parents("div.workoutCard");
         id = workoutCard.children("div.card-body").children("input.hiddenWorkoutId").val();
         let details = workoutCard.children("div.card-body").children("p.pPlanDetails").text();
@@ -185,7 +185,7 @@ function btnEditOnCLick(){
         }
 
         // get only text content
-        name = workoutCard.children("div.card-header").contents().filter(function() {
+        name = workoutCard.children("div.card-header").contents().filter(function () {
             return this.nodeType === 3; // Filter out non-text nodes
         }).text().trim();
 
@@ -201,7 +201,7 @@ $("#modalUpdateBtn").click(function () {
     let details = $("#updPlanDetails").val();
     let calCount = $("#updPlanCalorieCount").val();
 
-    if ( !name || !details || !calCount) {
+    if (!name || !details || !calCount) {
         alert("Please fill in all required fields.");
         return;
     }
@@ -222,9 +222,9 @@ $("#modalUpdateBtn").click(function () {
     } else {
         $('#uworkOutPlanDetailsErrorLabel').text(""); // Clear the error label
     }
-    if(isNaN(calCount)){
+    if (isNaN(calCount)) {
         $('#ucalaryErrorLabel').text("Invalid input type");
-    }else {
+    } else {
         $('#ucalaryErrorLabel').text("");
     }
     if (isValidPlan(name) && isValidPlan(details) && !isNaN(calCount)) {
@@ -249,63 +249,65 @@ $("#modalUpdateBtn").click(function () {
     }
 });
 
-function btnDeleteOnClick(){
-    $(".btnDelete").click(function(){
+function btnDeleteOnClick() {
+    $(".btnDelete").click(function () {
         let workoutCard = $(this).parents("div.workoutCard");
         let deleteId = workoutCard.children("div.card-body").children("input.hiddenWorkoutId").val();
 
         var result = window.confirm("Do you want to proceed?");
         if (result) {
-                $.ajax({
-                    url: 'http://localhost:8080/api/v1/workoutplan/delete/'+ deleteId,
-                    method: 'DELETE',
-                    contentType: 'application/json',  // Set content type to JSON
-                    success: function (response) {
-                        console.log(response);
-                        alert("Workout Delete successful!");
-                        $(".gridContainer").empty();
-                        getAllWorkoutPlans();
+            $.ajax({
+                url: 'http://localhost:8080/api/v1/workoutplan/delete/' + deleteId,
+                method: 'DELETE',
+                contentType: 'application/json',  // Set content type to JSON
+                success: function (response) {
+                    console.log(response);
+                    alert("Workout Delete successful!");
+                    $(".gridContainer").empty();
+                    getAllWorkoutPlans();
 
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        alert("Workout Delete failed! Please check your input and try again.");
-                        console.error(jqXHR.responseText);  // Log the response text for debugging
-                    }
-                });
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert("Workout Delete failed! Please check your input and try again.");
+                    console.error(jqXHR.responseText);  // Log the response text for debugging
+                }
+            });
         } else {
             alert("WorkOut Plan  Is Safe !!")
         }
 
-        });
-    }
+    });
+}
 
 
 let workoutId;
-function btnAssignOnClick(){
-    $(".btnAssign").click(function(){
+
+function btnAssignOnClick() {
+    $(".btnAssign").click(function () {
         let workoutCard = $(this).parents("div.workoutCard");
         workoutId = workoutCard.children("div.card-body").children("input.hiddenWorkoutId").val();
     });
 }
 
 let memberList;
-function loadMembers(){
+
+function loadMembers() {
     $("#memberSelect").empty();
     let firstOpt = ` <option class="d-none" value="" selected></option>`;
     $("#memberSelect").append(firstOpt);
     $.ajax({
-        url:'http://localhost:8080/api/v1/user/getAllUsers',
-        method:'GET',
-        success:function (response){
+        url: 'http://localhost:8080/api/v1/user/getAllUsers',
+        method: 'GET',
+        success: function (response) {
             console.log(response);
             memberList = response.data;
-            $.each(response.data,function (index,member){
+            $.each(response.data, function (index, member) {
                 console.log(member);
-                let memberData= `<option>${member.uid}</option>`;
+                let memberData = `<option>${member.uid}</option>`;
                 $("#memberSelect").append(memberData);
             })
         },
-        error:function (xhr){
+        error: function (xhr) {
             console.log(xhr);
         }
     })
@@ -318,20 +320,20 @@ let currUserName;
 let currUserPassword;
 let currUserAge;
 let currUserGender;
-$("#memberSelect").change(function(){
+$("#memberSelect").change(function () {
     let currUserId = $(this).val();
 
-    $.each(memberList,function (index,member){
-        if(currUserId == member.uid){
+    $.each(memberList, function (index, member) {
+        if (currUserId == member.uid) {
             currUserEmail = member.email;
             currUserMealId = member.meal_plan_id;
             currUserTrainerId = member.trainer_id;
             currUserName = member.name;
             currUserPassword = member.password;
-            currUserAge=member.age;
-            currUserGender=member.gender;
+            currUserAge = member.age;
+            currUserGender = member.gender;
 
-            console.log(currUserMealId+" "+currUserTrainerId+" "+currUserName+" "+currUserPassword);
+            console.log(currUserMealId + " " + currUserTrainerId + " " + currUserName + " " + currUserPassword);
             console.log(currUserAge)
             console.log(currUserGender)
 
@@ -340,7 +342,7 @@ $("#memberSelect").change(function(){
     })
 });
 
-$("#modalAssignBtn").click(function(){
+$("#modalAssignBtn").click(function () {
     let userId = $("#memberSelect").val();
     if (!userId) {
         alert("Please Select User Id.");
@@ -353,15 +355,16 @@ $("#modalAssignBtn").click(function(){
         method: 'POST',
         dataType: 'json',
         contentType: 'application/json',  // Set content type to JSON
-        data: JSON.stringify({"uid": userId,
-            "name":currUserName,
+        data: JSON.stringify({
+            "uid": userId,
+            "name": currUserName,
             "email": currUserEmail,
-            "password":currUserPassword,
-            "trainer_id":currUserTrainerId,
+            "password": currUserPassword,
+            "trainer_id": currUserTrainerId,
             "meal_plan_id": currUserMealId,
             "workout_id": workoutId,
-            "age":currUserAge,
-            "gender":currUserGender
+            "age": currUserAge,
+            "gender": currUserGender
         }),   // Convert data to JSON string
         success: function (response) {
             console.log(response);

@@ -1,6 +1,6 @@
-let userEmail=localStorage.getItem("userEmail");
+let userEmail = localStorage.getItem("userEmail");
 
-$(window).on('load', function() {
+$(window).on('load', function () {
     $(".mealTab").css({
         display: "none"
     })
@@ -14,27 +14,28 @@ $(window).on('load', function() {
     searchUserWithEmail();
 
     var currentDate = new Date();
-    var currentMonthName = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(currentDate);
-    var currentYear = new Intl.DateTimeFormat('en-US', { year: 'numeric' }).format(currentDate);
+    var currentMonthName = new Intl.DateTimeFormat('en-US', {month: 'long'}).format(currentDate);
+    var currentYear = new Intl.DateTimeFormat('en-US', {year: 'numeric'}).format(currentDate);
 
-    $("#lblCalorieIntake").text("Daily Calorie Intake - " + currentMonthName +" "+ currentYear);
-    $("#lblCalorieBurnOut").text("Daily Calorie Burnout - " + currentMonthName +" "+ currentYear);
+    $("#lblCalorieIntake").text("Daily Calorie Intake - " + currentMonthName + " " + currentYear);
+    $("#lblCalorieBurnOut").text("Daily Calorie Burnout - " + currentMonthName + " " + currentYear);
 });
 
 let currUserWorkoutId;
 let currUserMealId;
 let currUserTrainerId;
-function searchUserWithEmail(){
+
+function searchUserWithEmail() {
     $.ajax({
         url: 'http://localhost:8080/api/v1/user/getOneUser',
         method: 'GET',
         dataType: 'json',
         contentType: 'application/json',
-        data:{email:userEmail},
+        data: {email: userEmail},
         success: function (response) {
             $('#nameLbl').text(response.data.name);
-            localStorage.setItem("name",response.data.name);
-            uId= response.data.uid;
+            localStorage.setItem("name", response.data.name);
+            uId = response.data.uid;
             currUserWorkoutId = response.data.workout_id;
             currUserMealId = response.data.meal_plan_id;
             currUserTrainerId = response.data.trainer_id;
@@ -52,7 +53,7 @@ function searchUserWithEmail(){
     })
 }
 
-function getWorkoutPlan(){
+function getWorkoutPlan() {
     // get All workout plans
     $.ajax({
         url: 'http://localhost:8080/api/v1/workoutplan/getAllWorkOutPlans',
@@ -62,14 +63,14 @@ function getWorkoutPlan(){
         success: function (response) {
             $.each(response.data, function (index, workOut) {
                 // check for current users' workout plan
-                if(currUserWorkoutId == workOut.wid){
+                if (currUserWorkoutId == workOut.wid) {
                     currUserWorkoutName = workOut.planName;
                     currUserWorkoutDescription = workOut.planDetails;
                     currUserWorkoutCalories = workOut.burnsCalorieCount;
 
                     $("#lblWorkPLanName").text(currUserWorkoutName);
                     $("#pWorkTab").text(currUserWorkoutDescription);
-                    $("#lblWorkCalories").text(currUserWorkoutCalories+" calories");
+                    $("#lblWorkCalories").text(currUserWorkoutCalories + " calories");
                 }
             });
             getMealPlan();
@@ -80,7 +81,7 @@ function getWorkoutPlan(){
     });
 };
 
-function getMealPlan(){
+function getMealPlan() {
     // get All meal plans
     $.ajax({
         url: 'http://localhost:8080/api/v1/mealPlan/getAllMealPlans',
@@ -90,14 +91,14 @@ function getMealPlan(){
         success: function (response) {
             $.each(response.data, function (index, meal) {
                 // check for current users' meal plan
-                if(currUserMealId == meal.mid){
+                if (currUserMealId == meal.mid) {
                     currUserMealName = meal.planName;
                     currUserMealDescription = meal.planDetails;
                     currUserMealCalories = meal.calorieCount;
 
                     $("#lblMealPLanName").text(currUserMealName);
                     $("#pMealTab").text(currUserMealDescription);
-                    $("#lblMealCalories").text(currUserMealCalories+" calories");
+                    $("#lblMealCalories").text(currUserMealCalories + " calories");
                 }
             });
         },
@@ -108,14 +109,15 @@ function getMealPlan(){
 }
 
 let progressList;
-function getDataToAreaChart(uId){
+
+function getDataToAreaChart(uId) {
     $.ajax({
-        url: 'http://localhost:8080/api/v1/progress/getAllProgress/'+uId,
+        url: 'http://localhost:8080/api/v1/progress/getAllProgress/' + uId,
         method: 'GET',
 
         contentType: 'application/json',  // Set content type to JSON
         success: function (response) {
-            progressList=response.data;
+            progressList = response.data;
             formatAreaChartData();
             setCurrentBMIvalue();
         },
@@ -128,7 +130,7 @@ function getDataToAreaChart(uId){
 function setCurrentBMIvalue() {
     currentProgressValues = progressList[progressList.length - 1];
     currentHeight = currentProgressValues.height;
-     currentWeight = currentProgressValues.weight;
+    currentWeight = currentProgressValues.weight;
     let currentHeightInMeters = currentHeight / 100;
     let currentBMI = parseFloat((currentWeight / (currentHeightInMeters * currentHeightInMeters)).toFixed(1));
     $("#currentBMI").text(currentBMI);
@@ -136,7 +138,8 @@ function setCurrentBMIvalue() {
 
 let dateList = [];
 let bmiList = [];
-function formatAreaChartData(){
+
+function formatAreaChartData() {
     $.each(progressList, function (index, progress) {
         dateList.push(progress.date);
 
@@ -149,7 +152,7 @@ function formatAreaChartData(){
     setDataToAreaChart();
 };
 
-function setDataToAreaChart(){
+function setDataToAreaChart() {
     var ctx = $("#myAreaChart")[0].getContext('2d');
 
     // Input data
@@ -255,8 +258,8 @@ function setDataToAreaChart(){
     });
 }
 
-function mealAndWorkoutCardHandler(){
-    $("#workoutLink").click(function(){
+function mealAndWorkoutCardHandler() {
+    $("#workoutLink").click(function () {
         $(".mealTab").css({
             display: "none"
         })
@@ -271,7 +274,7 @@ function mealAndWorkoutCardHandler(){
         })
     });
 
-    $("#mealLink").click(function(){
+    $("#mealLink").click(function () {
         $(".workoutTab").css({
             display: "none"
         })
@@ -291,10 +294,11 @@ function mealAndWorkoutCardHandler(){
 // calorie intake chart ------------------------------------------------------------------------------------------------
 let calorieDateList = [];
 let calorieAmountList = [];
-function getMealRecordsByUser(uId){
+
+function getMealRecordsByUser(uId) {
     console.log(uId);
     $.ajax({
-        url: 'http://localhost:8080/api/v1/mealRecords/getAllMealRecords/'+uId,
+        url: 'http://localhost:8080/api/v1/mealRecords/getAllMealRecords/' + uId,
         method: 'GET',
         success: function (response) {
             console.log(response);
@@ -312,7 +316,7 @@ function getMealRecordsByUser(uId){
 }
 
 
-function setDataToCalorieIntakeChart(){
+function setDataToCalorieIntakeChart() {
     var ctx = $("#areaChartCalorieIntake")[0].getContext('2d');
 
     // Get current year and month
@@ -419,15 +423,15 @@ function setDataToCalorieIntakeChart(){
 }
 
 
-
 // calorie burnOut chart ------------------------------------------------------------------------------------------------
 
 let workOutCalorieDateList = [];
 let workOutCalorieAmountList = [];
-function getWorkOutRecordsByUser(uId){
+
+function getWorkOutRecordsByUser(uId) {
     console.log(uId);
     $.ajax({
-        url: 'http://localhost:8080/api/v1/workoutRecords/getAllWorkOutRecords/'+uId,
+        url: 'http://localhost:8080/api/v1/workoutRecords/getAllWorkOutRecords/' + uId,
         method: 'GET',
         success: function (response) {
             console.log(response);
@@ -447,7 +451,7 @@ function getWorkOutRecordsByUser(uId){
 }
 
 
-function setDataToCalorieBurnOutChart(){
+function setDataToCalorieBurnOutChart() {
     var ctx = $("#areaChartCalorieBurnOut")[0].getContext('2d');
 
     // Get current year and month

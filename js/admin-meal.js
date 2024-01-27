@@ -1,8 +1,7 @@
-
 $('#nameLbl').text(localStorage.getItem('adminEmail'));
 
 // meal plan Get All
-$(window).on('load', function() {
+$(window).on('load', function () {
     getAll();
     loadAllMembersIds();
     console.log('Window has fully loaded!');
@@ -248,8 +247,6 @@ $("#updateMeal").click(function () {
 })
 
 
-
-
 // method to set data to update modal text fields
 function setUpdateModalContent(mealPlanName, mealPlanDetails, calorie, mealId) {
     $("#Update_meal_id").val(mealId);
@@ -356,8 +353,8 @@ $("#memberComboBox").click(function () {
             trainerId = members.trainer_id;
             mealId = members.meal_plan_id;
             workoutId = members.workout_id;
-            age=members.age;
-            gender=members.gender;
+            age = members.age;
+            gender = members.gender;
 
             console.log(memberId);
             console.log(memberEmail);
@@ -385,10 +382,10 @@ $("#assignMealPlanBtn").click(function () {
     console.log(mealId);
 
 
-    if( $("#memberComboBox").val()===""){
+    if ($("#memberComboBox").val() === "") {
         alert("Please Select Member To Assign !!")
 
-    }else{
+    } else {
         $.ajax({
             url: 'http://localhost:8080/api/v1/user/update',
             method: "post",
@@ -403,8 +400,8 @@ $("#assignMealPlanBtn").click(function () {
                     "password": memberPassword,
                     "workout_id": workoutId,
                     "trainer_id": trainerId,
-                    "age":age,
-                    "gender":gender
+                    "age": age,
+                    "gender": gender
 
                 }),
 
@@ -437,7 +434,7 @@ $("#SearchMeal").keyup(function () {
         success: function (response) {
             console.log(response);
             if ($("#SearchMeal").val() === "") {
-                $("#cardContainer").css("justifyContent","start")
+                $("#cardContainer").css("justifyContent", "start")
                 getAll();
 
             } else {
@@ -492,18 +489,18 @@ $("#SearchMeal").keyup(function () {
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error(jqXHR.responseText);  // Log the response text for debugging
-           if (jqXHR.data == null) {
-               $("#cardContainer").empty();
+            if (jqXHR.data == null) {
+                $("#cardContainer").empty();
 
-               let card = `
+                let card = `
  <img src="https://cdn.dribbble.com/users/1242216/screenshots/9326781/media/6384fef8088782664310666d3b7d4bf2.png" alt="no" width="500px">
 
   
 `
-               let cardContainer=$("#cardContainer");
-               cardContainer.css("justify-content","center")
-               cardContainer.append(card);
-           }
+                let cardContainer = $("#cardContainer");
+                cardContainer.css("justify-content", "center")
+                cardContainer.append(card);
+            }
         }
     });
 })

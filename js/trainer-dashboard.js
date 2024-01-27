@@ -4,7 +4,7 @@ let totalMealPlansCount;
 let totalWorkoutsCount;
 
 
-$(window).on('load', function() {
+$(window).on('load', function () {
     trainerEmail = localStorage.getItem('trainer-email');
     $("#trainerEmail").text(trainerEmail);
     loadTrainerIdUsingEmail(trainerEmail)
@@ -12,11 +12,11 @@ $(window).on('load', function() {
     loadAndCountTotalWorkoutPlans();
     loadMembers();
     var currentDate = new Date();
-    var currentMonthName = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(currentDate);
-    var currentYear = new Intl.DateTimeFormat('en-US', { year: 'numeric' }).format(currentDate);
+    var currentMonthName = new Intl.DateTimeFormat('en-US', {month: 'long'}).format(currentDate);
+    var currentYear = new Intl.DateTimeFormat('en-US', {year: 'numeric'}).format(currentDate);
 
-    $("#lblCalorieIntake").text("Daily Calorie Intake - " + currentMonthName +" "+ currentYear);
-    $("#lblCalorieIntakeWorkOut").text("Daily Calorie Intake - " + currentMonthName +" "+ currentYear);
+    $("#lblCalorieIntake").text("Daily Calorie Intake - " + currentMonthName + " " + currentYear);
+    $("#lblCalorieIntakeWorkOut").text("Daily Calorie Intake - " + currentMonthName + " " + currentYear);
 
 });
 
@@ -56,7 +56,7 @@ function countAllMembersUsingId(trainerId) {
         success: function (response) {
             console.log(response);
             console.log(response.data.length);
-            totalMembersCount=response.data.length;
+            totalMembersCount = response.data.length;
             $("#totalClients").text(totalMembersCount);
 
         },
@@ -68,7 +68,7 @@ function countAllMembersUsingId(trainerId) {
 }
 
 
-function loadAndCountTotalMealPlans(){
+function loadAndCountTotalMealPlans() {
     $.ajax({
         url: 'http://localhost:8080/api/v1/mealPlan/getAllMealPlans',
         method: 'GET',
@@ -77,7 +77,7 @@ function loadAndCountTotalMealPlans(){
         success: function (response) {
             console.log(response.data);
             console.log(response.data.length);
-            totalMealPlansCount=response.data.length;
+            totalMealPlansCount = response.data.length;
             $("#totalMealPlans").text(totalMealPlansCount);
 
         },
@@ -88,16 +88,16 @@ function loadAndCountTotalMealPlans(){
 
 }
 
-function loadAndCountTotalWorkoutPlans(){
+function loadAndCountTotalWorkoutPlans() {
     $.ajax({
         url: 'http://localhost:8080/api/v1/workoutplan/getAllWorkOutPlans',
         method: 'GET',
         dataType: 'json',
         contentType: 'application/json',  // Set content type to JSON
         success: function (response) {
-           console.log( response.data);
-           console.log(response.data.length);
-           totalWorkoutsCount=response.data.length;
+            console.log(response.data);
+            console.log(response.data.length);
+            totalWorkoutsCount = response.data.length;
             $("#totalWorkoutPlans").text(totalWorkoutsCount);
 
         },
@@ -108,15 +108,16 @@ function loadAndCountTotalWorkoutPlans(){
     });
 
 }
+
 let calorieDateList = [];
 let calorieAmountList = [];
-var dynamicChart ;
-var  dynamicChart1;
+var dynamicChart;
+var dynamicChart1;
 $('#searchByUser').click(function () {
 
     let uid = $('#searchByUser').val();
-    calorieDateList= [];
-    calorieAmountList=[];
+    calorieDateList = [];
+    calorieAmountList = [];
     if (typeof dynamicChart !== 'undefined') {
         dynamicChart.destroy();
     }
@@ -133,6 +134,7 @@ $('#searchByUserWorkOut').click(function () {
     console.log(uid)
     getWorkOutRecordsByUser(uid)
 });
+
 function loadMembers() {
     $.ajax({
         url: 'http://localhost:8080/api/v1/trainer/getOneTrainer',
@@ -164,7 +166,7 @@ function loadMembers() {
 
 function getClientsWithTrainer() {
     $.ajax({
-        url: 'http://localhost:8080/api/v1/trainer/getOneTrainer/'+userId,
+        url: 'http://localhost:8080/api/v1/trainer/getOneTrainer/' + userId,
         method: 'GET',
 
         contentType: 'application/json',
@@ -187,10 +189,10 @@ function getClientsWithTrainer() {
 }
 
 
-function getMealRecordsByUser(uId){
+function getMealRecordsByUser(uId) {
     console.log(uId);
     $.ajax({
-        url: 'http://localhost:8080/api/v1/mealRecords/getAllMealRecords/'+uId,
+        url: 'http://localhost:8080/api/v1/mealRecords/getAllMealRecords/' + uId,
         method: 'GET',
         success: function (response) {
             console.log(response);
@@ -199,9 +201,9 @@ function getMealRecordsByUser(uId){
                 calorieAmountList.push(mealRecord.calories);
             });
 
-            if(response.data.length!==0){
+            if (response.data.length !== 0) {
                 setDataToCalorieIntakeChart();
-            }else {
+            } else {
                 $('.npResImg').removeClass("d-none");
             }
 
@@ -211,7 +213,8 @@ function getMealRecordsByUser(uId){
         }
     })
 }
-function setDataToCalorieIntakeChart(){
+
+function setDataToCalorieIntakeChart() {
     var ctx = $("#areaChartCalorieIntake")[0].getContext('2d');
 
     // Get current year and month
@@ -240,10 +243,10 @@ function setDataToCalorieIntakeChart(){
         $('.npResImg').removeClass("d-none");
         console.log("No data available for the selected user.");
         return;
-    }else {
+    } else {
         $('.npResImg').addClass("d-none");
     }
-     dynamicChart = new Chart(ctx, {
+    dynamicChart = new Chart(ctx, {
         type: 'line',
         data: {
             labels: aggregatedDates,
@@ -330,10 +333,11 @@ function setDataToCalorieIntakeChart(){
 
 let workOutCalorieDateList = [];
 let workOutCalorieAmountList = [];
-function getWorkOutRecordsByUser(uId){
+
+function getWorkOutRecordsByUser(uId) {
     console.log(uId);
     $.ajax({
-        url: 'http://localhost:8080/api/v1/workoutRecords/getAllWorkOutRecords/'+uId,
+        url: 'http://localhost:8080/api/v1/workoutRecords/getAllWorkOutRecords/' + uId,
         method: 'GET',
         success: function (response) {
             console.log(response);
@@ -343,9 +347,9 @@ function getWorkOutRecordsByUser(uId){
                 console.log(workOutCalorieAmountList);
 
             });
-            if(response.data.length!==0){
+            if (response.data.length !== 0) {
                 setDataToCalorieBurnOutChart();
-            }else {
+            } else {
                 $('.npResImg1').removeClass("d-none");
             }
 
@@ -358,7 +362,7 @@ function getWorkOutRecordsByUser(uId){
 }
 
 
-function setDataToCalorieBurnOutChart(){
+function setDataToCalorieBurnOutChart() {
     var ctx = $("#areaChartCalorieIntakeWorkOut")[0].getContext('2d');
 
     // Get current year and month
@@ -386,10 +390,10 @@ function setDataToCalorieBurnOutChart(){
         $('.npResImg1').removeClass("d-none");
         console.log("No data available for the selected user.");
         return;
-    }else {
+    } else {
         $('.npResImg1').addClass("d-none");
     }
-     dynamicChart1 = new Chart(ctx, {
+    dynamicChart1 = new Chart(ctx, {
         type: 'line',
         data: {
             labels: aggregatedDates,

@@ -1,7 +1,7 @@
 //search user with user email
 let cheight;
 let cweight;
-let userEmail=localStorage.getItem("userEmail");
+let userEmail = localStorage.getItem("userEmail");
 console.log(userEmail);
 searchUserWithEmail();
 
@@ -10,28 +10,28 @@ var today = new Date();
 
 var formattedDate = today.toLocaleDateString();
 
-function getDataToAreaChart(uId,userData){
+function getDataToAreaChart(uId, userData) {
     $('#nameLbl').text(userData.name);
 
     $.ajax({
-        url: 'http://localhost:8080/api/v1/progress/getAllProgress/'+uId,
+        url: 'http://localhost:8080/api/v1/progress/getAllProgress/' + uId,
         method: 'GET',
 
         contentType: 'application/json',  // Set content type to JSON
         success: function (response) {
-            progressList=response.data;
+            progressList = response.data;
             console.log(progressList)
             let currentProgressValues = progressList[progressList.length - 1];
-            if (progressList.length!==0){
+            if (progressList.length !== 0) {
                 cheight = currentProgressValues.height;
                 cweight = currentProgressValues.weight;
-            }else {
+            } else {
                 cheight = "Not Added";
                 cweight = "Not Added";
                 $('#span').text("")
             }
 
-             console.log(cheight);
+            console.log(cheight);
             loadUserDetailsInFields(
                 uId,
                 userData.name,
@@ -46,18 +46,18 @@ function getDataToAreaChart(uId,userData){
             );
         },
         error: function (jqXHR, textStatus, errorThrown) {
-           // Log the response text for debugging
+            // Log the response text for debugging
         }
     });
 };
 
-function searchUserWithEmail(){
+function searchUserWithEmail() {
     $.ajax({
         url: 'http://localhost:8080/api/v1/user/getOneUser',
         method: 'GET',
         dataType: 'json',
         contentType: 'application/json',
-        data:{email:userEmail},
+        data: {email: userEmail},
 
         success: function (response) {
             console.log(response);
@@ -71,11 +71,11 @@ function searchUserWithEmail(){
 
 }
 
-let userProfileMain=$(".userProfileMain");
+let userProfileMain = $(".userProfileMain");
 
-function loadUserDetailsInFields(uid, name, email,trainer_id,meal_plan_id,workout_id,height,weight,age,gender) {
-console.log(height);
-   let userData= `<div class="row">                     
+function loadUserDetailsInFields(uid, name, email, trainer_id, meal_plan_id, workout_id, height, weight, age, gender) {
+    console.log(height);
+    let userData = `<div class="row">                     
                             <div class="card w-100 mb-5 py-3">
                                 <div class="card-body container-fluid insideContainer">
                                     <div class="row">
@@ -147,59 +147,59 @@ console.log(height);
 let height;
 let weight;
 
-    userProfileMain.on("keyup", ".height", function(event) {
-        let heightText = $(".height");
-        let weightTxt = $(".weight");
-        let bmiTxt = $("#bmi");
+userProfileMain.on("keyup", ".height", function (event) {
+    let heightText = $(".height");
+    let weightTxt = $(".weight");
+    let bmiTxt = $("#bmi");
 
-        // Function to calculate and update BMI
-        function updateBMI() {
-            let height = parseFloat(heightText.val());
-            let weight = parseFloat(weightTxt.val());
+    // Function to calculate and update BMI
+    function updateBMI() {
+        let height = parseFloat(heightText.val());
+        let weight = parseFloat(weightTxt.val());
 
-            // Input validation
-            if (isNaN(height) || isNaN(weight) || height <= 0 || weight <= 0) {
-                bmiTxt.val("Invalid input");
-                return;
-            }
-
-            // Clear previous results
-            bmiTxt.val("");
-
-            let newHeight = height / 100;
-            let bmi = parseFloat((weight / (newHeight * newHeight)).toFixed(1));
-
-            console.log(bmi);
-
-            // Update BMI value
-            $('#bmi').val(parseFloat(bmi.toFixed(1)));
+        // Input validation
+        if (isNaN(height) || isNaN(weight) || height <= 0 || weight <= 0) {
+            bmiTxt.val("Invalid input");
+            return;
         }
 
-        // Attach the updateBMI function to input change events
-        heightText.on("input", updateBMI);
-        weightTxt.on("input", updateBMI);
-    });
+        // Clear previous results
+        bmiTxt.val("");
 
-    userProfileMain.on("keyup", ".weight", function(event) {
-        let heightText=$(".height");
-        let weightTxt=$(".weight");
-        let bmiTxt=$(".bmi");
+        let newHeight = height / 100;
+        let bmi = parseFloat((weight / (newHeight * newHeight)).toFixed(1));
 
-        weight= weightTxt.val();
+        console.log(bmi);
 
-        if(heightText.val().length===0){
-            bmiTxt.val(weight);
+        // Update BMI value
+        $('#bmi').val(parseFloat(bmi.toFixed(1)));
+    }
 
-        }else{
-            let height=heightText.val()/100;
-            let bmi=weightTxt.val()/(height*height);
-            bmiTxt.val(bmi);
-        }
+    // Attach the updateBMI function to input change events
+    heightText.on("input", updateBMI);
+    weightTxt.on("input", updateBMI);
+});
+
+userProfileMain.on("keyup", ".weight", function (event) {
+    let heightText = $(".height");
+    let weightTxt = $(".weight");
+    let bmiTxt = $(".bmi");
+
+    weight = weightTxt.val();
+
+    if (heightText.val().length === 0) {
+        bmiTxt.val(weight);
+
+    } else {
+        let height = heightText.val() / 100;
+        let bmi = weightTxt.val() / (height * height);
+        bmiTxt.val(bmi);
+    }
 
 
-    });
+});
 
-userProfileMain.on("click", ".save", function(event) {
+userProfileMain.on("click", ".save", function (event) {
 
 
 });

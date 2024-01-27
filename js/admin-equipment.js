@@ -1,7 +1,7 @@
 $('#nameLbl').text(localStorage.getItem('adminEmail'));
 
 
-$(window).on('load', function() {
+$(window).on('load', function () {
     // Your JavaScript code goes here
     getAllEquipments();
 
@@ -19,7 +19,7 @@ $("#searchEquipments").keyup(function () {
 
             if ($("#searchEquipments").val() === "") {
                 $('.npResImg').addClass("d-none");
-                $('#equipTable').css("display","block");
+                $('#equipTable').css("display", "block");
                 getAllEquipments();
 
             } else {
@@ -34,7 +34,7 @@ $("#searchEquipments").keyup(function () {
         error: function (jqXHR, textStatus, errorThrown) {
             console.log(jqXHR.data);
             if (jqXHR.data == null) {
-                $('#equipTable').css("display","none");
+                $('#equipTable').css("display", "none");
                 $('.npResImg').removeClass("d-none");
 
 
@@ -47,25 +47,24 @@ $('#deleteEquip').click(function () {
     let id = $('#eId').val();
     var result = window.confirm("Do you want to proceed?");
     if (result) {
-            // Make the AJAX request
-            $.ajax({
-                url: 'http://localhost:8080/api/v1/equipment/delete/' + id,
-                method: 'DELETE',
-                contentType: 'application/json',  // Set content type to JSON
-                success: function (response) {
-                    alert("Equipment Delete successful!");
-                    $('#equipmentModal').modal('hide');
-                    getAllEquipments()
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert("Equipment Delete failed! Please check your input and try again.");
-                    console.error(jqXHR.responseText);  // Log the response text for debugging
-                }
-            });
+        // Make the AJAX request
+        $.ajax({
+            url: 'http://localhost:8080/api/v1/equipment/delete/' + id,
+            method: 'DELETE',
+            contentType: 'application/json',  // Set content type to JSON
+            success: function (response) {
+                alert("Equipment Delete successful!");
+                $('#equipmentModal').modal('hide');
+                getAllEquipments()
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("Equipment Delete failed! Please check your input and try again.");
+                console.error(jqXHR.responseText);  // Log the response text for debugging
+            }
+        });
     } else {
         alert("Equipment Details Is Safe !!")
     }
-
 
 
 });
@@ -76,7 +75,7 @@ $('#updateEquip').click(function () {
     let desc = $('#equipDesc').val();
     let date = $('#date').val();
 
-    if ( !name || !desc || !date) {
+    if (!name || !desc || !date) {
         alert("Please fill in all required fields.");
         return;
     }
@@ -110,14 +109,13 @@ $('#updateEquip').click(function () {
 });
 
 
-
 $('#addEquip').click(function () {
 
     let name = $('#equipName').val();
     let desc = $('#equipDesc').val();
     let date = $('#date').val();
 
-    if ( !name || !desc || !date) {
+    if (!name || !desc || !date) {
         alert("Please fill in all required fields.");
         return;
     }

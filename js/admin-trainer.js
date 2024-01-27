@@ -1,7 +1,6 @@
-
 $('#nameLbl').text(localStorage.getItem('adminEmail'));
 
-$(window).on('load', function() {
+$(window).on('load', function () {
     // Your JavaScript code goes here
     getAllTrainers();
 });
@@ -17,7 +16,7 @@ $("#searchTrainers").keyup(function () {
         success: function (response) {
             if ($("#searchTrainers").val() === "") {
                 $('.npResImg').addClass("d-none");
-                $('#trainerTable').css("display","block");
+                $('#trainerTable').css("display", "block");
                 getAllTrainers();
 
             } else {
@@ -31,7 +30,7 @@ $("#searchTrainers").keyup(function () {
         },
         error: function (jqXHR, textStatus, errorThrown) {
             if (jqXHR.data == null) {
-                $('#trainerTable').css("display","none");
+                $('#trainerTable').css("display", "none");
                 $('.npResImg').removeClass("d-none");
             }
         }
@@ -43,29 +42,30 @@ $('#deleteTrainer').click(function () {
     let id = $('#trainer_id').val();
     var result = window.confirm("Do you want to proceed?");
     if (result) {
-           // Make the AJAX request
-            $.ajax({
-                url: 'http://localhost:8080/api/v1/trainer/delete/'+ id,
-                method: 'DELETE',
-                contentType: 'application/json',  // Set content type to JSON
-                success: function (response) {
-                    alert("Trainer Delete successful!");
-                    getAllTrainers();
-                    $('#trainerModal').modal('hide');
+        // Make the AJAX request
+        $.ajax({
+            url: 'http://localhost:8080/api/v1/trainer/delete/' + id,
+            method: 'DELETE',
+            contentType: 'application/json',  // Set content type to JSON
+            success: function (response) {
+                alert("Trainer Delete successful!");
+                getAllTrainers();
+                $('#trainerModal').modal('hide');
 
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert("Trainer Delete failed! Please check your input and try again.");
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("Trainer Delete failed! Please check your input and try again.");
 
-                    console.error(jqXHR.responseText);  // Log the response text for debugging
-                }
-            });
+                console.error(jqXHR.responseText);  // Log the response text for debugging
+            }
+        });
     } else {
         alert("Trainer Details Is Safe !!")
     }
 });
 
 let newPassword;
+
 async function hashPassword(password) {
     const encoder = new TextEncoder();
     const data = encoder.encode(password);
@@ -86,17 +86,23 @@ $('#updateTrainer').click(function () {
     let email = $('#trainer_email').val();
     let password = $('#trainer_password').val();
     let category = $('#trainer_category').val();
-    hashPassword( $('#trainer_password').val())
+    hashPassword($('#trainer_password').val())
         .then(hashedPassword => {
             console.log('Hashed Password:', hashedPassword);
             newPassword = hashedPassword;
-            if ( isValidName(name) && isValidEmail(email) && isValidPassword(password)) {
+            if (isValidName(name) && isValidEmail(email) && isValidPassword(password)) {
                 $.ajax({
                     url: 'http://localhost:8080/api/v1/trainer/update',
                     method: 'POST',
                     dataType: 'json',
                     contentType: 'application/json',  // Set content type to JSON
-                    data: JSON.stringify({"name":name ,"tid": id, "email": email, "password": newPassword, "category": category}),  // Convert data to JSON string
+                    data: JSON.stringify({
+                        "name": name,
+                        "tid": id,
+                        "email": email,
+                        "password": newPassword,
+                        "category": category
+                    }),  // Convert data to JSON string
                     success: function (response) {
                         console.log(response);
                         alert("Trainer update successful!");
@@ -157,7 +163,7 @@ $('#saveTrainer').click(function () {
     let password = $('#trainer_password').val();
     let category = $('#trainer_category').val();
 
-    hashPassword( $('#trainer_password').val())
+    hashPassword($('#trainer_password').val())
         .then(hashedPassword => {
             console.log('Hashed Password:', hashedPassword);
             newPassword = hashedPassword;
@@ -168,7 +174,13 @@ $('#saveTrainer').click(function () {
                     method: 'POST',
                     dataType: 'json',
                     contentType: 'application/json',  // Set content type to JSON
-                    data: JSON.stringify({"name":name , "id": id, "email": email, "password": newPassword, "category": category}),  // Convert data to JSON string
+                    data: JSON.stringify({
+                        "name": name,
+                        "id": id,
+                        "email": email,
+                        "password": newPassword,
+                        "category": category
+                    }),  // Convert data to JSON string
                     success: function (response) {
                         alert("Trainer registration successful!");
                         getAllTrainers();

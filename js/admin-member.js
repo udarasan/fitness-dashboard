@@ -1,15 +1,14 @@
-
 $('#nameLbl').text(localStorage.getItem('adminEmail'));
 let meal_id;
 let workout_id;
 var selectedValue;
-$(window).on('load', function() {
+$(window).on('load', function () {
     // Your JavaScript code goes here
     getAllMembers();
     loadTrainerId();
 });
 $(".form-check-input").on("click", function () {
-     selectedValue = $("input[name='inlineRadioOptions']:checked").val();
+    selectedValue = $("input[name='inlineRadioOptions']:checked").val();
     console.log("Selected value: " + selectedValue);
     // Perform additional actions with the selected value as needed
 });
@@ -19,28 +18,26 @@ $('#deleteMember').click(function () {
     let id = $('#member_id').val();
     var result = window.confirm("Do you want to proceed?");
     if (result) {
-            // Make the AJAX request
-            $.ajax({
-                url: 'http://localhost:8080/api/v1/user/delete/' + id,
-                method: 'DELETE',
-                contentType: 'application/json',  // Set content type to JSON
-                success: function (response) {
-                    alert("Member Delete successful!");
-                    $('#memberModal').modal('hide');
-                    getAllMembers();
-                    loadTrainerId();
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert("Member Delete failed! Please check your input and try again.");
+        // Make the AJAX request
+        $.ajax({
+            url: 'http://localhost:8080/api/v1/user/delete/' + id,
+            method: 'DELETE',
+            contentType: 'application/json',  // Set content type to JSON
+            success: function (response) {
+                alert("Member Delete successful!");
+                $('#memberModal').modal('hide');
+                getAllMembers();
+                loadTrainerId();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("Member Delete failed! Please check your input and try again.");
 
-                    console.error(jqXHR.responseText);  // Log the response text for debugging
-                }
-            });
+                console.error(jqXHR.responseText);  // Log the response text for debugging
+            }
+        });
     } else {
         alert("Member Details Is Safe !!")
     }
-
-
 
 
 });
@@ -53,13 +50,13 @@ $('#updateMember').click(function () {
     let name = $('#member_name').val();
     let trainer_id = $('#tra_id').val();
 
-    let password = $('#memeber_password').val() ;
+    let password = $('#memeber_password').val();
     console.log(password);
-    hashPassword( $('#memeber_password').val())
+    hashPassword($('#memeber_password').val())
         .then(hashedPassword => {
             console.log('Hashed Password:', hashedPassword);
             newPassword = hashedPassword;
-            if (isValidName(name) && isValidEmail(email) && isValidPassword(password)  && !isNaN(age)) {
+            if (isValidName(name) && isValidEmail(email) && isValidPassword(password) && !isNaN(age)) {
                 // Make the AJAX request
                 $.ajax({
                     url: 'http://localhost:8080/api/v1/user/update',
@@ -75,8 +72,8 @@ $('#updateMember').click(function () {
                         "trainer_id": trainer_id,
                         "meal_plan_id": meal_id,
                         "workout_id": workout_id,
-                        "age":age ,
-                        "gender":gender
+                        "age": age,
+                        "gender": gender
                     }),  // Convert data to JSON string
                     success: function (response) {
                         console.log(response);
@@ -87,7 +84,6 @@ $('#updateMember').click(function () {
                         $('#memberModal').modal('hide');
 
                         // Your JavaScript code goes here
-
 
 
                     },
@@ -104,7 +100,7 @@ $('#updateMember').click(function () {
         });
 
     let age = $('#age').val();
-    let gender = selectedValue  ;
+    let gender = selectedValue;
     // let male = $('#inlineRadio1').val();
     // let female = $('#inlineRadio2').val();
     // let custom = $('#inlineRadio3').val();
@@ -117,7 +113,7 @@ $('#updateMember').click(function () {
     // if (custom!=null){
     //     gender=custom;
     // }
-    if ( !email || !name || !password ) {
+    if (!email || !name || !password) {
         alert("Please fill in all required fields.");
         return;
     }
@@ -160,10 +156,11 @@ async function hashPassword(password) {
     const buffer = await crypto.subtle.digest('SHA-256', data);
     const hashedArray = Array.from(new Uint8Array(buffer));
     const hashedPassword = hashedArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
-     console.log(hashedPassword);
+    console.log(hashedPassword);
 
     return hashedPassword;
 }
+
 //save memeber
 
 $('#saveMemeber').click(function () {
@@ -173,12 +170,12 @@ $('#saveMemeber').click(function () {
     let name = $('#member_name').val();
     let trainer_id = $('#tra_id').val();
 
-    let password = $('#memeber_password').val() ;
+    let password = $('#memeber_password').val();
     console.log(password);
-    hashPassword( $('#memeber_password').val())
+    hashPassword($('#memeber_password').val())
         .then(hashedPassword => {
             console.log('Hashed Password:', hashedPassword);
-          newPassword = hashedPassword;
+            newPassword = hashedPassword;
             if (isValidName(name) && isValidEmail(email) && isValidPassword(password) && !isNaN(age)) {
                 console.log(id);
                 // Make the AJAX request
@@ -188,7 +185,15 @@ $('#saveMemeber').click(function () {
                     dataType: 'json',
                     contentType: 'application/json',  // Set content type to JSON
 
-                    data: JSON.stringify({"uid": id, "email": email, "password": newPassword, "name": name, "trainer_id": trainer_id, "age":age ,"gender":gender}),  // Convert data to JSON string
+                    data: JSON.stringify({
+                        "uid": id,
+                        "email": email,
+                        "password": newPassword,
+                        "name": name,
+                        "trainer_id": trainer_id,
+                        "age": age,
+                        "gender": gender
+                    }),  // Convert data to JSON string
                     success: function (response) {
                         console.log(response);
                         alert("Member registration successful!");
@@ -207,9 +212,9 @@ $('#saveMemeber').click(function () {
             console.error('Error hashing password:', error);
         });
     let age = $('#age').val();
-    let gender =  selectedValue ;
+    let gender = selectedValue;
 
-    if ( !email || !name || !password || !gender ) {
+    if (!email || !name || !password || !gender) {
         alert("Please fill in all required fields.");
         return;
     }
@@ -252,7 +257,7 @@ function getAllMembers() {
         dataType: 'json',
         contentType: 'application/json',  // Set content type to JSON
         success: function (response) {
-             memberList = response.data;
+            memberList = response.data;
             if (memberList.length === 0) {
                 alert("No members found.");
                 return;
@@ -296,13 +301,13 @@ $('#tblMember').on('click', 'tr', function () {
     $('#age').val(age);
     // $('#gender').val(gender);
     if (gender === 'male') {
-        selectedValue= 'male'
+        selectedValue = 'male'
         $('#inlineRadio1').prop('checked', true);
     } else if (gender === 'female') {
-        selectedValue= 'female'
+        selectedValue = 'female'
         $('#inlineRadio2').prop('checked', true);
     } else if (gender === 'custom') {
-        selectedValue= 'custom'
+        selectedValue = 'custom'
         $('#inlineRadio3').prop('checked', true);
     }
 
@@ -367,7 +372,7 @@ $("#searchMembers").keyup(function () {
 
             if ($("#searchMembers").val() === "") {
                 $('.npResImg').addClass("d-none");
-                $('#memberTable').css("display","block");
+                $('#memberTable').css("display", "block");
                 getAllMembers();
             } else {
                 $.each(response.data, function (index, member) {
@@ -379,7 +384,7 @@ $("#searchMembers").keyup(function () {
         },
         error: function (jqXHR, textStatus, errorThrown) {
             if (jqXHR.data == null) {
-                $('#memberTable').css("display","none");
+                $('#memberTable').css("display", "none");
                 $('.npResImg').removeClass("d-none");
             }
         }

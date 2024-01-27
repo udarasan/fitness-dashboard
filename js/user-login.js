@@ -9,6 +9,7 @@ async function hashPassword(password) {
 
     return hashedPassword;
 }
+
 $('#btnLogin').click(function () {
 
 

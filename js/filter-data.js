@@ -1,7 +1,6 @@
-
 $('#nameLbl').text(localStorage.getItem('adminEmail'));
 
-$(window).on('load', function() {
+$(window).on('load', function () {
     // Your JavaScript code goes here
     loadTrainerId();
 });
@@ -9,6 +8,7 @@ var today = new Date();
 var formattedDate = today.toLocaleDateString();
 let clientList;
 let trainerList;
+
 function loadTrainerId() {
 
     $('#tra_id').empty();
@@ -35,11 +35,11 @@ function loadTrainerId() {
 function setClientDetails() {
     $('#tblMember').empty();
     let trainerId = $("#tra_id").val();
-   console.log(trainerId)
+    console.log(trainerId)
     $.ajax({
-        url:'http://localhost:8080/api/v1/trainer/getOneTrainer/'+trainerId,
-        method:'GET',
-        success:function (response){
+        url: 'http://localhost:8080/api/v1/trainer/getOneTrainer/' + trainerId,
+        method: 'GET',
+        success: function (response) {
             clientList = response.data;
             $('#printDetails').click(function () {
 
@@ -48,24 +48,22 @@ function setClientDetails() {
                 console.log(pdfObject);
             });
             console.log(response);
-            if (response.data.length==0) {
-                $('#memberTable').css("display","none");
+            if (response.data.length == 0) {
+                $('#memberTable').css("display", "none");
                 $('.npResImg').removeClass("d-none");
 
-            }else {
+            } else {
                 $('.npResImg').addClass("d-none");
-                $('#memberTable').css("display","block");
+                $('#memberTable').css("display", "block");
                 $.each(response.data, function (index, member) {
 
                     let row = `<tr><td>${member.uid}</td><td>${member.name}</td><td>${member.email}</td><td>${member.trainer_id}</td><td style="display: none">${member.password}</td><td>${member.meal_plan_id}</td><td>${member.workout_id}</td><td>${member.age}</td><td>${member.gender}</td></tr>`;
                     $('#tblMember').append(row);
                 });
             }
-            // memberList = response.data;
-            // console.log(memberList);
-            // setClientDetails()
+
         },
-        error:function (xhr){
+        error: function (xhr) {
             console.log(xhr);
         }
     })
@@ -77,11 +75,11 @@ $('#tra_id').on('click', function () {
     let trainerId = $("#tra_id").val();
     setClientDetails();
 
-    $.each(trainerList,function (index,trainer){
-        if(trainerId == trainer.tid){
-         currntTrainerName = trainer.name;
-         currntTrainerEmail = trainer.email;
-         console.log(currntTrainerName);
+    $.each(trainerList, function (index, trainer) {
+        if (trainerId == trainer.tid) {
+            currntTrainerName = trainer.name;
+            currntTrainerEmail = trainer.email;
+            console.log(currntTrainerName);
         }
     })
 
@@ -124,7 +122,7 @@ function getPdfProps(clientList) {
         invoice: {
             label: "Report #: ",
 
-            invGenDate: "Report Date: "+formattedDate,
+            invGenDate: "Report Date: " + formattedDate,
 
             headerBorder: true,
             tableBodyBorder: true,
@@ -156,11 +154,9 @@ function getPdfProps(clientList) {
                 {title: "Gender"},
 
 
-
-
             ],
             styles: {
-                margin:500
+                margin: 500
             },
             table: clientList.map((clients, index) => [
                 index + 1,
