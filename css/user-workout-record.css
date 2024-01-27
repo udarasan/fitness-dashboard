@@ -1,0 +1,57 @@
+#addNewWorkOutRec{
+    font-size: 11px;
+}
+
+#workOutRecTable{
+    width: max-content !important;
+    max-width: 100% !important;
+    font-size: 13px;
+}
+
+.fieldStyle{
+    border: 1px solid #d1d3e2;
+    border-radius: 0.35rem !important;
+    padding: 6px 12px;
+}
+
+#wr_details::placeholder{
+    font-size: 13px;
+}
+
+#date{
+    font-size: 13px !important;
+}
+
+.modal-footer{
+    border-top: none;
+    padding-right: 0px;
+}
+
+.modalBtnStyle{
+    background-color: #2d324a;
+    font-size: 13px;
+    color: white;
+}
+
+#mngDate,#mngMeal,#mngMealDetails,#mngCalories{
+    font-size: 13px;
+}
+
+#searchByDate{
+    margin-right: 40px;
+    font-size: 13px;
+}
+
+#btnSeeAll{
+    background-color: #2d324a;
+    color: white;
+    font-size: 11px;
+    padding: 6px 12px !important;
+}
+
+@media all and (max-width:1000px){
+    #workOutRecordContainer{
+        padding-right: 20px !important;
+        padding-left: 20px !important;
+    }
+}
