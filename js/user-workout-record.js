@@ -190,6 +190,7 @@ $('#deleteRecord').click(function () {
         success: function (response) {
             console.log(response);
             alert("Record Deleted successfully!");
+            getWorkoutRecordsByUser();
             $("#manageRecModal").data('bs.modal').hide();
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -197,4 +198,48 @@ $('#deleteRecord').click(function () {
             console.error(jqXHR.responseText);  // Log the response text for debugging
         }
     });
+});
+
+
+$("#searchByDate").on('input', function () {
+
+    value = $("#searchByDate").val();
+    console.log(typeof(value));
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/workoutRecords/recordsByDate',
+        method: 'GET',
+        dataType: 'json',
+        data: {date: value},   // Convert data to JSON string
+        success: function (response) {
+            console.log(response);
+            $("#tblMemberRecBody").empty();
+            $('.npResImg').addClass("d-none");
+            $('#mealRecTable').css("display","block");
+
+            $.each(response.data, function (index, workOutRec) {
+                let row = `<tr><td>${workOutRec.date}</td><td>${workOutRec.workout}</td><td>${workOutRec.details}</td>
+                            <td>${workOutRec.calories}</td><td class="d-none">${workOutRec.wrID}</td></tr>`;
+                $('#tblMemberRecBody').append(row);
+            });
+            $("#btnSeeAll").removeClass("d-none");
+
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error(jqXHR.responseText);  // Log the response text for debugging
+            if (jqXHR.data == null) {
+                $('#mealRecTable').css("display","none")
+                $("#btnSeeAll").removeClass("d-none");
+                $('.npResImg').removeClass("d-none");
+            }
+        }
+    });
+});
+
+$("#btnSeeAll").click(function () {
+    $("#btnSeeAll").addClass("d-none");
+    $('.npResImg').addClass("d-none");
+    $("#searchByDate").val("");
+    $('#mealRecTable').css("display","block");
+    getMealRecordsByUser();
 });
