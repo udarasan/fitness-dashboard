@@ -300,6 +300,7 @@ function getMealRecordsByUser(uId){
             $.each(response.data, function (index, mealRecord) {
                 calorieDateList.push(mealRecord.date);
                 calorieAmountList.push(mealRecord.calories);
+
             });
 
         },
@@ -308,7 +309,6 @@ function getMealRecordsByUser(uId){
         }
     })
 }
-
 
 
 let workOutCalorieDateList = [];
@@ -323,6 +323,7 @@ function getWorkOutRecordsByUser(uId){
             $.each(response.data, function (index, workOutRec) {
                 workOutCalorieDateList.push(workOutRec.date);
                 workOutCalorieAmountList.push(workOutRec.calories);
+
             });
 
         },
