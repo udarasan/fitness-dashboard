@@ -64,7 +64,18 @@ $('#deleteTrainer').click(function () {
     }
 });
 
+let newPassword;
+async function hashPassword(password) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password);
 
+    const buffer = await crypto.subtle.digest('SHA-256', data);
+    const hashedArray = Array.from(new Uint8Array(buffer));
+    const hashedPassword = hashedArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+    console.log(hashedPassword);
+
+    return hashedPassword;
+}
 
 //update trainer
 $('#updateTrainer').click(function () {
@@ -74,7 +85,37 @@ $('#updateTrainer').click(function () {
     let email = $('#trainer_email').val();
     let password = $('#trainer_password').val();
     let category = $('#trainer_category').val();
+    hashPassword( $('#trainer_password').val())
+        .then(hashedPassword => {
+            console.log('Hashed Password:', hashedPassword);
+            newPassword = hashedPassword;
+            if ( isValidName(name) && isValidEmail(email) && isValidPassword(password)) {
+                $.ajax({
+                    url: 'http://localhost:8080/api/v1/trainer/update',
+                    method: 'POST',
+                    dataType: 'json',
+                    contentType: 'application/json',  // Set content type to JSON
+                    data: JSON.stringify({"name":name ,"tid": id, "email": email, "password": newPassword, "category": category}),  // Convert data to JSON string
+                    success: function (response) {
+                        console.log(response);
+                        alert("Trainer update successful!");
+                        getAllTrainers();
+                        $('#trainerModal').modal('hide');
 
+
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert("Trainer update failed! Please check your input and try again.");
+
+                        console.error(jqXHR.responseText);  // Log the response text for debugging
+                    }
+                });
+            }
+
+        })
+        .catch(error => {
+            console.error('Error hashing password:', error);
+        });
     if (!name || !email || !category || !password) {
         alert("Please fill in all required fields.");
         return;
@@ -102,28 +143,7 @@ $('#updateTrainer').click(function () {
     }
 
     // Make the AJAX request
-    if ( isValidName(name) && isValidEmail(email) && isValidPassword(password)) {
-        $.ajax({
-            url: 'http://localhost:8080/api/v1/trainer/update',
-            method: 'POST',
-            dataType: 'json',
-            contentType: 'application/json',  // Set content type to JSON
-            data: JSON.stringify({"name":name ,"tid": id, "email": email, "password": password, "category": category}),  // Convert data to JSON string
-            success: function (response) {
-                console.log(response);
-                alert("Trainer update successful!");
-                getAllTrainers();
-                $('#trainerModal').modal('hide');
 
-
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert("Trainer update failed! Please check your input and try again.");
-
-                console.error(jqXHR.responseText);  // Log the response text for debugging
-            }
-        });
-    }
 });
 
 
@@ -136,6 +156,38 @@ $('#saveTrainer').click(function () {
     let password = $('#trainer_password').val();
     let category = $('#trainer_category').val();
 
+    hashPassword( $('#trainer_password').val())
+        .then(hashedPassword => {
+            console.log('Hashed Password:', hashedPassword);
+            newPassword = hashedPassword;
+            if (isValidName(name) && isValidEmail(email) && isValidPassword(password)) {
+                // Make the AJAX request
+                $.ajax({
+                    url: 'http://localhost:8080/api/v1/trainer/registration',
+                    method: 'POST',
+                    dataType: 'json',
+                    contentType: 'application/json',  // Set content type to JSON
+                    data: JSON.stringify({"name":name , "id": id, "email": email, "password": newPassword, "category": category}),  // Convert data to JSON string
+                    success: function (response) {
+                        alert("Trainer registration successful!");
+                        getAllTrainers();
+                        $('#trainerModal').modal('hide');
+
+                        console.log(response);
+
+
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert("Trainer registration failed! Please check your input and try again.");
+
+                        console.error(jqXHR.responseText);  // Log the response text for debugging
+                    }
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error hashing password:', error);
+        });
 
     if (!name || !email || !category || !password) {
         alert("Please fill in all required fields.");
@@ -161,30 +213,7 @@ $('#saveTrainer').click(function () {
         $('#pwdErrorLabel').text(""); // Clear the error label
     }
 
-    if (isValidName(name) && isValidEmail(email) && isValidPassword(password)) {
-        // Make the AJAX request
-        $.ajax({
-            url: 'http://localhost:8080/api/v1/trainer/registration',
-            method: 'POST',
-            dataType: 'json',
-            contentType: 'application/json',  // Set content type to JSON
-            data: JSON.stringify({"name":name , "id": id, "email": email, "password": password, "category": category}),  // Convert data to JSON string
-            success: function (response) {
-                alert("Trainer registration successful!");
-                getAllTrainers();
-                $('#trainerModal').modal('hide');
 
-                console.log(response);
-
-
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert("Trainer registration failed! Please check your input and try again.");
-
-                console.error(jqXHR.responseText);  // Log the response text for debugging
-            }
-        });
-    }
 });
 
 //get all trainers
