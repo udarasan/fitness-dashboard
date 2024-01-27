@@ -413,6 +413,58 @@
 <!--                        </div>-->
 <!--                    </div>-->
                 </div>
+                <div class="row">
+
+                    <!-- Area Chart -->
+                    <div class="col-6">
+                        <div class="card shadow mb-4 mt-3 ">
+                            <div class="card-header cardHeaderColor text-primary
+                                               py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold" id="lblCalorieIntake">Daily Calorie Intake</h6>
+
+                            </div>
+                            <div class="card-body chartCardBody">
+                                <select class="form-control mb-2" id="searchByUser">
+                                    <option class="text-muted" disabled selected value="1">--Select Member--</option>
+                                    <!--                                    <option class="">Not Yet Started</option>-->
+                                    <!--                                    <option class="">Ongoing</option>-->
+                                    <!--                                    <option class="">Completed</option>-->
+                                </select>
+
+                                <div class="chart-area">
+                                    <img class="npResImg d-none "  src="https://cdn.dribbble.com/users/1242216/screenshots/9326781/media/6384fef8088782664310666d3b7d4bf2.png" alt="no" width="400px">
+                                    <canvas id="areaChartCalorieIntake"></canvas>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card shadow mb-4 mt-3 ">
+                            <div class="card-header cardHeaderColor text-primary
+                                               py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold" id="lblCalorieIntakeWorkOut">Daily Calorie BurnOut</h6>
+
+                            </div>
+                            <div class="card-body chartCardBody">
+                                <select class="form-control mb-2" id="searchByUserWorkOut">
+                                    <option class="text-muted" disabled selected value="1">--Select Member--</option>
+                                    <!--                                    <option class="">Not Yet Started</option>-->
+                                    <!--                                    <option class="">Ongoing</option>-->
+                                    <!--                                    <option class="">Completed</option>-->
+                                </select>
+
+                                <div class="chart-area">
+                                    <img class="npResImg d-none "  src="https://cdn.dribbble.com/users/1242216/screenshots/9326781/media/6384fef8088782664310666d3b7d4bf2.png" alt="no" width="400px">
+                                    <canvas id="areaChartCalorieIntakeWorkOut"></canvas>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Content Row -->
 

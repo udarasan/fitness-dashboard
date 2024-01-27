@@ -56,6 +56,10 @@ body{
     /*font-weight: 400 !important;*/
 }
 
+.chartCardBody{
+    padding: 20px 0px !important;
+}
+
 @media all and (max-width: 768px) {
     .chart-area {
         height: 250px;

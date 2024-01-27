@@ -1,5 +1,5 @@
 let userEmail=localStorage.getItem("userEmail");
-
+$('#lblName').text(localStorage.getItem("name"));
 window.onload = function() {
     searchUserWithEmail();
 };
@@ -27,6 +27,12 @@ function getGoalsByUser(){
         url: 'http://localhost:8080/api/v1/fitnessGoals/getAllGoals/'+userId,
         method: 'GET',
         success: function (response) {
+            let fitGoals = response.data;
+            if (fitGoals.length === 0) {
+                alert("No FitnessGoals found.");
+                return;
+            }
+
             $('.mainCardBody').empty();
             console.log(response);
             $.each(response.data, function (index, goal) {
@@ -273,6 +279,7 @@ $("#searchByStatus").on('input', function () {
         success: function (response) {
             console.log(response);
             $(".mainCardBody").empty();
+            $('.npResImg').addClass("d-none");
 
             $("#btnSeeAllStatus").removeClass("d-none");
 
@@ -331,6 +338,21 @@ $("#searchByStatus").on('input', function () {
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error(jqXHR.responseText);  // Log the response text for debugging
+            if (jqXHR.data == null) {
+                $("#btnSeeAllStatus").removeClass("d-none");
+                $(".mainCardBody").empty();
+
+//                 let card = `
+//  <img style="max-width: 100%" src="https://cdn.dribbble.com/users/1242216/screenshots/9326781/media/6384fef8088782664310666d3b7d4bf2.png" alt="no" width="500px">
+//
+//
+// `
+//                 let cardContainer=$(".mainCardBody");
+//                 cardContainer.css("justify-content","center")
+//                 cardContainer.append(card);
+                $('.npResImg').removeClass("d-none");
+            }
+
         }
     });
 });
@@ -348,6 +370,7 @@ $("#searchByGoal").keyup(function () {
         success: function (response) {
             console.log(response);
             $(".mainCardBody").empty();
+            $('.npResImg').addClass("d-none");
             $("#btnSeeAllName").removeClass("d-none");
 
             $.each(response.data, function (index, goal) {
@@ -405,6 +428,20 @@ $("#searchByGoal").keyup(function () {
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error(jqXHR.responseText);  // Log the response text for debugging
+            if (jqXHR.data == null) {
+                $("#btnSeeAllName").removeClass("d-none");
+                $(".mainCardBody").empty();
+
+//                 let card = `
+//  <img style="max-width: 100%;" class="mx-auto" src="https://cdn.dribbble.com/users/1242216/screenshots/9326781/media/6384fef8088782664310666d3b7d4bf2.png" alt="no" width="500px">
+//
+//
+// `
+//                 let cardContainer=$(".mainCardBody");
+//                 cardContainer.css("justify-content","center")
+//                 cardContainer.append(card);
+                $('.npResImg').removeClass("d-none");
+            }
         }
     });
 });
