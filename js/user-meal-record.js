@@ -211,7 +211,7 @@ $("#searchByDate").on('input', function () {
         url: 'http://localhost:8080/api/v1/mealRecords/recordsByDate',
         method: 'GET',
         dataType: 'json',
-        data: {date: value},   // Convert data to JSON string
+        data: {date: value, id: userId},   // Convert data to JSON string
         success: function (response) {
             console.log(response);
             $("#tblMemberRecBody").empty();
