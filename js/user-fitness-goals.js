@@ -275,7 +275,7 @@ $("#searchByStatus").on('input', function () {
         url: 'http://localhost:8080/api/v1/fitnessGoals/goalsByStatus',
         method: 'GET',
         dataType: 'json',
-        data: {status: value},   // Convert data to JSON string
+        data: {status: value, id: userId},   // Convert data to JSON string
         success: function (response) {
             console.log(response);
             $(".mainCardBody").empty();
@@ -366,7 +366,7 @@ $("#searchByGoal").keyup(function () {
         url: 'http://localhost:8080/api/v1/fitnessGoals/goalsByName',
         method: 'GET',
         dataType: 'json',
-        data: {partialName: text},   // Convert data to JSON string
+        data: {partialName: text, id: userId},   // Convert data to JSON string
         success: function (response) {
             console.log(response);
             $(".mainCardBody").empty();
