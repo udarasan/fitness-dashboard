@@ -143,18 +143,16 @@ function loadMembers() {
         contentType: 'application/json',
         data: {email: trainerEmail},
         success: function (response) {
+
             let client = response.data.users;
             if (client.length === 0) {
                 alert("No clients found.");
                 return;
             }
-            console.log(response.data.users);
-            $.each(response.data.users, function (index, trainer) {
-                userId = trainer.uid;
-                getClientsWithTrainer();
-                // let row = `<tr><td>${trainer.uid}</td><td>${trainer.name}</td><td>${trainer.email}</td><td>${trainer.meal_plan_id}</td><td >${trainer.workout_id}</td></tr>`;
-                // $('#tblClient').append(row);
-            });
+            console.log(response.data);
+            let trainerId = response.data.tid;
+            console.log(trainerId)
+            getClientsWithTrainer(trainerId);
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -164,9 +162,9 @@ function loadMembers() {
 
 }
 
-function getClientsWithTrainer() {
+function getClientsWithTrainer(trainerId) {
     $.ajax({
-        url: 'http://localhost:8080/api/v1/trainer/getOneTrainer/' + userId,
+        url: 'http://localhost:8080/api/v1/trainer/getOneTrainer/' + trainerId,
         method: 'GET',
 
         contentType: 'application/json',

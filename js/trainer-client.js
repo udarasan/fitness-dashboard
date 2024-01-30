@@ -1,5 +1,5 @@
 let email = localStorage.getItem('trainer-email');
-let userId;
+let trainerId;
 $(window).on('load', function () {
     // Your JavaScript code goes here
 
@@ -21,14 +21,10 @@ function getClients() {
                 alert("No clients found.");
                 return;
             }
-            console.log(response.data.users);
-            $.each(response.data.users, function (index, trainer) {
-                userId = trainer.uid;
-                getClientsWithTrainer();
-                // let row = `<tr><td>${trainer.uid}</td><td>${trainer.name}</td><td>${trainer.email}</td><td>${trainer.meal_plan_id}</td><td >${trainer.workout_id}</td></tr>`;
-                // $('#tblClient').append(row);
-            });
-
+            console.log(response.data);
+            trainerId = response.data.tid;
+            console.log(trainerId)
+            getClientsWithTrainer(trainerId);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error(jqXHR.responseText);  // Log the response text for debugging
@@ -37,9 +33,9 @@ function getClients() {
 
 }
 
-function getClientsWithTrainer() {
+function getClientsWithTrainer(trainerId) {
     $.ajax({
-        url: 'http://localhost:8080/api/v1/trainer/getOneTrainer/' + userId,
+        url: 'http://localhost:8080/api/v1/trainer/getOneTrainer/' + trainerId,
         method: 'GET',
 
         contentType: 'application/json',
