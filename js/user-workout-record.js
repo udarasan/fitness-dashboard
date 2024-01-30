@@ -61,12 +61,7 @@ $("#addRecord").click(function () {
         return;
     }
 
-    if (!isValidPlan(workOutDetails)) {
-        $('#descriptionErrorLabel').text("Please enter a description minimum 2 characters");
-        return;
-    } else {
-        $('#descriptionErrorLabel').text(""); // Clear the error label
-    }
+
 
     if (isNaN(calories)) {
         $('#calorieErrorLabel').text("Invalid input type!! Please input number");
@@ -142,12 +137,6 @@ $('#updateRecord').click(function () {
         return;
     }
 
-    if (!isValidPlan(details)) {
-        $('#mngDescriptionErrorLabel').text("Please enter a description minimum 2 characters");
-        return;
-    } else {
-        $('#mngDescriptionErrorLabel').text(""); // Clear the error label
-    }
 
     if (isNaN(calories)) {
         $('#mngCalorieErrorLabel').text("Invalid input type!! Please input number");

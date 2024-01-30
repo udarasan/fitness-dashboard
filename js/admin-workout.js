@@ -28,20 +28,14 @@ $("#modalAddNew").click(function () {
     } else {
         $('#nameErrorLabel').text(""); // Clear the error label
     }
-    if (!isValidPlan(details)) {
-        $('#workOutPlanDetailsErrorLabel').text("Please enter a description minimum 2 characters");
-        return;
 
-    } else {
-        $('#workOutPlanDetailsErrorLabel').text(""); // Clear the error label
-    }
     if (isNaN(calCount)) {
         $('#calaryErrorLabel').text("Invalid input type");
     } else {
         $('#calaryErrorLabel').text("");
     }
 
-    if (isValidName(name) && isValidPlan(details) && !isNaN(calCount)) {
+    if (isValidPlan(name)  && !isNaN(calCount)) {
         // Make the AJAX request
         $.ajax({
             url: 'http://localhost:8080/api/v1/workoutplan/save',
@@ -214,20 +208,13 @@ $("#modalUpdateBtn").click(function () {
     }
 
 
-    if (!isValidPlan(details)) {
 
-        $('#uworkOutPlanDetailsErrorLabel').text("Please enter a description minimum 2 characters");
-        return;
-
-    } else {
-        $('#uworkOutPlanDetailsErrorLabel').text(""); // Clear the error label
-    }
     if (isNaN(calCount)) {
         $('#ucalaryErrorLabel').text("Invalid input type");
     } else {
         $('#ucalaryErrorLabel').text("");
     }
-    if (isValidPlan(name) && isValidPlan(details) && !isNaN(calCount)) {
+    if (isValidPlan(name)  && !isNaN(calCount)) {
         $.ajax({
             url: 'http://localhost:8080/api/v1/workoutplan/update',
             method: 'POST',

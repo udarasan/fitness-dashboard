@@ -142,12 +142,6 @@ $('#updateGoal').click(function () {
         $('#updDescriptionErrorLabel').text(""); // Clear the error label
     }
 
-    if (!isValidPlan(goalName)) {
-        $('#updNameErrorLabel').text("Please enter a name. Minimum 2 characters");
-        return;
-    } else {
-        $('#updNameErrorLabel').text(""); // Clear the error label
-    }
 
     $.ajax({
         url: 'http://localhost:8080/api/v1/fitnessGoals/update',
@@ -232,12 +226,7 @@ $("#addGoal").click(function () {
         $('#nameErrorLabel').text(""); // Clear the error label
     }
 
-    if (!isValidPlan(details)) {
-        $('#descriptionErrorLabel').text("Please enter a description. Minimum 2 characters");
-        return;
-    } else {
-        $('#descriptionErrorLabel').text(""); // Clear the error label
-    }
+
 
     $.ajax({
         url: 'http://localhost:8080/api/v1/fitnessGoals/save',

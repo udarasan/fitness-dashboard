@@ -131,8 +131,7 @@ $("#saveMeal").click(function () {
 
         if (isValidPlan(meal_name)) {
             $("#mealPlanNameErrorLabel").css("display", "none");
-            if (isValidPlan(meal_details)) {
-                $("#mealPlanDetailsErrorLabel").css("display", "none");
+
                 if (!isNaN(calorie)) {
                     $("#mealPlanCalorieErrorLabel").css("display", "none");
                     $.ajax({
@@ -166,11 +165,7 @@ $("#saveMeal").click(function () {
                     errorLabel.css("display", "inline");
                     errorLabel.text("EInvalid input type !");
                 }
-            } else {
-                let errorLabel = $("#mealPlanDetailsErrorLabel");
-                errorLabel.css("display", "inline");
-                errorLabel.text("Enter minimum 2 characters !");
-            }
+
         } else {
             let errorLabel = $("#mealPlanNameErrorLabel");
             errorLabel.css("display", "inline");
@@ -197,8 +192,7 @@ $("#updateMeal").click(function () {
         if (isValidPlan(meal_name)) {
             $("#UpdateMealPlanNameErrorLabel").css("display", "none");
 
-            if (isValidPlan(meal_details)) {
-                $("#UpdateMealPlanDetailsErrorLabel").css("display", "none");
+
 
                 if (!isNaN(calorie)) {
                     $("#UpdateMealPlanCalorieErrorLabel").css("display", "none");
@@ -232,11 +226,7 @@ $("#updateMeal").click(function () {
                     errorLabel.text("Invalid input type !");
                 }
 
-            } else {
-                let errorLabel = $("#UpdateMealPlanDetailsErrorLabel");
-                errorLabel.css("display", "inline");
-                errorLabel.text("Enter minimum 2 characters !");
-            }
+
         } else {
             let errorLabel = $("#UpdateMealPlanNameErrorLabel");
             errorLabel.css("display", "inline");
