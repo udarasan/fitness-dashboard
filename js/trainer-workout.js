@@ -27,6 +27,7 @@ $("#searchWorkoutPlans").keyup(function () {
         success: function (response) {
             console.log(response);
             $(".gridContainer").empty();
+            $('.npResImg').addClass("d-none");
             $.each(response.data, function (index, workOut) {
                 let card = `<div class="card workoutCard text-left p-0 ">
                             <div class="card-header px-4">                          
@@ -55,6 +56,12 @@ $("#searchWorkoutPlans").keyup(function () {
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error(jqXHR.responseText);  // Log the response text for debugging
+
+            if (jqXHR.data == null) {
+                    $(".gridContainer").empty();
+                    $('.npResImg').removeClass("d-none");
+            }
+
         }
     });
 });
@@ -68,6 +75,9 @@ function getAllWorkoutPlans(callback) {
         dataType: 'json',
         contentType: 'application/json',  // Set content type to JSON
         success: function (response) {
+            if(response.data.length==0) {
+                alert("No workout plans found.")
+            }
             $.each(response.data, function (index, workOut) {
                 let card = `<div class="card workoutCard text-left p-0 ">
                             <div class="card-header px-4">
@@ -232,7 +242,7 @@ $("#modalAssignNew").click(function () {
     }
     if (isValidPlan(name)  && !isNaN(calCount)) {
         $.ajax({
-            url: 'http://localhost:8080/api/v1/trainer/assignNewWorkout',
+            url: 'http://localhost:8080/api/v1/workoutplan/assignNewWorkout',
             method: 'POST',
             dataType: 'json',
             contentType: 'application/json',  // Set content type to JSON
