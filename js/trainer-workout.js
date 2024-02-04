@@ -1,7 +1,11 @@
 $(window).on('load', function () {
     $("#trainerEmail").text(localStorage.getItem("trainer-email"));
-    getAllWorkoutPlans();
-    loadMembers();
+
+    // loadMembers();
+    // Wait for getAllWorkoutPlans to complete before calling loadMembers
+    getAllWorkoutPlans(function () {
+        loadMembers();
+    });
 
 
     $('#searchWorkoutPlans').on('input', function () {
@@ -55,7 +59,7 @@ $("#searchWorkoutPlans").keyup(function () {
     });
 });
 
-function getAllWorkoutPlans() {
+function getAllWorkoutPlans(callback) {
     $(".gridContainer").empty();
     // work out Get All
     $.ajax({
@@ -94,6 +98,9 @@ function getAllWorkoutPlans() {
             console.error(jqXHR.responseText);  // Log the response text for debugging
         }
     });
+    if (typeof callback === 'function') {
+        callback();
+    }
 }
 
 let workoutId;
