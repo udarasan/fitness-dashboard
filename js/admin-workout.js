@@ -68,12 +68,8 @@ $("#searchWorkoutPlans").keyup(function () {
         data: {partialName: text},   // Convert data to JSON string
         success: function (response) {
             console.log(response);
-            if ($("#searchWorkoutPlans").val() === "") {
-                $("#cardContainer").css("justifyContent", "start")
-                getAllWorkoutPlans();
-
-            }else {
-                $(".gridContainer").empty();
+            $(".gridContainer").empty();
+            $('.npResImg').addClass("d-none");
                 $.each(response.data, function (index, workOut) {
                     let card = `<div class="card workoutCard text-left p-0 ">
                             <div class="card-header px-4">                          
@@ -104,22 +100,14 @@ $("#searchWorkoutPlans").keyup(function () {
                 btnEditOnCLick();
                 btnDeleteOnClick();
                 btnAssignOnClick();
-            }
+
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error(jqXHR.responseText);  // Log the response text for debugging
             if (jqXHR.data == null) {
-                $("#cardContainer").empty();
-
-                let card = `
- <img src="https://cdn.dribbble.com/users/1242216/screenshots/9326781/media/6384fef8088782664310666d3b7d4bf2.png" alt="no" width="500px">
-
-  
-`
-                let cardContainer = $("#cardContainer");
-                cardContainer.css("justify-content", "center")
-                cardContainer.append(card);
+                $(".gridContainer").empty();
+                $('.npResImg').removeClass("d-none");
             }
         }
     });
