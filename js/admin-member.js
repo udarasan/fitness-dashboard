@@ -4,8 +4,11 @@ let workout_id;
 var selectedValue;
 $(window).on('load', function () {
     // Your JavaScript code goes here
-    getAllMembers();
-    loadTrainerId();
+    // getAllMembers();
+    // loadTrainerId();
+    getAllMembers(function () {
+        loadTrainerId();
+    });
 });
 $(".form-check-input").on("click", function () {
     selectedValue = $("input[name='inlineRadioOptions']:checked").val();
@@ -248,7 +251,7 @@ $('#saveMemeber').click(function () {
 
 });
 
-function getAllMembers() {
+function getAllMembers(callback) {
     $('#tblMember').empty();
     // members get All
     $.ajax({
@@ -269,6 +272,9 @@ function getAllMembers() {
                 let row = `<tr><td>${member.uid}</td><td>${member.name}</td><td>${member.email}</td><td>${member.trainer_id}</td><td style="display: none">${member.password}</td><td>${member.meal_plan_id}</td><td>${member.workout_id}</td><td>${member.age}</td><td>${member.gender}</td></tr>`;
                 $('#tblMember').append(row);
             });
+            if (typeof callback === 'function') {
+                callback();
+            }
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
