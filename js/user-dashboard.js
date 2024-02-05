@@ -47,9 +47,6 @@ function searchUserWithEmail() {
             }
 
             getDataToAreaChart(uId);
-            getMealRecordsByUser(uId);
-            getWorkOutRecordsByUser(uId)
-            getWorkoutPlan();
         },
         error: function (jqXHR) {
             console.log(jqXHR.responseText);
@@ -64,8 +61,9 @@ function getWorkoutPlan() {
         method: 'GET',
         dataType: 'json',
         contentType: 'application/json',  // Set content type to JSON
-        success: function (response) {
-            $.each(response.data, function (index, workOut) {
+        success: function (workoutResponse) {
+            console.log(workoutResponse);
+            $.each(workoutResponse.data, function (index, workOut) {
                 // check for current users' workout plan
                 if (currUserWorkoutId == workOut.wid) {
                     currUserWorkoutName = workOut.planName;
@@ -96,10 +94,10 @@ function getMealPlan() {
         method: 'GET',
         dataType: 'json',
         contentType: 'application/json',  // Set content type to JSON
-        success: function (response) {
-            console.log(response);
+        success: function (mealResponse) {
+            console.log(mealResponse);
 
-            $.each(response.data, function (index, meal) {
+            $.each(mealResponse.data, function (index, meal) {
                 // check for current users' meal plan
                 if (currUserMealId == meal.mid) {
                     currUserMealName = meal.planName;
@@ -131,10 +129,15 @@ function getDataToAreaChart(uId) {
         method: 'GET',
 
         contentType: 'application/json',  // Set content type to JSON
-        success: function (response) {
-            progressList = response.data;
+        success: function (progressResponse) {
+            console.log(progressResponse.data);
+            console.log("@@"+progressResponse.data.length);
+
+            progressList = progressResponse.data;
             formatAreaChartData();
             setCurrentBMIvalue();
+
+            getMealRecordsByUser(uId);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error(jqXHR.responseText);  // Log the response text for debugging
@@ -330,6 +333,8 @@ function getMealRecordsByUser(uId) {
 
             });
             setDataToCalorieIntakeChart();
+
+            getWorkOutRecordsByUser(uId)
         },
         error: function (jqXHR) {
             console.log(jqXHR.responseText);
@@ -466,6 +471,7 @@ function getWorkOutRecordsByUser(uId) {
             });
             setDataToCalorieBurnOutChart();
 
+            getWorkoutPlan();
         },
         error: function (jqXHR) {
             console.log(jqXHR.responseText);
