@@ -103,14 +103,15 @@ function getAllWorkoutPlans(callback) {
             });
 
             btnAssignOnClick();
+            if (typeof callback === 'function') {
+                callback();
+            }
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error(jqXHR.responseText);  // Log the response text for debugging
         }
     });
-    if (typeof callback === 'function') {
-        callback();
-    }
+
 }
 
 let workoutId;

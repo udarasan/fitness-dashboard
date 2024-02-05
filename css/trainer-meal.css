@@ -118,3 +118,17 @@
 
     }
 }
+
+@media all and (max-width: 380px){
+    #cardContainer>section{
+        min-width: 100% !important;
+        max-width: 100% !important;
+        margin-right: 0px !important;
+        margin-left: 0px !important;
+    }
+
+    .mealMainCard>.cardBody{
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+}

@@ -19,12 +19,13 @@ function getAll() {
         success: function (response) {
             console.log(response)
 
-            $.each(response.data, function (index, mealPlan) {
-                appendMealSection(mealPlan);
-                console.log(mealPlan);
-
-
-            });
+            if(response.data.length==0) {
+                alert("No meal plans found");
+            }else{
+                $.each(response.data, function (index, mealPlan) {
+                    appendMealSection(mealPlan);
+                });
+            }
         },
 
         error: function (XHR) {
@@ -38,7 +39,7 @@ function getAll() {
 function appendMealSection(mealPlan) {
 
     let card = `
-  <section class="mx-3 mb-3 mt-4" style="max-width: 20rem;">
+  <section class="mx-3 mb-3 mt-4" style="min-width: 20rem;">
 
     <div id="card" class="card" >
    
@@ -183,7 +184,7 @@ $("#saveMeal").click(function () {
                     $("#TrainerMealPlanCalorieErrorLabel").css("display", "none");
 
                     $.ajax({
-                        url: 'http://localhost:8080/api/v1/trainer/assignNewMealPlan',
+                        url: 'http://localhost:8080/api/v1/mealPlan/assignNewMealPlan',
                         method: 'POST',
                         dataType: 'json',
                         contentType: 'application/json',
@@ -512,6 +513,11 @@ $("#assignTrainerMealPlanBtn").click(function () {
 
 $("#SearchMeal").keyup(function () {
     let text = $('#SearchMeal').val();
+    if (text === "") {
+        $("#cardContainer").css("justifyContent", "start")
+        getAll();
+        return;
+    }
     $.ajax({
         url: 'http://localhost:8080/api/v1/mealPlan/searchMealByName',
         method: 'GET',
@@ -519,18 +525,14 @@ $("#SearchMeal").keyup(function () {
         data: {partialName: text},   // Convert data to JSON string
         success: function (response) {
             console.log(response);
-            if ($("#SearchMeal").val() === "") {
-                $("#cardContainer").css("justifyContent", "start")
-                getAll();
 
-            } else {
                 let cardContainer = $("#cardContainer");
                 cardContainer.empty();
                 $.each(response.data, function (index, mealPlan) {
                     console.log(mealPlan);
 
                     let card = `
-  <section class="mx-3 my-5" style="max-width: 20rem;">
+  <section class="mx-3 my-5" style="min-width: 20rem">
 
     <div id="card" class="card" >
    
@@ -569,8 +571,6 @@ $("#SearchMeal").keyup(function () {
 
 
                 });
-
-            }
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error(jqXHR.responseText);  // Log the response text for debugging
