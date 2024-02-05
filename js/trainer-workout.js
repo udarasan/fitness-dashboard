@@ -1,12 +1,10 @@
 $(window).on('load', function () {
-    $("#trainerEmail").text(localStorage.getItem("trainer-email"));
+    trainerEmail = localStorage.getItem('trainer-email');
+    $("#trainerEmail").text(trainerEmail);
 
-    // loadMembers();
-    // Wait for getAllWorkoutPlans to complete before calling loadMembers
-    getAllWorkoutPlans(function () {
-        loadMembers();
-    });
+    getAllWorkoutPlans();
 
+    loadTrainerId();
 
     $('#searchWorkoutPlans').on('input', function () {
         var newValue = $(this).val();
@@ -15,6 +13,29 @@ $(window).on('load', function () {
         }
     });
 });
+
+let trainerId;
+function loadTrainerId() {
+    console.log(trainerEmail);
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/trainer/getOneTrainer',
+        method: 'GET',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: {email: trainerEmail},
+
+        success: function (response) {
+            console.log(response);
+            console.log(response.data.tid);
+            trainerId = response.data.tid;
+            loadAllMembersIds();
+
+        },
+        error: function (jqXHR) {
+            console.log(jqXHR.responseText);
+        }
+    })
+}
 
 $("#searchWorkoutPlans").keyup(function () {
     let text = $('#searchWorkoutPlans').val();
@@ -66,7 +87,7 @@ $("#searchWorkoutPlans").keyup(function () {
     });
 });
 
-function getAllWorkoutPlans(callback) {
+function getAllWorkoutPlans() {
     $(".gridContainer").empty();
     // work out Get All
     $.ajax({
@@ -75,6 +96,12 @@ function getAllWorkoutPlans(callback) {
         dataType: 'json',
         contentType: 'application/json',  // Set content type to JSON
         success: function (response) {
+
+            if(response.data.length === undefined){
+                getAllWorkoutPlans();
+                return;
+            }
+
             if(response.data.length==0) {
                 alert("No workout plans found.")
             }
@@ -103,9 +130,7 @@ function getAllWorkoutPlans(callback) {
             });
 
             btnAssignOnClick();
-            if (typeof callback === 'function') {
-                callback();
-            }
+            loadMembers();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error(jqXHR.responseText);  // Log the response text for debugging
@@ -137,8 +162,12 @@ function loadMembers() {
             memberList = response.data;
             $.each(response.data, function (index, member) {
                 console.log(member);
-                let memberData = `<option>${member.uid}</option>`;
-                $(".memberSelect").append(memberData);
+
+                if(member.trainer_id == trainerId){
+                    let memberData = `<option>${member.uid}</option>`;
+                    $(".memberSelect").append(memberData);
+                }
+
             })
         },
         error: function (xhr) {

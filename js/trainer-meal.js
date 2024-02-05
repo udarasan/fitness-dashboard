@@ -17,7 +17,13 @@ function getAll() {
         url: 'http://localhost:8080/api/v1/mealPlan/getAllMealPlans',
         method: "GET",
         success: function (response) {
-            console.log(response)
+            console.log(response);
+            console.log(response.data.length);
+
+            if(response.data.length===undefined){
+                getAll();
+                return;
+            }
 
             if(response.data.length==0) {
                 alert("No meal plans found");

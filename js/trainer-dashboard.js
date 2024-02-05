@@ -32,6 +32,12 @@ function loadTrainerIdUsingEmail(trainerEmail) {
         success: function (response) {
             console.log(response);
             console.log(response.data.tid);
+
+            if(response.data.tid === undefined){
+                loadTrainerIdUsingEmail(trainerEmail);
+                return;
+            }
+
             let trainerId = response.data.tid;
             countAllMembersUsingId(trainerId);
 
@@ -77,6 +83,12 @@ function loadAndCountTotalMealPlans() {
         success: function (response) {
             console.log(response.data);
             console.log(response.data.length);
+
+            if(response.data.length=== undefined){
+                loadAndCountTotalMealPlans();
+                return;
+            }
+
             totalMealPlansCount = response.data.length;
             $("#totalMealPlans").text(totalMealPlansCount);
 
@@ -97,9 +109,13 @@ function loadAndCountTotalWorkoutPlans() {
         success: function (response) {
             console.log(response.data);
             console.log(response.data.length);
+
+            if(response.data.length=== undefined){
+                loadAndCountTotalWorkoutPlans();
+                return;
+            }
             totalWorkoutsCount = response.data.length;
             $("#totalWorkoutPlans").text(totalWorkoutsCount);
-
         },
         error: function (jqXHR, textStatus, errorThrown) {
             alert("Failed to retrieve workouts. Please try again.");
