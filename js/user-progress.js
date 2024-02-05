@@ -45,6 +45,12 @@ function getAllProgress(uId) {
         contentType: 'application/json',  // Set content type to JSON
         success: function (response) {
             const progressData = response.data;
+
+            if(response.data.length==0) {
+                alert("No progress details found.");
+                return;
+            }
+
             height = response.data.height;
             weight = response.data.weight;
             date = response.data.date;

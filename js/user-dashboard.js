@@ -40,7 +40,11 @@ function searchUserWithEmail() {
             currUserMealId = response.data.meal_plan_id;
             currUserTrainerId = response.data.trainer_id;
 
-            $("#trainerId").text(currUserTrainerId);
+            if($("#trainerId").text()==0){
+                $("#trainerId").text("No trainer");
+            }else{
+                $("#trainerId").text(currUserTrainerId);
+            }
 
             getDataToAreaChart(uId);
             getMealRecordsByUser(uId);
@@ -73,6 +77,10 @@ function getWorkoutPlan() {
                     $("#lblWorkCalories").text(currUserWorkoutCalories + " calories");
                 }
             });
+
+            if(  $("#lblWorkPLanName").text()=== ""){
+                $("#lblWorkPLanName").text("No Workout Plan");
+            }
             getMealPlan();
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -89,6 +97,8 @@ function getMealPlan() {
         dataType: 'json',
         contentType: 'application/json',  // Set content type to JSON
         success: function (response) {
+            console.log(response);
+
             $.each(response.data, function (index, meal) {
                 // check for current users' meal plan
                 if (currUserMealId == meal.mid) {
@@ -101,6 +111,11 @@ function getMealPlan() {
                     $("#lblMealCalories").text(currUserMealCalories + " calories");
                 }
             });
+
+            if(  $("#lblMealPLanName").text()=== ""){
+                $("#lblMealPLanName").text("No Meal Plan");
+            }
+
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error(jqXHR.responseText);  // Log the response text for debugging
@@ -128,11 +143,17 @@ function getDataToAreaChart(uId) {
 };
 
 function setCurrentBMIvalue() {
+    if(progressList.length==0) {
+        $("#currentBMI").text("No Details Yet");
+        return;
+    }
+
     currentProgressValues = progressList[progressList.length - 1];
     currentHeight = currentProgressValues.height;
     currentWeight = currentProgressValues.weight;
     let currentHeightInMeters = currentHeight / 100;
     let currentBMI = parseFloat((currentWeight / (currentHeightInMeters * currentHeightInMeters)).toFixed(1));
+
     $("#currentBMI").text(currentBMI);
 }
 
@@ -302,6 +323,7 @@ function getMealRecordsByUser(uId) {
         method: 'GET',
         success: function (response) {
             console.log(response);
+
             $.each(response.data, function (index, mealRecord) {
                 calorieDateList.push(mealRecord.date);
                 calorieAmountList.push(mealRecord.calories);
@@ -435,6 +457,7 @@ function getWorkOutRecordsByUser(uId) {
         method: 'GET',
         success: function (response) {
             console.log(response);
+
             $.each(response.data, function (index, workOutRec) {
                 workOutCalorieDateList.push(workOutRec.date);
                 workOutCalorieAmountList.push(workOutRec.calories);
