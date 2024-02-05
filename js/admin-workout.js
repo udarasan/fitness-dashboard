@@ -1,7 +1,6 @@
 $('#nameLbl').text(localStorage.getItem('adminEmail'));
 $(window).on('load', function () {
     getAllWorkoutPlans();
-    loadMembers();
 
     $('#searchWorkoutPlans').on('input', function () {
         var newValue = $(this).val();
@@ -159,6 +158,8 @@ function getAllWorkoutPlans() {
             btnEditOnCLick();
             btnDeleteOnClick();
             btnAssignOnClick();
+
+            loadMembers();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             alert("Failed to retrieve workouts. Please try again.");

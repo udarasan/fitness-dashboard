@@ -6,9 +6,7 @@ $(window).on('load', function () {
     // Your JavaScript code goes here
     // getAllMembers();
     // loadTrainerId();
-    getAllMembers(function () {
-        loadTrainerId();
-    });
+    getAllMembers();
 });
 $(".form-check-input").on("click", function () {
     selectedValue = $("input[name='inlineRadioOptions']:checked").val();
@@ -251,7 +249,7 @@ $('#saveMemeber').click(function () {
 
 });
 
-function getAllMembers(callback) {
+function getAllMembers() {
     $('#tblMember').empty();
     // members get All
     $.ajax({
@@ -272,10 +270,8 @@ function getAllMembers(callback) {
                 let row = `<tr><td>${member.uid}</td><td>${member.name}</td><td>${member.email}</td><td>${member.trainer_id}</td><td style="display: none">${member.password}</td><td>${member.meal_plan_id}</td><td>${member.workout_id}</td><td>${member.age}</td><td>${member.gender}</td></tr>`;
                 $('#tblMember').append(row);
             });
-            if (typeof callback === 'function') {
-                callback();
-            }
 
+            loadTrainerId();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             alert("Failed to retrieve members. Please try again.");

@@ -3,7 +3,6 @@ $('#nameLbl').text(localStorage.getItem('adminEmail'));
 // meal plan Get All
 $(window).on('load', function () {
     getAll();
-    loadAllMembersIds();
     console.log('Window has fully loaded!');
 });
 
@@ -17,7 +16,7 @@ function getAll() {
         contentType: 'application/json',  // Set content type to JSON
         success: function (response) {
             console.log(response.data);
-            console.log(response.data.email);
+            console.log(response.data.length);
             if(response.data.length==0) {
                 alert("No meal plans found");
                 return;
@@ -25,9 +24,8 @@ function getAll() {
             $.each(response.data, function (index, mealPlan) {
                 appendMealSection(mealPlan);
                 console.log(mealPlan);
-
             });
-
+            loadAllMembersIds();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error(jqXHR.responseText);  // Log the response text for debugging
@@ -293,11 +291,13 @@ function loadAllMembersIds() {
             getAllMembersResponse = response;
             console.log(response);
 
+            $("#memberComboBox").empty();
+            let firstOpt = ` <option class="d-none" value="" selected></option>`;
+            $("#memberComboBox").append(firstOpt);
             $.each(response.data, function (index, members) {
                 console.log(members);
                 setMemberDataToComboBox(members);
             })
-
         },
         error: function (xhr) {
             console.log(xhr);
@@ -309,8 +309,6 @@ function loadAllMembersIds() {
 // set member data to combobox based on ajax request
 
 function setMemberDataToComboBox(members) {
-    let firstOpt = ` <option class="d-none" value="" selected></option>`;
-    $("#memberComboBox").append(firstOpt);
     let memberData = `<option >${members.uid}</option>`
     $("#memberComboBox").append(memberData);
 
