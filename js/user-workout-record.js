@@ -36,6 +36,10 @@ function getWorkoutRecordsByUser() {
             $('#tblMemberRecBody').empty();
             console.log(response);
 
+            if(response.data.length==0) {
+                alert("No workout records found");
+                return;
+            }
             $.each(response.data, function (index, workOutRec) {
                 let row = `<tr><td>${workOutRec.date}</td><td>${workOutRec.workout}</td><td>${workOutRec.details}</td>
                             <td>${workOutRec.calories}</td><td class="d-none">${workOutRec.wrID}</td></tr>`;
