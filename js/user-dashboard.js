@@ -40,7 +40,7 @@ function searchUserWithEmail() {
             currUserMealId = response.data.meal_plan_id;
             currUserTrainerId = response.data.trainer_id;
 
-            if($("#trainerId").text()==0){
+            if(currUserTrainerId==0){
                 $("#trainerId").text("No trainer");
             }else{
                 $("#trainerId").text(currUserTrainerId);
