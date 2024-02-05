@@ -18,7 +18,10 @@ function getAll() {
         success: function (response) {
             console.log(response.data);
             console.log(response.data.email);
-
+            if(response.data.length==0) {
+                alert("No meal plans found");
+                return;
+            }
             $.each(response.data, function (index, mealPlan) {
                 appendMealSection(mealPlan);
                 console.log(mealPlan);
