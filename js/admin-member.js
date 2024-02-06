@@ -150,18 +150,23 @@ $('#updateMember').click(function () {
 
 //encode password for security
 
+// async function hashPassword(password) {
+//     const encoder = new TextEncoder();
+//     const data = encoder.encode(password);
+//
+//     const buffer = await crypto.subtle.digest('SHA-256', data);
+//     const hashedArray = Array.from(new Uint8Array(buffer));
+//     const hashedPassword = hashedArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+//     console.log(hashedPassword);
+//
+//     return hashedPassword;
+// }
 async function hashPassword(password) {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(password);
+    const base64Encoded = btoa(password);
+    console.log(base64Encoded);
 
-    const buffer = await crypto.subtle.digest('SHA-256', data);
-    const hashedArray = Array.from(new Uint8Array(buffer));
-    const hashedPassword = hashedArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
-    console.log(hashedPassword);
-
-    return hashedPassword;
+    return base64Encoded;
 }
-
 //save memeber
 
 $('#saveMemeber').click(function () {
@@ -287,9 +292,12 @@ $('#tblMember').on('click', 'tr', function () {
     let memberName = $(this).find('td:nth-child(2)').text(); // Assuming the second cell contains the trainer email
     let memberEmail = $(this).find('td:nth-child(3)').text();
     let trainerId = $(this).find('td:nth-child(4)').text();
-    let password = $(this).find('td:nth-child(5)').text();
+    let encodedPassword = $(this).find('td:nth-child(5)').text();
     let age = $(this).find('td:nth-child(8)').text();
     let gender = $(this).find('td:nth-child(9)').text();
+    // let password = decodePassword(encodedPassword);
+    let password = atob(encodedPassword);
+    console.log("decode "+ password)
     // Perform actions with the retrieved data
     $('#memberModal').modal('show');
     $('#saveMemeber').css("display", 'none');
@@ -392,3 +400,7 @@ $("#searchMembers").keyup(function () {
         }
     });
 });
+function decodePassword(encodedPassword) {
+
+    return atob(encodedPassword); // This is a simple example, replace with your actual logic
+}
