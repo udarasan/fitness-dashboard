@@ -81,6 +81,10 @@ $("#searchWorkoutPlans").keyup(function () {
             $(".gridContainer").empty();
             $('.npResImg').addClass("d-none");
                 $.each(response.data, function (index, workOut) {
+                    let plandetails = workOut.planDetails;
+                    plandetails = plandetails.replace(/ (?=\n)/g, '&nbsp;');
+                    plandetails = plandetails.replace(/\n/g, '<br>');
+
                     let card = `<div class="card workoutCard text-left p-0 ">
                             <div class="card-header px-4">                          
                                 ${workOut.planName}
@@ -99,7 +103,7 @@ $("#searchWorkoutPlans").keyup(function () {
                             </div>
                             <div class="card-body px-4">
                                 <input class="hiddenWorkoutId" type="hidden" value="${workOut.wid}">
-                                <p class="card-text">${workOut.planDetails}</p>
+                                <p class="card-text">${plandetails}</p>
                                 <p class="card-text">calorie count: ${workOut.burnsCalorieCount} calories</p>
                             </div>
                         </div>`
@@ -241,12 +245,19 @@ function btnEditOnCLick() {
             return this.nodeType === 3; // Filter out non-text nodes
         }).text().trim();
 
+        appendAndCheckCheckboxes(details);
+
         // set values to update model
         $("#updPlanName").val(name);
+
+        var index = details.indexOf("Equipments:");
+        if (index !== -1) {
+            details = details.substring(0, index).trim();
+        }
         $("#updPlanDetails").val(details);
+
         $("#updPlanCalorieCount").val(calorieCount);
 
-        appendAndCheckCheckboxes(details);
     });
 }
 

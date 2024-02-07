@@ -105,6 +105,14 @@
     margin-right: 0px;
 }
 
+.lblMemberName{
+    overflow-x: auto;
+}
+
+.equipmentContainer{
+    column-gap: 20px;
+}
+
 /*@media (min-width: 576px){*/
 /*    #assignNewWorkoutModal .modal-dialog {*/
 /*        max-width: none;*/

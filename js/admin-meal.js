@@ -24,13 +24,16 @@ function getAll() {
             $.each(response.data, function (index, mealPlan) {
                 console.log(mealPlan);
 
+                let plandetails = mealPlan.planDetails;
+                plandetails = plandetails.replace(/ (?=\n)/g, '&nbsp;');
+                plandetails = plandetails.replace(/\n/g, '<br>');
                 let card = `
                     <section class="mx-3 mb-5 mt-3" style="max-width: 25rem;">
                         <div id="card" class="card" >
                         <div class="card-header px-4" style="background-color: #2d324a; color: white">
-                            <p id="mealPlanName" class="mb-0" style="font-size: 1rem; font-weight: 400 !important;">
-                                <a>${mealPlan.planName}</a></p>
-                            <p class="small mb-0">meal plan id:&nbsp;&nbsp;<span id="mealId">${mealPlan.mid}</span></p>
+                            <p class="mb-0" style="font-size: 1rem; font-weight: 400 !important;">
+                                <a id="mealPlanName">${mealPlan.planName}</a></p>
+                                <p class="small mb-0">meal plan id:&nbsp;&nbsp;<span id="mealId">${mealPlan.mid}</span></p>
                         </div>
                         <div class="dropdown position-absolute threeDots">
                              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -43,7 +46,7 @@ function getAll() {
                              </ul>
                         </div>
                         <div class="card-body">    
-                            <p id="mealPlanDetail" class="card-text">${mealPlan.planDetails}</p>                          
+                            <p id="mealPlanDetail" class="card-text">${plandetails}</p>                          
                             <hr class="my-4" />
                             <p class="lead"><strong>Total calorie count : <span id="mealPlanCalorie">${mealPlan.calorieCount}</span> </strong></p>                         
                           </div>                     
@@ -58,7 +61,10 @@ function getAll() {
 
                 let mealId = card.find("#mealId").text();
                 let mealPlanName = card.find('#mealPlanName').text();
-                let mealPlanDetails = card.find('#mealPlanDetail').text();
+
+                let mealPlanDetails = card.find('#mealPlanDetail').html();
+                mealPlanDetails = mealPlanDetails.replace(/<br\s*[\/]?>/gi, "\n");
+
                 let calorie = card.find('#mealPlanCalorie').text();
 
                 setUpdateModalContent(mealPlanName, mealPlanDetails, calorie, mealId);
@@ -165,8 +171,6 @@ $("#updateMeal").click(function () {
         if (isValidPlan(meal_name)) {
             $("#UpdateMealPlanNameErrorLabel").css("display", "none");
 
-
-
                 if (!isNaN(calorie)) {
                     $("#UpdateMealPlanCalorieErrorLabel").css("display", "none");
                     $.ajax({
@@ -215,7 +219,6 @@ function setUpdateModalContent(mealPlanName, mealPlanDetails, calorie, mealId) {
     $("#Update_meal_name").val(mealPlanName);
     $("#Update_meal_plan_details").val(mealPlanDetails);
     $("#Update_calorie").val(calorie);
-
 }
 
 // method to set data to delete modal text fields
@@ -380,40 +383,34 @@ $("#SearchMeal").keyup(function () {
                 $.each(response.data, function (index, mealPlan) {
                     console.log(mealPlan);
 
+                    let plandetails = mealPlan.planDetails;
+                    plandetails = plandetails.replace(/ (?=\n)/g, '&nbsp;');
+                    plandetails = plandetails.replace(/\n/g, '<br>');
+
                     let card = `
-  <section class="mx-3 my-5" style="max-width: 20rem;">
-
-    <div id="card" class="card" >
-   
-      <div class="card-header px-4" style="background-color: #2d324a; color: white">
-      <p id="mealPlanName" class="mb-0" style="font-size: 1rem; font-weight: 400 !important;"><a>${mealPlan.planName}</a></p>
-     <p class="small mb-0">meal plan id:&nbsp;&nbsp;<span id="mealId">${mealPlan.mid}</span></p>
-</div>
-
-     <div class="dropdown position-absolute threeDots">
-                                     <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                                     </a>
-                                     <ul class="dropdown-menu">
-                                        <li><a id="edit"  class="dropdown-item edit" href="#" data-toggle="modal" data-target="#updateMealModal" >Edit</a></li>
-                                        <li><a class="dropdown-item delete" href="#" >Delete</a></li>
-                                        <li><a class="dropdown-item assign" href="#" data-toggle="modal" data-target="#assignModal">Assign</a></li>
-                                     </ul>
-                                </div>
-
-      <div class="card-body">
-
-      
-
-        <p id="mealPlanDetail" class="card-text">${mealPlan.planDetails}</p>
-
-        <hr class="my-4" />
-        <p  class="lead"><strong>Total calorie count : <span id="mealPlanCalorie">${mealPlan.calorieCount}</span> </strong></p>
-
-      </div>
-
-    </div>
-  </section>`
+                          <section class="mx-3 my-5" style="max-width: 20rem;">                        
+                            <div id="card" class="card" >                           
+                              <div class="card-header px-4" style="background-color: #2d324a; color: white">
+                                  <p id="mealPlanName" class="mb-0" style="font-size: 1rem; font-weight: 400 !important;"><a>${mealPlan.planName}</a></p>
+                                  <p class="small mb-0">meal plan id:&nbsp;&nbsp;<span id="mealId">${mealPlan.mid}</span></p>
+                              </div>                        
+                             <div class="dropdown position-absolute threeDots">
+                                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                                 </a>
+                                 <ul class="dropdown-menu">
+                                    <li><a id="edit"  class="dropdown-item edit" href="#" data-toggle="modal" data-target="#updateMealModal" >Edit</a></li>
+                                    <li><a class="dropdown-item delete" href="#" >Delete</a></li>
+                                    <li><a class="dropdown-item assign" href="#" data-toggle="modal" data-target="#assignModal">Assign</a></li>
+                                 </ul>
+                              </div>                        
+                              <div class="card-body">
+                                <p id="mealPlanDetail" class="card-text">${plandetails}</p>                        
+                                <hr class="my-4" />
+                                <p  class="lead"><strong>Total calorie count : <span id="mealPlanCalorie">${mealPlan.calorieCount}</span> </strong></p>                        
+                              </div>                        
+                            </div>
+                          </section>`
                     $("#cardContainer").append(card);
                 });
             }

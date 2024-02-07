@@ -46,9 +46,13 @@ $("#searchWorkoutPlans").keyup(function () {
         data: {partialName: text},   // Convert data to JSON string
         success: function (response) {
             console.log(response);
+
             $(".gridContainer").empty();
             $('.npResImg').addClass("d-none");
             $.each(response.data, function (index, workOut) {
+                let plandetails = workOut.planDetails;
+                plandetails = plandetails.replace(/ (?=\n)/g, '&nbsp;');
+                plandetails = plandetails.replace(/\n/g, '<br>');
                 let card = `<div class="card workoutCard text-left p-0 ">
                             <div class="card-header px-4">                          
                                  ${workOut.planName}   
@@ -65,7 +69,7 @@ $("#searchWorkoutPlans").keyup(function () {
                             </div>
                             <div class="card-body px-4">
                                 <input class="hiddenWorkoutId" type="hidden" value="${workOut.wid}">
-                                <p class="card-text">${workOut.planDetails}</p>
+                                <p class="card-text">${plandetails}</p>
                                 <p class="card-text">calorie count: ${workOut.burnsCalorieCount} calories</p>
                             </div>
                         </div>`
@@ -95,7 +99,6 @@ $("#btnNewWorkout").click(function () {
         contentType: 'application/json',  // Set content type to JSON
         success: function (response) {
             $(".equipmentContainer").empty();
-
             if(response.data.length != 0) {
                 $(".equipmentContainer").addClass("mb-4");
 
@@ -106,8 +109,7 @@ $("#btnNewWorkout").click(function () {
                             <label class="form-check-label" for="">
                                  ${equipment.equipmentName}
                             </label>
-                        </div>
-                    `
+                        </div>`
 
                     $(".equipmentContainer").append(checkBox);
                 });
@@ -139,6 +141,10 @@ function getAllWorkoutPlans() {
                 alert("No workout plans found.")
             }
             $.each(response.data, function (index, workOut) {
+                let plandetails = workOut.planDetails;
+                plandetails = plandetails.replace(/ (?=\n)/g, '&nbsp;');
+                plandetails = plandetails.replace(/\n/g, '<br>');
+
                 let card = `<div class="card workoutCard text-left p-0 ">
                             <div class="card-header px-4">
                                 ${workOut.planName}   
@@ -155,7 +161,7 @@ function getAllWorkoutPlans() {
                             </div>
                             <div class="card-body px-4">
                                 <input class="hiddenWorkoutId" type="hidden" value="${workOut.wid}">
-                                <p class="card-text pPlanDetails">${workOut.planDetails}</p>
+                                <p class="card-text pPlanDetails">${plandetails}</p>
                                 <p class="card-text pCalorieCount">calorie count:&nbsp; ${workOut.burnsCalorieCount} calories</p>
                             </div>
                         </div>`
@@ -278,12 +284,25 @@ $("#modalAssignBtn").click(function () {
 });
 
 $("#modalAssignNew").click(function () {
+    let equipmentText="";
+
+    $('.equipmentContainer input[type="checkbox"]:checked').each(function() {
+        let labelText = $(this).parent().children(".form-check-label").text().trim();
+
+        if(equipmentText==""){
+            equipmentText = "Equipments:\n" + labelText;
+        }else{
+            equipmentText = equipmentText+", "+labelText;
+        }
+    });
+
     let name = $('#planName').val();
     let details = $('#planDetails').val();
     let calCount = $('#planCalorieCount').val();
 
-    let userId = $("#assignNewWorkoutModal .memberSelect").val();
+    let detailsWithEquipments = details+"\n\n"+equipmentText;
 
+    let userId = $("#assignNewWorkoutModal .memberSelect").val();
 
     if (!name || !details || !calCount) {
         alert("Please fill in all required fields.");
@@ -292,13 +311,9 @@ $("#modalAssignNew").click(function () {
     if (!isValidPlan(name)) {
         $('#nameErrorLabel').text("Please enter a name with more than 2 characters");
         return;
-
     } else {
         $('#nameErrorLabel').text(""); // Clear the error label
     }
-
-
-
     if (isNaN(calCount)) {
         $('#calaryErrorLabel').text("Invalid input type");
     } else {
@@ -313,7 +328,7 @@ $("#modalAssignNew").click(function () {
             data: JSON.stringify({
                 "workOutPlanDTO": {
                     "planName": name,
-                    "planDetails": details,
+                    "planDetails": detailsWithEquipments,
                     "burnsCalorieCount": calCount
                 },
                 "userDTO": {

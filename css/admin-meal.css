@@ -14,6 +14,10 @@
     font-size: 13px;
 }
 
+#meal_plan_details{
+    font-size: 13px;
+}
+
 #saveMeal,#updateMeal,#assignMealPlanBtn,#deleteMeal{
     background-color:#2d324a ;
     font-size: 13px;

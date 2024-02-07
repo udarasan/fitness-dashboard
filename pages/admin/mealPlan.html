@@ -111,14 +111,6 @@
                 <span>Watch Clients</span></a>
         </li>
 
-
-
-        <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block">
-
-        <!-- Sidebar Toggler (Sidebar) -->
-
-
     </ul>    <!-- End of Sidebar -->
     <!-- Content Wrapper -->
     <!--        Dashboard-->
@@ -151,28 +143,12 @@
                             </a>
                         </div>
                     </li>
-
                 </ul>
-
             </nav>
 
 
             <div class="container-fluid mt-5  " id="member">
-
-                <!-- Content Row -->
-                <div class="row">
-
-                    <!--                    card 01-->
-
-
-                </div>
-
-                <!--                end of top four cards-->
-
-
-                <!--                start of meal plan card              -->
-
-                <div class="card mt-0 mealMainCard">
+                <div class="card mt-0 mealMainCard mb-5">
                     <div class="card-header text-right bg-white border-0">
                         <div class="row d-flex align-items-center topRow">
                             <div class="col-sm-12 col-md-auto">
@@ -214,10 +190,7 @@
                      tabindex="-1">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <div class="modal-header">
-                                <!-- Header content goes here -->
-                            </div>
-                            <div class="modal-body">
+                            <div class="modal-body mt-4">
 
                                 <form id="trainerForm">
 <!--                                    <div class="mb-3">-->
@@ -275,9 +248,7 @@
                      tabindex="-1">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <div class="modal-header">
-                                <!-- Header content goes here -->
-                            </div>
+
                             <div class="modal-body">
 
                                 <form id="trainerUpdateForm">
@@ -300,7 +271,7 @@
                                     <div class="mb-3">
                                         <label class="form-label" for="Update_meal_plan_details">Meal Plan
                                             Details</label>
-                                        <textarea class="form-control" id="Update_meal_plan_details" name="details"
+                                        <textarea class="form-control" rows="6" id="Update_meal_plan_details" name="details"
                                                placeholder="Enter Meal Plan Details" type="text"
                                         ></textarea>
                                         <label  id="UpdateMealPlanDetailsErrorLabel" style="color: red;display: none"></label>
@@ -328,65 +299,60 @@
                     </div>
                 </div>
 
-
-                <!--                // end meal modal-->
-
-
                 <!--                // meal delete model-->
+<!--                <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="deleteMealModal"-->
+<!--                     tabindex="-1">-->
+<!--                    <div class="modal-dialog">-->
+<!--                        <div class="modal-content">-->
+<!--                            <div class="modal-header">-->
+<!--                                &lt;!&ndash; Header content goes here &ndash;&gt;-->
+<!--                            </div>-->
+<!--                            <div class="modal-body">-->
 
-                <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="deleteMealModal"
-                     tabindex="-1">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <!-- Header content goes here -->
-                            </div>
-                            <div class="modal-body">
+<!--                                <form id="trainerDeleteForm">-->
+<!--                                    <div class="mb-3">-->
+<!--                                        <label class="form-label d-none" for="delete_meal_id">Meal Plan Id</label>-->
+<!--                                        <input class="form-control d-none" id="delete_meal_id" name="id"-->
+<!--                                               placeholder="Enter Meal Id" type="text"-->
+<!--                                        >-->
+<!--                                    </div>-->
 
-                                <form id="trainerDeleteForm">
-                                    <div class="mb-3">
-                                        <label class="form-label d-none" for="delete_meal_id">Meal Plan Id</label>
-                                        <input class="form-control d-none" id="delete_meal_id" name="id"
-                                               placeholder="Enter Meal Id" type="text"
-                                        >
-                                    </div>
+<!--                                    <div class="mb-3">-->
+<!--                                        <label class="form-label" for="delete_meal_name">Meal Plan Name</label>-->
+<!--                                        <input class="form-control" id="delete_meal_name" name="name"-->
+<!--                                               placeholder="Enter Meal Name"-->
+<!--                                               type="text"-->
+<!--                                        >-->
+<!--                                    </div>-->
 
-                                    <div class="mb-3">
-                                        <label class="form-label" for="delete_meal_name">Meal Plan Name</label>
-                                        <input class="form-control" id="delete_meal_name" name="name"
-                                               placeholder="Enter Meal Name"
-                                               type="text"
-                                        >
-                                    </div>
+<!--                                    <div class="mb-3">-->
+<!--                                        <label class="form-label" for="delete_meal_plan_details">Meal Plan-->
+<!--                                            Details</label>-->
+<!--                                        <textarea class="form-control" rows="3" id="delete_meal_plan_details" name="details"-->
+<!--                                               placeholder="Enter Meal Plan Details" type="text"-->
+<!--                                        ></textarea>-->
+<!--                                    </div>-->
 
-                                    <div class="mb-3">
-                                        <label class="form-label" for="delete_meal_plan_details">Meal Plan
-                                            Details</label>
-                                        <textarea class="form-control" id="delete_meal_plan_details" name="details"
-                                               placeholder="Enter Meal Plan Details" type="text"
-                                        ></textarea>
-                                    </div>
+<!--                                    <div class="mb-3">-->
+<!--                                        <label class="form-label" for="delete_calorie">Total Calorie Count</label>-->
+<!--                                        <input class="form-control" id="delete_calorie" name="category"-->
+<!--                                               placeholder="Enter Total Calorie Count"-->
+<!--                                               type="text"-->
+<!--                                        >-->
+<!--                                    </div>-->
 
-                                    <div class="mb-3">
-                                        <label class="form-label" for="delete_calorie">Total Calorie Count</label>
-                                        <input class="form-control" id="delete_calorie" name="category"
-                                               placeholder="Enter Total Calorie Count"
-                                               type="text"
-                                        >
-                                    </div>
+<!--                                </form>-->
 
-                                </form>
-
-                            </div>
-                            <div class="modal-footer">
-                                <button class="btn btn-secondary" data-dismiss="modal" style="font-size: 13px"
-                                        type="button">Close
-                                </button>
-                                <button class="btn"  type="button">Delete Meal</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<!--                            </div>-->
+<!--                            <div class="modal-footer">-->
+<!--                                <button class="btn btn-secondary" data-dismiss="modal" style="font-size: 13px"-->
+<!--                                        type="button">Close-->
+<!--                                </button>-->
+<!--                                <button class="btn"  type="button">Delete Meal</button>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
 
 
                 <!--                // end meal modal-->

@@ -59,6 +59,27 @@
         height: 4.375rem !important;
         cursor: pointer;
     }
+
+    footer{
+        position: absolute;
+        bottom: 0px;
+        width: 100%;
+        padding: 2rem 0;
+        font-size: 0.8rem;
+    }
+
+    footer .copyright{
+        line-height: 1.5 !important;
+    }
+
+    .mainContainer, #member, .userProfileContainer, #dashboard, .admTrainerMainCard, .mainTrainerDashboard, #chat,
+    .clientMainContainer, .userProfileMain, #goalCardContainer, #mealRecordContainer, .progressMainContainer{
+        margin-bottom: 120px !important;
+    }
+
+    html{
+        background-color: #f8f9fc;
+    }
 }
 
 @media (width: 768px){
