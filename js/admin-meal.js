@@ -24,7 +24,7 @@ function getAll() {
             $.each(response.data, function (index, mealPlan) {
                 console.log(mealPlan);
 
-                let plandetails = mealPlan.planDetails;
+                let plandetails = mealPlan.planDetails.trim();
                 plandetails = plandetails.replace(/ (?=\n)/g, '&nbsp;');
                 plandetails = plandetails.replace(/\n/g, '<br>');
                 let card = `
@@ -63,7 +63,9 @@ function getAll() {
                 let mealPlanName = card.find('#mealPlanName').text();
 
                 let mealPlanDetails = card.find('#mealPlanDetail').html();
-                mealPlanDetails = mealPlanDetails.replace(/<br\s*[\/]?>/gi, "\n");
+                mealPlanDetails = mealPlanDetails.replace(/<br\s*[\/]?>/gi, "\n"); // Replace <br> tags with newline characters
+                mealPlanDetails = mealPlanDetails.replace(/&nbsp;/g, " ");         // Replace &nbsp; with space
+                mealPlanDetails = mealPlanDetails.replace(/ +(?= *\n)/g, "");     // Remove spaces at the end of lines
 
                 let calorie = card.find('#mealPlanCalorie').text();
 

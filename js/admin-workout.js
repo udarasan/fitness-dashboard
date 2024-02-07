@@ -81,7 +81,7 @@ $("#searchWorkoutPlans").keyup(function () {
             $(".gridContainer").empty();
             $('.npResImg').addClass("d-none");
                 $.each(response.data, function (index, workOut) {
-                    let plandetails = workOut.planDetails;
+                    let plandetails = workOut.planDetails.trim();
                     plandetails = plandetails.replace(/ (?=\n)/g, '&nbsp;');
                     plandetails = plandetails.replace(/\n/g, '<br>');
 
@@ -175,7 +175,7 @@ function getAllWorkoutPlans() {
                 return;
             }
             $.each(response.data, function (index, workOut) {
-                let plandetails = workOut.planDetails;
+                let plandetails = workOut.planDetails.trim();
 
                 // Replace space characters with HTML non-breaking spaces if they occur at the end of a line
                 plandetails = plandetails.replace(/ (?=\n)/g, '&nbsp;');
@@ -228,7 +228,10 @@ function btnEditOnCLick() {
         let workoutCard = $(this).parents("div.workoutCard");
         id = workoutCard.children("div.card-body").children("input.hiddenWorkoutId").val();
         let details = workoutCard.children("div.card-body").children("p.pPlanDetails").html();
-        details = details.replace(/<br\s*[\/]?>/gi, "\n");
+        details = details.replace(/<br\s*[\/]?>/gi, "\n"); // Replace <br> tags with newline characters
+        details = details.replace(/&nbsp;/g, " ");         // Replace &nbsp; with space
+        details = details.replace(/ +(?= *\n)/g, "");     // Remove spaces at the end of lines
+
         let calorieCount;
         let name;
 
@@ -253,6 +256,8 @@ function btnEditOnCLick() {
         var index = details.indexOf("Equipments:");
         if (index !== -1) {
             details = details.substring(0, index).trim();
+        }else{
+            details = details.trim();
         }
         $("#updPlanDetails").val(details);
 

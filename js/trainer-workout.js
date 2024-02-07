@@ -50,7 +50,7 @@ $("#searchWorkoutPlans").keyup(function () {
             $(".gridContainer").empty();
             $('.npResImg').addClass("d-none");
             $.each(response.data, function (index, workOut) {
-                let plandetails = workOut.planDetails;
+                let plandetails = workOut.planDetails.trim();
                 plandetails = plandetails.replace(/ (?=\n)/g, '&nbsp;');
                 plandetails = plandetails.replace(/\n/g, '<br>');
                 let card = `<div class="card workoutCard text-left p-0 ">
@@ -136,12 +136,11 @@ function getAllWorkoutPlans() {
                 getAllWorkoutPlans();
                 return;
             }
-
             if(response.data.length==0) {
                 alert("No workout plans found.")
             }
             $.each(response.data, function (index, workOut) {
-                let plandetails = workOut.planDetails;
+                let plandetails = workOut.planDetails.trim();
                 plandetails = plandetails.replace(/ (?=\n)/g, '&nbsp;');
                 plandetails = plandetails.replace(/\n/g, '<br>');
 
