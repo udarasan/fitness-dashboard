@@ -54,7 +54,7 @@ function setClientDetails() {
 
             } else {
                 $('.npResImg').addClass("d-none");
-                $('#memberTable').css("display", "inline-table");
+                $('#memberTable').css("display", "block");
                 $.each(response.data, function (index, member) {
 
                     let row = `<tr><td>${member.uid}</td><td>${member.name}</td><td>${member.email}</td><td>${member.trainer_id}</td><td style="display: none">${member.password}</td><td>${member.meal_plan_id}</td><td>${member.workout_id}</td><td>${member.age}</td><td>${member.gender}</td></tr>`;
