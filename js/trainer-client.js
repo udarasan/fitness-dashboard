@@ -46,7 +46,7 @@ function getClientsWithTrainer(trainerId) {
             console.log(response.data);
             $.each(response.data, function (index, client) {
 
-                let row = `<tr><td>${client.uid}</td><td>${client.name}</td><td>${client.email}</td><td>${client.meal_plan_id}</td><td >${client.workout_id}</td></tr>`;
+                let row = `<tr><td>${client.uid}</td><td>${client.name}</td><td>${client.email}</td><td>${client.meal_plan_id}</td><td >${client.workout_id}</td><td >${client.age}</td><td >${client.gender}</td></tr>`;
                 $('#tblClient').append(row);
             });
 

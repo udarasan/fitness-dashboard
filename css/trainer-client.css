@@ -3,7 +3,7 @@
 }
 
 #tblClient{
-
+    width: max-content !important;
     max-width: 100% !important;
 }
 
