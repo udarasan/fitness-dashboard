@@ -84,7 +84,7 @@
     border-radius: 10px;
 }
 
-.equipmentContainer{
+.equipmentContainer, .updEquipmentContainer{
     column-gap: 20px;
 }
 

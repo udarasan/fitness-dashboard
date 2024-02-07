@@ -8,9 +8,6 @@ $(window).on('load', function () {
             getAllWorkoutPlans();
         }
     });
-
-    $("#planDetails").text();
-
 });
 
 $("#modalAddNew").click(function () {
@@ -126,7 +123,6 @@ $("#searchWorkoutPlans").keyup(function () {
     });
 });
 
-
 $("#btnNewWorkout").click(function () {
     $.ajax({
         url: 'http://localhost:8080/api/v1/equipment/getAllEquipment',
@@ -154,7 +150,7 @@ $("#btnNewWorkout").click(function () {
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            alert("Failed to retrieve equipments. Please try again.");
+            console.log("Failed to retrieve equipments. Please try again.");
             console.error(jqXHR.responseText);  // Log the response text for debugging
         }
     });
@@ -175,6 +171,12 @@ function getAllWorkoutPlans() {
                 return;
             }
             $.each(response.data, function (index, workOut) {
+                let plandetails = workOut.planDetails;
+
+                // Replace space characters with HTML non-breaking spaces if they occur at the end of a line
+                plandetails = plandetails.replace(/ (?=\n)/g, '&nbsp;');
+                // Replace newline characters with HTML line breaks
+                plandetails = plandetails.replace(/\n/g, '<br>');
 
                 let card = `<div class="card workoutCard text-left p-0 ">
                             <div class="card-header px-4">
@@ -195,7 +197,7 @@ function getAllWorkoutPlans() {
                             </div>
                             <div class="card-body px-4">
                                 <input class="hiddenWorkoutId" type="hidden" value="${workOut.wid}">
-                                <p class="card-text pPlanDetails">${workOut.planDetails}</p>
+                                <p class="card-text pPlanDetails">${plandetails}</p>
                                 <p class="card-text pCalorieCount">calorie count:&nbsp; ${workOut.burnsCalorieCount} calories</p>
                             </div>
                         </div>`
@@ -221,7 +223,8 @@ function btnEditOnCLick() {
     $(".btnEdit").click(function () {
         let workoutCard = $(this).parents("div.workoutCard");
         id = workoutCard.children("div.card-body").children("input.hiddenWorkoutId").val();
-        let details = workoutCard.children("div.card-body").children("p.pPlanDetails").text();
+        let details = workoutCard.children("div.card-body").children("p.pPlanDetails").html();
+        details = details.replace(/<br\s*[\/]?>/gi, "\n");
         let calorieCount;
         let name;
 
@@ -242,13 +245,83 @@ function btnEditOnCLick() {
         $("#updPlanName").val(name);
         $("#updPlanDetails").val(details);
         $("#updPlanCalorieCount").val(calorieCount);
+
+        appendAndCheckCheckboxes(details);
+    });
+}
+
+function appendAndCheckCheckboxes(details){
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/equipment/getAllEquipment',
+        method: 'GET',
+        dataType: 'json',
+        contentType: 'application/json',  // Set content type to JSON
+        success: function (response) {
+            $(".updEquipmentContainer").empty();
+
+            if(response.data.length != 0) {
+                $(".updEquipmentContainer").addClass("mb-4");
+
+                $.each(response.data, function (index, equipment) {
+                    let checkBox = `
+                        <div class="form-check mb-1 d-inline-block">
+                            <input class="form-check-input" type="checkbox" value="" >
+                            <label class="form-check-label" for="">
+                                 ${equipment.equipmentName}
+                            </label>
+                        </div>
+                    `
+
+                    $(".updEquipmentContainer").append(checkBox);
+                });
+            }
+
+            //split equipments
+            var equipmentsStartIndex = details.indexOf("Equipments:");
+            if(equipmentsStartIndex !== -1) {
+                var equipmentsSubstring = details.substring(equipmentsStartIndex + "Equipments:".length);
+                var equipmentsArray = equipmentsSubstring.split(',');
+                for(var i = 0; i < equipmentsArray.length; i++) {
+
+                    var equipment = equipmentsArray[i].trim();
+                    if(equipment !== "") {
+                        $(".updEquipmentContainer .form-check-label").each(function() {
+                            let labelText = $(this).text().trim();
+
+                            if(equipment === labelText){
+                                $(this).parent().children(".form-check-input").prop("checked", true);
+                            }
+                        });
+
+                    }
+                }
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log("Failed to retrieve equipments. Please try again.");
+            console.error(jqXHR.responseText);  // Log the response text for debugging
+        }
     });
 }
 
 $("#modalUpdateBtn").click(function () {
+    let equipmentText="";
+
+    $('.updEquipmentContainer input[type="checkbox"]:checked').each(function() {
+        let labelText = $(this).parent().children(".form-check-label").text().trim();
+
+        if(equipmentText==""){
+            equipmentText = "Equipments:\n" + labelText;
+        }else{
+            equipmentText = equipmentText+", "+labelText;
+        }
+    });
+
     let name = $("#updPlanName").val();
     let details = $("#updPlanDetails").val();
     let calCount = $("#updPlanCalorieCount").val();
+
+    let detailsWithEquipments = details+"\n\n"+equipmentText;
 
     if (!name || !details || !calCount) {
         alert("Please fill in all required fields.");
@@ -275,7 +348,7 @@ $("#modalUpdateBtn").click(function () {
             method: 'POST',
             dataType: 'json',
             contentType: 'application/json',  // Set content type to JSON
-            data: JSON.stringify({"wid": id, "planName": name, "planDetails": details, "burnsCalorieCount": calCount}),  // Convert data to JSON string
+            data: JSON.stringify({"wid": id, "planName": name, "planDetails": detailsWithEquipments, "burnsCalorieCount": calCount}),  // Convert data to JSON string
             success: function (response) {
                 alert("Workout Update successful!");
                 $("#updateWorkoutModal").data('bs.modal').hide();
