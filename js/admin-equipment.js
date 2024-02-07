@@ -19,7 +19,7 @@ $("#searchEquipments").keyup(function () {
 
             if ($("#searchEquipments").val() === "") {
                 $('.npResImg').addClass("d-none");
-                $('#equipTable').css("display", "block");
+                $('#equipTable').css("display", "inline-table");
                 getAllEquipments();
 
             } else {
