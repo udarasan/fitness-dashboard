@@ -212,7 +212,7 @@ $("#searchByDate").on('input', function () {
             console.log(response);
             $("#tblMemberRecBody").empty();
             $('.npResImg').addClass("d-none");
-            $('#workOutRecTable').css("display", "block");
+            $('#workOutRecTable').css("display", "inline-table");
 
             $.each(response.data, function (index, workOutRec) {
                 let row = `<tr><td>${workOutRec.date}</td><td>${workOutRec.workout}</td><td>${workOutRec.details}</td>
@@ -238,6 +238,6 @@ $("#btnSeeAll").click(function () {
     $("#btnSeeAll").addClass("d-none");
     $('.npResImg').addClass("d-none");
     $("#searchByDate").val("");
-    $('#workOutRecTable').css("display", "block");
+    $('#workOutRecTable').css("display", "inline-table");
     getWorkoutRecordsByUser();
 });

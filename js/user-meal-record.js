@@ -211,7 +211,7 @@ $("#searchByDate").on('input', function () {
             console.log(response);
             $("#tblMemberRecBody").empty();
             $('.npResImg').addClass("d-none");
-            $('#mealRecTable').css("display", "block");
+            $('#mealRecTable').css("display", "inline-table");
 
             $.each(response.data, function (index, mealRecord) {
                 let row = `<tr><td>${mealRecord.date}</td><td>${mealRecord.meal}</td><td>${mealRecord.details}</td>
@@ -237,6 +237,6 @@ $("#btnSeeAll").click(function () {
     $("#btnSeeAll").addClass("d-none");
     $('.npResImg').addClass("d-none");
     $("#searchByDate").val("");
-    $('#mealRecTable').css("display", "block");
+    $('#mealRecTable').css("display", "inline-table");
     getMealRecordsByUser();
 });

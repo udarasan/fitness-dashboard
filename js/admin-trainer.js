@@ -16,7 +16,7 @@ $("#searchTrainers").keyup(function () {
         success: function (response) {
             if ($("#searchTrainers").val() === "") {
                 $('.npResImg').addClass("d-none");
-                $('#trainerTable').css("display", "block");
+                $('#trainerTable').css("display", "inline-table");
                 getAllTrainers();
 
             } else {

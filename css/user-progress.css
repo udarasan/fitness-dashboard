@@ -12,9 +12,6 @@
     padding-right: 10px;
 }
 
-#tblClient{
-    max-width: max-content !important;
-}
 
 @media all and (max-width: 500px){
     .progressMainContainer{

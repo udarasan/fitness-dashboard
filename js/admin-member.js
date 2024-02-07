@@ -382,7 +382,7 @@ $("#searchMembers").keyup(function () {
 
             if ($("#searchMembers").val() === "") {
                 $('.npResImg').addClass("d-none");
-                $('#memberTable').css("display", "block");
+                $('#memberTable').css("display", "inline-table");
                 getAllMembers();
             } else {
                 $.each(response.data, function (index, member) {
