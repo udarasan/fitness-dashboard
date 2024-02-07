@@ -87,6 +87,39 @@ $("#searchWorkoutPlans").keyup(function () {
     });
 });
 
+$("#btnNewWorkout").click(function () {
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/equipment/getAllEquipment',
+        method: 'GET',
+        dataType: 'json',
+        contentType: 'application/json',  // Set content type to JSON
+        success: function (response) {
+            $(".equipmentContainer").empty();
+
+            if(response.data.length != 0) {
+                $(".equipmentContainer").addClass("mb-4");
+
+                $.each(response.data, function (index, equipment) {
+                    let checkBox = `
+                        <div class="form-check mb-1 d-inline-block">
+                            <input class="form-check-input" type="checkbox" value="" >
+                            <label class="form-check-label" for="">
+                                 ${equipment.equipmentName}
+                            </label>
+                        </div>
+                    `
+
+                    $(".equipmentContainer").append(checkBox);
+                });
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log("Failed to retrieve equipments. Please try again.");
+            console.error(jqXHR.responseText);  // Log the response text for debugging
+        }
+    });
+});
+
 function getAllWorkoutPlans() {
     $(".gridContainer").empty();
     // work out Get All
