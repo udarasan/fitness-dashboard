@@ -8,13 +8,29 @@ $(window).on('load', function () {
             getAllWorkoutPlans();
         }
     });
+
+    $("#planDetails").text();
+
 });
 
 $("#modalAddNew").click(function () {
+    let equipmentText="";
+
+    $('.equipmentContainer input[type="checkbox"]:checked').each(function() {
+        let labelText = $(this).parent().children(".form-check-label").text().trim();
+
+        if(equipmentText==""){
+            equipmentText = "Equipments:\n" + labelText;
+        }else{
+            equipmentText = equipmentText+", "+labelText;
+        }
+    });
+
     let name = $('#planName').val();
     let details = $('#planDetails').val();
     let calCount = $('#planCalorieCount').val();
 
+    let detailsWithEquipments = details+"\n\n"+equipmentText;
 
     if (!name || !details || !calCount) {
         alert("Please fill in all required fields.");
@@ -27,13 +43,11 @@ $("#modalAddNew").click(function () {
     } else {
         $('#nameErrorLabel').text(""); // Clear the error label
     }
-
     if (isNaN(calCount)) {
         $('#calaryErrorLabel').text("Invalid input type");
     } else {
         $('#calaryErrorLabel').text("");
     }
-
     if (isValidPlan(name)  && !isNaN(calCount)) {
         // Make the AJAX request
         $.ajax({
@@ -41,7 +55,7 @@ $("#modalAddNew").click(function () {
             method: 'POST',
             dataType: 'json',
             contentType: 'application/json',  // Set content type to JSON
-            data: JSON.stringify({"planName": name, "planDetails": details, "burnsCalorieCount": calCount}),  // Convert data to JSON string
+            data: JSON.stringify({"planName": name, "planDetails": detailsWithEquipments, "burnsCalorieCount": calCount}),  // Convert data to JSON string
             success: function (response) {
                 console.log(response);
 
@@ -112,6 +126,40 @@ $("#searchWorkoutPlans").keyup(function () {
     });
 });
 
+
+$("#btnNewWorkout").click(function () {
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/equipment/getAllEquipment',
+        method: 'GET',
+        dataType: 'json',
+        contentType: 'application/json',  // Set content type to JSON
+        success: function (response) {
+            $(".equipmentContainer").empty();
+
+            if(response.data.length != 0) {
+                $(".equipmentContainer").addClass("mb-4");
+
+                $.each(response.data, function (index, equipment) {
+                    let checkBox = `
+                        <div class="form-check mb-1 d-inline-block">
+                            <input class="form-check-input" type="checkbox" value="" >
+                            <label class="form-check-label" for="">
+                                 ${equipment.equipmentName}
+                            </label>
+                        </div>
+                    `
+
+                    $(".equipmentContainer").append(checkBox);
+                });
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert("Failed to retrieve equipments. Please try again.");
+            console.error(jqXHR.responseText);  // Log the response text for debugging
+        }
+    });
+});
+
 function getAllWorkoutPlans() {
     $(".gridContainer").empty();
     // work out Get All
@@ -169,7 +217,6 @@ function getAllWorkoutPlans() {
 }
 
 let id;
-
 function btnEditOnCLick() {
     $(".btnEdit").click(function () {
         let workoutCard = $(this).parents("div.workoutCard");
@@ -274,9 +321,7 @@ function btnDeleteOnClick() {
     });
 }
 
-
 let workoutId;
-
 function btnAssignOnClick() {
     $(".btnAssign").click(function () {
         let workoutCard = $(this).parents("div.workoutCard");
@@ -285,7 +330,6 @@ function btnAssignOnClick() {
 }
 
 let memberList;
-
 function loadMembers() {
     $("#memberSelect").empty();
     let firstOpt = ` <option class="d-none" value="" selected></option>`;
