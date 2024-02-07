@@ -55,3 +55,10 @@
         padding-left: 20px !important;
     }
 }
+@media all and (min-width:320px) and (max-width: 577px){
+    #mealRecTable{
+
+        width: max-content !important;
+        font-size: 13px;
+    }
+}
