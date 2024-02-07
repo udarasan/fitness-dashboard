@@ -43,6 +43,9 @@ function getAll() {
 
 // add new card to meal section using get all data
 function appendMealSection(mealPlan) {
+    let plandetails = mealPlan.planDetails;
+    plandetails = plandetails.replace(/ (?=\n)/g, '&nbsp;');
+    plandetails = plandetails.replace(/\n/g, '<br>');
 
     let card = `
   <section class="mx-3 mb-3 mt-4" style="min-width: 20rem;">
@@ -76,7 +79,7 @@ function appendMealSection(mealPlan) {
 
       
 
-        <p id="mealPlanDetail" class="card-text">${mealPlan.planDetails}</p>
+        <p id="mealPlanDetail" class="card-text">${plandetails}</p>
 
         <hr class="my-4" />
         <p  class="lead"><strong>Total calorie count : <span id="mealPlanCalorie">${mealPlan.calorieCount}</span> </strong></p>
@@ -534,8 +537,13 @@ $("#SearchMeal").keyup(function () {
 
                 let cardContainer = $("#cardContainer");
                 cardContainer.empty();
+
                 $.each(response.data, function (index, mealPlan) {
                     console.log(mealPlan);
+
+                    let plandetails = mealPlan.planDetails;
+                    plandetails = plandetails.replace(/ (?=\n)/g, '&nbsp;');
+                    plandetails = plandetails.replace(/\n/g, '<br>');
 
                     let card = `
   <section class="mx-3 my-5" style="min-width: 20rem">
@@ -562,7 +570,7 @@ $("#SearchMeal").keyup(function () {
 
       
 
-        <p id="mealPlanDetail" class="card-text">${mealPlan.planDetails}</p>
+        <p id="mealPlanDetail" class="card-text">${plandetails}</p>
 
         <hr class="my-4" />
         <p  class="lead"><strong>Total calorie count : <span id="mealPlanCalorie">${mealPlan.calorieCount}</span> </strong></p>

@@ -196,10 +196,8 @@
                 <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="TrainerNewMealModal"
                      tabindex="-1">
                     <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <!-- Header content goes here -->
-                            </div>
+                        <div class="modal-content pt-3 border-0">
+
                             <div class="modal-body">
 
                                 <form id="trainerForm">
@@ -217,7 +215,7 @@
                                     <div class="mb-3">
                                         <label class="form-label" for="Member_name">Member Name</label>
                                         <input class="form-control" disabled id="Member_name" name="details"
-                                               placeholder="Enter Member Name" type="text"
+                                               placeholder="" type="text"
                                         >
                                     </div>
 
@@ -270,64 +268,64 @@
 
                 <!--                // meal update model-->
 
-                <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="updateMealModal"
-                     tabindex="-1">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <!-- Header content goes here -->
-                            </div>
-                            <div class="modal-body">
+<!--                <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="updateMealModal"-->
+<!--                     tabindex="-1">-->
+<!--                    <div class="modal-dialog">-->
+<!--                        <div class="modal-content">-->
+<!--                            <div class="modal-header">-->
+<!--                                &lt;!&ndash; Header content goes here &ndash;&gt;-->
+<!--                            </div>-->
+<!--                            <div class="modal-body">-->
 
-                                <form id="trainerUpdateForm">
-                                    <div class="mb-3">
-                                        <label class="form-label d-none" for="Update_meal_id">Meal Plan Id</label>
-                                        <input  class="form-control d-none" id="Update_meal_id" name="id"
-                                               placeholder="Enter Meal Id" type="text"
-                                        >
-                                    </div>
+<!--                                <form id="trainerUpdateForm">-->
+<!--                                    <div class="mb-3">-->
+<!--                                        <label class="form-label d-none" for="Update_meal_id">Meal Plan Id</label>-->
+<!--                                        <input  class="form-control d-none" id="Update_meal_id" name="id"-->
+<!--                                               placeholder="Enter Meal Id" type="text"-->
+<!--                                        >-->
+<!--                                    </div>-->
 
-                                    <div class="mb-3">
-                                        <label class="form-label" for="Update_meal_name">Meal Plan Name</label>
-                                        <input class="form-control" id="Update_meal_name" name="name"
-                                               placeholder="Enter Meal Name"
-                                               type="text"
-                                        >
-                                        <label  id="UpdateMealPlanNameErrorLabel" style="color: red;display: none"></label>
+<!--                                    <div class="mb-3">-->
+<!--                                        <label class="form-label" for="Update_meal_name">Meal Plan Name</label>-->
+<!--                                        <input class="form-control" id="Update_meal_name" name="name"-->
+<!--                                               placeholder="Enter Meal Name"-->
+<!--                                               type="text"-->
+<!--                                        >-->
+<!--                                        <label  id="UpdateMealPlanNameErrorLabel" style="color: red;display: none"></label>-->
 
-                                    </div>
+<!--                                    </div>-->
 
-                                    <div class="mb-3">
-                                        <label class="form-label" for="Update_meal_plan_details">Meal Plan
-                                            Details</label>
-                                        <textarea class="form-control" id="Update_meal_plan_details" name="details"
-                                               placeholder="Enter Meal Plan Details" type="text"
-                                        ></textarea>
-                                        <label  id="UpdateMealPlanDetailsErrorLabel" style="color: red;display: none"></label>
-                                    </div>
+<!--                                    <div class="mb-3">-->
+<!--                                        <label class="form-label" for="Update_meal_plan_details">Meal Plan-->
+<!--                                            Details</label>-->
+<!--                                        <textarea class="form-control" id="Update_meal_plan_details" name="details"-->
+<!--                                               placeholder="Enter Meal Plan Details" type="text"-->
+<!--                                        ></textarea>-->
+<!--                                        <label  id="UpdateMealPlanDetailsErrorLabel" style="color: red;display: none"></label>-->
+<!--                                    </div>-->
 
-                                    <div class="mb-3">
-                                        <label class="form-label" for="Update_calorie">Total Calorie Count</label>
-                                        <input class="form-control" id="Update_calorie" name="category"
-                                               placeholder="Enter Total Calorie Count"
-                                               type="text"
-                                        >
-                                    </div>
-                                    <label  id="UpdateMealPlanCalorieErrorLabel" style="color: red;display: none"></label>
+<!--                                    <div class="mb-3">-->
+<!--                                        <label class="form-label" for="Update_calorie">Total Calorie Count</label>-->
+<!--                                        <input class="form-control" id="Update_calorie" name="category"-->
+<!--                                               placeholder="Enter Total Calorie Count"-->
+<!--                                               type="text"-->
+<!--                                        >-->
+<!--                                    </div>-->
+<!--                                    <label  id="UpdateMealPlanCalorieErrorLabel" style="color: red;display: none"></label>-->
 
 
-                                </form>
+<!--                                </form>-->
 
-                            </div>
-                            <div class="modal-footer">
-                                <button class="btn btn-secondary" data-dismiss="modal" style="font-size: 13px"
-                                        type="button">Close
-                                </button>
-                                <button class="btn" id="updateMeal" type="button">Update Meal</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<!--                            </div>-->
+<!--                            <div class="modal-footer">-->
+<!--                                <button class="btn btn-secondary" data-dismiss="modal" style="font-size: 13px"-->
+<!--                                        type="button">Close-->
+<!--                                </button>-->
+<!--                                <button class="btn" id="updateMeal" type="button">Update Meal</button>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
 
 
                 <!--                // end meal modal-->
@@ -335,80 +333,77 @@
 
                 <!--                // meal delete model-->
 
-                <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="deleteMealModal"
-                     tabindex="-1">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <!-- Header content goes here -->
-                            </div>
-                            <div class="modal-body">
+<!--                <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="deleteMealModal"-->
+<!--                     tabindex="-1">-->
+<!--                    <div class="modal-dialog">-->
+<!--                        <div class="modal-content">-->
+<!--                            <div class="modal-header">-->
+<!--                                &lt;!&ndash; Header content goes here &ndash;&gt;-->
+<!--                            </div>-->
+<!--                            <div class="modal-body">-->
 
-                                <form id="trainerDeleteForm">
-                                    <div class="mb-3">
-                                        <label class="form-label d-none" for="delete_meal_id">Meal Plan Id</label>
-                                        <input class="form-control d-none" id="delete_meal_id" name="id"
-                                               placeholder="Enter Meal Id" type="text"
-                                        >
-                                    </div>
+<!--                                <form id="trainerDeleteForm">-->
+<!--                                    <div class="mb-3">-->
+<!--                                        <label class="form-label d-none" for="delete_meal_id">Meal Plan Id</label>-->
+<!--                                        <input class="form-control d-none" id="delete_meal_id" name="id"-->
+<!--                                               placeholder="Enter Meal Id" type="text"-->
+<!--                                        >-->
+<!--                                    </div>-->
 
-                                    <div class="mb-3">
-                                        <label class="form-label" for="delete_meal_name">Meal Plan Name</label>
-                                        <input class="form-control" id="delete_meal_name" name="name"
-                                               placeholder="Enter Meal Name"
-                                               type="text"
-                                        >
-                                    </div>
+<!--                                    <div class="mb-3">-->
+<!--                                        <label class="form-label" for="delete_meal_name">Meal Plan Name</label>-->
+<!--                                        <input class="form-control" id="delete_meal_name" name="name"-->
+<!--                                               placeholder="Enter Meal Name"-->
+<!--                                               type="text"-->
+<!--                                        >-->
+<!--                                    </div>-->
 
-                                    <div class="mb-3">
-                                        <label class="form-label" for="delete_meal_plan_details">Meal Plan
-                                            Details</label>
-                                        <textarea class="form-control" id="delete_meal_plan_details" name="details"
-                                               placeholder="Enter Meal Plan Details" type="text"
-                                        ></textarea>
-                                    </div>
+<!--                                    <div class="mb-3">-->
+<!--                                        <label class="form-label" for="delete_meal_plan_details">Meal Plan-->
+<!--                                            Details</label>-->
+<!--                                        <textarea class="form-control" id="delete_meal_plan_details" name="details"-->
+<!--                                               placeholder="Enter Meal Plan Details" type="text"-->
+<!--                                        ></textarea>-->
+<!--                                    </div>-->
 
-                                    <div class="mb-3">
-                                        <label class="form-label" for="delete_calorie">Total Calorie Count</label>
-                                        <input class="form-control" id="delete_calorie" name="category"
-                                               placeholder="Enter Total Calorie Count"
-                                               type="text"
-                                        >
-                                    </div>
+<!--                                    <div class="mb-3">-->
+<!--                                        <label class="form-label" for="delete_calorie">Total Calorie Count</label>-->
+<!--                                        <input class="form-control" id="delete_calorie" name="category"-->
+<!--                                               placeholder="Enter Total Calorie Count"-->
+<!--                                               type="text"-->
+<!--                                        >-->
+<!--                                    </div>-->
 
-                                </form>
+<!--                                </form>-->
 
-                            </div>
-                            <div class="modal-footer">
-                                <button class="btn btn-secondary" data-dismiss="modal" style="font-size: 13px"
-                                        type="button">Close
-                                </button>
-                                <button class="btn" id="deleteMeal" type="button">Delete Meal</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<!--                            </div>-->
+<!--                            <div class="modal-footer">-->
+<!--                                <button class="btn btn-secondary" data-dismiss="modal" style="font-size: 13px"-->
+<!--                                        type="button">Close-->
+<!--                                </button>-->
+<!--                                <button class="btn" id="deleteMeal" type="button">Delete Meal</button>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
 
 
                 <!--                // end meal modal-->
 
 
                 <!--                meal assign modal-->
-
                                 <div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="assignModal"
                                      tabindex="-1">
                                     <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <!-- Header content goes here -->
-                                            </div>
+                                        <div class="modal-content pt-3 border-0">
+
                                             <div class="modal-body">
 
                                                 <form id="assignMealForm">
 
                                                     <div class="mb-3">
-
-                                                        <select aria-label="Default select example" class="form-select w-100"
+                                                        <label class="form-label" for="Member_name">Member Id</label>
+                                                        <select aria-label="Default select example" class="form-control form-select w-100"
                                                                 id="assign_member_id">
 <!--                                                            <option ></option>-->
                                                         </select>
@@ -419,7 +414,7 @@
                                                     <div class="mb-3">
                                                         <label class="form-label" for="Member_name">Member Name</label>
                                                         <input class="form-control" disabled id="assign_member_name" name="details"
-                                                               placeholder="Enter Member Name" type="text"
+                                                               placeholder="" type="text"
                                                         >
                                                     </div>
 
