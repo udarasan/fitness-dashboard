@@ -67,15 +67,10 @@ $('#deleteTrainer').click(function () {
 let newPassword;
 
 async function hashPassword(password) {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(password);
+    const base64Encoded = btoa(password);
+    console.log(base64Encoded);
 
-    const buffer = await crypto.subtle.digest('SHA-256', data);
-    const hashedArray = Array.from(new Uint8Array(buffer));
-    const hashedPassword = hashedArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
-    console.log(hashedPassword);
-
-    return hashedPassword;
+    return base64Encoded;
 }
 
 //update trainer
@@ -273,7 +268,9 @@ $('#tblTrainer').on('click', 'tr', function () {
     let trainerName = $(this).find('td:nth-child(2)').text();// Assuming the first cell contains the trainer ID
     let trainerEmail = $(this).find('td:nth-child(3)').text(); // Assuming the second cell contains the trainer email
     let trainerCategory = $(this).find('td:nth-child(4)').text();
-    let trainerPassword = $(this).find('td:nth-child(5)').text();
+    let trainerEnPassword = $(this).find('td:nth-child(5)').text();
+    let trainerPassword = atob(trainerEnPassword);
+    console.log(trainerPassword);
     // Perform actions with the retrieved data
     $('#trainerModal').modal('show');
     $('#saveTrainer').css("display", 'none');

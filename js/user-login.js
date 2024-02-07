@@ -1,9 +1,6 @@
 async function hashPassword(password) {
-
-
     const base64Encoded = btoa(password);
     console.log(base64Encoded);
-
     return base64Encoded;
 }
 
