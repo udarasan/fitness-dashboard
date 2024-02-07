@@ -187,7 +187,7 @@ function getAllMessages(selectedMemberId, selectedMemberName) {
                                         <div class="text-muted small text-nowrap mt-2">${msg.time}</div>
                                     </div>
                                     <div class="flex-shrink-1 mr-5">
-                                        <div class="bg-light rounded py-2 px-3" style="width: max-content">
+                                        <div class="bg-light rounded py-2 px-3" style="width: max-content; max-width: 100%">
                                             ${msg.message}
                                         </div>                                     
                                     </div>
@@ -202,7 +202,7 @@ function getAllMessages(selectedMemberId, selectedMemberName) {
                                     </div>
                                     <div class="flex-shrink-1 ml-5 d-flex justify-content-end">
 <!--                                        <div class="font-weight-bold mb-1">You</div>-->
-                                         <div class="bg-light rounded py-2 px-3" style="width: max-content">
+                                         <div class="bg-light rounded py-2 px-3" style="width: max-content; max-width: 100%">
                                             ${msg.message}
                                         </div>   
                                     </div>
