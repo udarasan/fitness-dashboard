@@ -81,6 +81,8 @@ $('#updateTrainer').click(function () {
     let email = $('#trainer_email').val();
     let password = $('#trainer_password').val();
     let category = $('#trainer_category').val();
+    //let age = $('#age').val();
+
     hashPassword($('#trainer_password').val())
         .then(hashedPassword => {
             console.log('Hashed Password:', hashedPassword);
@@ -96,7 +98,8 @@ $('#updateTrainer').click(function () {
                         "tid": id,
                         "email": email,
                         "password": newPassword,
-                        "category": category
+                        "category": category,
+                        //"age":age
                     }),  // Convert data to JSON string
                     success: function (response) {
                         console.log(response);
@@ -157,6 +160,7 @@ $('#saveTrainer').click(function () {
     let email = $('#trainer_email').val();
     let password = $('#trainer_password').val();
     let category = $('#trainer_category').val();
+    //let age = $('#age').val();
 
     hashPassword($('#trainer_password').val())
         .then(hashedPassword => {
@@ -174,7 +178,8 @@ $('#saveTrainer').click(function () {
                         "id": id,
                         "email": email,
                         "password": newPassword,
-                        "category": category
+                        "category": category,
+                        //"age":age
                     }),  // Convert data to JSON string
                     success: function (response) {
                         alert("Trainer registration successful!");
@@ -247,6 +252,7 @@ function getAllTrainers() {
             $.each(response.data, function (index, trainer) {
 
                 let row = `<tr><td>${trainer.tid}</td><td>${trainer.name}</td><td>${trainer.email}</td><td>${trainer.category}</td><td style="display: none">${trainer.password}</td></tr>`;
+                //let row = `<tr><td>${trainer.tid}</td><td>${trainer.name}</td><td>${trainer.email}</td><td>${trainer.category}</td><td>${trainer.age}</td><td style="display: none">${trainer.password}</td></tr>`;
                 $('#tblTrainer').append(row);
             });
 
