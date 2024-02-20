@@ -245,6 +245,13 @@
                             <div class="card-header cardHeaderColor text-primary
                                                py-3 d-flex flex-row align-items-center justify-content-between">
                                 <h6 class="m-0 font-weight-bold" id="lblCalorieIntake">Daily Calorie Intake</h6>
+                                <select id="mealFilter" class="d-block fieldStyle form-control" style="width: 200px">
+                                    <option class="d-none" value="" selected>Choose...</option>
+                                    <option class="small">Breakfast</option>
+                                    <option class="small">Lunch</option>
+                                    <option class="small">Dinner</option>
+                                    <option class="small">Snacks</option>
+                                </select>
                             </div>
                             <div class="card-body chartCardBody">
                                 <div class="chart-area">
@@ -258,10 +265,12 @@
                     <!-- Area Chart burnOut -->
                     <div class="col-12">
                         <div class="card shadow mb-4 ">
-                            <div class="card-header cardHeaderColor text-primary
-                                               py-3 d-flex flex-row align-items-center justify-content-between">
+                            <div class="card-header cardHeaderColor text-primary py-3 d-flex flex-row align-items-center justify-content-between">
                                 <h6 class="m-0 font-weight-bold" id="lblCalorieBurnOut">Daily Calorie Burnout</h6>
+
+
                             </div>
+
                             <div class="card-body chartCardBody">
                                 <div class="chart-area">
                                     <canvas id="areaChartCalorieBurnOut"></canvas>
