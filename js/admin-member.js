@@ -138,12 +138,14 @@ $('#updateMember').click(function () {
     }
 
 });
+
 async function hashPassword(password) {
     const base64Encoded = btoa(password);
     console.log(base64Encoded);
 
     return base64Encoded;
 }
+
 //save memeber
 
 $('#saveMemeber').click(function () {
@@ -278,7 +280,7 @@ $('#tblMember').on('click', 'tr', function () {
     let gender = $(this).find('td:nth-child(9)').text();
     // let password = decodePassword(encodedPassword);
     let password = atob(encodedPassword);
-    console.log("decode "+ password)
+    console.log("decode " + password)
     // Perform actions with the retrieved data
     $('#memberModal').modal('show');
     $('#saveMemeber').css("display", 'none');
@@ -381,6 +383,7 @@ $("#searchMembers").keyup(function () {
         }
     });
 });
+
 function decodePassword(encodedPassword) {
 
     return atob(encodedPassword); // This is a simple example, replace with your actual logic
