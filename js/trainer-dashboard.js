@@ -16,7 +16,7 @@ $(window).on('load', function () {
     var currentYear = new Intl.DateTimeFormat('en-US', {year: 'numeric'}).format(currentDate);
 
     $("#lblCalorieIntake").text("Daily Calorie Intake - " + currentMonthName + " " + currentYear);
-    $("#lblCalorieIntakeWorkOut").text("Daily Calorie Intake - " + currentMonthName + " " + currentYear);
+    $("#lblCalorieIntakeWorkOut").text("Daily Calorie BurnOut - " + currentMonthName + " " + currentYear);
 
 });
 
