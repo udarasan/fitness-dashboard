@@ -33,7 +33,7 @@ function loadTrainerIdUsingEmail(trainerEmail) {
             console.log(response);
             console.log(response.data.tid);
 
-            if(response.data.tid === undefined){
+            if (response.data.tid === undefined) {
                 loadTrainerIdUsingEmail(trainerEmail);
                 return;
             }
@@ -79,12 +79,12 @@ function loadAndCountTotalMealPlans() {
         url: 'http://localhost:8080/api/v1/mealPlan/getAllMealPlans',
         method: 'GET',
         dataType: 'json',
-        contentType: 'application/json',  // Set content type to JSON
+        contentType: 'application/json',
         success: function (response) {
             console.log(response.data);
             console.log(response.data.length);
 
-            if(response.data.length=== undefined){
+            if (response.data.length === undefined) {
                 loadAndCountTotalMealPlans();
                 return;
             }
@@ -94,7 +94,7 @@ function loadAndCountTotalMealPlans() {
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            console.error(jqXHR.responseText);
         }
     });
 
@@ -105,12 +105,12 @@ function loadAndCountTotalWorkoutPlans() {
         url: 'http://localhost:8080/api/v1/workoutplan/getAllWorkOutPlans',
         method: 'GET',
         dataType: 'json',
-        contentType: 'application/json',  // Set content type to JSON
+        contentType: 'application/json',
         success: function (response) {
             console.log(response.data);
             console.log(response.data.length);
 
-            if(response.data.length=== undefined){
+            if (response.data.length === undefined) {
                 loadAndCountTotalWorkoutPlans();
                 return;
             }
@@ -119,7 +119,7 @@ function loadAndCountTotalWorkoutPlans() {
         },
         error: function (jqXHR, textStatus, errorThrown) {
             alert("Failed to retrieve workouts. Please try again.");
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            console.error(jqXHR.responseText);
         }
     });
 
@@ -172,7 +172,7 @@ function loadMembers() {
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            console.error(jqXHR.responseText);
         }
     });
 
@@ -196,7 +196,7 @@ function getClientsWithTrainer(trainerId) {
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            console.error(jqXHR.responseText);
         }
     });
 
@@ -233,14 +233,14 @@ function setDataToCalorieIntakeChart() {
 
     // Get current year and month
     var currentYear = new Date().getFullYear();
-    var currentMonth = new Date().getMonth() + 1; // Months are zero-based, so add 1
+    var currentMonth = new Date().getMonth() + 1;
 
     // Aggregate data by date
     var aggregatedData = {};
     for (var i = 0; i < calorieDateList.length; i++) {
         var date = new Date(calorieDateList[i]);
         if (date.getFullYear() === currentYear && date.getMonth() + 1 === currentMonth) {
-            var formattedDate = ('0' + date.getDate()).slice(-2); // Convert to YYYY-MM-DD format
+            var formattedDate = ('0' + date.getDate()).slice(-2);
             if (!aggregatedData[formattedDate]) {
                 aggregatedData[formattedDate] = 0;
             }
@@ -248,12 +248,11 @@ function setDataToCalorieIntakeChart() {
         }
     }
 
-    // Extract aggregated dates and amounts
+
     var aggregatedDates = Object.keys(aggregatedData);
     var aggregatedAmounts = Object.values(aggregatedData);
 
     if (aggregatedDates.length === 0) {
-        // Display a message or take any other action
         $('.npResImg').removeClass("d-none");
         console.log("No data available for the selected user.");
         return;
@@ -306,10 +305,9 @@ function setDataToCalorieIntakeChart() {
                 }],
                 yAxes: [{
                     ticks: {
-                        // maxTicksLimit: 5,
+
                         padding: 10,
-                        // suggestedMin: 5,
-                        // beginAtZero: true,
+
                     },
                     gridLines: {
                         color: "rgb(234, 236, 244)",
@@ -381,7 +379,7 @@ function setDataToCalorieBurnOutChart() {
 
     // Get current year and month
     var currentYear = new Date().getFullYear();
-    var currentMonth = new Date().getMonth() + 1; // Months are zero-based, so add 1
+    var currentMonth = new Date().getMonth() + 1;
 
     // Aggregate data by date
     var aggregatedData = {};
@@ -453,10 +451,9 @@ function setDataToCalorieBurnOutChart() {
                 }],
                 yAxes: [{
                     ticks: {
-                        // maxTicksLimit: 5,
+
                         padding: 10,
-                        // suggestedMin: 5,
-                        // beginAtZero: true,
+
                     },
                     gridLines: {
                         color: "rgb(234, 236, 244)",

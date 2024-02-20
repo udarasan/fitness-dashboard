@@ -1,7 +1,6 @@
 $('#nameLbl').text(localStorage.getItem('adminEmail'));
 
 $(window).on('load', function () {
-    // Your JavaScript code goes here
     getAllTrainers();
 });
 
@@ -12,7 +11,7 @@ $("#searchTrainers").keyup(function () {
         url: 'http://localhost:8080/api/v1/trainer/searchTrainerByName',
         method: 'GET',
         dataType: 'json',
-        data: {partialName: text},   // Convert data to JSON string
+        data: {partialName: text},
         success: function (response) {
             if ($("#searchTrainers").val() === "") {
                 $('.npResImg').addClass("d-none");
@@ -46,7 +45,7 @@ $('#deleteTrainer').click(function () {
         $.ajax({
             url: 'http://localhost:8080/api/v1/trainer/delete/' + id,
             method: 'DELETE',
-            contentType: 'application/json',  // Set content type to JSON
+            contentType: 'application/json',
             success: function (response) {
                 alert("Trainer Delete successful!");
                 getAllTrainers();
@@ -56,7 +55,7 @@ $('#deleteTrainer').click(function () {
             error: function (jqXHR, textStatus, errorThrown) {
                 alert("Trainer Delete failed! Please check your input and try again.");
 
-                console.error(jqXHR.responseText);  // Log the response text for debugging
+                console.error(jqXHR.responseText);
             }
         });
     } else {
@@ -81,7 +80,6 @@ $('#updateTrainer').click(function () {
     let email = $('#trainer_email').val();
     let password = $('#trainer_password').val();
     let category = $('#trainer_category').val();
-    //let age = $('#age').val();
 
     hashPassword($('#trainer_password').val())
         .then(hashedPassword => {
@@ -92,15 +90,15 @@ $('#updateTrainer').click(function () {
                     url: 'http://localhost:8080/api/v1/trainer/update',
                     method: 'POST',
                     dataType: 'json',
-                    contentType: 'application/json',  // Set content type to JSON
+                    contentType: 'application/json',
                     data: JSON.stringify({
                         "name": name,
                         "tid": id,
                         "email": email,
                         "password": newPassword,
                         "category": category,
-                        //"age":age
-                    }),  // Convert data to JSON string
+
+                    }),
                     success: function (response) {
                         console.log(response);
                         alert("Trainer update successful!");
@@ -112,7 +110,7 @@ $('#updateTrainer').click(function () {
                     error: function (jqXHR, textStatus, errorThrown) {
                         alert("Trainer update failed! Please check your input and try again.");
 
-                        console.error(jqXHR.responseText);  // Log the response text for debugging
+                        console.error(jqXHR.responseText);
                     }
                 });
             }
@@ -130,21 +128,21 @@ $('#updateTrainer').click(function () {
         $('#nameErrorLabel').text("Please enter a name with 2 to 50 characters and only use letters");
 
     } else {
-        $('#nameErrorLabel').text(""); // Clear the error label
+        $('#nameErrorLabel').text("");
     }
 
     if (!isValidEmail(email)) {
         $('#emailErrorLabel').text("Please enter a valid email address.");
 
     } else {
-        $('#emailErrorLabel').text(""); // Clear the error label
+        $('#emailErrorLabel').text("");
     }
 
     if (!isValidPassword(password)) {
         $('#pwdErrorLabel').text("Please enter a password with 6 to 20 characters.");
 
     } else {
-        $('#pwdErrorLabel').text(""); // Clear the error label
+        $('#pwdErrorLabel').text("");
     }
 
     // Make the AJAX request
@@ -179,8 +177,8 @@ $('#saveTrainer').click(function () {
                         "email": email,
                         "password": newPassword,
                         "category": category,
-                        //"age":age
-                    }),  // Convert data to JSON string
+
+                    }),
                     success: function (response) {
                         alert("Trainer registration successful!");
                         getAllTrainers();
@@ -193,7 +191,7 @@ $('#saveTrainer').click(function () {
                     error: function (jqXHR, textStatus, errorThrown) {
                         alert("Trainer registration failed! Please check your input and try again.");
 
-                        console.error(jqXHR.responseText);  // Log the response text for debugging
+                        console.error(jqXHR.responseText);
                     }
                 });
             }
@@ -210,20 +208,20 @@ $('#saveTrainer').click(function () {
         $('#nameErrorLabel').text("Please enter a name with 2 to 50 characters and only use letters");
 
     } else {
-        $('#nameErrorLabel').text(""); // Clear the error label
+        $('#nameErrorLabel').text("");
     }
     if (!isValidEmail(email)) {
         $('#emailErrorLabel').text("Please enter a valid email address.");
 
     } else {
-        $('#emailErrorLabel').text(""); // Clear the error label
+        $('#emailErrorLabel').text("");
     }
 
     if (!isValidPassword(password)) {
         $('#pwdErrorLabel').text("Please enter a password with 6 to 20 characters.");
 
     } else {
-        $('#pwdErrorLabel').text(""); // Clear the error label
+        $('#pwdErrorLabel').text("");
     }
 
 
@@ -238,7 +236,7 @@ function getAllTrainers() {
         url: 'http://localhost:8080/api/v1/trainer/getAllTrainers',
         method: 'GET',
         dataType: 'json',
-        contentType: 'application/json',  // Set content type to JSON
+        contentType: 'application/json',
         success: function (response) {
             console.log(response.data);
             console.log(response.data.email);
@@ -252,14 +250,13 @@ function getAllTrainers() {
             $.each(response.data, function (index, trainer) {
 
                 let row = `<tr><td>${trainer.tid}</td><td>${trainer.name}</td><td>${trainer.email}</td><td>${trainer.category}</td><td style="display: none">${trainer.password}</td></tr>`;
-                //let row = `<tr><td>${trainer.tid}</td><td>${trainer.name}</td><td>${trainer.email}</td><td>${trainer.category}</td><td>${trainer.age}</td><td style="display: none">${trainer.password}</td></tr>`;
                 $('#tblTrainer').append(row);
             });
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
             alert("Failed to retrieve trainers. Please try again.");
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            console.error(jqXHR.responseText);
         }
     });
 }
@@ -268,16 +265,12 @@ function getAllTrainers() {
 //table click event
 $('#tblTrainer').on('click', 'tr', function () {
 
-
-    // Access the data in the clicked row
     let trainerId = $(this).find('td:first').text();
-    let trainerName = $(this).find('td:nth-child(2)').text();// Assuming the first cell contains the trainer ID
-    let trainerEmail = $(this).find('td:nth-child(3)').text(); // Assuming the second cell contains the trainer email
+    let trainerName = $(this).find('td:nth-child(2)').text();
+    let trainerEmail = $(this).find('td:nth-child(3)').text();
     let trainerCategory = $(this).find('td:nth-child(4)').text();
     let trainerEnPassword = $(this).find('td:nth-child(5)').text();
     let trainerPassword = atob(trainerEnPassword);
-    console.log(trainerPassword);
-    // Perform actions with the retrieved data
     $('#trainerModal').modal('show');
     $('#saveTrainer').css("display", 'none');
     $('#updateTrainer').css("display", 'block');

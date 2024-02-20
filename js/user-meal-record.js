@@ -82,11 +82,11 @@ $("#addRecord").click(function () {
         url: 'http://localhost:8080/api/v1/mealRecords/save',
         method: 'POST',
         dataType: 'json',
-        contentType: 'application/json',  // Set content type to JSON
+        contentType: 'application/json',
         data: JSON.stringify({
             "date": date, "meal": mealType, "details": mealDetails, "calories": calories,
             "userId": userId
-        }),  // Convert data to JSON string
+        }),
         success: function (response) {
             console.log(response);
             alert("New Record Added successfully!");
@@ -103,7 +103,7 @@ $("#addRecord").click(function () {
                 return;
             }
             alert("Process Failed! Please check your input and try again.");
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            console.error(jqXHR.responseText);
         }
 
     });
@@ -155,7 +155,7 @@ $('#updateRecord').click(function () {
         url: 'http://localhost:8080/api/v1/mealRecords/update',
         method: 'POST',
         dataType: 'json',
-        contentType: 'application/json',  // Set content type to JSON
+        contentType: 'application/json',
 
         data: JSON.stringify({
             "date": date, "meal": mealType, "details": details, "calories": calories,
@@ -193,7 +193,7 @@ $('#deleteRecord').click(function () {
         },
         error: function (jqXHR, textStatus, errorThrown) {
             alert("Record deleting process failed!");
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            console.error(jqXHR.responseText);
         }
     });
 });
@@ -206,7 +206,7 @@ $("#searchByDate").on('input', function () {
         url: 'http://localhost:8080/api/v1/mealRecords/recordsByDate',
         method: 'GET',
         dataType: 'json',
-        data: {date: value, id: userId},   // Convert data to JSON string
+        data: {date: value, id: userId},
         success: function (response) {
             console.log(response);
             $("#tblMemberRecBody").empty();
@@ -223,7 +223,7 @@ $("#searchByDate").on('input', function () {
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            console.error(jqXHR.responseText);
             if (jqXHR.data == null) {
                 $('#mealRecTable').css("display", "none")
                 $("#btnSeeAll").removeClass("d-none");

@@ -1,9 +1,7 @@
 $(window).on('load', function () {
     trainerEmail = localStorage.getItem('trainer-email');
     $("#trainerEmail").text(trainerEmail);
-
     getAllWorkoutPlans();
-
     loadTrainerId();
 
     $('#searchWorkoutPlans').on('input', function () {
@@ -15,6 +13,7 @@ $(window).on('load', function () {
 });
 
 let trainerId;
+
 function loadTrainerId() {
     console.log(trainerEmail);
     $.ajax({
@@ -28,7 +27,6 @@ function loadTrainerId() {
             console.log(response);
             console.log(response.data.tid);
             trainerId = response.data.tid;
-            // loadAllMembersIds();
         },
         error: function (jqXHR) {
             console.log(jqXHR.responseText);
@@ -43,7 +41,7 @@ $("#searchWorkoutPlans").keyup(function () {
         url: 'http://localhost:8080/api/v1/workoutplan/plansByPartName',
         method: 'GET',
         dataType: 'json',
-        data: {partialName: text},   // Convert data to JSON string
+        data: {partialName: text},
         success: function (response) {
             console.log(response);
 
@@ -80,11 +78,11 @@ $("#searchWorkoutPlans").keyup(function () {
             btnAssignOnClick();
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            console.error(jqXHR.responseText);
 
             if (jqXHR.data == null) {
-                    $(".gridContainer").empty();
-                    $('.npResImg').removeClass("d-none");
+                $(".gridContainer").empty();
+                $('.npResImg').removeClass("d-none");
             }
 
         }
@@ -99,7 +97,7 @@ $("#btnNewWorkout").click(function () {
         contentType: 'application/json',  // Set content type to JSON
         success: function (response) {
             $(".equipmentContainer").empty();
-            if(response.data.length != 0) {
+            if (response.data.length != 0) {
                 $(".equipmentContainer").addClass("mb-4");
 
                 $.each(response.data, function (index, equipment) {
@@ -117,7 +115,7 @@ $("#btnNewWorkout").click(function () {
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log("Failed to retrieve equipments. Please try again.");
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            console.error(jqXHR.responseText);
         }
     });
 });
@@ -132,11 +130,11 @@ function getAllWorkoutPlans() {
         contentType: 'application/json',  // Set content type to JSON
         success: function (response) {
 
-            if(response.data.length === undefined){
+            if (response.data.length === undefined) {
                 getAllWorkoutPlans();
                 return;
             }
-            if(response.data.length==0) {
+            if (response.data.length == 0) {
                 alert("No workout plans found.")
             }
             $.each(response.data, function (index, workOut) {
@@ -202,7 +200,7 @@ function loadMembers() {
             $.each(response.data, function (index, member) {
                 console.log(member);
 
-                if(member.trainer_id == trainerId){
+                if (member.trainer_id == trainerId) {
                     let memberData = `<option>${member.uid}</option>`;
                     $(".memberSelect").append(memberData);
                 }
@@ -283,15 +281,15 @@ $("#modalAssignBtn").click(function () {
 });
 
 $("#modalAssignNew").click(function () {
-    let equipmentText="";
+    let equipmentText = "";
 
-    $('.equipmentContainer input[type="checkbox"]:checked').each(function() {
+    $('.equipmentContainer input[type="checkbox"]:checked').each(function () {
         let labelText = $(this).parent().children(".form-check-label").text().trim();
 
-        if(equipmentText==""){
+        if (equipmentText == "") {
             equipmentText = "Equipments:\n" + labelText;
-        }else{
-            equipmentText = equipmentText+", "+labelText;
+        } else {
+            equipmentText = equipmentText + ", " + labelText;
         }
     });
 
@@ -299,7 +297,7 @@ $("#modalAssignNew").click(function () {
     let details = $('#planDetails').val();
     let calCount = $('#planCalorieCount').val();
 
-    let detailsWithEquipments = details+"\n\n"+equipmentText;
+    let detailsWithEquipments = details + "\n\n" + equipmentText;
 
     let userId = $("#assignNewWorkoutModal .memberSelect").val();
 
@@ -318,7 +316,7 @@ $("#modalAssignNew").click(function () {
     } else {
         $('#calaryErrorLabel').text("");
     }
-    if (isValidPlan(name)  && !isNaN(calCount)) {
+    if (isValidPlan(name) && !isNaN(calCount)) {
         $.ajax({
             url: 'http://localhost:8080/api/v1/workoutplan/assignNewWorkout',
             method: 'POST',

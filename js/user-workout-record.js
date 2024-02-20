@@ -2,7 +2,6 @@ let userEmail = localStorage.getItem("userEmail");
 $('#lblName').text(localStorage.getItem("name"));
 
 window.onload = function () {
-    // setDateInModal();
     searchUserWithEmail();
 };
 
@@ -78,7 +77,7 @@ $("#addRecord").click(function () {
         url: 'http://localhost:8080/api/v1/workoutRecords/save',
         method: 'POST',
         dataType: 'json',
-        contentType: 'application/json',  // Set content type to JSON
+        contentType: 'application/json',
         data: JSON.stringify({
             "date": date, "workout": workOut, "details": workOutDetails, "calories": calories,
             "userId": userId
@@ -99,7 +98,7 @@ $("#addRecord").click(function () {
                 return;
             }
             alert("Process Failed! Please check your input and try again.");
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            console.error(jqXHR.responseText);
         }
 
     });
@@ -153,7 +152,7 @@ $('#updateRecord').click(function () {
         url: 'http://localhost:8080/api/v1/workoutRecords/update',
         method: 'POST',
         dataType: 'json',
-        contentType: 'application/json',  // Set content type to JSON
+        contentType: 'application/json',
 
         data: JSON.stringify({
             "date": date, "workout": workout, "details": details, "calories": calories,
@@ -193,7 +192,7 @@ $('#deleteRecord').click(function () {
         },
         error: function (jqXHR, textStatus, errorThrown) {
             alert("Record deleting process failed!");
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            console.error(jqXHR.responseText);
         }
     });
 });
@@ -207,7 +206,7 @@ $("#searchByDate").on('input', function () {
         url: 'http://localhost:8080/api/v1/workoutRecords/recordsByDate',
         method: 'GET',
         dataType: 'json',
-        data: {date: value, id: userId},   // Convert data to JSON string
+        data: {date: value, id: userId},
         success: function (response) {
             console.log(response);
             $("#tblMemberRecBody").empty();
@@ -224,7 +223,7 @@ $("#searchByDate").on('input', function () {
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            console.error(jqXHR.responseText);
             if (jqXHR.data == null) {
                 $('#workOutRecTable').css("display", "none")
                 $("#btnSeeAll").removeClass("d-none");

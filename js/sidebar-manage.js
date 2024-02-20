@@ -1,12 +1,12 @@
-$(".threebarsDiv").click(function(e) {
+$(".threebarsDiv").click(function (e) {
     $("#accordionSidebar").addClass("toggled");
 });
 
-$("#sidebarToggleTop").click(function(){
-    // Remove the d-none class using JavaScript
+$("#sidebarToggleTop").click(function () {
+
     $("#accordionSidebar").removeClass("d-none");
     $("#accordionSidebar").removeClass("toggled");
     $("#accordionSidebar").css({
-        display : "block !important"
+        display: "block !important"
     });
 });

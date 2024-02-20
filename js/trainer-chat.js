@@ -37,8 +37,6 @@ function getAllMembersAssociatedToTrainer(trainerId) {
         method: 'GET',
         dataType: 'json',
         contentType: 'application/json',
-        // data:{email:trainerId},
-
         success: function (response) {
             console.log(response);
             if (response.data.length == 0) {
@@ -82,7 +80,7 @@ $("#searchUser").keyup(function () {
         url: 'http://localhost:8080/api/v1/user/searchUserByName',
         method: 'GET',
         dataType: 'json',
-        data: {partialName: text},   // Convert data to JSON string
+        data: {partialName: text},
         success: function (response) {
             console.log(response);
             if ($("#searchUser").val() === "") {
@@ -109,7 +107,7 @@ $("#searchUser").keyup(function () {
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            console.error(jqXHR.responseText);
         }
     });
 });
@@ -143,7 +141,7 @@ $("#btnSend").click(function () {
             data: JSON.stringify({
                 "message": msg, "userSent": false, "user_id": selectedClientId,
                 "trainer_id": trainerId, "date": formattedDate, "time": formattedTime
-            }),  // Convert data to JSON string
+            }),
             success: function (response) {
                 console.log(response);
                 selectedClientName = $("#selectedMemberName").text();
@@ -152,7 +150,7 @@ $("#btnSend").click(function () {
                 msg = $("#msgInputField").val("");
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                console.error(jqXHR.responseText);  // Log the response text for debugging
+                console.error(jqXHR.responseText);
             }
         });
     }
@@ -165,7 +163,7 @@ function getAllMessages(selectedMemberId, selectedMemberName) {
         url: 'http://localhost:8080/api/v1/chat/getAllChats/' + trainerId + "/" + selectedMemberId,
         method: 'GET',
         dataType: 'json',
-        contentType: 'application/json',  // Set content type to JSON
+        contentType: 'application/json',
         success: function (response) {
             console.log(response.data);
 
@@ -201,7 +199,6 @@ function getAllMessages(selectedMemberId, selectedMemberName) {
                                         <div class="text-muted small text-nowrap mt-2">${msg.time}</div>
                                     </div>
                                     <div class="flex-shrink-1 ml-5 d-flex justify-content-end">
-<!--                                        <div class="font-weight-bold mb-1">You</div>-->
                                          <div class="bg-light rounded py-2 px-3" style="width: max-content; max-width: 100%">
                                             ${msg.message}
                                         </div>   
@@ -214,7 +211,7 @@ function getAllMessages(selectedMemberId, selectedMemberName) {
         },
         error: function (jqXHR, textStatus, errorThrown) {
             alert("Failed to retrieve members. Please try again.");
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            console.error(jqXHR.responseText);
         }
     });
 }

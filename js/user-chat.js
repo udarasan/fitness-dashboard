@@ -19,7 +19,6 @@ function loadUserUsingEmail(userEmail) {
             console.log(response.data);
             userId = response.data.uid;
             trainerId = response.data.trainer_id;
-
             getAllMessages();
         },
         error: function (jqXHR) {
@@ -45,15 +44,13 @@ $("#btnSend").click(function () {
             data: JSON.stringify({
                 "message": msg, "userSent": true, "user_id": userId,
                 "trainer_id": trainerId, "date": formattedDate, "time": formattedTime
-            }),  // Convert data to JSON string
+            }),
             success: function (response) {
-                console.log(response);
-
                 getAllMessages();
                 msg = $("#msgInputField").val("");
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                console.error(jqXHR.responseText);  // Log the response text for debugging
+                console.error(jqXHR.responseText);
             }
         });
     }
@@ -66,7 +63,7 @@ function getAllMessages() {
         url: 'http://localhost:8080/api/v1/chat/getAllChats/' + trainerId + "/" + userId,
         method: 'GET',
         dataType: 'json',
-        contentType: 'application/json',  // Set content type to JSON
+        contentType: 'application/json',
         success: function (response) {
             console.log(response.data);
 
@@ -88,7 +85,6 @@ function getAllMessages() {
                                     <div class="text-muted small text-nowrap mt-2">${msg.time}</div>
                                 </div>
                                 <div class="flex-shrink-1 ml-5 d-flex justify-content-end">
-<!--                                        <div class="font-weight-bold mb-1">You</div>-->
                                      <div class="bg-light rounded py-2 px-3" style="width: max-content; max-width: 100%">
                                         ${msg.message}
                                     </div>   
@@ -115,7 +111,7 @@ function getAllMessages() {
         },
         error: function (jqXHR, textStatus, errorThrown) {
             alert("Failed to retrieve members. Please try again.");
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            console.error(jqXHR.responseText);
         }
     });
 }

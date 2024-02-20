@@ -1,10 +1,6 @@
 $('#nameLbl').text(localStorage.getItem('adminEmail'));
-
-
 $(window).on('load', function () {
-    // Your JavaScript code goes here
     getAllEquipments();
-
 });
 
 $("#searchEquipments").keyup(function () {
@@ -47,7 +43,6 @@ $('#deleteEquip').click(function () {
     let id = $('#eId').val();
     var result = window.confirm("Do you want to proceed?");
     if (result) {
-        // Make the AJAX request
         $.ajax({
             url: 'http://localhost:8080/api/v1/equipment/delete/' + id,
             method: 'DELETE',
@@ -59,7 +54,7 @@ $('#deleteEquip').click(function () {
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 alert("Equipment Delete failed! Please check your input and try again.");
-                console.error(jqXHR.responseText);  // Log the response text for debugging
+                console.error(jqXHR.responseText);
             }
         });
     } else {

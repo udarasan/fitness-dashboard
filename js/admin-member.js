@@ -3,7 +3,6 @@ let meal_id;
 let workout_id;
 var selectedValue;
 $(window).on('load', function () {
-    // Your JavaScript code goes here
     // getAllMembers();
     // loadTrainerId();
     getAllMembers();
@@ -11,7 +10,7 @@ $(window).on('load', function () {
 $(".form-check-input").on("click", function () {
     selectedValue = $("input[name='inlineRadioOptions']:checked").val();
     console.log("Selected value: " + selectedValue);
-    // Perform additional actions with the selected value as needed
+
 });
 //delete member
 $('#deleteMember').click(function () {
@@ -23,7 +22,7 @@ $('#deleteMember').click(function () {
         $.ajax({
             url: 'http://localhost:8080/api/v1/user/delete/' + id,
             method: 'DELETE',
-            contentType: 'application/json',  // Set content type to JSON
+            contentType: 'application/json',
             success: function (response) {
                 alert("Member Delete successful!");
                 $('#memberModal').modal('hide');
@@ -33,7 +32,7 @@ $('#deleteMember').click(function () {
             error: function (jqXHR, textStatus, errorThrown) {
                 alert("Member Delete failed! Please check your input and try again.");
 
-                console.error(jqXHR.responseText);  // Log the response text for debugging
+                console.error(jqXHR.responseText);
             }
         });
     } else {
@@ -63,7 +62,7 @@ $('#updateMember').click(function () {
                     url: 'http://localhost:8080/api/v1/user/update',
                     method: 'POST',
                     dataType: 'json',
-                    contentType: 'application/json',  // Set content type to JSON
+                    contentType: 'application/json',
 
                     data: JSON.stringify({
                         "uid": id,
@@ -75,7 +74,7 @@ $('#updateMember').click(function () {
                         "workout_id": workout_id,
                         "age": age,
                         "gender": gender
-                    }),  // Convert data to JSON string
+                    }),
                     success: function (response) {
                         console.log(response);
                         alert("Member update successful!");
@@ -83,14 +82,10 @@ $('#updateMember').click(function () {
                         loadTrainerId();
 
                         $('#memberModal').modal('hide');
-
-                        // Your JavaScript code goes here
-
-
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         alert("Member update failed! Please check your input and try again.");
-                        console.error(jqXHR.responseText);  // Log the response text for debugging
+                        console.error(jqXHR.responseText);
                     }
                 });
             }
@@ -111,26 +106,26 @@ $('#updateMember').click(function () {
         $('#emailErrorLabel').text("Please enter a valid email address.");
 
     } else {
-        $('#emailErrorLabel').text(""); // Clear the error label
+        $('#emailErrorLabel').text("");
     }
     if (!isValidPassword(password)) {
         $('#pwdErrorLabel').text("Please enter a password with 6 to 20 characters.");
 
     } else {
-        $('#pwdErrorLabel').text(""); // Clear the error label
+        $('#pwdErrorLabel').text("");
     }
 
     if (!isValidName(name)) {
         $('#nameErrorLabel').text("Please enter a name with 2 to 50 characters and only use letters");
 
     } else {
-        $('#nameErrorLabel').text(""); // Clear the error label
+        $('#nameErrorLabel').text("");
     }
     if (isNaN(age)) {
         $('#ageErrorLabel').text("Invalid input type");
 
     } else {
-        $('#ageErrorLabel').text(""); // Clear the error label
+        $('#ageErrorLabel').text("");
     }
     if (age < 16 || age > 100) {
         $('#ageErrorLabel').text("Age must be between 16 and 100");
@@ -168,7 +163,7 @@ $('#saveMemeber').click(function () {
                     url: 'http://localhost:8080/api/v1/user/registration',
                     method: 'POST',
                     dataType: 'json',
-                    contentType: 'application/json',  // Set content type to JSON
+                    contentType: 'application/json',
 
                     data: JSON.stringify({
                         "uid": id,
@@ -188,7 +183,7 @@ $('#saveMemeber').click(function () {
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         alert("Member registration failed! Please check your input and try again.");
-                        console.error(jqXHR.responseText);  // Log the response text for debugging
+                        console.error(jqXHR.responseText);
                     }
                 });
             }
@@ -208,26 +203,26 @@ $('#saveMemeber').click(function () {
         $('#emailErrorLabel').text("Please enter a valid email address.");
 
     } else {
-        $('#emailErrorLabel').text(""); // Clear the error label
+        $('#emailErrorLabel').text("");
     }
     if (!isValidPassword(password)) {
         $('#pwdErrorLabel').text("Please enter a password with 6 to 20 characters.");
 
     } else {
-        $('#pwdErrorLabel').text(""); // Clear the error label
+        $('#pwdErrorLabel').text("");
     }
 
     if (!isValidName(name)) {
         $('#nameErrorLabel').text("Please enter a name with 2 to 50 characters and only use letters");
 
     } else {
-        $('#nameErrorLabel').text(""); // Clear the error label
+        $('#nameErrorLabel').text("");
     }
     if (isNaN(age)) {
         $('#ageErrorLabel').text("Invalid input type");
 
     } else {
-        $('#ageErrorLabel').text(""); // Clear the error label
+        $('#ageErrorLabel').text("");
     }
     if (age < 16 || age > 100) {
         $('#ageErrorLabel').text("Age must be between 16 and 100");
@@ -244,7 +239,7 @@ function getAllMembers() {
         url: 'http://localhost:8080/api/v1/user/getAllUsers',
         method: 'GET',
         dataType: 'json',
-        contentType: 'application/json',  // Set content type to JSON
+        contentType: 'application/json',
         success: function (response) {
             memberList = response.data;
             if (memberList.length === 0) {
@@ -263,16 +258,16 @@ function getAllMembers() {
         },
         error: function (jqXHR, textStatus, errorThrown) {
             alert("Failed to retrieve members. Please try again.");
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            console.error(jqXHR.responseText);
         }
     });
 }
 
 $('#tblMember').on('click', 'tr', function () {
 
-    // Access the data in the clicked row
-    let memberId = $(this).find('td:first').text(); // Assuming the first cell contains the trainer ID
-    let memberName = $(this).find('td:nth-child(2)').text(); // Assuming the second cell contains the trainer email
+
+    let memberId = $(this).find('td:first').text();
+    let memberName = $(this).find('td:nth-child(2)').text();
     let memberEmail = $(this).find('td:nth-child(3)').text();
     let trainerId = $(this).find('td:nth-child(4)').text();
     let encodedPassword = $(this).find('td:nth-child(5)').text();
@@ -338,7 +333,7 @@ function loadTrainerId() {
         url: 'http://localhost:8080/api/v1/trainer/getAllTrainers',
         method: 'GET',
         dataType: 'json',
-        contentType: 'application/json',  // Set content type to JSON
+        contentType: 'application/json',
         success: function (response) {
 
             $.each(response.data, function (index, trainer) {
@@ -347,7 +342,7 @@ function loadTrainerId() {
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            console.error(jqXHR.responseText);
         }
     });
 }
@@ -360,7 +355,7 @@ $("#searchMembers").keyup(function () {
         url: 'http://localhost:8080/api/v1/user/searchUserByName',
         method: 'GET',
         dataType: 'json',
-        data: {partialName: text},   // Convert data to JSON string
+        data: {partialName: text},
         success: function (response) {
 
             if ($("#searchMembers").val() === "") {
@@ -384,7 +379,3 @@ $("#searchMembers").keyup(function () {
     });
 });
 
-function decodePassword(encodedPassword) {
-
-    return atob(encodedPassword); // This is a simple example, replace with your actual logic
-}

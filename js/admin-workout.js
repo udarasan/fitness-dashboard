@@ -11,15 +11,15 @@ $(window).on('load', function () {
 });
 
 $("#modalAddNew").click(function () {
-    let equipmentText="";
+    let equipmentText = "";
 
-    $('.equipmentContainer input[type="checkbox"]:checked').each(function() {
+    $('.equipmentContainer input[type="checkbox"]:checked').each(function () {
         let labelText = $(this).parent().children(".form-check-label").text().trim();
 
-        if(equipmentText==""){
+        if (equipmentText == "") {
             equipmentText = "Equipments:\n" + labelText;
-        }else{
-            equipmentText = equipmentText+", "+labelText;
+        } else {
+            equipmentText = equipmentText + ", " + labelText;
         }
     });
 
@@ -27,7 +27,7 @@ $("#modalAddNew").click(function () {
     let details = $('#planDetails').val();
     let calCount = $('#planCalorieCount').val();
 
-    let detailsWithEquipments = details+"\n\n"+equipmentText;
+    let detailsWithEquipments = details + "\n\n" + equipmentText;
 
     if (!name || !details || !calCount) {
         alert("Please fill in all required fields.");
@@ -38,21 +38,25 @@ $("#modalAddNew").click(function () {
         return;
 
     } else {
-        $('#nameErrorLabel').text(""); // Clear the error label
+        $('#nameErrorLabel').text("");
     }
     if (isNaN(calCount)) {
         $('#calaryErrorLabel').text("Invalid input type");
     } else {
         $('#calaryErrorLabel').text("");
     }
-    if (isValidPlan(name)  && !isNaN(calCount)) {
+    if (isValidPlan(name) && !isNaN(calCount)) {
         // Make the AJAX request
         $.ajax({
             url: 'http://localhost:8080/api/v1/workoutplan/save',
             method: 'POST',
             dataType: 'json',
-            contentType: 'application/json',  // Set content type to JSON
-            data: JSON.stringify({"planName": name, "planDetails": detailsWithEquipments, "burnsCalorieCount": calCount}),  // Convert data to JSON string
+            contentType: 'application/json',
+            data: JSON.stringify({
+                "planName": name,
+                "planDetails": detailsWithEquipments,
+                "burnsCalorieCount": calCount
+            }),  // Convert data to JSON string
             success: function (response) {
                 console.log(response);
 
@@ -63,7 +67,7 @@ $("#modalAddNew").click(function () {
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 alert("WorkOut Added failed! Please check your input and try again.");
-                console.error(jqXHR.responseText);  // Log the response text for debugging
+                console.error(jqXHR.responseText);
             }
         });
     }
@@ -75,17 +79,17 @@ $("#searchWorkoutPlans").keyup(function () {
         url: 'http://localhost:8080/api/v1/workoutplan/plansByPartName',
         method: 'GET',
         dataType: 'json',
-        data: {partialName: text},   // Convert data to JSON string
+        data: {partialName: text},
         success: function (response) {
             console.log(response);
             $(".gridContainer").empty();
             $('.npResImg').addClass("d-none");
-                $.each(response.data, function (index, workOut) {
-                    let plandetails = workOut.planDetails.trim();
-                    plandetails = plandetails.replace(/ (?=\n)/g, '&nbsp;');
-                    plandetails = plandetails.replace(/\n/g, '<br>');
+            $.each(response.data, function (index, workOut) {
+                let plandetails = workOut.planDetails.trim();
+                plandetails = plandetails.replace(/ (?=\n)/g, '&nbsp;');
+                plandetails = plandetails.replace(/\n/g, '<br>');
 
-                    let card = `<div class="card workoutCard text-left p-0 ">
+                let card = `<div class="card workoutCard text-left p-0 ">
                             <div class="card-header px-4">                          
                                 ${workOut.planName}
                                 <div class="dropdown position-absolute threeDots">
@@ -108,17 +112,17 @@ $("#searchWorkoutPlans").keyup(function () {
                             </div>
                         </div>`
 
-                    $(".gridContainer").append(card);
-                });
+                $(".gridContainer").append(card);
+            });
 
-                btnEditOnCLick();
-                btnDeleteOnClick();
-                btnAssignOnClick();
+            btnEditOnCLick();
+            btnDeleteOnClick();
+            btnAssignOnClick();
 
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            console.error(jqXHR.responseText);
             if (jqXHR.data == null) {
                 $(".gridContainer").empty();
                 $('.npResImg').removeClass("d-none");
@@ -132,11 +136,11 @@ $("#btnNewWorkout").click(function () {
         url: 'http://localhost:8080/api/v1/equipment/getAllEquipment',
         method: 'GET',
         dataType: 'json',
-        contentType: 'application/json',  // Set content type to JSON
+        contentType: 'application/json',
         success: function (response) {
             $(".equipmentContainer").empty();
 
-            if(response.data.length != 0) {
+            if (response.data.length != 0) {
                 $(".equipmentContainer").addClass("mb-4");
 
                 $.each(response.data, function (index, equipment) {
@@ -155,7 +159,7 @@ $("#btnNewWorkout").click(function () {
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log("Failed to retrieve equipments. Please try again.");
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            console.error(jqXHR.responseText);
         }
     });
 });
@@ -167,7 +171,7 @@ function getAllWorkoutPlans() {
         url: 'http://localhost:8080/api/v1/workoutplan/getAllWorkOutPlans',
         method: 'GET',
         dataType: 'json',
-        contentType: 'application/json',  // Set content type to JSON
+        contentType: 'application/json',
         success: function (response) {
             let workout = response.data;
             if (workout.length === 0) {
@@ -176,10 +180,7 @@ function getAllWorkoutPlans() {
             }
             $.each(response.data, function (index, workOut) {
                 let plandetails = workOut.planDetails.trim();
-
-                // Replace space characters with HTML non-breaking spaces if they occur at the end of a line
                 plandetails = plandetails.replace(/ (?=\n)/g, '&nbsp;');
-                // Replace newline characters with HTML line breaks
                 plandetails = plandetails.replace(/\n/g, '<br>');
 
                 let card = `<div class="card workoutCard text-left p-0 ">
@@ -217,26 +218,27 @@ function getAllWorkoutPlans() {
         },
         error: function (jqXHR, textStatus, errorThrown) {
             alert("Failed to retrieve workouts. Please try again.");
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            console.error(jqXHR.responseText);
         }
     });
 }
 
 let id;
+
 function btnEditOnCLick() {
     $(".btnEdit").click(function () {
         let workoutCard = $(this).parents("div.workoutCard");
         id = workoutCard.children("div.card-body").children("input.hiddenWorkoutId").val();
         let details = workoutCard.children("div.card-body").children("p.pPlanDetails").html();
-        details = details.replace(/<br\s*[\/]?>/gi, "\n"); // Replace <br> tags with newline characters
-        details = details.replace(/&nbsp;/g, " ");         // Replace &nbsp; with space
-        details = details.replace(/ +(?= *\n)/g, "");     // Remove spaces at the end of lines
+        details = details.replace(/<br\s*[\/]?>/gi, "\n");
+        details = details.replace(/&nbsp;/g, " ");
+        details = details.replace(/ +(?= *\n)/g, "");
 
         let calorieCount;
         let name;
 
         let countText = workoutCard.children("div.card-body").children("p.pCalorieCount").text();
-        var matches = countText.match(/\d+/);   //get only integer part
+        var matches = countText.match(/\d+/);
         if (matches && matches.length > 0) {
             calorieCount = parseInt(matches[0]);
         } else {
@@ -245,7 +247,7 @@ function btnEditOnCLick() {
 
         // get only text content
         name = workoutCard.children("div.card-header").contents().filter(function () {
-            return this.nodeType === 3; // Filter out non-text nodes
+            return this.nodeType === 3;
         }).text().trim();
 
         appendAndCheckCheckboxes(details);
@@ -256,7 +258,7 @@ function btnEditOnCLick() {
         var index = details.indexOf("Equipments:");
         if (index !== -1) {
             details = details.substring(0, index).trim();
-        }else{
+        } else {
             details = details.trim();
         }
         $("#updPlanDetails").val(details);
@@ -266,16 +268,16 @@ function btnEditOnCLick() {
     });
 }
 
-function appendAndCheckCheckboxes(details){
+function appendAndCheckCheckboxes(details) {
     $.ajax({
         url: 'http://localhost:8080/api/v1/equipment/getAllEquipment',
         method: 'GET',
         dataType: 'json',
-        contentType: 'application/json',  // Set content type to JSON
+        contentType: 'application/json',
         success: function (response) {
             $(".updEquipmentContainer").empty();
 
-            if(response.data.length != 0) {
+            if (response.data.length != 0) {
                 $(".updEquipmentContainer").addClass("mb-4");
 
                 $.each(response.data, function (index, equipment) {
@@ -294,17 +296,17 @@ function appendAndCheckCheckboxes(details){
 
             //split equipments
             var equipmentsStartIndex = details.indexOf("Equipments:");
-            if(equipmentsStartIndex !== -1) {
+            if (equipmentsStartIndex !== -1) {
                 var equipmentsSubstring = details.substring(equipmentsStartIndex + "Equipments:".length);
                 var equipmentsArray = equipmentsSubstring.split(',');
-                for(var i = 0; i < equipmentsArray.length; i++) {
+                for (var i = 0; i < equipmentsArray.length; i++) {
 
                     var equipment = equipmentsArray[i].trim();
-                    if(equipment !== "") {
-                        $(".updEquipmentContainer .form-check-label").each(function() {
+                    if (equipment !== "") {
+                        $(".updEquipmentContainer .form-check-label").each(function () {
                             let labelText = $(this).text().trim();
 
-                            if(equipment === labelText){
+                            if (equipment === labelText) {
                                 $(this).parent().children(".form-check-input").prop("checked", true);
                             }
                         });
@@ -315,21 +317,21 @@ function appendAndCheckCheckboxes(details){
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log("Failed to retrieve equipments. Please try again.");
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            console.error(jqXHR.responseText);
         }
     });
 }
 
 $("#modalUpdateBtn").click(function () {
-    let equipmentText="";
+    let equipmentText = "";
 
-    $('.updEquipmentContainer input[type="checkbox"]:checked').each(function() {
+    $('.updEquipmentContainer input[type="checkbox"]:checked').each(function () {
         let labelText = $(this).parent().children(".form-check-label").text().trim();
 
-        if(equipmentText==""){
+        if (equipmentText == "") {
             equipmentText = "Equipments:\n" + labelText;
-        }else{
-            equipmentText = equipmentText+", "+labelText;
+        } else {
+            equipmentText = equipmentText + ", " + labelText;
         }
     });
 
@@ -337,7 +339,7 @@ $("#modalUpdateBtn").click(function () {
     let details = $("#updPlanDetails").val();
     let calCount = $("#updPlanCalorieCount").val();
 
-    let detailsWithEquipments = details+"\n\n"+equipmentText;
+    let detailsWithEquipments = details + "\n\n" + equipmentText;
 
     if (!name || !details || !calCount) {
         alert("Please fill in all required fields.");
@@ -348,9 +350,8 @@ $("#modalUpdateBtn").click(function () {
         return;
 
     } else {
-        $('#unameErrorLabel').text(""); // Clear the error label
+        $('#unameErrorLabel').text("");
     }
-
 
 
     if (isNaN(calCount)) {
@@ -358,13 +359,18 @@ $("#modalUpdateBtn").click(function () {
     } else {
         $('#ucalaryErrorLabel').text("");
     }
-    if (isValidPlan(name)  && !isNaN(calCount)) {
+    if (isValidPlan(name) && !isNaN(calCount)) {
         $.ajax({
             url: 'http://localhost:8080/api/v1/workoutplan/update',
             method: 'POST',
             dataType: 'json',
-            contentType: 'application/json',  // Set content type to JSON
-            data: JSON.stringify({"wid": id, "planName": name, "planDetails": detailsWithEquipments, "burnsCalorieCount": calCount}),  // Convert data to JSON string
+            contentType: 'application/json',
+            data: JSON.stringify({
+                "wid": id,
+                "planName": name,
+                "planDetails": detailsWithEquipments,
+                "burnsCalorieCount": calCount
+            }),  // Convert data to JSON string
             success: function (response) {
                 alert("Workout Update successful!");
                 $("#updateWorkoutModal").data('bs.modal').hide();
@@ -374,7 +380,7 @@ $("#modalUpdateBtn").click(function () {
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 alert("Workout Update failed! Please check your input and try again.");
-                console.error(jqXHR.responseText);  // Log the response text for debugging
+                console.error(jqXHR.responseText);
             }
         });
     }
@@ -390,7 +396,7 @@ function btnDeleteOnClick() {
             $.ajax({
                 url: 'http://localhost:8080/api/v1/workoutplan/delete/' + deleteId,
                 method: 'DELETE',
-                contentType: 'application/json',  // Set content type to JSON
+                contentType: 'application/json',
                 success: function (response) {
                     console.log(response);
                     alert("Workout Delete successful!");
@@ -400,7 +406,7 @@ function btnDeleteOnClick() {
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     alert("Workout Delete failed! Please check your input and try again.");
-                    console.error(jqXHR.responseText);  // Log the response text for debugging
+                    console.error(jqXHR.responseText);
                 }
             });
         } else {
@@ -411,6 +417,7 @@ function btnDeleteOnClick() {
 }
 
 let workoutId;
+
 function btnAssignOnClick() {
     $(".btnAssign").click(function () {
         let workoutCard = $(this).parents("div.workoutCard");
@@ -419,6 +426,7 @@ function btnAssignOnClick() {
 }
 
 let memberList;
+
 function loadMembers() {
     $("#memberSelect").empty();
     let firstOpt = ` <option class="d-none" value="" selected></option>`;
@@ -482,7 +490,7 @@ $("#modalAssignBtn").click(function () {
         url: 'http://localhost:8080/api/v1/user/update',
         method: 'POST',
         dataType: 'json',
-        contentType: 'application/json',  // Set content type to JSON
+        contentType: 'application/json',
         data: JSON.stringify({
             "uid": userId,
             "name": currUserName,
@@ -501,7 +509,7 @@ $("#modalAssignBtn").click(function () {
             $("#memberSelect").val("");
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            console.error(jqXHR.responseText);
         }
     });
 });

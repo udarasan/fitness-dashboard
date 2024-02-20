@@ -5,9 +5,6 @@ async function hashPassword(password) {
 }
 
 $('#btnLogin').click(function () {
-
-
-    // Extract email and password
     let email = $('#email').val();
     let password = $('#password').val();
     hashPassword(password)
@@ -38,7 +35,7 @@ $('#btnLogin').click(function () {
         .catch(error => {
             console.error('Error hashing password:', error);
         });
-    // Make the AJAX request
+
 
 });
 $('#email').on('input', function () {
@@ -48,6 +45,6 @@ $('#email').on('input', function () {
     if (!isValidEmail(email)) {
         $('#emailErrorLabel').text("Please enter a valid email address.");
     } else {
-        $('#emailErrorLabel').text(""); // Clear the error label
+        $('#emailErrorLabel').text("");
     }
 });

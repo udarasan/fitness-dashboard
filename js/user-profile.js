@@ -17,7 +17,7 @@ function getDataToAreaChart(uId, userData) {
         url: 'http://localhost:8080/api/v1/progress/getAllProgress/' + uId,
         method: 'GET',
 
-        contentType: 'application/json',  // Set content type to JSON
+        contentType: 'application/json',
         success: function (response) {
             progressList = response.data;
             console.log(progressList)

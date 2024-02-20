@@ -33,7 +33,7 @@ userProfileMain.on("keyup", ".height", function (event) {
         $('#bmi').val(parseFloat(bmi.toFixed(1)));
     }
 
-    // Attach the updateBMI function to input change events
+
     heightText.on("input", updateBMI);
     weightTxt.on("input", updateBMI);
 });

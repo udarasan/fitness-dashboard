@@ -6,8 +6,6 @@ async function hashPassword(password) {
 
 $('#btnLogin').click(function () {
 
-
-    // Extract email and password
     let email = $('#email').val();
     let password = $('#password').val();
 
@@ -30,7 +28,7 @@ $('#btnLogin').click(function () {
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     alert("Login Failed! Please check your credentials. Also, there might be an issue with the server.");
-                    console.error(jqXHR.responseText);  // Log the response text for debugging
+                    console.error(jqXHR.responseText);
                 }
             });
         })
@@ -42,14 +40,12 @@ $('#btnLogin').click(function () {
         return;
     }
 
-    // Simple password validation
+
     if (!password) {
         alert("Please enter your password.");
 
     }
 
-
-    // Make the AJAX request
 
 });
 
@@ -61,6 +57,6 @@ $('#email').on('input', function () {
     if (!isValidEmail(email)) {
         $('#emailErrorLabel').text("Please enter a valid email address.");
     } else {
-        $('#emailErrorLabel').text(""); // Clear the error label
+        $('#emailErrorLabel').text("");
     }
 });

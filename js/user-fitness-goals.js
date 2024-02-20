@@ -114,7 +114,7 @@ function btnEditOnCLick() {
             endDate = "";
         }
 
-        // set values to update model
+
         $("#updModalGoalName").val(name);
         $("#updModalGoalDetails").val(details);
         $("#updModalStartDate").val(startDate);
@@ -139,7 +139,7 @@ $('#updateGoal').click(function () {
         $('#updDescriptionErrorLabel').text("Please enter a description minimum 2 characters");
         return;
     } else {
-        $('#updDescriptionErrorLabel').text(""); // Clear the error label
+        $('#updDescriptionErrorLabel').text("");
     }
 
 
@@ -147,12 +147,12 @@ $('#updateGoal').click(function () {
         url: 'http://localhost:8080/api/v1/fitnessGoals/update',
         method: 'POST',
         dataType: 'json',
-        contentType: 'application/json',  // Set content type to JSON
+        contentType: 'application/json',
 
         data: JSON.stringify({
             "goalId": id, "goalName": goalName, "goalDetails": goalDetails, "startDate": startDate, "endDate": endDate,
             "userId": userId, "status": status
-        }), // Convert data to JSON string
+        }),
         success: function (response) {
             console.log(response);
             alert("Goal Details Updated successfully!");
@@ -186,7 +186,7 @@ function btnDeleteOnClick() {
             $.ajax({
                 url: 'http://localhost:8080/api/v1/fitnessGoals/delete/' + id,
                 method: 'DELETE',
-                contentType: 'application/json',  // Set content type to JSON
+                contentType: 'application/json',
                 success: function (response) {
                     console.log(response);
                     alert("Goal Details Deleted successfully");
@@ -198,7 +198,7 @@ function btnDeleteOnClick() {
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     alert("Process failed! Please Try Again.");
-                    console.error(jqXHR.responseText);  // Log the response text for debugging
+                    console.error(jqXHR.responseText);
                 }
             });
         } else {
@@ -223,20 +223,19 @@ $("#addGoal").click(function () {
         $('#nameErrorLabel').text("Please enter a name. Minimum 2 characters");
         return;
     } else {
-        $('#nameErrorLabel').text(""); // Clear the error label
+        $('#nameErrorLabel').text("");
     }
-
 
 
     $.ajax({
         url: 'http://localhost:8080/api/v1/fitnessGoals/save',
         method: 'POST',
         dataType: 'json',
-        contentType: 'application/json',  // Set content type to JSON
+        contentType: 'application/json',
         data: JSON.stringify({
             "goalName": name, "goalDetails": details, "startDate": startDate, "endDate": endDate,
             "status": status, "userId": userId
-        }),  // Convert data to JSON string
+        }),
         success: function (response) {
             console.log(response);
             alert("New Goal Added successfully!");
@@ -255,7 +254,7 @@ $("#addGoal").click(function () {
         },
         error: function (jqXHR, textStatus, errorThrown) {
             alert("Process Failed! Please check your input and try again.");
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            console.error(jqXHR.responseText);
         }
 
     });
@@ -268,11 +267,11 @@ $("#btnAddNewGoal").click(function () {
     $("#modalStartDate").val(formattedDate);
 });
 
-$("#modalStartDate").on("input", function() {
+$("#modalStartDate").on("input", function () {
     let selectedDate = $(this).val();
 
     let endDate = $("#modalEndDate").val();
-    if(endDate !== "") {
+    if (endDate !== "") {
         endDate = new Date(endDate);
         let formattedEndDate = endDate.toISOString().slice(0, 10);
 
@@ -282,11 +281,11 @@ $("#modalStartDate").on("input", function() {
         if (formattedEndDate < formattedDateToCheck) {
             alert("The end date cannot be earlier than the start date.");
             $(this).val("");
-        }else if(formattedEndDate === formattedDateToCheck){
+        } else if (formattedEndDate === formattedDateToCheck) {
             alert("The end date and start date cannot be the same.");
             $(this).val("");
         }
-    }else{
+    } else {
         let passed = isDateLessThanCurrent(selectedDate);
         if (passed) {
             alert("The specified date has already passed.");
@@ -295,11 +294,11 @@ $("#modalStartDate").on("input", function() {
     }
 });
 
-$("#modalEndDate").on("input", function() {
+$("#modalEndDate").on("input", function () {
     let selectedDate = $(this).val();
 
     let startDate = $("#modalStartDate").val();
-    if(startDate !== "") {
+    if (startDate !== "") {
         startDate = new Date(startDate);
         let formattedStartDate = startDate.toISOString().slice(0, 10);
 
@@ -309,11 +308,11 @@ $("#modalEndDate").on("input", function() {
         if (formattedDateToCheck < formattedStartDate) {
             alert("The end date cannot be earlier than the start date.");
             $(this).val("");
-        }else if(formattedDateToCheck === formattedStartDate){
+        } else if (formattedDateToCheck === formattedStartDate) {
             alert("The end date and start date cannot be the same.");
             $(this).val("");
         }
-    }else {
+    } else {
         let passed = isDateLessThanCurrent(selectedDate);
         if (passed) {
             alert("The specified date has already passed.");
@@ -322,11 +321,11 @@ $("#modalEndDate").on("input", function() {
     }
 });
 
-$("#updModalStartDate").on("input", function() {
+$("#updModalStartDate").on("input", function () {
     let selectedDate = $(this).val();
 
     let endDate = $("#updModalEndDate").val();
-    if(endDate !== "") {
+    if (endDate !== "") {
         endDate = new Date(endDate);
         let formattedEndDate = endDate.toISOString().slice(0, 10);
 
@@ -336,18 +335,18 @@ $("#updModalStartDate").on("input", function() {
         if (formattedEndDate < formattedDateToCheck) {
             alert("The end date cannot be earlier than the start date.");
             $(this).val("");
-        }else if(formattedEndDate === formattedDateToCheck){
+        } else if (formattedEndDate === formattedDateToCheck) {
             alert("The end date and start date cannot be the same.");
             $(this).val("");
         }
     }
 });
 
-$("#updModalEndDate").on("input", function() {
+$("#updModalEndDate").on("input", function () {
     let selectedDate = $(this).val();
 
     let startDate = $("#updModalStartDate").val();
-    if(startDate !== "") {
+    if (startDate !== "") {
         startDate = new Date(startDate);
         let formattedStartDate = startDate.toISOString().slice(0, 10);
 
@@ -357,11 +356,11 @@ $("#updModalEndDate").on("input", function() {
         if (formattedDateToCheck < formattedStartDate) {
             alert("The end date cannot be earlier than the start date.");
             $(this).val("");
-        }else if(formattedDateToCheck === formattedStartDate){
+        } else if (formattedDateToCheck === formattedStartDate) {
             alert("The end date and start date cannot be the same.");
             $(this).val("");
         }
-    }else {
+    } else {
         let passed = isDateLessThanCurrent(selectedDate);
         if (passed) {
             alert("The specified date has already passed.");
@@ -379,7 +378,7 @@ function isDateLessThanCurrent(selectedDate) {
 
     if (formattedDateToCheck < formattedCurrentDate) {
         return true;
-    }else{
+    } else {
         return false;
     }
 }
@@ -393,7 +392,7 @@ $("#searchByStatus").on('input', function () {
         url: 'http://localhost:8080/api/v1/fitnessGoals/goalsByStatus',
         method: 'GET',
         dataType: 'json',
-        data: {status: value, id: userId},   // Convert data to JSON string
+        data: {status: value, id: userId},
         success: function (response) {
             console.log(response);
             $(".mainCardBody").empty();
@@ -455,7 +454,7 @@ $("#searchByStatus").on('input', function () {
             btnDeleteOnClick();
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            console.error(jqXHR.responseText);
             if (jqXHR.data == null) {
                 $("#btnSeeAllStatus").removeClass("d-none");
                 $(".mainCardBody").empty();
@@ -476,7 +475,7 @@ $("#searchByGoal").keyup(function () {
         url: 'http://localhost:8080/api/v1/fitnessGoals/goalsByName',
         method: 'GET',
         dataType: 'json',
-        data: {partialName: text, id: userId},   // Convert data to JSON string
+        data: {partialName: text, id: userId},
         success: function (response) {
             console.log(response);
             $(".mainCardBody").empty();
@@ -537,7 +536,7 @@ $("#searchByGoal").keyup(function () {
             btnDeleteOnClick();
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            console.error(jqXHR.responseText);
             if (jqXHR.data == null) {
                 $("#btnSeeAllName").removeClass("d-none");
                 $(".mainCardBody").empty();

@@ -97,14 +97,12 @@ function getWorkoutPlansCount() {
         contentType: 'application/json',
         success: function (response) {
             workoutCount = response.data;
-
             if (workoutCount == 1) {
                 $("#workoutCount").text(workoutCount);
                 $("#lblWorkoutCount").text("Workout Plan");
             } else {
                 $("#workoutCount").text(workoutCount);
             }
-
             getMealPlansCount();
         },
         error: function (jqXHR) {
@@ -121,7 +119,6 @@ function getMealPlansCount() {
         contentType: 'application/json',
         success: function (response) {
             mealCount = response.data;
-
             if (mealCount == 1) {
                 $("#mealCount").text(mealCount);
                 $("#lblMealCount").text("Meal Plan");
@@ -144,8 +141,6 @@ function getEquipmentCount() {
         contentType: 'application/json',
         success: function (response) {
             equipmentCount = response.data;
-
-
             pieChart();
         },
         error: function (jqXHR) {

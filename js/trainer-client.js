@@ -1,8 +1,6 @@
 let email = localStorage.getItem('trainer-email');
 let trainerId;
 $(window).on('load', function () {
-    // Your JavaScript code goes here
-
     $('#trainerEmail').text(email);
     getClients();
 
@@ -27,7 +25,7 @@ function getClients() {
             getClientsWithTrainer(trainerId);
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            console.error(jqXHR.responseText);
         }
     });
 
@@ -52,7 +50,7 @@ function getClientsWithTrainer(trainerId) {
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            console.error(jqXHR.responseText);
         }
     });
 
@@ -66,7 +64,7 @@ $('#tblMember').on('click', 'tr', function () {
         url: 'http://localhost:8080/api/v1/progress/getAllProgress/' + memberId,
         method: 'GET',
 
-        contentType: 'application/json',  // Set content type to JSON
+        contentType: 'application/json',
         success: function (response) {
             progressList = response.data;
 
@@ -85,7 +83,7 @@ $('#tblMember').on('click', 'tr', function () {
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            console.error(jqXHR.responseText);
         }
     });
 

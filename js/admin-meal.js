@@ -13,11 +13,11 @@ function getAll() {
         url: 'http://localhost:8080/api/v1/mealPlan/getAllMealPlans',
         method: 'GET',
         dataType: 'json',
-        contentType: 'application/json',  // Set content type to JSON
+        contentType: 'application/json',
         success: function (response) {
             console.log(response.data);
             console.log(response.data.length);
-            if(response.data.length==0) {
+            if (response.data.length == 0) {
                 alert("No meal plans found");
                 return;
             }
@@ -63,10 +63,9 @@ function getAll() {
                 let mealPlanName = card.find('#mealPlanName').text();
 
                 let mealPlanDetails = card.find('#mealPlanDetail').html();
-                mealPlanDetails = mealPlanDetails.replace(/<br\s*[\/]?>/gi, "\n"); // Replace <br> tags with newline characters
-                mealPlanDetails = mealPlanDetails.replace(/&nbsp;/g, " ");         // Replace &nbsp; with space
-                mealPlanDetails = mealPlanDetails.replace(/ +(?= *\n)/g, "");     // Remove spaces at the end of lines
-
+                mealPlanDetails = mealPlanDetails.replace(/<br\s*[\/]?>/gi, "\n");
+                mealPlanDetails = mealPlanDetails.replace(/&nbsp;/g, " ");
+                mealPlanDetails = mealPlanDetails.replace(/ +(?= *\n)/g, "");
                 let calorie = card.find('#mealPlanCalorie').text();
 
                 setUpdateModalContent(mealPlanName, mealPlanDetails, calorie, mealId);
@@ -93,7 +92,7 @@ function getAll() {
             loadAllMembersIds();
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            console.error(jqXHR.responseText);
         }
     });
 
@@ -114,39 +113,39 @@ $("#saveMeal").click(function () {
         if (isValidPlan(meal_name)) {
             $("#mealPlanNameErrorLabel").css("display", "none");
 
-                if (!isNaN(calorie)) {
-                    $("#mealPlanCalorieErrorLabel").css("display", "none");
-                    $.ajax({
-                        url: 'http://localhost:8080/api/v1/mealPlan/save',
-                        method: 'POST',
-                        dataType: 'json',
-                        contentType: 'application/json',
-                        data: JSON.stringify({
-                            "mid": meal_id,
-                            "planName": meal_name,
-                            "planDetails": meal_details,
-                            "calorieCount": calorie
-                        }),
-                        success: function (response) {
-                            console.log(response);
-                            getAll();
-                            alert("Meal Plan Saved Successfully !!")
-                            $('#newMealModal').data('bs.modal').hide();
-                            $("#meal_id").val("");
-                            $("#meal_name").val("");
-                            $("#meal_plan_details").val("");
-                            $("#calorie").val("");
-                        },
+            if (!isNaN(calorie)) {
+                $("#mealPlanCalorieErrorLabel").css("display", "none");
+                $.ajax({
+                    url: 'http://localhost:8080/api/v1/mealPlan/save',
+                    method: 'POST',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        "mid": meal_id,
+                        "planName": meal_name,
+                        "planDetails": meal_details,
+                        "calorieCount": calorie
+                    }),
+                    success: function (response) {
+                        console.log(response);
+                        getAll();
+                        alert("Meal Plan Saved Successfully !!")
+                        $('#newMealModal').data('bs.modal').hide();
+                        $("#meal_id").val("");
+                        $("#meal_name").val("");
+                        $("#meal_plan_details").val("");
+                        $("#calorie").val("");
+                    },
 
-                        error: function (jqXHR) {
-                            console.log(jqXHR);
-                        }
-                    })
-                } else {
-                    let errorLabel = $("#mealPlanCalorieErrorLabel");
-                    errorLabel.css("display", "inline");
-                    errorLabel.text("EInvalid input type !");
-                }
+                    error: function (jqXHR) {
+                        console.log(jqXHR);
+                    }
+                })
+            } else {
+                let errorLabel = $("#mealPlanCalorieErrorLabel");
+                errorLabel.css("display", "inline");
+                errorLabel.text("EInvalid input type !");
+            }
 
         } else {
             let errorLabel = $("#mealPlanNameErrorLabel");
@@ -173,37 +172,37 @@ $("#updateMeal").click(function () {
         if (isValidPlan(meal_name)) {
             $("#UpdateMealPlanNameErrorLabel").css("display", "none");
 
-                if (!isNaN(calorie)) {
-                    $("#UpdateMealPlanCalorieErrorLabel").css("display", "none");
-                    $.ajax({
-                        url: 'http://localhost:8080/api/v1/mealPlan/update',
-                        method: "post",
-                        dataType: "json",
-                        contentType: "application/json;",
-                        data: JSON.stringify({
-                            "mid": meal_id,
-                            "planName": meal_name,
-                            "planDetails": meal_details,
-                            "calorieCount": calorie
-                        }),
+            if (!isNaN(calorie)) {
+                $("#UpdateMealPlanCalorieErrorLabel").css("display", "none");
+                $.ajax({
+                    url: 'http://localhost:8080/api/v1/mealPlan/update',
+                    method: "post",
+                    dataType: "json",
+                    contentType: "application/json;",
+                    data: JSON.stringify({
+                        "mid": meal_id,
+                        "planName": meal_name,
+                        "planDetails": meal_details,
+                        "calorieCount": calorie
+                    }),
 
-                        success: function (response) {
-                            console.log(response);
-                            $('#updateMealModal').data('bs.modal').hide();
-                            getAll();
-                            alert("Meal Plan Updated Successfully !!")
+                    success: function (response) {
+                        console.log(response);
+                        $('#updateMealModal').data('bs.modal').hide();
+                        getAll();
+                        alert("Meal Plan Updated Successfully !!")
 
-                        },
+                    },
 
-                        error: function (jqXHR) {
-                            console.log(jqXHR);
-                        }
-                    })
-                } else {
-                    let errorLabel = $("#UpdateMealPlanCalorieErrorLabel");
-                    errorLabel.css("display", "inline");
-                    errorLabel.text("Invalid input type !");
-                }
+                    error: function (jqXHR) {
+                        console.log(jqXHR);
+                    }
+                })
+            } else {
+                let errorLabel = $("#UpdateMealPlanCalorieErrorLabel");
+                errorLabel.css("display", "inline");
+                errorLabel.text("Invalid input type !");
+            }
 
 
         } else {
@@ -252,6 +251,7 @@ function setAssignModalContent(mealID, mealPlanName, mealPlanDetails, calorie) {
 
 // send ajax request to load all members id to combo box
 let getAllMembersResponse;
+
 function loadAllMembersIds() {
     $.ajax({
         url: 'http://localhost:8080/api/v1/user/getAllUsers',
@@ -373,7 +373,7 @@ $("#SearchMeal").keyup(function () {
         url: 'http://localhost:8080/api/v1/mealPlan/searchMealByName',
         method: 'GET',
         dataType: 'json',
-        data: {partialName: text},   // Convert data to JSON string
+        data: {partialName: text},
         success: function (response) {
             console.log(response);
             if ($("#SearchMeal").val() === "") {

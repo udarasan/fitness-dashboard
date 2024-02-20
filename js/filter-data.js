@@ -1,7 +1,7 @@
 $('#nameLbl').text(localStorage.getItem('adminEmail'));
 
 $(window).on('load', function () {
-    // Your JavaScript code goes here
+
     loadTrainerId();
 });
 var today = new Date();
@@ -16,7 +16,7 @@ function loadTrainerId() {
         url: 'http://localhost:8080/api/v1/trainer/getAllTrainers',
         method: 'GET',
         dataType: 'json',
-        contentType: 'application/json',  // Set content type to JSON
+        contentType: 'application/json',
         success: function (response) {
             trainerList = response.data
             $('#tra_id').append(`<option selected disabled>Select Trainer</option>`);
@@ -27,7 +27,7 @@ function loadTrainerId() {
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            console.error(jqXHR.responseText);
         }
     });
 }
@@ -94,12 +94,12 @@ function getPdfProps(clientList) {
         compress: true,
         logo: {
             src: "https://img.icons8.com/external-nawicon-glyph-nawicon/64/00000/external-gym-hotel-nawicon-glyph-nawicon.png",
-            type: 'PNG', //optional, when src= data:uri (nodejs case)
-            width: 25, //aspect ratio = width/height
+            type: 'PNG',
+            width: 25,
             height: 25,
             margin: {
-                top: 0, //negative or positive num, from the current position
-                left: 0 //negative or positive num, from the current position
+                top: 0,
+                left: 0
             }
         },
         business: {
@@ -170,8 +170,8 @@ function getPdfProps(clientList) {
 
             ]),
             margin: {
-                top: 600, //negative or positive num, from the current position
-                left: 0 //negative or positive num, from the current position
+                top: 600,
+                left: 0
             }
 
         },

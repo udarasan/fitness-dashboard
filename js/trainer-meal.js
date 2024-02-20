@@ -20,14 +20,14 @@ function getAll() {
             console.log(response);
             console.log(response.data.length);
 
-            if(response.data.length===undefined){
+            if (response.data.length === undefined) {
                 getAll();
                 return;
             }
 
-            if(response.data.length==0) {
+            if (response.data.length == 0) {
                 alert("No meal plans found");
-            }else{
+            } else {
                 $.each(response.data, function (index, mealPlan) {
                     appendMealSection(mealPlan);
                 });
@@ -189,59 +189,58 @@ $("#saveMeal").click(function () {
             $("#TrainerMealPlanNameErrorLabel").css("display", "none");
 
 
-                if (!isNaN(calorie)) {
-                    $("#TrainerMealPlanCalorieErrorLabel").css("display", "none");
+            if (!isNaN(calorie)) {
+                $("#TrainerMealPlanCalorieErrorLabel").css("display", "none");
 
-                    $.ajax({
-                        url: 'http://localhost:8080/api/v1/mealPlan/assignNewMealPlan',
-                        method: 'POST',
-                        dataType: 'json',
-                        contentType: 'application/json',
-                        data: JSON.stringify({
+                $.ajax({
+                    url: 'http://localhost:8080/api/v1/mealPlan/assignNewMealPlan',
+                    method: 'POST',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
 
-                            "mealPlanDTO": {
-                                "planName": meal_name,
-                                "planDetails": meal_details,
-                                "calorieCount": calorie
-                            },
-                            "userDTO": {
-                                "uid": memId,
-                                "email": memberEmail,
-                                "name": memberName,
-                                "password": memberPassword,
-                                "workout_id": workoutId,
-                                "trainer_id": trainerIdd,
-                                "age": age,
-                                "gender": gender
-                            }
-
-                        }),
-
-                        success: function (response) {
-                            console.log(response);
-                            // updateMemberWithMealId(meal_id);
-                            alert("Meal Plan Saved Successfully !!")
-
-                            getAll();
-                            $('#TrainerNewMealModal').data('bs.modal').hide();
-                            $("#meal_id").val("");
-                            $("#meal_name").val("");
-                            $("#meal_plan_details").val("");
-                            $("#calorie").val("");
+                        "mealPlanDTO": {
+                            "planName": meal_name,
+                            "planDetails": meal_details,
+                            "calorieCount": calorie
                         },
-
-                        error: function (jqXHR) {
-                            console.log(jqXHR);
-
+                        "userDTO": {
+                            "uid": memId,
+                            "email": memberEmail,
+                            "name": memberName,
+                            "password": memberPassword,
+                            "workout_id": workoutId,
+                            "trainer_id": trainerIdd,
+                            "age": age,
+                            "gender": gender
                         }
-                    })
 
-                } else {
-                    let errorLabel = $("#TrainerMealPlanCalorieErrorLabel");
-                    errorLabel.css("display", "inline");
-                    errorLabel.text("Invalid input type !");
-                }
+                    }),
 
+                    success: function (response) {
+                        console.log(response);
+                        // updateMemberWithMealId(meal_id);
+                        alert("Meal Plan Saved Successfully !!")
+
+                        getAll();
+                        $('#TrainerNewMealModal').data('bs.modal').hide();
+                        $("#meal_id").val("");
+                        $("#meal_name").val("");
+                        $("#meal_plan_details").val("");
+                        $("#calorie").val("");
+                    },
+
+                    error: function (jqXHR) {
+                        console.log(jqXHR);
+
+                    }
+                })
+
+            } else {
+                let errorLabel = $("#TrainerMealPlanCalorieErrorLabel");
+                errorLabel.css("display", "inline");
+                errorLabel.text("Invalid input type !");
+            }
 
 
         } else {
@@ -272,38 +271,37 @@ $("#updateMeal").click(function () {
             $("#UpdateMealPlanNameErrorLabel").css("display", "none");
 
 
+            if (!isNaN(calorie)) {
+                $("#UpdateMealPlanCalorieErrorLabel").css("display", "none");
+                $.ajax({
+                    url: 'http://localhost:8080/api/v1/mealPlan/update',
+                    method: "post",
+                    dataType: "json",
+                    contentType: "application/json;",
+                    data: JSON.stringify({
+                        "mid": meal_id,
+                        "planName": meal_name,
+                        "planDetails": meal_details,
+                        "calorieCount": calorie
+                    }),
 
-                if (!isNaN(calorie)) {
-                    $("#UpdateMealPlanCalorieErrorLabel").css("display", "none");
-                    $.ajax({
-                        url: 'http://localhost:8080/api/v1/mealPlan/update',
-                        method: "post",
-                        dataType: "json",
-                        contentType: "application/json;",
-                        data: JSON.stringify({
-                            "mid": meal_id,
-                            "planName": meal_name,
-                            "planDetails": meal_details,
-                            "calorieCount": calorie
-                        }),
+                    success: function (response) {
+                        console.log(response);
+                        alert("Meal Plan Updated Successfully !!")
+                        $('#updateMealModal').data('bs.modal').hide();
+                        getAll();
 
-                        success: function (response) {
-                            console.log(response);
-                            alert("Meal Plan Updated Successfully !!")
-                            $('#updateMealModal').data('bs.modal').hide();
-                            getAll();
+                    },
 
-                        },
-
-                        error: function (jqXHR) {
-                            console.log(jqXHR);
-                        }
-                    })
-                } else {
-                    let errorLabel = $("#UpdateMealPlanCalorieErrorLabel");
-                    errorLabel.css("display", "inline");
-                    errorLabel.text("Invalid input type !");
-                }
+                    error: function (jqXHR) {
+                        console.log(jqXHR);
+                    }
+                })
+            } else {
+                let errorLabel = $("#UpdateMealPlanCalorieErrorLabel");
+                errorLabel.css("display", "inline");
+                errorLabel.text("Invalid input type !");
+            }
 
 
         } else {
@@ -313,7 +311,6 @@ $("#updateMeal").click(function () {
         }
     }
 })
-
 
 
 //load trainer id using email
@@ -535,17 +532,17 @@ $("#SearchMeal").keyup(function () {
         success: function (response) {
             console.log(response);
 
-                let cardContainer = $("#cardContainer");
-                cardContainer.empty();
+            let cardContainer = $("#cardContainer");
+            cardContainer.empty();
 
-                $.each(response.data, function (index, mealPlan) {
-                    console.log(mealPlan);
+            $.each(response.data, function (index, mealPlan) {
+                console.log(mealPlan);
 
-                    let plandetails = mealPlan.planDetails;
-                    plandetails = plandetails.replace(/ (?=\n)/g, '&nbsp;');
-                    plandetails = plandetails.replace(/\n/g, '<br>');
+                let plandetails = mealPlan.planDetails;
+                plandetails = plandetails.replace(/ (?=\n)/g, '&nbsp;');
+                plandetails = plandetails.replace(/\n/g, '<br>');
 
-                    let card = `
+                let card = `
   <section class="mx-3 my-5" style="min-width: 20rem">
 
     <div id="card" class="card" >
@@ -581,10 +578,10 @@ $("#SearchMeal").keyup(function () {
 
   </section>
 `
-                    $("#cardContainer").append(card);
+                $("#cardContainer").append(card);
 
 
-                });
+            });
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error(jqXHR.responseText);  // Log the response text for debugging

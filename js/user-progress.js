@@ -69,7 +69,7 @@ function getAllProgress(uId) {
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            console.error(jqXHR.responseText);
         }
     });
 }
@@ -79,11 +79,11 @@ $('#deleteProgress').click(function () {
 
     let id = $('#pId').val();
 
-    // Make the AJAX request
+
     $.ajax({
         url: 'http://localhost:8080/api/v1/progress/delete/' + id,
         method: 'DELETE',
-        contentType: 'application/json',  // Set content type to JSON
+        contentType: 'application/json',
         success: function (response) {
             alert("Progress Details Delete successful!");
             searchUserWithEmail();
@@ -95,7 +95,7 @@ $('#deleteProgress').click(function () {
         },
         error: function (jqXHR, textStatus, errorThrown) {
             alert("Progress Details Delete failed! Please check your input and try again.");
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            console.error(jqXHR.responseText);
         }
     });
 
@@ -132,7 +132,7 @@ $('#updateProgress').click(function () {
             url: 'http://localhost:8080/api/v1/progress/update',
             method: 'POST',
             dataType: 'json',
-            contentType: 'application/json',  // Set content type to JSON
+            contentType: 'application/json',
 
             data: JSON.stringify({"pid": pid, "height": height, "weight": weight, "userId": uId, "date": date}),  // Convert data to JSON string
             success: function (response) {
@@ -146,7 +146,7 @@ $('#updateProgress').click(function () {
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 alert("Progress Details Update failed! Please check your input and try again.");
-                console.error(jqXHR.responseText);  // Log the response text for debugging
+                console.error(jqXHR.responseText);
             }
 
         });
@@ -182,7 +182,7 @@ $('#addProgress').click(function () {
             url: 'http://localhost:8080/api/v1/progress/save',
             method: 'POST',
             dataType: 'json',
-            contentType: 'application/json',  // Set content type to JSON
+            contentType: 'application/json',
 
             data: JSON.stringify({"height": height, "weight": weight, "userId": uId, "date": date}),  // Convert data to JSON string
             success: function (response) {
@@ -198,7 +198,7 @@ $('#addProgress').click(function () {
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 alert("Progress Details Added failed! Please check your input and try again.");
-                console.error(jqXHR.responseText);  // Log the response text for debugging
+                console.error(jqXHR.responseText);
             }
 
         });
@@ -209,13 +209,11 @@ $('#addProgress').click(function () {
 
 $('#tblProgress').on('click', 'tr', function () {
 
-    // Access the data in the clicked row
-    let pid = $(this).find('td:first').text(); // Assuming the first cell contains the trainer ID
-    let height = $(this).find('td:nth-child(2)').text(); // Assuming the second cell contains the trainer email
+
+    let pid = $(this).find('td:first').text();
+    let height = $(this).find('td:nth-child(2)').text();
     let weight = $(this).find('td:nth-child(3)').text();
     let date = $(this).find('td:nth-child(4)').text();
-
-    // Perform actions with the retrieved data
 
     $('#pId').val(pid);
     $('#height').val(height);
@@ -246,12 +244,12 @@ function getPdfProps(progressData) {
         compress: true,
         logo: {
             src: "https://img.icons8.com/external-nawicon-glyph-nawicon/64/00000/external-gym-hotel-nawicon-glyph-nawicon.png",
-            type: 'PNG', //optional, when src= data:uri (nodejs case)
-            width: 25, //aspect ratio = width/height
+            type: 'PNG',
+            width: 25,
             height: 25,
             margin: {
-                top: 0, //negative or positive num, from the current position
-                left: 0 //negative or positive num, from the current position
+                top: 0,
+                left: 0
             }
         },
         business: {
@@ -317,8 +315,8 @@ function getPdfProps(progressData) {
                 progress.date
             ]),
             margin: {
-                top: 600, //negative or positive num, from the current position
-                left: 0 //negative or positive num, from the current position
+                top: 600,
+                left: 0
             }
 
         },
