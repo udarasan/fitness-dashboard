@@ -3,8 +3,7 @@ let meal_id;
 let workout_id;
 var selectedValue;
 $(window).on('load', function () {
-    // getAllMembers();
-    // loadTrainerId();
+
     getAllMembers();
 });
 $(".form-check-input").on("click", function () {
@@ -79,7 +78,7 @@ $('#updateMember').click(function () {
                         console.log(response);
                         alert("Member update successful!");
                         getAllMembers();
-                        loadTrainerId();
+
 
                         $('#memberModal').modal('hide');
                     },
@@ -179,7 +178,7 @@ $('#saveMemeber').click(function () {
                         alert("Member registration successful!");
                         $('#memberModal').modal('hide');
                         getAllMembers();
-                        loadTrainerId();
+
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         alert("Member registration failed! Please check your input and try again.");
@@ -241,7 +240,13 @@ function getAllMembers() {
         dataType: 'json',
         contentType: 'application/json',
         success: function (response) {
+            if (response.data.length === undefined) {
+                getAllMembers();
+                return;
+            }
+            loadTrainerId();
             memberList = response.data;
+
             if (memberList.length === 0) {
                 alert("No members found.");
                 return;
@@ -254,7 +259,7 @@ function getAllMembers() {
                 $('#tblMember').append(row);
             });
 
-            loadTrainerId();
+
         },
         error: function (jqXHR, textStatus, errorThrown) {
             alert("Failed to retrieve members. Please try again.");
