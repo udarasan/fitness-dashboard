@@ -13,15 +13,11 @@ userProfileMain.on("keyup", ".height", function (event) {
     function updateBMI() {
         let height = parseFloat(heightText.val());
         let weight = parseFloat(weightTxt.val());
-
-
-
-
         if (isNaN(height) || height <= 0 || height < 140 || height > 200) {
             bmiTxt.val("Invalid height. Normal range: 140-200 cm");
             return;
         }
-        if (!heightAndWeight(weight)||isNaN(weight) || weight <= 0 || weight < 40 || weight > 150) {
+        if (!heightAndWeight(weight) || isNaN(weight) || weight <= 0 || weight < 40 || weight > 150) {
             bmiTxt.val("Invalid weight. Normal range: 40-150 kg");
             return;
         }
@@ -64,9 +60,9 @@ userProfileMain.on("keyup", ".weight", function (event) {
 $('#height').on('input', function () {
     let height = $(this).val();
 
-    if (!heightAndWeight(height)){
+    if (!heightAndWeight(height)) {
         $('#heightErrorLabel').text("Please enter a valid input.");
-    }else {
+    } else {
         $('#heightErrorLabel').text("");
     }
 });
@@ -75,9 +71,9 @@ $('#weight').on('input', function () {
     let weight = $(this).val();
 
 
-    if (!heightAndWeight(weight)){
+    if (!heightAndWeight(weight)) {
         $('#weightErrorLabel').text("Please enter a valid input.");
-    }else {
+    } else {
         $('#weightErrorLabel').text("");
     }
 });
