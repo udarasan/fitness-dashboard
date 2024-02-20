@@ -261,6 +261,129 @@ $("#addGoal").click(function () {
     });
 });
 
+$("#btnAddNewGoal").click(function () {
+    let currentDate = new Date();
+    let formattedDate = currentDate.toISOString().slice(0, 10);
+
+    $("#modalStartDate").val(formattedDate);
+});
+
+$("#modalStartDate").on("input", function() {
+    let selectedDate = $(this).val();
+
+    let endDate = $("#modalEndDate").val();
+    if(endDate !== "") {
+        endDate = new Date(endDate);
+        let formattedEndDate = endDate.toISOString().slice(0, 10);
+
+        let dateToCheck = new Date(selectedDate);
+        let formattedDateToCheck = dateToCheck.toISOString().slice(0, 10);
+
+        if (formattedEndDate < formattedDateToCheck) {
+            alert("The end date cannot be earlier than the start date.");
+            $(this).val("");
+        }else if(formattedEndDate === formattedDateToCheck){
+            alert("The end date and start date cannot be the same.");
+            $(this).val("");
+        }
+    }else{
+        let passed = isDateLessThanCurrent(selectedDate);
+        if (passed) {
+            alert("The specified date has already passed.");
+            $(this).val("");
+        }
+    }
+});
+
+$("#modalEndDate").on("input", function() {
+    let selectedDate = $(this).val();
+
+    let startDate = $("#modalStartDate").val();
+    if(startDate !== "") {
+        startDate = new Date(startDate);
+        let formattedStartDate = startDate.toISOString().slice(0, 10);
+
+        let dateToCheck = new Date(selectedDate);
+        let formattedDateToCheck = dateToCheck.toISOString().slice(0, 10);
+
+        if (formattedDateToCheck < formattedStartDate) {
+            alert("The end date cannot be earlier than the start date.");
+            $(this).val("");
+        }else if(formattedDateToCheck === formattedStartDate){
+            alert("The end date and start date cannot be the same.");
+            $(this).val("");
+        }
+    }else {
+        let passed = isDateLessThanCurrent(selectedDate);
+        if (passed) {
+            alert("The specified date has already passed.");
+            $(this).val("");
+        }
+    }
+});
+
+$("#updModalStartDate").on("input", function() {
+    let selectedDate = $(this).val();
+
+    let endDate = $("#updModalEndDate").val();
+    if(endDate !== "") {
+        endDate = new Date(endDate);
+        let formattedEndDate = endDate.toISOString().slice(0, 10);
+
+        let dateToCheck = new Date(selectedDate);
+        let formattedDateToCheck = dateToCheck.toISOString().slice(0, 10);
+
+        if (formattedEndDate < formattedDateToCheck) {
+            alert("The end date cannot be earlier than the start date.");
+            $(this).val("");
+        }else if(formattedEndDate === formattedDateToCheck){
+            alert("The end date and start date cannot be the same.");
+            $(this).val("");
+        }
+    }
+});
+
+$("#updModalEndDate").on("input", function() {
+    let selectedDate = $(this).val();
+
+    let startDate = $("#updModalStartDate").val();
+    if(startDate !== "") {
+        startDate = new Date(startDate);
+        let formattedStartDate = startDate.toISOString().slice(0, 10);
+
+        let dateToCheck = new Date(selectedDate);
+        let formattedDateToCheck = dateToCheck.toISOString().slice(0, 10);
+
+        if (formattedDateToCheck < formattedStartDate) {
+            alert("The end date cannot be earlier than the start date.");
+            $(this).val("");
+        }else if(formattedDateToCheck === formattedStartDate){
+            alert("The end date and start date cannot be the same.");
+            $(this).val("");
+        }
+    }else {
+        let passed = isDateLessThanCurrent(selectedDate);
+        if (passed) {
+            alert("The specified date has already passed.");
+            $(this).val("");
+        }
+    }
+});
+
+function isDateLessThanCurrent(selectedDate) {
+    let currentDate = new Date();
+    let formattedCurrentDate = currentDate.toISOString().slice(0, 10);
+
+    let dateToCheck = new Date(selectedDate);
+    let formattedDateToCheck = dateToCheck.toISOString().slice(0, 10);
+
+    if (formattedDateToCheck < formattedCurrentDate) {
+        return true;
+    }else{
+        return false;
+    }
+}
+
 $("#searchByStatus").on('input', function () {
     $('#searchByGoal').val("");
     $("#btnSeeAllName").addClass("d-none");

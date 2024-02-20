@@ -57,7 +57,7 @@ $('#updateMember').click(function () {
         .then(hashedPassword => {
             console.log('Hashed Password:', hashedPassword);
             newPassword = hashedPassword;
-            if (isValidName(name) && isValidEmail(email) && isValidPassword(password) && !isNaN(age)) {
+            if (isValidName(name) && isValidEmail(email) && isValidPassword(password) && !isNaN(age) && age > 15 && age < 100) {
                 // Make the AJAX request
                 $.ajax({
                     url: 'http://localhost:8080/api/v1/user/update',
@@ -102,18 +102,6 @@ $('#updateMember').click(function () {
 
     let age = $('#age').val();
     let gender = selectedValue;
-    // let male = $('#inlineRadio1').val();
-    // let female = $('#inlineRadio2').val();
-    // let custom = $('#inlineRadio3').val();
-    // if (male!=null){
-    //     gender=male;
-    // }
-    // if (female!=null){
-    //     gender=female;
-    // }
-    // if (custom!=null){
-    //     gender=custom;
-    // }
     if (!email || !name || !password) {
         alert("Please fill in all required fields.");
         return;
@@ -144,29 +132,20 @@ $('#updateMember').click(function () {
     } else {
         $('#ageErrorLabel').text(""); // Clear the error label
     }
+    if (age < 16 || age > 100) {
+        $('#ageErrorLabel').text("Age must be between 16 and 100");
+
+    }
 
 });
 
-
-//encode password for security
-
-// async function hashPassword(password) {
-//     const encoder = new TextEncoder();
-//     const data = encoder.encode(password);
-//
-//     const buffer = await crypto.subtle.digest('SHA-256', data);
-//     const hashedArray = Array.from(new Uint8Array(buffer));
-//     const hashedPassword = hashedArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
-//     console.log(hashedPassword);
-//
-//     return hashedPassword;
-// }
 async function hashPassword(password) {
     const base64Encoded = btoa(password);
     console.log(base64Encoded);
 
     return base64Encoded;
 }
+
 //save memeber
 
 $('#saveMemeber').click(function () {
@@ -182,7 +161,7 @@ $('#saveMemeber').click(function () {
         .then(hashedPassword => {
             console.log('Hashed Password:', hashedPassword);
             newPassword = hashedPassword;
-            if (isValidName(name) && isValidEmail(email) && isValidPassword(password) && !isNaN(age)) {
+            if (isValidName(name) && isValidEmail(email) && isValidPassword(password) && !isNaN(age) && age > 15 && age < 100) {
                 console.log(id);
                 // Make the AJAX request
                 $.ajax({
@@ -250,6 +229,10 @@ $('#saveMemeber').click(function () {
     } else {
         $('#ageErrorLabel').text(""); // Clear the error label
     }
+    if (age < 16 || age > 100) {
+        $('#ageErrorLabel').text("Age must be between 16 and 100");
+
+    }
 
 
 });
@@ -297,7 +280,7 @@ $('#tblMember').on('click', 'tr', function () {
     let gender = $(this).find('td:nth-child(9)').text();
     // let password = decodePassword(encodedPassword);
     let password = atob(encodedPassword);
-    console.log("decode "+ password)
+    console.log("decode " + password)
     // Perform actions with the retrieved data
     $('#memberModal').modal('show');
     $('#saveMemeber').css("display", 'none');
@@ -400,6 +383,7 @@ $("#searchMembers").keyup(function () {
         }
     });
 });
+
 function decodePassword(encodedPassword) {
 
     return atob(encodedPassword); // This is a simple example, replace with your actual logic
