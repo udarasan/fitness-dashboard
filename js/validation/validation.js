@@ -17,3 +17,9 @@ function isValidPassword(name) {
 
     return passwordRegex.test(name)
 }
+
+function heightAndWeight(hAndW){
+    const decimalRegex =  /^[0-9]{2,}([.][0-9]{2})?$/;
+    return decimalRegex.test(hAndW)
+
+}

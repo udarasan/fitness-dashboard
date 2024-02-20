@@ -14,13 +14,18 @@ userProfileMain.on("keyup", ".height", function (event) {
         let height = parseFloat(heightText.val());
         let weight = parseFloat(weightTxt.val());
 
-        // Input validation
-        if (isNaN(height) || isNaN(weight) || height <= 0 || weight <= 0) {
-            bmiTxt.val("Invalid input");
+
+
+
+        if (isNaN(height) || height <= 0 || height < 140 || height > 200) {
+            bmiTxt.val("Invalid height. Normal range: 140-200 cm");
+            return;
+        }
+        if (!heightAndWeight(weight)||isNaN(weight) || weight <= 0 || weight < 40 || weight > 150) {
+            bmiTxt.val("Invalid weight. Normal range: 40-150 kg");
             return;
         }
 
-        // Clear previous results
         bmiTxt.val("");
 
         let newHeight = height / 100;
@@ -54,4 +59,25 @@ userProfileMain.on("keyup", ".weight", function (event) {
     }
 
 
+});
+
+$('#height').on('input', function () {
+    let height = $(this).val();
+
+    if (!heightAndWeight(height)){
+        $('#heightErrorLabel').text("Please enter a valid input.");
+    }else {
+        $('#heightErrorLabel').text("");
+    }
+});
+
+$('#weight').on('input', function () {
+    let weight = $(this).val();
+
+
+    if (!heightAndWeight(weight)){
+        $('#weightErrorLabel').text("Please enter a valid input.");
+    }else {
+        $('#weightErrorLabel').text("");
+    }
 });
