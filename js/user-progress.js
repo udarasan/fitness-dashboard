@@ -253,18 +253,17 @@ function getPdfProps(progressData) {
             }
         },
         business: {
-            name: "FITNESS",
-            address: "Albania, Tirane ish-Dogana, Durres 2001",
-            phone: "(+355) 069 11 11 111",
-            email: "email@fitness.com",
-            email_1: "info@fitness.al",
-            website: "www.fitness.al",
+            name: "Ringo Fitness Centre",
+            address: "NO 36/1A Thaladuwa Road ,Negombo",
+            phone: "03122523675",
+
+
         },
         contact: {
             label: "Report issued for:",
             name: cname,
-            phone: "(+355) 069 22 22 222",
-            email: userEmail,
+            phone: userEmail,
+            email:" ",
 
 
         },
