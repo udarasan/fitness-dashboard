@@ -150,7 +150,7 @@ $('#saveMemeber').click(function () {
     let trainer_id = $('#tra_id').val();
 
     let password = $('#memeber_password').val();
-    console.log(password);
+    console.log(trainer_id);
     hashPassword($('#memeber_password').val())
         .then(hashedPassword => {
             console.log('Hashed Password:', hashedPassword);
@@ -340,9 +340,10 @@ function loadTrainerId() {
         dataType: 'json',
         contentType: 'application/json',
         success: function (response) {
-
+            response.data.sort((a, b) => a.users.length - b.users.length);
             $.each(response.data, function (index, trainer) {
-                $('#tra_id').append(`<option>${trainer.tid}</option>`);
+                $('#tra_id').append(`<option value="${trainer.tid}">${trainer.name}</option>`);
+
             });
 
         },
