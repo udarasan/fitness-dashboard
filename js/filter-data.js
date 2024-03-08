@@ -19,9 +19,10 @@ function loadTrainerId() {
         contentType: 'application/json',
         success: function (response) {
             trainerList = response.data
+            response.data.sort((a, b) => a.users.length - b.users.length);
             $('#tra_id').append(`<option selected disabled>Select Trainer</option>`);
             $.each(response.data, function (index, trainer) {
-                $('#tra_id').append(`<option>${trainer.tid}</option>`);
+                $('#tra_id').append(`<option value="${trainer.tid}">${trainer.name}</option>`);
 
             });
 
