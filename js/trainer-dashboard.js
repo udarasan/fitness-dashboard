@@ -190,8 +190,10 @@ function getClientsWithTrainer(trainerId) {
 
             console.log(response.data);
             $.each(response.data, function (index, member) {
-                $('#searchByUser').append(`<option>${member.uid}</option>`);
-                $('#searchByUserWorkOut').append(`<option>${member.uid}</option>`);
+                console.log(member)
+                $('#searchByUser').append(`<option value="${member.uid}">${member.name}</option>`);
+                $('#searchByUserWorkOut').append(`<option value="${member.uid}">${member.name}</option>`);
+                $("#searchProgressByUser").append(`<option value="${member.uid}">${member.name}</option>`);
             });
 
         },
@@ -485,3 +487,174 @@ function setDataToCalorieBurnOutChart() {
         }
     });
 }
+
+
+
+//new
+
+let trainerProgressList=[];
+let trainerMemberDynamicChart;
+$("#searchProgressByUser").click(function (){
+    getMemberDataToAreaChart($("#searchProgressByUser").val());
+    if (typeof trainerMemberDynamicChart !== 'undefined') {
+        trainerMemberDynamicChart.destroy();
+    }
+})
+
+function getMemberDataToAreaChart(uId) {
+    console.log(uId)
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/progress/getAllProgress/' + uId,
+        method: 'GET',
+
+        contentType: 'application/json',  // Set content type to JSON
+        success: function (progressResponse) {
+            console.log(progressResponse.data);
+            // console.log("@@" + progressResponse.data.length);
+
+            trainerProgressList = progressResponse.data;
+            console.log(trainerProgressList)
+            addFormatAreaChartData();
+            // setTrainerMemberCurrentBMIvalue();
+
+            // getMealRecordsByUser(uId);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error(jqXHR.responseText);  // Log the response text for debugging
+        }
+    });
+}
+
+let dateList = [];
+let trainerBmiList = [];
+
+function addFormatAreaChartData() {
+    dateList = []; // Clear the array
+    trainerBmiList = []; // Clear the array
+
+
+    $.each(trainerProgressList, function (index, progress) {
+        dateList.push(progress.date);
+
+        let weight = progress.weight;
+        let height = progress.height;
+        let newHeight = height / 100;
+        let bmi = parseFloat((weight / (newHeight * newHeight)).toFixed(1));
+        trainerBmiList.push(bmi);
+    });
+    setDataToAreaChart();
+}
+
+function setDataToAreaChart() {
+    var ctx = $("#myTrainerProgressAreaChart")[0].getContext('2d');
+
+    // Input data
+    var labels = dateList;
+    var data = trainerBmiList;
+
+    // Calculate average BMI for each month
+    var monthlyAverages = {};
+    labels.forEach(function (label, index) {
+        var date = new Date(label);
+        var monthYear = date.toLocaleString('default', {month: 'long', year: 'numeric'});
+        if (!monthlyAverages[monthYear]) {
+            monthlyAverages[monthYear] = {sum: 0, count: 0};
+        }
+        monthlyAverages[monthYear].sum += data[index];
+        monthlyAverages[monthYear].count++;
+    });
+
+    var averageBMIs = Object.keys(monthlyAverages).map(function (monthYear) {
+        return monthlyAverages[monthYear].sum / monthlyAverages[monthYear].count;
+    });
+
+      trainerMemberDynamicChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: Object.keys(monthlyAverages),
+            datasets: [{
+                label: 'Average BMI',
+                data: averageBMIs,
+                lineTension: 0.2,
+                backgroundColor: "rgba(78, 115, 223, 0.05)",
+                borderColor: "rgba(78, 115, 223, 1)",
+                pointRadius: 3,
+                pointBackgroundColor: "rgba(78, 115, 223, 1)",
+                pointBorderColor: "rgba(78, 115, 223, 1)",
+                pointHoverRadius: 3,
+                pointHoverBackgroundColor: "rgb(255,0,0)",
+                pointHoverBorderColor: "rgb(255,0,0)",
+                pointHitRadius: 10,
+                pointBorderWidth: 2,
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            layout: {
+                padding: {
+                    left: 10,
+                    right: 25,
+                    top: 25,
+                    bottom: 0
+                }
+            },
+            scales: {
+                xAxes: [{
+                    time: {
+                        unit: 'day',
+                    },
+                    gridLines: {
+                        display: false,
+                        drawBorder: false
+                    },
+                    ticks: {
+                        // maxTicksLimit: 7,
+                        padding: 10
+                    },
+                }],
+                yAxes: [{
+                    ticks: {
+                        // maxTicksLimit: 5,
+                        padding: 10,
+                        // suggestedMin: 5,
+                        // beginAtZero: true,
+                    },
+                    gridLines: {
+                        color: "rgb(234, 236, 244)",
+                        zeroLineColor: "rgb(234, 236, 244)",
+                        drawBorder: false,
+                        borderDash: [2],
+                        zeroLineBorderDash: [2]
+                    }
+                }],
+            },
+            legend: {
+                display: false
+            },
+            tooltips: {
+                backgroundColor: "rgb(255,255,255)",
+                bodyFontColor: "#858796",
+                titleMarginBottom: 10,
+                titleFontColor: '#6e707e',
+                titleFontSize: 14,
+                borderColor: '#dddfeb',
+                borderWidth: 1,
+                xPadding: 15,
+                yPadding: 15,
+                displayColors: false,
+                intersect: false,
+                mode: 'index',
+                caretPadding: 10,
+            }
+        }
+
+    });
+}
+
+
+
+
+
+
+
+

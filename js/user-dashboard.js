@@ -121,6 +121,7 @@ function getMealPlan() {
     });
 }
 
+
 let progressList;
 
 function getDataToAreaChart(uId) {
@@ -281,6 +282,40 @@ function setDataToAreaChart() {
 
     });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function mealAndWorkoutCardHandler() {
     $("#workoutLink").click(function () {

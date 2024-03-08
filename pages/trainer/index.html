@@ -168,7 +168,6 @@
 
                 <!-- Page Heading -->
 
-
                 <!-- Content Row -->
                 <div  class="row topFourCards">
 
@@ -286,7 +285,67 @@
                     </div>
                 </div>
 
+
+                <div class="row">
+
+                    <!-- Area Chart -->
+<!--                    <div class="col-xl-8 col-lg-7 order-2 order-lg-1">-->
+                    <div class="col-xl-12 order-2 order-lg-1">
+                        <div class="card shadow mb-4 ">
+                            <div class="card-header cardHeaderColor text-primary
+                                               py-3 d-flex flex-row align-items-center justify-content-between">
+
+
+                                    <h6 class="m-0 font-weight-bold">BMI Evolution Chart</h6>
+
+                            </div>
+
+
+                            <div class="card-body chartCardBody">
+                                <select class="form-control mb-2 mt-3 " id="searchProgressByUser" >
+                                    <option class="text-muted" disabled selected value="1">--Select Member--</option>
+                                    <!--                                    <option class="">Not Yet Started</option>-->
+                                    <!--                                    <option class="">Ongoing</option>-->
+                                    <!--                                    <option class="">Completed</option>-->
+                                </select>
+
+                                <div class="chart-area">
+                                    <canvas id="myTrainerProgressAreaChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+<!--                    <div class="col-xl-4 col-lg-5 mb-2 order-1 order-lg-2">-->
+<!--                        <div class="card shadow mb-4 toggleCard">-->
+<!--                            &lt;!&ndash; Card Header - Dropdown &ndash;&gt;-->
+<!--                            <div class="card-header cardHeaderColor py-3 px-0 d-flex flex-row align-items-center justify-content-between">-->
+<!--                                <ul class="list-unstyled d-flex my-auto ">-->
+<!--                                    <li class="mx-3 liWorkout">-->
+<!--                                        <h6 id="workoutLink" class="m-0 font-weight-bold text-primary">Workout Plan</h6>-->
+<!--                                    </li>-->
+<!--                                    <li>-->
+<!--                                        <h6 id="mealLink" class="m-0 font-weight-bold text-primary">Meal Plan</h6>-->
+<!--                                    </li>-->
+<!--                                </ul>-->
+<!--                            </div>-->
+<!--                            &lt;!&ndash; Card Body &ndash;&gt;-->
+<!--                            <div class="card-body mealTab">-->
+<!--                                <label id="lblMealPLanName" class="mb-3"></label>-->
+<!--                                <p id="pMealTab"></p>-->
+<!--                                <label id="lblMealCalories" class="small"></label>-->
+<!--                            </div>-->
+<!--                            <div class="card-body workoutTab">-->
+<!--                                <label id="lblWorkPLanName" class="mb-3"></label>-->
+<!--                                <p id="pWorkTab"></p>-->
+<!--                                <label id="lblWorkCalories" class="small"></label>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                </div>
             </div>
+
+
 
 
         </div>
