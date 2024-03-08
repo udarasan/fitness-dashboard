@@ -343,6 +343,7 @@ function loadTrainerId() {
             response.data.sort((a, b) => a.users.length - b.users.length);
             $.each(response.data, function (index, trainer) {
                 $('#tra_id').append(`<option value="${trainer.tid}">${trainer.name}</option>`);
+                console.log(trainer.users.length)
 
             });
 

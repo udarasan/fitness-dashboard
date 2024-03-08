@@ -379,7 +379,7 @@ function setMemberDataToComboBox(members) {
     $("#assign_member_id").append(firstOpt);
     $("#memberComboBox").append(firstOpt);
 
-    let memberData = `<option >${members.uid}</option>`
+    let memberData = `<option value="${members.uid}" >${members.name}</option>`
     $("#memberComboBox").append(memberData);
     $("#assign_member_id").append(memberData);
 

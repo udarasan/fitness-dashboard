@@ -201,7 +201,7 @@ function loadMembers() {
                 console.log(member);
 
                 if (member.trainer_id == trainerId) {
-                    let memberData = `<option>${member.uid}</option>`;
+                    let memberData = `<option value="${member.uid}">${member.name}</option>`;
                     $(".memberSelect").append(memberData);
                 }
 

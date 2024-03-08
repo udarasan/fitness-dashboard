@@ -439,7 +439,7 @@ function loadMembers() {
             memberList = response.data;
             $.each(response.data, function (index, member) {
                 console.log(member);
-                let memberData = `<option>${member.uid}</option>`;
+                let memberData = `<option value="${member.uid}">${member.name}</option>`;
                 $("#memberSelect").append(memberData);
             })
         },

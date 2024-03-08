@@ -277,7 +277,7 @@ function loadAllMembersIds() {
 
 // set member data to combobox based on ajax request
 function setMemberDataToComboBox(members) {
-    let memberData = `<option >${members.uid}</option>`
+    let memberData = `<option value="${members.uid}" >${members.name}</option>`
     $("#memberComboBox").append(memberData);
 
 }
