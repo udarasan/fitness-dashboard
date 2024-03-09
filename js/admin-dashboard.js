@@ -578,11 +578,11 @@ function downloadPDF() {
 
     doc.setFontSize(16);
     doc.setTextColor(44, 62, 80); // Dark blue color
-    doc.text("Ringo Fitness Centre", doc.internal.pageSize.getWidth() / 2, 5 + 50 + 20, {align: 'center'});
+    doc.text(285,15,"Ringo Fitness Centre" );
     doc.setFontSize(12);
     doc.setTextColor(127, 140, 141); // Gray color
-    doc.text("NO 36/1A Thaladuwa Road, Negombo", doc.internal.pageSize.getWidth() / 2, 5 + 50 + 40, {align: 'center'});
-    doc.text("03122523675", doc.internal.pageSize.getWidth() / 2, 10 + 50 + 60, {align: 'center'});
+    doc.text(285,35,"NO 36/1A Thaladuwa Road, Negombo");
+    doc.text(285,55,"03122523675");
 
 /*
     doc.text(0,70,"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
@@ -590,7 +590,7 @@ function downloadPDF() {
 
     doc.setLineWidth(1);
     doc.setDrawColor(127, 140, 141); // Gray color
-    doc.line(40, 10 + 50 + 80, doc.internal.pageSize.getWidth() - 40, 10 + 50 + 80);
+    doc.line(40, 10 + 35 + 20, doc.internal.pageSize.getWidth() - 40, 10 + 35 + 20);
 
     doc.text(10, 100, "Name : kaveen sandeepa");
     doc.text(10, 120, "meal plan : new meal plan");
