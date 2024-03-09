@@ -194,6 +194,7 @@ function getClientsWithTrainer(trainerId) {
                 $('#searchByUser').append(`<option value="${member.uid}">${member.name}</option>`);
                 $('#searchByUserWorkOut').append(`<option value="${member.uid}">${member.name}</option>`);
                 $("#searchProgressByUser").append(`<option value="${member.uid}">${member.name}</option>`);
+                // $("#searchCalorieCountsByUser").append(`<option value="${member.uid}">${member.name}</option>`);
             });
 
         },
@@ -490,12 +491,16 @@ function setDataToCalorieBurnOutChart() {
 
 
 
-//new
+//new bmi chart start here
 
 let trainerProgressList=[];
 let trainerMemberDynamicChart;
+let newDynamicChart;
+
+
 $("#searchProgressByUser").click(function (){
     getMemberDataToAreaChart($("#searchProgressByUser").val());
+
     if (typeof trainerMemberDynamicChart !== 'undefined') {
         trainerMemberDynamicChart.destroy();
     }
@@ -650,6 +655,12 @@ function setDataToAreaChart() {
 
     });
 }
+
+
+
+
+
+
 
 
 

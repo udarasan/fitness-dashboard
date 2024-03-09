@@ -176,15 +176,31 @@ function loadUserIdsToProgress(){
     })
 }
 
-let adminProgressList=[];
 let adminMemberDynamicChart;
+let newDynamicChart;
+
+let adminProgressList=[];
+let newCalorieDateList=[]
+let newCalorieAmountList=[]
+let newWorkOutCalorieDateList=[]
+let newWorkOutCalorieAmountList=[]
+
 
 $("#searchProgressByUser").click(function (){
     getAdminMemberDataToAreaChart($("#searchProgressByUser").val());
+    getMealCalorieRecordsByUser($("#searchProgressByUser").val());
+
+    if (typeof newDynamicChart !== 'undefined') {
+        newDynamicChart.destroy();
+    }
+
     if (typeof adminMemberDynamicChart !== 'undefined') {
         adminMemberDynamicChart.destroy();
     }
 })
+
+
+//adding bmi values to chart start here
 
 function getAdminMemberDataToAreaChart(uId) {
     console.log(uId)
@@ -333,6 +349,197 @@ function setAdminMemberDataToAreaChart() {
     });
 }
 
+
+
+//adding calorie intake and burnout values to chart start here
+
+function getMealCalorieRecordsByUser(uId) {
+
+    newCalorieDateList=[]
+    newCalorieAmountList=[]
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/mealRecords/getAllMealRecords/' + uId,
+        method: 'GET',
+        success: function (response) {
+            console.log(response);
+            $.each(response.data, function (index, mealRecord) {
+                newCalorieDateList.push(mealRecord.date);
+                newCalorieAmountList.push(mealRecord.calories);
+            });
+
+            if (response.data.length !== 0) {
+                getWorkOutCalorieRecordsByUser(uId);
+            }
+
+        },
+        error: function (jqXHR) {
+            console.log(jqXHR.responseText);
+        }
+    })
+}
+
+
+function getWorkOutCalorieRecordsByUser(uId) {
+    newWorkOutCalorieDateList=[]
+    newWorkOutCalorieAmountList=[]
+    console.log(uId);
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/workoutRecords/getAllWorkOutRecords/' + uId,
+        method: 'GET',
+        success: function (response) {
+            console.log(response);
+            $.each(response.data, function (index, workOutRec) {
+                newWorkOutCalorieDateList.push(workOutRec.date);
+                newWorkOutCalorieAmountList.push(workOutRec.calories);
+
+            });
+            if (response.data.length !== 0) {
+                setDataToCalorieIntakeAndBurnout();
+            }
+        },
+        error: function (jqXHR) {
+            console.log(jqXHR.responseText);
+        }
+    })
+}
+
+
+function setDataToCalorieIntakeAndBurnout() {
+    var ctx = $("#areaChartCalorieBurnOutIntake")[0].getContext('2d');
+
+    // Get current year and month
+    var currentYear = new Date().getFullYear();
+    var currentMonth = new Date().getMonth() + 1; // Months are zero-based, so add 1
+
+
+    var aggregatedIntakeData = {};
+    var aggregatedBurnOutData = {};
+
+    for (var i = 0; i < newCalorieDateList.length; i++) {
+        var date = new Date(newCalorieDateList[i]);
+        if (date.getFullYear() === currentYear && date.getMonth() + 1 === currentMonth) {
+            var formattedDate = ('0' + date.getDate()).slice(-2); // Convert to YYYY-MM-DD format
+
+            if (!aggregatedIntakeData[formattedDate]) {
+                aggregatedIntakeData[formattedDate] = 0;
+            }
+
+            aggregatedIntakeData[formattedDate] += newCalorieAmountList[i];
+
+            if (!aggregatedBurnOutData[formattedDate]) {
+                aggregatedBurnOutData[formattedDate] = 0;
+            }
+
+            aggregatedBurnOutData[formattedDate] += newWorkOutCalorieAmountList[i];
+        }
+    }
+    var aggregatedDates = Object.keys(aggregatedIntakeData,aggregatedBurnOutData);
+    var aggregatedIntakeAmounts = Object.values(aggregatedIntakeData);
+    var aggregatedBurnOutAmounts = Object.values(aggregatedBurnOutData);
+
+
+    newDynamicChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+
+            labels: aggregatedDates,
+            datasets: [
+                {
+                    label: 'Calorie Count',
+                    data: aggregatedIntakeAmounts,
+                    lineTension: 0.2,
+                    backgroundColor: "rgba(78, 115, 223, 0.05)",
+                    borderColor: "rgba(78, 115, 223, 1)",
+                    pointRadius: 3,
+                    pointBackgroundColor: "rgba(78, 115, 223, 1)",
+                    pointBorderColor: "rgba(78, 115, 223, 1)",
+                    pointHoverRadius: 3,
+                    pointHoverBackgroundColor: "rgb(255,0,0)",
+                    pointHoverBorderColor: "rgb(255,0,0)",
+                    pointHitRadius: 10,
+                    pointBorderWidth: 2,
+                },
+
+                {
+                    label: 'Calorie Burn',
+                    data: aggregatedBurnOutAmounts,
+                    lineTension: 0.2,
+                    backgroundColor: "rgba(78, 115, 110, 0.08)",
+                    borderColor: "rgba(255, 0, 0, 1)", // Red color
+                    pointRadius: 3,
+                    pointBackgroundColor: "rgba(255, 0, 0, 1)", // Red color
+                    pointBorderColor: "rgba(255, 0, 0, 1)", // Red color
+                    pointHoverRadius: 3,
+                    pointHoverBackgroundColor: "rgb(255,0,0)",
+                    pointHoverBorderColor: "rgb(255,0,0)",
+                    pointHitRadius: 10,
+                    pointBorderWidth: 2
+                }
+
+
+            ]
+        },
+        options: {
+            maintainAspectRatio: false,
+            layout: {
+                padding: {
+                    left: 10,
+                    right: 25,
+                    top: 25,
+                    bottom: 0
+                }
+            },
+            scales: {
+                xAxes: [{
+                    time: {
+                        unit: 'day',
+                    },
+                    gridLines: {
+                        display: false,
+                        drawBorder: false
+                    },
+                    ticks: {
+                        // maxTicksLimit: 7,
+                        padding: 10
+                    },
+                }],
+                yAxes: [{
+                    ticks: {
+                        // maxTicksLimit: 5,
+                        padding: 10,
+                        // suggestedMin: 5,
+                        // beginAtZero: true,
+                    },
+                    gridLines: {
+                        color: "rgb(234, 236, 244)",
+                        zeroLineColor: "rgb(234, 236, 244)",
+                        drawBorder: false,
+                        borderDash: [2],
+                        zeroLineBorderDash: [2]
+                    }
+                }],
+            },
+            legend: {
+                display: false
+            },
+            tooltips: {
+                backgroundColor: "rgb(255,255,255)",
+                bodyFontColor: "#858796",
+                titleMarginBottom: 10,
+                titleFontColor: '#6e707e',
+                titleFontSize: 14,
+                borderColor: '#dddfeb',
+                borderWidth: 1,
+                xPadding: 15,
+                yPadding: 15,
+                displayColors: false,
+                intersect: false,
+                mode: 'index',
+                caretPadding: 10,
+            }
+        }
+    });
+}
 
 
 
