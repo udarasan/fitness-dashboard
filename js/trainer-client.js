@@ -39,21 +39,137 @@ function getClientsWithTrainer(trainerId) {
         contentType: 'application/json',
 
         success: function (response) {
-
+            if (response.data.length === undefined) {
+                getClients();
+                return;
+            }
 
             console.log(response.data);
-            $.each(response.data, function (index, client) {
+       /*     $.each(response.data, function (index, client) {
 
                 let row = `<tr><td>${client.uid}</td><td>${client.name}</td><td>${client.email}</td><td>${client.meal_plan_id}</td><td >${client.workout_id}</td><td >${client.age}</td><td >${client.gender}</td></tr>`;
                 $('#tblClient').append(row);
             });
 
+*/
+            $.each(response.data, function (index, member) {
+                console.log(member);
+                meal_id = member.meal_plan_id;
+                workout_id = member.workout_id;
+                if (member.trainer_id !== 0) {
+                    $.ajax({
+                        url: 'http://localhost:8080/api/v1/trainer/getTrainer/' + member.trainer_id,
+                        method: 'GET',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        success: function (response) {
+                            console.log(response);
+                            trainerName = response.data.name;
+                            if (member.meal_plan_id  !== 0) {
+                                $.ajax({
+                                    url: 'http://localhost:8080/api/v1/mealPlan/getMealPlan/' + member.meal_plan_id,
+                                    method: 'GET',
+                                    dataType: 'json',
+                                    contentType: 'application/json',
+                                    success: function (mealResponse) {
+                                        console.log(mealResponse);
+                                        mealPlan = mealResponse.data.planName;
+
+                                        if (member.workout_id !== 0) {
+                                            $.ajax({
+                                                url: 'http://localhost:8080/api/v1/workoutplan/getWorkOutPlan/' + member.workout_id,
+                                                method: 'GET',
+                                                dataType: 'json',
+                                                contentType: 'application/json',
+                                                success: function (workoutResponse) {
+                                                    console.log(workoutResponse);
+                                                    workoutPlanName = workoutResponse.data.planName;
+                                                    appendRow(member, mealPlan, workoutPlanName, trainerName);
+                                                },
+                                                error: function (jqXHR, textStatus, errorThrown) {
+                                                    console.error(jqXHR.responseText);
+                                                    appendRow(member, mealPlan, "", trainerName);
+                                                }
+                                            });
+                                        }else {
+                                            appendRow(member, mealPlan, "", trainerName);
+                                        }
+
+                                    },
+                                    error: function (jqXHR, textStatus, errorThrown) {
+                                        console.error(jqXHR.responseText);
+                                        appendRow(member, "", "", "");
+                                    }
+                                });
+                            } else {
+                                $.ajax({
+                                    url: 'http://localhost:8080/api/v1/workoutplan/getWorkOutPlan/' + member.workout_id,
+                                    method: 'GET',
+                                    dataType: 'json',
+                                    contentType: 'application/json',
+                                    success: function (workoutResponse) {
+                                        console.log(workoutResponse);
+                                        workoutPlanName = workoutResponse.data.planName;
+                                        appendRow(member, "", workoutPlanName, trainerName);
+                                    },
+                                    error: function (jqXHR, textStatus, errorThrown) {
+                                        console.error(jqXHR.responseText);
+                                        appendRow(member, "", "", trainerName);
+                                    }
+                                });
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.error(jqXHR.responseText);
+                        }
+                    });
+                } else {
+                    $.ajax({
+                        url: 'http://localhost:8080/api/v1/mealPlan/getMealPlan/' + member.meal_plan_id,
+                        method: 'GET',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        success: function (mealResponse) {
+                            console.log(mealResponse);
+                            mealPlan = mealResponse.data.planName;
+                            /*  appendRow(member, mealPlan, "", "");*/
+                            $.ajax({
+                                url: 'http://localhost:8080/api/v1/workoutplan/getWorkOutPlan/' + member.workout_id,
+                                method: 'GET',
+                                dataType: 'json',
+                                contentType: 'application/json',
+                                success: function (workoutResponse) {
+                                    console.log(workoutResponse);
+                                    workoutPlanName = workoutResponse.data.planName;
+                                    appendRow(member, mealPlan, workoutPlanName, "");
+                                },
+                                error: function (jqXHR, textStatus, errorThrown) {
+                                    console.error(jqXHR.responseText);
+                                    appendRow(member, mealPlan, "", "");
+                                }
+                            });
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.error(jqXHR.responseText);
+                            appendRow(member, "", "", "");
+                        }
+                    });
+                    /*     }
+                     let row = `<tr><td>${member.uid}</td><td>${member.name}</td><td>${member.email}</td><td>${member.trainer_id}</td><td style="display: none">${member.password}</td><td></td><td>${member.workout_id}</td><td>${member.age}</td><td>${member.gender}</td></tr>`;
+                     $('#tblMember').append(row);*/
+                }
+            });
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error(jqXHR.responseText);
         }
     });
 
+}
+
+function appendRow(member, mealPlanName, workoutPlanName, trainerName) {
+    let row = `<tr><td>${member.uid}</td><td>${member.name}</td><td>${member.email}</td><td style="display: none">${member.password}</td><td>${mealPlanName}</td><td>${workoutPlanName}</td><td>${member.age}</td><td>${member.gender}</td></tr>`;
+    $('#tblClient').append(row);
 }
 
 $('#tblMember').on('click', 'tr', function () {
