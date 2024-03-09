@@ -545,9 +545,18 @@ function setDataToCalorieIntakeAndBurnout() {
 }
 
 
+/*
 $("#pdfBtn").click(function (){
     // getMealDetails();
-    downloadPDF();
+    /!*downloadPDF();*!/
+    // Sample client list
+    var clientList = [
+        { name: "John Doe", email: "john@example.com", workOutPlan: "Plan A", mealPlan: "Plan X", trainerName: "Trainer 1", age: 30, gender: "Male" },
+        { name: "Jane Smith", email: "jane@example.com", workOutPlan: "Plan B", mealPlan: "Plan Y", trainerName: "Trainer 2", age: 25, gender: "Female" }
+    ];
+
+// Call the function with the sample client list
+    var pdfObject = jsPDFInvoiceTemplate.default(getPdfProps(clientList));
 })
 
 
@@ -566,3 +575,208 @@ function downloadPDF() {
 
 }
 
+function getPdfProps(clientList) {
+    return {
+        outputType: jsPDFInvoiceTemplate.OutputType.save,
+        returnJsPDFDocObject: true,
+        fileName: "Fitness Clients Report",
+        orientationLandscape: false,
+        compress: true,
+        logo: {
+            src: "https://img.icons8.com/external-nawicon-glyph-nawicon/64/00000/external-gym-hotel-nawicon-glyph-nawicon.png",
+            type: 'PNG',
+            width: 25,
+            height: 25,
+            margin: {
+                top: 0,
+                left: 0
+            }
+        },
+        business: {
+            name: "Ringo Fitness Centre",
+            address: "NO 36/1A Thaladuwa Road ,Negombo",
+            phone: "03122523675",
+
+        },
+        contact: {
+            label: "Trainer :",
+            name: "currntTrainerName",
+            phone: "currntTrainerEmail",
+            email:" ",
+
+
+        },
+
+        invoice: {
+            label: "Report #: ",
+
+            invGenDate: "Report Date: " + "formattedDate",
+
+            headerBorder: true,
+            tableBodyBorder: true,
+            header: [
+                {
+                    title: "#",
+                    style: {
+                        width: 10
+                    },
+
+                },
+                {
+                    title: "Name",
+                    style: {
+                        width: 30
+                    },
+
+                },
+                {
+                    title: "Email",
+                    style: {
+                        width: 40
+                    }
+                },
+                {title: "WorkOutPlan"},
+                {title: "MealPlan",
+
+                },
+                {title: "TrainerName"},
+                {title: "Age",
+                    style: {
+                        width: 10
+                    }
+                },
+                {title: "Gender"},
+
+
+            ],
+            styles: {
+                margin: 500
+            },
+            table: clientList.map((clients, index) => [
+                index + 1,
+                clients.name,
+                clients.email,
+                clients.workout_id ? workoutPlanName : "Not Assign",
+                clients.meal_plan_id ? mealPlan : "Not Assign",
+               " trainerName",
+                clients.age,
+                clients.gender,
+
+            ]),
+            margin: {
+                top: 600,
+                left: 0
+            }
+
+        },
+        footer: {
+            text: "FITNESS GYM Center",
+        },
+        pageEnable: true,
+        pageLabel: "Page ",
+    }
+}
+
+
+
+
+*/
+$("#pdfBtn").click(function (){
+    var canvas = document.getElementById('areaChartCalorieBurnOutIntake');
+
+    var canvasImg = canvas.toDataURL("image/jpeg", 7.0);
+
+    var doc = new jsPDF('landscape');
+
+    doc.setFontSize(14);
+    doc.text(10, 10, "progress chart");
+    doc.addImage(canvasImg, 'JPEG', 10, 20, 150, 100 );
+
+
+    var clientList = [
+        { name: "John Doe", email: "john@example.com", workOutPlan: "Plan A", mealPlan: "Plan X", trainerName: "Trainer 1", age: 30, gender: "Male" },
+        { name: "Jane Smith", email: "jane@example.com", workOutPlan: "Plan B", mealPlan: "Plan Y", trainerName: "Trainer 2", age: 25, gender: "Female" }
+    ];
+
+    var pdfProps = getPdfProps(clientList, canvasImg); // Pass canvas image to getPdfProps
+
+    // Generate PDF using jsPDFInvoiceTemplate
+    jsPDFInvoiceTemplate.default(pdfProps, function (instance) {
+        var doc = instance.jsPDFDoc;
+
+        // Download the PDF
+        doc.save('Fitness_Clients_Report.pdf');
+    });
+});
+
+function getPdfProps(clientList, canvasImg) {
+    console.log(canvasImg);
+    return {
+        outputType: jsPDFInvoiceTemplate.OutputType.save,
+        returnJsPDFDocObject: true,
+        fileName: "Fitness Clients Report",
+        orientationLandscape: false,
+        compress: true,
+        logo: {
+            src: "https://img.icons8.com/external-nawicon-glyph-nawicon/64/00000/external-gym-hotel-nawicon-glyph-nawicon.png",
+            type: 'PNG',
+            width: 25,
+            height: 25,
+            margin: {
+                top: 0,
+                left: 0
+            }
+        },
+        business: {
+            name: "Ringo Fitness Centre",
+            address: "NO 36/1A Thaladuwa Road ,Negombo",
+            phone: "03122523675",
+        },
+        contact: {
+            label: "Trainer :",
+            name: "Trainer Name",
+            phone: "Trainer Phone",
+            email:"Trainer Email",
+        },
+        invoice: {
+            label: "Report #: ",
+            invGenDate: "Report Date: " + new Date().toLocaleDateString(),
+            headerBorder: true,
+            tableBodyBorder: true,
+            header: [
+                { title: "#", style: { width: 10 }},
+                { title: "Name", style: { width: 30 }},
+                { title: "Email", style: { width: 40 }},
+                { title: "WorkOutPlan" },
+                { title: "MealPlan" },
+                { title: "TrainerName" },
+                { title: "Age", style: { width: 10 }},
+                { title: "Gender" },
+                {title: "image"}
+            ],
+            styles: {
+                margin: 500
+            },
+            table: clientList.map((clients, index) => [
+                index + 1,
+                clients.name,
+                clients.email,
+                clients.workOutPlan ? clients.workOutPlan : "Not Assign",
+                clients.mealPlan ? clients.mealPlan : "Not Assign",
+                clients.trainerName,
+                clients.age,
+                clients.gender,
+                { canvasImg: canvasImg, width: 50, height: 50 },
+
+            ]),
+            margin: { top: 600, left: 0 }
+        },
+        footer: {
+            text: "FITNESS GYM Center",
+            canvasImg: canvasImg
+        },
+        pageEnable: true,
+        pageLabel: "Page ",
+       // Add canvas image to PDF properties
+    }
+}

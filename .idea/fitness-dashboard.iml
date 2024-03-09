@@ -6,5 +6,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="chart.js" level="application" />
+    <orderEntry type="library" name="jspdf-invoice-template" level="application" />
   </component>
 </module>
