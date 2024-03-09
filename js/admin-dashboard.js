@@ -546,23 +546,65 @@ function setDataToCalorieIntakeAndBurnout() {
 
 
 $("#pdfBtn").click(function (){
-    // getMealDetails();
     downloadPDF();
+
 })
+
 
 
 function downloadPDF() {
 
-    var canvas = document.getElementById('areaChartCalorieBurnOutIntake');
+    var calorie = document.getElementById('areaChartCalorieBurnOutIntake');
 
-    var canvasImg = canvas.toDataURL("image/jpeg", 7.0);
+    var calorieChart = calorie.toDataURL("image/jpeg", 10);
 
-    var doc = new jsPDF('landscape');
+    var progress = document.getElementById('myAdminProgressAreaChart');
 
-    doc.setFontSize(14);
-    doc.text(10, 10, "progress chart");
-    doc.addImage(canvasImg, 'JPEG', 10, 20, 150, 100 );
+    var progressChart = progress.toDataURL("image/jpeg", 10);
+
+    var doc = new jsPDF('Portrait', 'px', [600, 1200]);
+
+    doc.setFontSize(11);
+
+    var logoImg = new Image();
+    logoImg.src = "https://img.icons8.com/external-nawicon-glyph-nawicon/64/00000/external-gym-hotel-nawicon-glyph-nawicon.png";    var logoHeight = 50; // Adjust as needed based on the height of your logo
+    var logoWidth = logoHeight * (logoImg.width / logoImg.height); // Maintain aspect ratio
+    var headerX = 20; // Positioning it 10 units from the left
+    var headerY = 10; // Positioning it 10 units from the top
+    doc.addImage(logoImg, 'PNG', headerX, headerY, logoWidth, logoHeight);
+
+
+
+
+    doc.text(285, 10, "Ringo Fitness Centre  ");
+    doc.text(285, 30, "NO 36/1A Thaladuwa Road ,Negombo ");
+    doc.text(285, 50, "03122523675 ");
+    doc.text(0,70,"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
+
+
+    doc.text(10, 100, "Name : kaveen sandeepa");
+    doc.text(10, 120, "meal plan : new meal plan");
+    doc.text(10, 140, "workout plan : new workout plan");
+
+    doc.text(10, 170, "01)  calorie Intake and burn out details chart :");
+    doc.addImage(calorieChart, 'JPEG', 25, 190, 260, 160 );
+
+    doc.text(10, 380, "02)  Monthly Progress Details Chart :");
+    doc.addImage(progressChart, 'JPEG', 25, 400, 260, 160 );
+
+
+
+    var footerText = "Fitness Gym Center - " + new Date().toLocaleString(); // Customize the footer text as needed
+    var footerHeight = 10; // Adjust as needed based on the height of your footer
+    var footerX = doc.internal.pageSize.getWidth() / 2; // Centering the text horizontally
+    var footerY = doc.internal.pageSize.getHeight() - 10; // Positioning it 10 units from the bottom
+    doc.text(footerText, footerX, footerY, { align: 'center' });
+
+
     doc.save('canvas.pdf');
 
 }
+
+
+
 
