@@ -357,7 +357,7 @@ function getMealCalorieRecordsByUser(uId) {
 
     newCalorieDateList=[]
     newCalorieAmountList=[]
-    $.ajax({
+     $.ajax({
         url: 'http://localhost:8080/api/v1/mealRecords/getAllMealRecords/' + uId,
         method: 'GET',
         success: function (response) {
@@ -368,6 +368,9 @@ function getMealCalorieRecordsByUser(uId) {
             });
 
             if (response.data.length !== 0) {
+                setDataToCalorieIntakeAndBurnout();
+                getWorkOutCalorieRecordsByUser(uId);
+            }else {
                 getWorkOutCalorieRecordsByUser(uId);
             }
 
@@ -542,6 +545,24 @@ function setDataToCalorieIntakeAndBurnout() {
 }
 
 
+$("#pdfBtn").click(function (){
+    // getMealDetails();
+    downloadPDF();
+})
 
 
+function downloadPDF() {
+
+    var canvas = document.getElementById('areaChartCalorieBurnOutIntake');
+
+    var canvasImg = canvas.toDataURL("image/jpeg", 7.0);
+
+    var doc = new jsPDF('landscape');
+
+    doc.setFontSize(14);
+    doc.text(10, 10, "progress chart");
+    doc.addImage(canvasImg, 'JPEG', 10, 20, 150, 100 );
+    doc.save('canvas.pdf');
+
+}
 
