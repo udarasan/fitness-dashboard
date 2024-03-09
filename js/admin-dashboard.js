@@ -545,238 +545,66 @@ function setDataToCalorieIntakeAndBurnout() {
 }
 
 
-/*
 $("#pdfBtn").click(function (){
-    // getMealDetails();
-    /!*downloadPDF();*!/
-    // Sample client list
-    var clientList = [
-        { name: "John Doe", email: "john@example.com", workOutPlan: "Plan A", mealPlan: "Plan X", trainerName: "Trainer 1", age: 30, gender: "Male" },
-        { name: "Jane Smith", email: "jane@example.com", workOutPlan: "Plan B", mealPlan: "Plan Y", trainerName: "Trainer 2", age: 25, gender: "Female" }
-    ];
+    downloadPDF();
 
-// Call the function with the sample client list
-    var pdfObject = jsPDFInvoiceTemplate.default(getPdfProps(clientList));
 })
+
 
 
 function downloadPDF() {
 
-    var canvas = document.getElementById('areaChartCalorieBurnOutIntake');
+    var calorie = document.getElementById('areaChartCalorieBurnOutIntake');
 
-    var canvasImg = canvas.toDataURL("image/jpeg", 7.0);
+    var calorieChart = calorie.toDataURL("image/jpeg", 10);
 
-    var doc = new jsPDF('landscape');
+    var progress = document.getElementById('myAdminProgressAreaChart');
 
-    doc.setFontSize(14);
-    doc.text(10, 10, "progress chart");
-    doc.addImage(canvasImg, 'JPEG', 10, 20, 150, 100 );
+    var progressChart = progress.toDataURL("image/jpeg", 10);
+
+    var doc = new jsPDF('Portrait', 'px', [600, 1200]);
+
+    doc.setFontSize(11);
+
+    var logoImg = new Image();
+    logoImg.src = "https://img.icons8.com/external-nawicon-glyph-nawicon/64/00000/external-gym-hotel-nawicon-glyph-nawicon.png";    var logoHeight = 50; // Adjust as needed based on the height of your logo
+    var logoWidth = logoHeight * (logoImg.width / logoImg.height); // Maintain aspect ratio
+    var headerX = 20; // Positioning it 10 units from the left
+    var headerY = 10; // Positioning it 10 units from the top
+    doc.addImage(logoImg, 'PNG', headerX, headerY, logoWidth, logoHeight);
+
+
+
+
+    doc.text(285, 10, "Ringo Fitness Centre  ");
+    doc.text(285, 30, "NO 36/1A Thaladuwa Road ,Negombo ");
+    doc.text(285, 50, "03122523675 ");
+    doc.text(0,70,"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
+
+
+    doc.text(10, 100, "Name : kaveen sandeepa");
+    doc.text(10, 120, "meal plan : new meal plan");
+    doc.text(10, 140, "workout plan : new workout plan");
+
+    doc.text(10, 170, "01)  calorie Intake and burn out details chart :");
+    doc.addImage(calorieChart, 'JPEG', 25, 190, 260, 160 );
+
+    doc.text(10, 380, "02)  Monthly Progress Details Chart :");
+    doc.addImage(progressChart, 'JPEG', 25, 400, 260, 160 );
+
+
+
+    var footerText = "Fitness Gym Center - " + new Date().toLocaleString(); // Customize the footer text as needed
+    var footerHeight = 10; // Adjust as needed based on the height of your footer
+    var footerX = doc.internal.pageSize.getWidth() / 2; // Centering the text horizontally
+    var footerY = doc.internal.pageSize.getHeight() - 10; // Positioning it 10 units from the bottom
+    doc.text(footerText, footerX, footerY, { align: 'center' });
+
+
     doc.save('canvas.pdf');
 
 }
 
-function getPdfProps(clientList) {
-    return {
-        outputType: jsPDFInvoiceTemplate.OutputType.save,
-        returnJsPDFDocObject: true,
-        fileName: "Fitness Clients Report",
-        orientationLandscape: false,
-        compress: true,
-        logo: {
-            src: "https://img.icons8.com/external-nawicon-glyph-nawicon/64/00000/external-gym-hotel-nawicon-glyph-nawicon.png",
-            type: 'PNG',
-            width: 25,
-            height: 25,
-            margin: {
-                top: 0,
-                left: 0
-            }
-        },
-        business: {
-            name: "Ringo Fitness Centre",
-            address: "NO 36/1A Thaladuwa Road ,Negombo",
-            phone: "03122523675",
-
-        },
-        contact: {
-            label: "Trainer :",
-            name: "currntTrainerName",
-            phone: "currntTrainerEmail",
-            email:" ",
-
-
-        },
-
-        invoice: {
-            label: "Report #: ",
-
-            invGenDate: "Report Date: " + "formattedDate",
-
-            headerBorder: true,
-            tableBodyBorder: true,
-            header: [
-                {
-                    title: "#",
-                    style: {
-                        width: 10
-                    },
-
-                },
-                {
-                    title: "Name",
-                    style: {
-                        width: 30
-                    },
-
-                },
-                {
-                    title: "Email",
-                    style: {
-                        width: 40
-                    }
-                },
-                {title: "WorkOutPlan"},
-                {title: "MealPlan",
-
-                },
-                {title: "TrainerName"},
-                {title: "Age",
-                    style: {
-                        width: 10
-                    }
-                },
-                {title: "Gender"},
-
-
-            ],
-            styles: {
-                margin: 500
-            },
-            table: clientList.map((clients, index) => [
-                index + 1,
-                clients.name,
-                clients.email,
-                clients.workout_id ? workoutPlanName : "Not Assign",
-                clients.meal_plan_id ? mealPlan : "Not Assign",
-               " trainerName",
-                clients.age,
-                clients.gender,
-
-            ]),
-            margin: {
-                top: 600,
-                left: 0
-            }
-
-        },
-        footer: {
-            text: "FITNESS GYM Center",
-        },
-        pageEnable: true,
-        pageLabel: "Page ",
-    }
-}
 
 
 
-
-*/
-$("#pdfBtn").click(function (){
-    var canvas = document.getElementById('areaChartCalorieBurnOutIntake');
-
-    var canvasImg = canvas.toDataURL("image/jpeg", 7.0);
-
-    var doc = new jsPDF('landscape');
-
-    doc.setFontSize(14);
-    doc.text(10, 10, "progress chart");
-    doc.addImage(canvasImg, 'JPEG', 10, 20, 150, 100 );
-
-
-    var clientList = [
-        { name: "John Doe", email: "john@example.com", workOutPlan: "Plan A", mealPlan: "Plan X", trainerName: "Trainer 1", age: 30, gender: "Male" },
-        { name: "Jane Smith", email: "jane@example.com", workOutPlan: "Plan B", mealPlan: "Plan Y", trainerName: "Trainer 2", age: 25, gender: "Female" }
-    ];
-
-    var pdfProps = getPdfProps(clientList, canvasImg); // Pass canvas image to getPdfProps
-
-    // Generate PDF using jsPDFInvoiceTemplate
-    jsPDFInvoiceTemplate.default(pdfProps, function (instance) {
-        var doc = instance.jsPDFDoc;
-
-        // Download the PDF
-        doc.save('Fitness_Clients_Report.pdf');
-    });
-});
-
-function getPdfProps(clientList, canvasImg) {
-    console.log(canvasImg);
-    return {
-        outputType: jsPDFInvoiceTemplate.OutputType.save,
-        returnJsPDFDocObject: true,
-        fileName: "Fitness Clients Report",
-        orientationLandscape: false,
-        compress: true,
-        logo: {
-            src: "https://img.icons8.com/external-nawicon-glyph-nawicon/64/00000/external-gym-hotel-nawicon-glyph-nawicon.png",
-            type: 'PNG',
-            width: 25,
-            height: 25,
-            margin: {
-                top: 0,
-                left: 0
-            }
-        },
-        business: {
-            name: "Ringo Fitness Centre",
-            address: "NO 36/1A Thaladuwa Road ,Negombo",
-            phone: "03122523675",
-        },
-        contact: {
-            label: "Trainer :",
-            name: "Trainer Name",
-            phone: "Trainer Phone",
-            email:"Trainer Email",
-        },
-        invoice: {
-            label: "Report #: ",
-            invGenDate: "Report Date: " + new Date().toLocaleDateString(),
-            headerBorder: true,
-            tableBodyBorder: true,
-            header: [
-                { title: "#", style: { width: 10 }},
-                { title: "Name", style: { width: 30 }},
-                { title: "Email", style: { width: 40 }},
-                { title: "WorkOutPlan" },
-                { title: "MealPlan" },
-                { title: "TrainerName" },
-                { title: "Age", style: { width: 10 }},
-                { title: "Gender" },
-                {title: "image"}
-            ],
-            styles: {
-                margin: 500
-            },
-            table: clientList.map((clients, index) => [
-                index + 1,
-                clients.name,
-                clients.email,
-                clients.workOutPlan ? clients.workOutPlan : "Not Assign",
-                clients.mealPlan ? clients.mealPlan : "Not Assign",
-                clients.trainerName,
-                clients.age,
-                clients.gender,
-                { canvasImg: canvasImg, width: 50, height: 50 },
-
-            ]),
-            margin: { top: 600, left: 0 }
-        },
-        footer: {
-            text: "FITNESS GYM Center",
-            canvasImg: canvasImg
-        },
-        pageEnable: true,
-        pageLabel: "Page ",
-       // Add canvas image to PDF properties
-    }
-}
