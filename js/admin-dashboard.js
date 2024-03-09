@@ -153,7 +153,7 @@ function getEquipmentCount() {
 
 //new
 
-function loadUserIdsToProgress(){
+function loadUserIdsToProgress() {
     $.ajax({
         url: 'http://localhost:8080/api/v1/user/getAllUsers',
         method: 'GET',
@@ -167,7 +167,7 @@ function loadUserIdsToProgress(){
 
             $.each(response.data, function (index, members) {
                 console.log(members);
-                $("#searchProgressByUser").append( `<option value="${members.uid}">${members.name}</option>`)
+                $("#searchProgressByUser").append(`<option value="${members.uid}">${members.name}</option>`)
             })
         },
         error: function (xhr) {
@@ -179,17 +179,93 @@ function loadUserIdsToProgress(){
 let adminMemberDynamicChart;
 let newDynamicChart;
 
-let adminProgressList=[];
-let newCalorieDateList=[]
-let newCalorieAmountList=[]
-let newWorkOutCalorieDateList=[]
-let newWorkOutCalorieAmountList=[]
+let adminProgressList = [];
+let newCalorieDateList = []
+let newCalorieAmountList = []
+let newWorkOutCalorieDateList = []
+let newWorkOutCalorieAmountList = []
+
+let userName;
+let mealPlan;
+let workoutPlanName;
+
+function getMemberDetail(uId) {
+
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/user/getOneUser/' + uId,
+        method: 'GET',
+        success: function (response) {
+            console.log(response.data.name);
+            userName = response.data.name;
+            console.log(response.data.gender);
+            let meal_plan_id = response.data.meal_plan_id;
+            let workoutId = response.data.workout_id
+            if (meal_plan_id !== 0) {
+                $.ajax({
+                    url: 'http://localhost:8080/api/v1/mealPlan/getMealPlan/' + meal_plan_id,
+                    method: 'GET',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (mealResponse) {
 
 
-$("#searchProgressByUser").click(function (){
+                        mealPlan = mealResponse.data.planName;
+
+
+                        $.ajax({
+                            url: 'http://localhost:8080/api/v1/workoutplan/getWorkOutPlan/' + workoutId,
+                            method: 'GET',
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            success: function (workoutResponse) {
+                                console.log(workoutResponse);
+                                workoutPlanName = workoutResponse.data.planName;
+
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                console.error(jqXHR.responseText);
+                                workoutPlanName = "Not Assign"
+                            }
+                        });
+
+
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error(jqXHR.responseText);
+
+                    }
+                });
+            } else {
+                $.ajax({
+                    url: 'http://localhost:8080/api/v1/workoutplan/getWorkOutPlan/' + workoutId,
+                    method: 'GET',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (workoutResponse) {
+                        console.log(workoutResponse);
+                        workoutPlanName = workoutResponse.data.planName;
+                        mealPlan = "Not Assign"
+
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error(jqXHR.responseText);
+                        workoutPlanName = "Not Assign"
+
+                    }
+                });
+            }
+
+        },
+        error: function (error) {
+
+        }
+    });
+}
+
+$("#searchProgressByUser").click(function () {
     getAdminMemberDataToAreaChart($("#searchProgressByUser").val());
     getMealCalorieRecordsByUser($("#searchProgressByUser").val());
-
+    getMemberDetail($("#searchProgressByUser").val())
     if (typeof newDynamicChart !== 'undefined') {
         newDynamicChart.destroy();
     }
@@ -208,7 +284,7 @@ function getAdminMemberDataToAreaChart(uId) {
         url: 'http://localhost:8080/api/v1/progress/getAllProgress/' + uId,
         method: 'GET',
 
-        contentType: 'application/json',  // Set content type to JSON
+        contentType: 'application/json',
         success: function (progressResponse) {
             console.log(progressResponse.data);
 
@@ -218,7 +294,7 @@ function getAdminMemberDataToAreaChart(uId) {
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            console.error(jqXHR.responseText);
         }
     });
 }
@@ -227,8 +303,8 @@ let dateList = [];
 let trainerBmiList = [];
 
 function addAdminFormatAreaChartData() {
-    dateList = []; // Clear the array
-    trainerBmiList = []; // Clear the array
+    dateList = [];
+    trainerBmiList = [];
 
 
     $.each(adminProgressList, function (index, progress) {
@@ -350,14 +426,11 @@ function setAdminMemberDataToAreaChart() {
 }
 
 
-
-//adding calorie intake and burnout values to chart start here
-
 function getMealCalorieRecordsByUser(uId) {
 
-    newCalorieDateList=[]
-    newCalorieAmountList=[]
-     $.ajax({
+    newCalorieDateList = []
+    newCalorieAmountList = []
+    $.ajax({
         url: 'http://localhost:8080/api/v1/mealRecords/getAllMealRecords/' + uId,
         method: 'GET',
         success: function (response) {
@@ -370,7 +443,7 @@ function getMealCalorieRecordsByUser(uId) {
             if (response.data.length !== 0) {
                 setDataToCalorieIntakeAndBurnout();
                 getWorkOutCalorieRecordsByUser(uId);
-            }else {
+            } else {
                 getWorkOutCalorieRecordsByUser(uId);
             }
 
@@ -383,8 +456,8 @@ function getMealCalorieRecordsByUser(uId) {
 
 
 function getWorkOutCalorieRecordsByUser(uId) {
-    newWorkOutCalorieDateList=[]
-    newWorkOutCalorieAmountList=[]
+    newWorkOutCalorieDateList = []
+    newWorkOutCalorieAmountList = []
     console.log(uId);
     $.ajax({
         url: 'http://localhost:8080/api/v1/workoutRecords/getAllWorkOutRecords/' + uId,
@@ -410,9 +483,9 @@ function getWorkOutCalorieRecordsByUser(uId) {
 function setDataToCalorieIntakeAndBurnout() {
     var ctx = $("#areaChartCalorieBurnOutIntake")[0].getContext('2d');
 
-    // Get current year and month
+
     var currentYear = new Date().getFullYear();
-    var currentMonth = new Date().getMonth() + 1; // Months are zero-based, so add 1
+    var currentMonth = new Date().getMonth() + 1;
 
 
     var aggregatedIntakeData = {};
@@ -421,7 +494,7 @@ function setDataToCalorieIntakeAndBurnout() {
     for (var i = 0; i < newCalorieDateList.length; i++) {
         var date = new Date(newCalorieDateList[i]);
         if (date.getFullYear() === currentYear && date.getMonth() + 1 === currentMonth) {
-            var formattedDate = ('0' + date.getDate()).slice(-2); // Convert to YYYY-MM-DD format
+            var formattedDate = ('0' + date.getDate()).slice(-2);
 
             if (!aggregatedIntakeData[formattedDate]) {
                 aggregatedIntakeData[formattedDate] = 0;
@@ -436,7 +509,7 @@ function setDataToCalorieIntakeAndBurnout() {
             aggregatedBurnOutData[formattedDate] += newWorkOutCalorieAmountList[i];
         }
     }
-    var aggregatedDates = Object.keys(aggregatedIntakeData,aggregatedBurnOutData);
+    var aggregatedDates = Object.keys(aggregatedIntakeData, aggregatedBurnOutData);
     var aggregatedIntakeAmounts = Object.values(aggregatedIntakeData);
     var aggregatedBurnOutAmounts = Object.values(aggregatedBurnOutData);
 
@@ -545,11 +618,10 @@ function setDataToCalorieIntakeAndBurnout() {
 }
 
 
-$("#pdfBtn").click(function (){
+$("#pdfBtn").click(function () {
     downloadPDF();
 
 })
-
 
 
 function downloadPDF() {
@@ -567,48 +639,45 @@ function downloadPDF() {
     doc.setFontSize(11);
 
     var logoImg = new Image();
-    logoImg.src = "https://img.icons8.com/external-nawicon-glyph-nawicon/64/00000/external-gym-hotel-nawicon-glyph-nawicon.png";    var logoHeight = 50; // Adjust as needed based on the height of your logo
+    logoImg.src = "https://img.icons8.com/external-nawicon-glyph-nawicon/64/00000/external-gym-hotel-nawicon-glyph-nawicon.png";
+    var logoHeight = 50; // Adjust as needed based on the height of your logo
     var logoWidth = logoHeight * (logoImg.width / logoImg.height); // Maintain aspect ratio
     var headerX = 20; // Positioning it 10 units from the left
     var headerY = 10; // Positioning it 10 units from the top
     doc.addImage(logoImg, 'PNG', 20, 10, 50, 50);
 
-
-
-
     doc.setFontSize(16);
-    doc.setTextColor(44, 62, 80); // Dark blue color
-    doc.text(285,15,"Ringo Fitness Centre" );
+    doc.setTextColor(44, 62, 80);
+    doc.text(285, 15, "Ringo Fitness Centre");
     doc.setFontSize(12);
-    doc.setTextColor(127, 140, 141); // Gray color
-    doc.text(285,35,"NO 36/1A Thaladuwa Road, Negombo");
-    doc.text(285,55,"03122523675");
+    doc.setTextColor(127, 140, 141);
+    doc.text(285, 35, "NO 36/1A Thaladuwa Road, Negombo");
+    doc.text(285, 55, "03122523675");
 
-/*
-    doc.text(0,70,"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
-*/
+    /*
+        doc.text(0,70,"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
+    */
 
     doc.setLineWidth(1);
-    doc.setDrawColor(127, 140, 141); // Gray color
-    doc.line(40, 10 + 35 + 20, doc.internal.pageSize.getWidth() - 40, 10 + 35 + 20);
+    doc.setDrawColor(127, 140, 141);
+    doc.line(5, 10 + 35 + 20, doc.internal.pageSize.getWidth() - 5, 10 + 35 + 20);
 
-    doc.text(10, 100, "Name : kaveen sandeepa");
-    doc.text(10, 120, "meal plan : new meal plan");
-    doc.text(10, 140, "workout plan : new workout plan");
+    doc.text(10, 100, "Name : " + userName);
+    doc.text(10, 120, "meal plan : " + mealPlan);
+    doc.text(10, 140, "workout plan : " + workoutPlanName);
 
     doc.text(10, 170, "01)  calorie Intake and burn out details chart :");
-    doc.addImage(calorieChart, 'JPEG', 25, 190, 260, 160 );
+    doc.addImage(calorieChart, 'JPEG', 25, 190, 260, 160);
 
     doc.text(10, 380, "02)  Monthly Progress Details Chart :");
-    doc.addImage(progressChart, 'JPEG', 25, 400, 260, 160 );
+    doc.addImage(progressChart, 'JPEG', 25, 400, 260, 160);
 
 
-
-    var footerText = "Fitness Gym Center - " + new Date().toLocaleString(); // Customize the footer text as needed
-    var footerHeight = 10; // Adjust as needed based on the height of your footer
-    var footerX = doc.internal.pageSize.getWidth() / 2; // Centering the text horizontally
-    var footerY = doc.internal.pageSize.getHeight() - 10; // Positioning it 10 units from the bottom
-    doc.text(footerText, footerX, footerY, { align: 'center' });
+    var footerText = "Fitness Gym Center - " + new Date().toLocaleString();
+    var footerHeight = 10;
+    var footerX = doc.internal.pageSize.getWidth() / 2;
+    var footerY = doc.internal.pageSize.getHeight() - 10;
+    doc.text(footerText, footerX, footerY, {align: 'center'});
 
 
     doc.save('canvas.pdf');
