@@ -256,7 +256,7 @@ function appendRow(member, mealPlanName, workoutPlanName, trainerName) {
 
 let currntTrainerName;
 let currntTrainerEmail;
-$('#tra_id').on('click', function () {
+$('#tra_id').on('change', function () {
     let trainerId = $("#tra_id").val();
     setClientDetails();
 
