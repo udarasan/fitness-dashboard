@@ -231,7 +231,7 @@ $('#saveMemeber').click(function () {
 
 });
 
-function getAllMembers() {
+/*function getAllMembers() {
     $('#tblMember').empty();
     // members get All
     $.ajax({
@@ -333,7 +333,7 @@ function getAllMembers() {
                         success: function (mealResponse) {
                             console.log(mealResponse);
                             let mealPlan = mealResponse.data.planName;
-                            /*  appendRow(member, mealPlan, "", "");*/
+                            /!*  appendRow(member, mealPlan, "", "");*!/
                             $.ajax({
                                 url: 'http://localhost:8080/api/v1/workoutplan/getWorkOutPlan/' + member.workout_id,
                                 method: 'GET',
@@ -355,9 +355,9 @@ function getAllMembers() {
                             appendRow(member, "Not Assign", "Not Assign", "Not Assign");
                         }
                     });
-                    /*     }
+                    /!*     }
                      let row = `<tr><td>${member.uid}</td><td>${member.name}</td><td>${member.email}</td><td>${member.trainer_id}</td><td style="display: none">${member.password}</td><td></td><td>${member.workout_id}</td><td>${member.age}</td><td>${member.gender}</td></tr>`;
-                     $('#tblMember').append(row);*/
+                     $('#tblMember').append(row);*!/
                 }
             });
 
@@ -368,12 +368,85 @@ function getAllMembers() {
             console.error(jqXHR.responseText);
         }
     });
+}*/
+async function getAllMembers() {
+    $('#tblMember').empty();
+    try {
+        const response = await $.ajax({
+            url: 'http://localhost:8080/api/v1/user/getAllUsers',
+            method: 'GET',
+            dataType: 'json',
+            contentType: 'application/json'
+        });
+
+        if (!Array.isArray(response.data) || response.data.length === 0) {
+            alert("No members found.");
+            return;
+        }
+
+        for (const member of response.data) {
+            let trainerName = "Not Assign";
+            let mealPlan = "Not Assign";
+            let workoutPlanName = "Not Assign";
+
+            if (member.trainer_id !== 0) {
+                const trainerResponse = await $.ajax({
+                    url: 'http://localhost:8080/api/v1/trainer/getTrainer/' + member.trainer_id,
+                    method: 'GET',
+                    dataType: 'json',
+                    contentType: 'application/json'
+                });
+                trainerName = trainerResponse.data.name;
+            }
+
+            if (member.meal_plan_id !== 0) {
+                const mealResponse = await $.ajax({
+                    url: 'http://localhost:8080/api/v1/mealPlan/getMealPlan/' + member.meal_plan_id,
+                    method: 'GET',
+                    dataType: 'json',
+                    contentType: 'application/json'
+                });
+                mealPlan = mealResponse.data.planName;
+            }
+
+            if (member.workout_id !== 0) {
+                const workoutResponse = await $.ajax({
+                    url: 'http://localhost:8080/api/v1/workoutplan/getWorkOutPlan/' + member.workout_id,
+                    method: 'GET',
+                    dataType: 'json',
+                    contentType: 'application/json'
+                });
+                workoutPlanName = workoutResponse.data.planName;
+            }
+
+            appendRow(member, mealPlan, workoutPlanName, trainerName);
+        }
+    } catch (error) {
+        alert("Failed to retrieve members. Please try again.");
+        console.error(error);
+    }
 }
 
-function appendRow(member, mealPlanName, workoutPlanName, trainerName) {
-    let row = `<tr><td>${member.uid}</td><td>${member.name}</td><td>${member.email}</td><td>${trainerName}</td><td style="display: none">${member.password}</td><td>${mealPlanName}</td><td>${workoutPlanName}</td><td>${member.age}</td><td>${member.gender}</td></tr>`;
+
+function appendRow(member, mealPlan, workoutPlanName, trainerName) {
+    let row = "<tr>" +
+        "<td>" + member.uid + "</td>" +
+        "<td>" + member.name + "</td>" +
+        "<td>" + member.email + "</td>" +
+        "<td>" + trainerName + "</td>" +
+        "<td style='display: none'>" + member.password + "</td>" +
+        "<td></td>" +
+        "<td>" + mealPlan + "</td>" +
+        "<td>" + workoutPlanName + "</td>" +
+        "<td>" + member.age + "</td>" +
+        "<td>" + member.gender + "</td>" +
+        "</tr>";
     $('#tblMember').append(row);
 }
+
+// Call getAllMembers function to start fetching members
+
+
 
 
 $('#tblMember').on('click', 'tr', function () {
