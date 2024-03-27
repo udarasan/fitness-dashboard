@@ -198,7 +198,7 @@ $('#saveTrainer').click(function () {
                         "email": email,
                         "password": newPassword,
                         "category": category,
-
+                        "status": "active"
                     }),
                     success: function (response) {
                         alert("Trainer registration successful!");
