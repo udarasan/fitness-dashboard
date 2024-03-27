@@ -31,7 +31,7 @@ function getClients() {
 
 }
 
-function getClientsWithTrainer(trainerId) {
+/*function getClientsWithTrainer(trainerId) {
     $.ajax({
         url: 'http://localhost:8080/api/v1/trainer/getOneTrainer/' + trainerId,
         method: 'GET',
@@ -45,13 +45,13 @@ function getClientsWithTrainer(trainerId) {
             }
 
             console.log(response.data);
-       /*     $.each(response.data, function (index, client) {
+       /!*     $.each(response.data, function (index, client) {
 
                 let row = `<tr><td>${client.uid}</td><td>${client.name}</td><td>${client.email}</td><td>${client.meal_plan_id}</td><td >${client.workout_id}</td><td >${client.age}</td><td >${client.gender}</td></tr>`;
                 $('#tblClient').append(row);
             });
 
-*/
+*!/
             $.each(response.data, function (index, member) {
                 console.log(member);
                 meal_id = member.meal_plan_id;
@@ -132,7 +132,7 @@ function getClientsWithTrainer(trainerId) {
                         success: function (mealResponse) {
                             console.log(mealResponse);
                             mealPlan = mealResponse.data.planName;
-                            /*  appendRow(member, mealPlan, "", "");*/
+                            /!*  appendRow(member, mealPlan, "", "");*!/
                             $.ajax({
                                 url: 'http://localhost:8080/api/v1/workoutplan/getWorkOutPlan/' + member.workout_id,
                                 method: 'GET',
@@ -154,9 +154,9 @@ function getClientsWithTrainer(trainerId) {
                             appendRow(member, "", "", "");
                         }
                     });
-                    /*     }
+                    /!*     }
                      let row = `<tr><td>${member.uid}</td><td>${member.name}</td><td>${member.email}</td><td>${member.trainer_id}</td><td style="display: none">${member.password}</td><td></td><td>${member.workout_id}</td><td>${member.age}</td><td>${member.gender}</td></tr>`;
-                     $('#tblMember').append(row);*/
+                     $('#tblMember').append(row);*!/
                 }
             });
         },
@@ -165,6 +165,74 @@ function getClientsWithTrainer(trainerId) {
         }
     });
 
+}*/
+function getClientsWithTrainer(trainerId) {
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/trainer/getOneTrainer/' + trainerId,
+        method: 'GET',
+        contentType: 'application/json',
+        success: function (response) {
+            if (response.data.length === undefined) {
+                getClients();
+                return;
+            }
+
+            console.log(response.data);
+
+            $.each(response.data, async function (index, member) {
+                let trainerName = "Not Assign";
+                let mealPlan = "Not Assign";
+                let workoutPlanName = "Not Assign";
+
+                if (member.trainer_id !== 0) {
+                    try {
+                        const trainerResponse = await $.ajax({
+                            url: 'http://localhost:8080/api/v1/trainer/getTrainer/' + member.trainer_id,
+                            method: 'GET',
+                            dataType: 'json',
+                            contentType: 'application/json'
+                        });
+                        trainerName = trainerResponse.data.name;
+                    } catch (error) {
+                        console.error(error);
+                    }
+                }
+
+                if (member.meal_plan_id !== 0) {
+                    try {
+                        const mealResponse = await $.ajax({
+                            url: 'http://localhost:8080/api/v1/mealPlan/getMealPlan/' + member.meal_plan_id,
+                            method: 'GET',
+                            dataType: 'json',
+                            contentType: 'application/json'
+                        });
+                        mealPlan = mealResponse.data.planName;
+                    } catch (error) {
+                        console.error(error);
+                    }
+                }
+
+                if (member.workout_id !== 0) {
+                    try {
+                        const workoutResponse = await $.ajax({
+                            url: 'http://localhost:8080/api/v1/workoutplan/getWorkOutPlan/' + member.workout_id,
+                            method: 'GET',
+                            dataType: 'json',
+                            contentType: 'application/json'
+                        });
+                        workoutPlanName = workoutResponse.data.planName;
+                    } catch (error) {
+                        console.error(error);
+                    }
+                }
+
+                appendRow(member, mealPlan, workoutPlanName, trainerName);
+            });
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error(jqXHR.responseText);
+        }
+    });
 }
 
 function appendRow(member, mealPlanName, workoutPlanName, trainerName) {
