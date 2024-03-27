@@ -223,24 +223,11 @@ async function getClientsWithTrainer(trainerId) {
     }
 }
 
-// Function to append row to table
-function appendRow(member, mealPlan, workoutPlanName, trainerName) {
-    let row = "<tr>" +
-        "<td>" + member.uid + "</td>" +
-        "<td>" + member.name + "</td>" +
-        "<td>" + member.email + "</td>" +
-        "<td>" + trainerName + "</td>" +
-        "<td style='display: none'>" + member.password + "</td>" +
-        "<td></td>" +
-        "<td>" + mealPlan + "</td>" +
-        "<td>" + workoutPlanName + "</td>" +
-        "<td>" + member.age + "</td>" +
-        "<td>" + member.gender + "</td>" +
-        "</tr>";
-    $('#tblMember').append(row);
+
+function appendRow(member, mealPlanName, workoutPlanName, trainerName) {
+    let row = `<tr><td>${member.uid}</td><td>${member.name}</td><td>${member.email}</td><td style="display: none">${member.password}</td><td>${mealPlanName}</td><td>${workoutPlanName}</td><td>${member.age}</td><td>${member.gender}</td></tr>`;
+    $('#tblClient').append(row);
 }
-
-
 
 $('#tblMember').on('click', 'tr', function () {
     $('#tblClientProgress').empty();
