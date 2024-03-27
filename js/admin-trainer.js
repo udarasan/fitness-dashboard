@@ -39,6 +39,11 @@ $("#searchTrainers").keyup(function () {
 $('#deleteTrainer').click(function () {
 
     let id = $('#trainer_id').val();
+    let name = $('#trainer_name').val();
+    let email = $('#trainer_email').val();
+    let password = $('#trainer_password').val();
+    let category = $('#trainer_category').val();
+
     var result = window.confirm("Do you want to proceed?");
     if (result) {
         // Make the AJAX request
@@ -46,6 +51,14 @@ $('#deleteTrainer').click(function () {
             url: 'http://localhost:8080/api/v1/trainer/delete/' + id,
             method: 'DELETE',
             contentType: 'application/json',
+            data: JSON.stringify({
+                "name": name,
+                "tid": id,
+                "email": email,
+                "password": password,
+                "category": category,
+                "status": "inactive"
+            }),
             success: function (response) {
                 alert("Trainer Delete successful!");
                 getAllTrainers();
@@ -97,7 +110,7 @@ $('#updateTrainer').click(function () {
                         "email": email,
                         "password": newPassword,
                         "category": category,
-
+                        "status": "active"
                     }),
                     success: function (response) {
                         console.log(response);
