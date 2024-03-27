@@ -113,6 +113,10 @@
     column-gap: 20px;
 }
 
+.equipmentContainer{
+    flex-wrap: wrap;
+}
+
 /*@media (min-width: 576px){*/
 /*    #assignNewWorkoutModal .modal-dialog {*/
 /*        max-width: none;*/
