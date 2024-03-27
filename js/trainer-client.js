@@ -166,79 +166,81 @@ function getClients() {
     });
 
 }*/
-function getClientsWithTrainer(trainerId) {
-    $.ajax({
-        url: 'http://localhost:8080/api/v1/trainer/getOneTrainer/' + trainerId,
-        method: 'GET',
-        contentType: 'application/json',
-        success: function (response) {
-            if (response.data.length === undefined) {
-                getClients();
-                return;
+async function getClientsWithTrainer(trainerId) {
+    $('#tblMember').empty();
+    try {
+        const response = await $.ajax({
+            url: 'http://localhost:8080/api/v1/trainer/getOneTrainer/' + trainerId,
+            method: 'GET',
+            contentType: 'application/json'
+        });
+
+        if (!Array.isArray(response.data) || response.data.length === 0) {
+            alert("No members found.");
+            return;
+        }
+
+        for (const member of response.data) {
+            let trainerName = "Not Assign";
+            let mealPlan = "Not Assign";
+            let workoutPlanName = "Not Assign";
+
+            if (member.trainer_id !== 0) {
+                const trainerResponse = await $.ajax({
+                    url: 'http://localhost:8080/api/v1/trainer/getTrainer/' + member.trainer_id,
+                    method: 'GET',
+                    dataType: 'json',
+                    contentType: 'application/json'
+                });
+                trainerName = trainerResponse.data.name;
             }
 
-            console.log(response.data);
+            if (member.meal_plan_id !== 0) {
+                const mealResponse = await $.ajax({
+                    url: 'http://localhost:8080/api/v1/mealPlan/getMealPlan/' + member.meal_plan_id,
+                    method: 'GET',
+                    dataType: 'json',
+                    contentType: 'application/json'
+                });
+                mealPlan = mealResponse.data.planName;
+            }
 
-            $.each(response.data, async function (index, member) {
-                let trainerName = "Not Assign";
-                let mealPlan = "Not Assign";
-                let workoutPlanName = "Not Assign";
+            if (member.workout_id !== 0) {
+                const workoutResponse = await $.ajax({
+                    url: 'http://localhost:8080/api/v1/workoutplan/getWorkOutPlan/' + member.workout_id,
+                    method: 'GET',
+                    dataType: 'json',
+                    contentType: 'application/json'
+                });
+                workoutPlanName = workoutResponse.data.planName;
+            }
 
-                if (member.trainer_id !== 0) {
-                    try {
-                        const trainerResponse = await $.ajax({
-                            url: 'http://localhost:8080/api/v1/trainer/getTrainer/' + member.trainer_id,
-                            method: 'GET',
-                            dataType: 'json',
-                            contentType: 'application/json'
-                        });
-                        trainerName = trainerResponse.data.name;
-                    } catch (error) {
-                        console.error(error);
-                    }
-                }
-
-                if (member.meal_plan_id !== 0) {
-                    try {
-                        const mealResponse = await $.ajax({
-                            url: 'http://localhost:8080/api/v1/mealPlan/getMealPlan/' + member.meal_plan_id,
-                            method: 'GET',
-                            dataType: 'json',
-                            contentType: 'application/json'
-                        });
-                        mealPlan = mealResponse.data.planName;
-                    } catch (error) {
-                        console.error(error);
-                    }
-                }
-
-                if (member.workout_id !== 0) {
-                    try {
-                        const workoutResponse = await $.ajax({
-                            url: 'http://localhost:8080/api/v1/workoutplan/getWorkOutPlan/' + member.workout_id,
-                            method: 'GET',
-                            dataType: 'json',
-                            contentType: 'application/json'
-                        });
-                        workoutPlanName = workoutResponse.data.planName;
-                    } catch (error) {
-                        console.error(error);
-                    }
-                }
-
-                appendRow(member, mealPlan, workoutPlanName, trainerName);
-            });
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.error(jqXHR.responseText);
+            appendRow(member, mealPlan, workoutPlanName, trainerName);
         }
-    });
+    } catch (error) {
+        alert("Failed to retrieve members. Please try again.");
+        console.error(error);
+    }
 }
 
-function appendRow(member, mealPlanName, workoutPlanName, trainerName) {
-    let row = `<tr><td>${member.uid}</td><td>${member.name}</td><td>${member.email}</td><td style="display: none">${member.password}</td><td>${mealPlanName}</td><td>${workoutPlanName}</td><td>${member.age}</td><td>${member.gender}</td></tr>`;
-    $('#tblClient').append(row);
+// Function to append row to table
+function appendRow(member, mealPlan, workoutPlanName, trainerName) {
+    let row = "<tr>" +
+        "<td>" + member.uid + "</td>" +
+        "<td>" + member.name + "</td>" +
+        "<td>" + member.email + "</td>" +
+        "<td>" + trainerName + "</td>" +
+        "<td style='display: none'>" + member.password + "</td>" +
+        "<td></td>" +
+        "<td>" + mealPlan + "</td>" +
+        "<td>" + workoutPlanName + "</td>" +
+        "<td>" + member.age + "</td>" +
+        "<td>" + member.gender + "</td>" +
+        "</tr>";
+    $('#tblMember').append(row);
 }
+
+
 
 $('#tblMember').on('click', 'tr', function () {
     $('#tblClientProgress').empty();
