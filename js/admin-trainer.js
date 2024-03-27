@@ -48,8 +48,8 @@ $('#deleteTrainer').click(function () {
     if (result) {
         // Make the AJAX request
         $.ajax({
-            url: 'http://localhost:8080/api/v1/trainer/delete/' + id,
-            method: 'DELETE',
+            url: 'http://localhost:8080/api/v1/trainer/delete',
+            method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({
                 "name": name,
