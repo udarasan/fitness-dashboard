@@ -47,30 +47,38 @@ $('#deleteTrainer').click(function () {
     var result = window.confirm("Do you want to proceed?");
     if (result) {
         // Make the AJAX request
-        $.ajax({
-            url: 'http://localhost:8080/api/v1/trainer/delete',
-            method: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({
-                "name": name,
-                "tid": id,
-                "email": email,
-                "password": password,
-                "category": category,
-                "status": "inactive"
-            }),
-            success: function (response) {
-                alert("Trainer Delete successful!");
-                getAllTrainers();
-                $('#trainerModal').modal('hide');
+        hashPassword($('#trainer_password').val())
+            .then(hashedPassword => {
+                console.log('Hashed Password:', hashedPassword);
+                newPassword = hashedPassword;
+                if (isValidName(name) && isValidEmail(email) && isValidPassword(password)) {
+                    $.ajax({
+                        url: 'http://localhost:8080/api/v1/trainer/delete',
+                        method: 'POST',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        data: JSON.stringify({
+                            "name": name,
+                            "tid": id,
+                            "email": email,
+                            "password": newPassword,
+                            "category": category,
+                            "status": "inactive"
+                        }),
+                        success: function (response) {
+                            console.log(response);
+                            alert("Trainer deleted successfully!");
+                            getAllTrainers();
+                            $('#trainerModal').modal('hide');
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert("Trainer deleting process failed! Please check again.");
+                            console.error(jqXHR.responseText);
+                        }
+                    });
+                }
 
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert("Trainer Delete failed! Please check your input and try again.");
-
-                console.error(jqXHR.responseText);
-            }
-        });
+            })
     } else {
         alert("Trainer Details Is Safe !!")
     }
