@@ -198,6 +198,8 @@ async function setClientDetails() {
         });
 
         let clientList = trainerResponse.data;
+        console.log("wwwwwwwwwwww");
+        console.log(clientList);
 
         $('#printDetails').click(function () {
             var pdfObject = jsPDFInvoiceTemplate.default(getPdfProps(clientList));
@@ -228,6 +230,7 @@ async function setClientDetails() {
                         contentType: 'application/json'
                     });
                     mealPlan = mealResponse.data.planName;
+                    member.mealPlanName = mealPlan;
                 }
 
                 if (member.workout_id !== 0) {
@@ -238,6 +241,7 @@ async function setClientDetails() {
                         contentType: 'application/json'
                     });
                     workoutPlanName = workoutResponse.data.planName;
+                    member.workoutPlanName = workoutPlanName;
                 }
 
                 appendRow(member, mealPlan, workoutPlanName, trainerName);
@@ -334,7 +338,7 @@ function getPdfProps(clientList) {
                 {title: "MealPlan",
 
                 },
-                {title: "TrainerName"},
+                /*{title: "TrainerName"},*/
                 {title: "Age",
                     style: {
                         width: 10
@@ -351,9 +355,9 @@ function getPdfProps(clientList) {
                 index + 1,
                 clients.name,
                 clients.email,
-                clients.workout_id ? workoutPlanName : "Not Assign",
-                clients.meal_plan_id ? mealPlan : "Not Assign",
-               trainerName,
+                clients.workout_id ? clients.workoutPlanName : "Not Assign",
+                clients.meal_plan_id ? clients.mealPlanName : "Not Assign",
+               // clients.trainer_id ? clients.trainer_id : "Not Assign",
                 clients.age,
                 clients.gender,
 
