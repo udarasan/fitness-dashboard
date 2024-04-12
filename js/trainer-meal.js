@@ -4,7 +4,7 @@ $(window).on('load', function () {
     $("#trainerEmail").text(trainerEmail);
     loadTrainerId();
     getAll();
-    // loadAllMembersIds();
+    loadAllMembersIds();
 
     console.log(trainerEmail + "ss")
     console.log('Window has fully loaded!');
@@ -55,9 +55,13 @@ function appendMealSection(mealPlan) {
       <div class="card-header px-4" style="background-color: #2d324a; color: white">
       <p id="mealPlanName" class="mb-0" style="font-size: 1rem; font-weight: 400 !important;"><a>${mealPlan.planName}</a></p>
      <p class="small mb-0">meal plan id:&nbsp;&nbsp;<span id="mealId">${mealPlan.mid}</span></p>
+     <p class="small mb-0"><span id="mealType">${mealPlan.mealType}</span></p>
 </div>
 
+        
+
      <div class="dropdown position-absolute threeDots">
+     
                                      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                                      </a>
@@ -129,18 +133,20 @@ function appendMealSection(mealPlan) {
         let card = $(this).closest('.card');
 
         let mealID = card.find("#mealId").text();
+        let mealType=card.find("#mealType").text();
         // let mealPlanName = card.find('#mealPlanName').text();
         // let mealPlanDetails = card.find('#mealPlanDetail').text();
         // let calorie = card.find('#mealPlanCalorie').text();
 
-        setTrainerAssignModalContent(mealID);
+        setTrainerAssignModalContent(mealID,mealType);
     })
 
 
 }
 
-function setTrainerAssignModalContent(mealID) {
+function setTrainerAssignModalContent(mealID,mealType) {
     $("#assign_meal_id").val(mealID);
+    $("#type_check").val(mealType);
 }
 
 function setTrainerUpdateModalContent(mealPlanName, mealPlanDetails, calorie, mealId) {
@@ -181,6 +187,8 @@ $("#saveMeal").click(function () {
     let meal_name = $("#meal_name").val();
     let meal_details = $("#meal_plan_details").val();
     let calorie = $("#calorie").val();
+    let mealType=$("#trainerMealType").val();
+    console.log(mealType)
 
     if (meal_name === "" || meal_details === "" || calorie === "" || $("#memberComboBox").val() === "") {
         alert("please fill all empty fields !!");
@@ -202,7 +210,8 @@ $("#saveMeal").click(function () {
                         "mealPlanDTO": {
                             "planName": meal_name,
                             "planDetails": meal_details,
-                            "calorieCount": calorie
+                            "calorieCount": calorie,
+                            "mealType":mealType
                         },
                         "userDTO": {
                             "uid": memId,
@@ -359,7 +368,7 @@ function loadAllMembersIds() {
             console.log(response);
 
             $.each(response.data, function (index, members) {
-                console.log(members);
+                console.log(members.name);
                 setMemberDataToComboBox(members);
             })
 
@@ -374,6 +383,8 @@ function loadAllMembersIds() {
 // set member data to combobox based on ajax request
 
 function setMemberDataToComboBox(members) {
+
+    console.log("popop "+members.name)
 
     let firstOpt = ` <option class="d-none" value="" selected></option>`;
     $("#assign_member_id").append(firstOpt);
@@ -394,6 +405,10 @@ let workoutId;
 let age;
 let gender;
 
+let breakFastMeal;
+let lunchMeal;
+let dinnerMeal;
+
 $("#memberComboBox").click(function () {
 
     let memberId = $("#memberComboBox").val();
@@ -401,14 +416,14 @@ $("#memberComboBox").click(function () {
 
     $.each(getAllMembersResponse.data, function (index, members) {
 
-        memId = members.uid;
-        memberEmail = members.email;
-        memberName = members.name;
-        memberPassword = members.password;
-        trainerIdd = members.trainer_id;
-        workoutId = members.workout_id;
-        age = members.age;
-        gender = members.gender;
+        // memId = members.uid;
+        // memberEmail = members.email;
+        // memberName = members.name;
+        // memberPassword = members.password;
+        // trainerIdd = members.trainer_id;
+        // workoutId = members.workout_id;
+        // age = members.age;
+        // gender = members.gender;
 
         console.log(members);
         console.log(members.uid);
@@ -422,8 +437,17 @@ $("#memberComboBox").click(function () {
 
 
         if (memberId == members.uid) {
-            let memberName = members.name;
-            $("#Member_name").val(memberName);
+            let memberNames = members.name;
+            $("#Member_name").val(memberNames);
+
+            memId = members.uid;
+            memberEmail = members.email;
+            memberName = members.name;
+            memberPassword = members.password;
+            trainerIdd = members.trainer_id;
+            workoutId = members.workout_id;
+            age = members.age;
+            gender = members.gender;
         }
 
     })
@@ -434,21 +458,23 @@ $("#memberComboBox").click(function () {
 $("#assign_member_id").click(function () {
 
     let memberId = $("#assign_member_id").val();
-    console.log(memberId);
+    console.log("lolll "+memberId);
+
+
 
     $.each(getAllMembersResponse.data, function (index, members) {
 
-        memId = members.uid;
-        memberEmail = members.email;
-        memberName = members.name;
-        memberPassword = members.password;
-        trainerIdd = members.trainer_id;
-        workoutId = members.workout_id;
-        age = members.age;
-        gender = members.gender;
+        // memId = members.uid;
+        // memberEmail = members.email;
+        // memberName = members.name;
+        // memberPassword = members.password;
+        // trainerIdd = members.trainer_id;
+        // workoutId = members.workout_id;
+        // age = members.age;
+        // gender = members.gender;
 
-        console.log(members);
-        console.log(members.uid);
+        // console.log(members);
+        // console.log(members.uid);
         console.log(memberEmail);
         console.log(memberPassword);
         console.log(memberName);
@@ -458,9 +484,19 @@ $("#assign_member_id").click(function () {
         console.log(gender);
 
 
-        if (memberId == members.uid) {
-            let memberName = members.name;
-            $("#assign_member_name").val(memberName);
+        if (memberId === members.uid) {
+            let memberNames= members.name;
+            console.log("lol name "+memberNames)
+            $("#assign_member_name").val(memberId);
+
+            memId = members.uid;
+            memberEmail = members.email;
+            memberName = members.name;
+            memberPassword = members.password;
+            trainerIdd = members.trainer_id;
+            workoutId = members.workout_id;
+            age = members.age;
+            gender = members.gender;
         }
 
     })
@@ -470,11 +506,25 @@ $("#assign_member_id").click(function () {
 // update user with mealPlan
 $("#assignTrainerMealPlanBtn").click(function () {
 
+    console.log("last check"+$("#assign_member_name").val())
+
     console.log(memId);
     console.log(memberEmail);
 
     let mealId = $("#assign_meal_id").val();
-    console.log(mealId);
+
+    let typeCheck=$("#type_check").val();
+
+    if(typeCheck==="Breakfast"){
+        breakFastMeal=mealId;
+    }
+    if(typeCheck==="Lunch"){
+        lunchMeal=mealId;
+    }
+    if(typeCheck==="Dinner"){
+        dinnerMeal=mealId;
+    }
+
 
     if ($("#assign_member_id").val() === "") {
         alert("please select member to assign !!")
@@ -486,7 +536,7 @@ $("#assignTrainerMealPlanBtn").click(function () {
             contentType: "application/json",
             data: JSON.stringify(
                 {
-                    "uid": memId,
+                    "uid": $("#assign_member_name").val(),
                     "email": memberEmail,
                     "meal_plan_id": mealId,
                     "name": memberName,
@@ -494,7 +544,10 @@ $("#assignTrainerMealPlanBtn").click(function () {
                     "workout_id": workoutId,
                     "trainer_id": trainerId,
                     "age": age,
-                    "gender": gender
+                    "gender": gender,
+                    "breakFastMeal":breakFastMeal,
+                    "lunchMeal":lunchMeal,
+                    "dinnerMeal":dinnerMeal
 
                 }),
 

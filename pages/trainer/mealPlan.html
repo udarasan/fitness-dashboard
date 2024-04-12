@@ -155,28 +155,54 @@
                 <!-- Content Row -->
                 <!--                start of meal plan card              -->
 
-                <div class="card  mealMainCard pb-4">
+                <div class="card  mealMainCard pb-5">
                     <div class="card-header bg-white text-right border-bottom-0" >
                         <div class="row topRow">
-                            <div class="col">
+                            <div class="col mt-3">
                                 <input class="form-control mt-3" id="SearchMeal"
                                        placeholder="Search Meals..."
                                        type="text">
 
                             </div>
-                            <div class="col" id="addNewMealBtnDiv">
+
+
+<!--                                <div class="col text-end ">-->
+<!--                                    -->
+<!--                                    <label class="form-label" for="assign_member_id">Member Name</label>-->
+<!--                                    <select aria-label="Default select example " class="form-control form-select w-50 "-->
+<!--                                            id="">-->
+<!--                                        &lt;!&ndash;                                                            <option ></option>&ndash;&gt;-->
+<!--                                    </select>-->
+<!--                                </div>-->
+
+
+                            <div class="col mt-3 " id="addNewMealBtnDiv">
+
                                 <button class="btn btn-info mt-3" data-target="#TrainerNewMealModal" data-toggle="modal"
                                         id="addNewMealPlan" style="background-color: #2d324a ; font-size: 13px">
                                     Add new meal plan
                                 </button>
                             </div>
-                        </div>
 
+
+
+                        </div>
 
 
                     </div>
 
                     <div class="card-body">
+
+<!--                        <div class="row">-->
+<!--                            <div class="col">-->
+<!--                                <div class="mb-3">-->
+<!--                                    <label class="form-label" for="assign_member_id">Member Name</label>-->
+<!--                                    <select aria-label="Default select example" class="form-control form-select w-25"-->
+<!--                                            id="assign_member_id">-->
+<!--                                        &lt;!&ndash;                                                            <option ></option>&ndash;&gt;-->
+<!--                                    </select>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
                         <div class="container-fluid d-flex flex-wrap  mealPlanContainer w-100"
                              id="cardContainer">
@@ -203,7 +229,7 @@
                                 <form id="trainerForm">
 
                                     <div class="mb-3">
-                                        <label class="form-label" for="Member_name">Member Id</label>
+                                        <label class="form-label" for="memberComboBox">Member Name</label>
                                         <select aria-label="Default select example" class="form-select form-control w-100"
                                                 id="memberComboBox">
 <!--                                            <option selected>Select Member Id</option>-->
@@ -212,12 +238,12 @@
 
                                     </div>
 
-                                    <div class="mb-3">
-                                        <label class="form-label" for="Member_name">Member Name</label>
-                                        <input class="form-control" disabled id="Member_name" name="details"
-                                               placeholder="" type="text"
-                                        >
-                                    </div>
+<!--                                    <div class="mb-3">-->
+<!--                                        <label class="form-label" for="Member_name">Member Name</label>-->
+<!--                                        <input class="form-control" disabled id="Member_name" name="details"-->
+<!--                                               placeholder="" type="text"-->
+<!--                                        >-->
+<!--                                    </div>-->
 
 
                                     <div class="mb-3">
@@ -228,6 +254,17 @@
                                         >
                                         <label id="TrainerMealPlanNameErrorLabel"
                                                style="color: red;display: none"></label>
+
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label" for="trainerMealType">Meal Type</label>
+                                        <select id="trainerMealType" class="d-block w-100 fieldStyle form-control">
+                                            <option class="d-none" value="" selected></option>
+                                            <option class="small">Breakfast</option>
+                                            <option class="small">Lunch</option>
+                                            <option class="small">Dinner</option>
+                                        </select>
 
                                     </div>
 
@@ -402,7 +439,7 @@
                                                 <form id="assignMealForm">
 
                                                     <div class="mb-3">
-                                                        <label class="form-label" for="Member_name">Member Name</label>
+                                                        <label class="form-label" for="assign_member_id">Member Name</label>
                                                         <select aria-label="Default select example" class="form-control form-select w-100"
                                                                 id="assign_member_id">
 <!--                                                            <option ></option>-->
@@ -411,9 +448,16 @@
 
                                                     </div>
 
-                                                    <div class="mb-3 d-none">
-                                                        <label class="form-label" for="Member_name">Member Name</label>
+                                                    <div class="mb-3 d-none ">
+                                                        <label class="form-label" for="assign_member_name">Member Name</label>
                                                         <input class="form-control" disabled id="assign_member_name" name="details"
+                                                               placeholder="" type="text"
+                                                        >
+                                                    </div>
+
+                                                    <div class="mb-3  ">
+                                                        <label class="form-label" for="type_check">type check</label>
+                                                        <input class="form-control" disabled id="type_check" name="details"
                                                                placeholder="" type="text"
                                                         >
                                                     </div>
