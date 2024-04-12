@@ -221,7 +221,12 @@ $("#saveMeal").click(function () {
                             "workout_id": workoutId,
                             "trainer_id": trainerIdd,
                             "age": age,
-                            "gender": gender
+                            "gender": gender,
+                            "breakFastMeal":breakFastMeal,
+                            "lunchMeal":lunchMeal,
+                            "dinnerMeal":dinnerMeal
+
+
                         }
 
                     }),
@@ -425,20 +430,35 @@ $("#memberComboBox").click(function () {
         // age = members.age;
         // gender = members.gender;
 
-        console.log(members);
-        console.log(members.uid);
-        console.log(memberEmail);
-        console.log(memberPassword);
-        console.log(memberName);
-        console.log(trainerIdd);
-        console.log(workoutId);
-        console.log(age);
-        console.log(gender);
+        // console.log(members);
+        // console.log(members.uid);
+        // console.log(memberEmail);
+        // console.log(memberPassword);
+        // console.log(memberName);
+        // console.log(trainerIdd);
+        // console.log(workoutId);
+        // console.log(age);
+        // console.log(gender);
 
 
-        if (memberId == members.uid) {
+
+
+        if (memberId === members.uid) {
             let memberNames = members.name;
             $("#Member_name").val(memberNames);
+
+            // console.log(members);
+            // console.log(members.uid);
+            // console.log(memberEmail);
+            // console.log(memberPassword);
+            // console.log(memberName);
+            // console.log(trainerIdd);
+            // console.log(workoutId);
+            // console.log(age);
+            // console.log(gender);
+            console.log(members.breakFastMeal);
+            console.log(members.lunchMeal);
+            console.log(members.dinnerMeal);
 
             memId = members.uid;
             memberEmail = members.email;
@@ -448,6 +468,9 @@ $("#memberComboBox").click(function () {
             workoutId = members.workout_id;
             age = members.age;
             gender = members.gender;
+            breakFastMeal=members.breakFastMeal;
+            lunchMeal=members.lunchMeal;
+            dinnerMeal=members.dinnerMeal;
         }
 
     })
@@ -475,19 +498,30 @@ $("#assign_member_id").click(function () {
 
         // console.log(members);
         // console.log(members.uid);
-        console.log(memberEmail);
-        console.log(memberPassword);
-        console.log(memberName);
-        console.log(trainerIdd);
-        console.log(workoutId);
-        console.log(age);
-        console.log(gender);
+        // console.log(memberEmail);
+        // console.log(memberPassword);
+        // console.log(memberName);
+        // console.log(trainerIdd);
+        // console.log(workoutId);
+        // console.log(age);
+        // console.log(gender);
 
 
         if (memberId === members.uid) {
             let memberNames= members.name;
             console.log("lol name "+memberNames)
             $("#assign_member_name").val(memberId);
+
+            console.log(memberEmail);
+            console.log(memberPassword);
+            console.log(memberName);
+            console.log(trainerIdd);
+            console.log(workoutId);
+            console.log(age);
+            console.log(gender);
+            console.log(breakFastMeal);
+            console.log(lunchMeal);
+            console.log(dinnerMeal);
 
             memId = members.uid;
             memberEmail = members.email;
@@ -497,6 +531,10 @@ $("#assign_member_id").click(function () {
             workoutId = members.workout_id;
             age = members.age;
             gender = members.gender;
+            breakFastMeal=members.breakFastMeal;
+            lunchMeal=members.lunchMeal;
+            dinnerMeal=members.dinnerMeal
+
         }
 
     })
