@@ -100,8 +100,8 @@ $("#searchWorkoutPlans").keyup(function () {
                                         <li><a class="dropdown-item btnEdit" data-target="#updateWorkoutModal" 
                                         data-toggle="modal" href="#">Edit</a></li>
                                         <li><a class="dropdown-item btnDelete" href="#">Delete</a></li>
-                                        <li><a class="dropdown-item btnAssign" data-target="#assignWorkoutModal" 
-                                        data-toggle="modal" href="#">Assign</a></li>
+<!--                                        <li><a class="dropdown-item btnAssign" data-target="#assignWorkoutModal" -->
+<!--                                        data-toggle="modal" href="#">Assign</a></li>-->
                                      </ul>
                                 </div>  
                             </div>
@@ -195,8 +195,8 @@ function getAllWorkoutPlans() {
                                         <li><a class="dropdown-item btnEdit" data-target="#updateWorkoutModal" 
                                         data-toggle="modal" href="#">Edit</a></li>
                                         <li><a class="dropdown-item btnDelete" href="#">Delete</a></li>
-                                        <li><a class="dropdown-item btnAssign" data-target="#assignWorkoutModal" 
-                                        data-toggle="modal" href="#">Assign</a></li>
+<!--                                        <li><a class="dropdown-item btnAssign" data-target="#assignWorkoutModal" -->
+<!--                                        data-toggle="modal" href="#">Assign</a></li>-->
                                      </ul>
                                 </div>                    
                             </div>
@@ -282,7 +282,7 @@ function appendAndCheckCheckboxes(details) {
 
                 $.each(response.data, function (index, equipment) {
                     let checkBox = `
-                        <div class="form-check mb-1 d-inline-block">
+                        <div class="form-check mb-1 d-inline-block mr-3">
                             <input class="form-check-input" type="checkbox" value="" >
                             <label class="form-check-label" for="">
                                  ${equipment.equipmentName}
@@ -418,101 +418,101 @@ function btnDeleteOnClick() {
 
 let workoutId;
 
-function btnAssignOnClick() {
-    $(".btnAssign").click(function () {
-        let workoutCard = $(this).parents("div.workoutCard");
-        workoutId = workoutCard.children("div.card-body").children("input.hiddenWorkoutId").val();
-    });
-}
+// function btnAssignOnClick() {
+//     $(".btnAssign").click(function () {
+//         let workoutCard = $(this).parents("div.workoutCard");
+//         workoutId = workoutCard.children("div.card-body").children("input.hiddenWorkoutId").val();
+//     });
+// }
 
 let memberList;
 
-function loadMembers() {
-    $("#memberSelect").empty();
-    let firstOpt = ` <option class="d-none" value="" selected></option>`;
-    $("#memberSelect").append(firstOpt);
-    $.ajax({
-        url: 'http://localhost:8080/api/v1/user/getAllUsers',
-        method: 'GET',
-        success: function (response) {
-            console.log(response);
-            memberList = response.data;
-            $.each(response.data, function (index, member) {
-                console.log(member);
-                let memberData = `<option value="${member.uid}">${member.name}</option>`;
-                $("#memberSelect").append(memberData);
-            })
-        },
-        error: function (xhr) {
-            console.log(xhr);
-        }
-    })
-}
+// function loadMembers() {
+//     $("#memberSelect").empty();
+//     let firstOpt = ` <option class="d-none" value="" selected></option>`;
+//     $("#memberSelect").append(firstOpt);
+//     $.ajax({
+//         url: 'http://localhost:8080/api/v1/user/getAllUsers',
+//         method: 'GET',
+//         success: function (response) {
+//             console.log(response);
+//             memberList = response.data;
+//             $.each(response.data, function (index, member) {
+//                 console.log(member);
+//                 let memberData = `<option value="${member.uid}">${member.name}</option>`;
+//                 $("#memberSelect").append(memberData);
+//             })
+//         },
+//         error: function (xhr) {
+//             console.log(xhr);
+//         }
+//     })
+// }
 
-let currUserEmail;
-let currUserMealId;
-let currUserTrainerId;
-let currUserName;
-let currUserPassword;
-let currUserAge;
-let currUserGender;
-$("#memberSelect").change(function () {
-    let currUserId = $(this).val();
+// let currUserEmail;
+// let currUserMealId;
+// let currUserTrainerId;
+// let currUserName;
+// let currUserPassword;
+// let currUserAge;
+// let currUserGender;
+// $("#memberSelect").change(function () {
+//     let currUserId = $(this).val();
+//
+//     $.each(memberList, function (index, member) {
+//         if (currUserId == member.uid) {
+//             currUserEmail = member.email;
+//             currUserMealId = member.meal_plan_id;
+//             currUserTrainerId = member.trainer_id;
+//             currUserName = member.name;
+//             currUserPassword = member.password;
+//             currUserAge = member.age;
+//             currUserGender = member.gender;
+//
+//             console.log(currUserMealId + " " + currUserTrainerId + " " + currUserName + " " + currUserPassword);
+//             console.log(currUserAge)
+//             console.log(currUserGender)
+//
+//             $("#lblMemberName").val(member.name);
+//         }
+//     })
+// });
 
-    $.each(memberList, function (index, member) {
-        if (currUserId == member.uid) {
-            currUserEmail = member.email;
-            currUserMealId = member.meal_plan_id;
-            currUserTrainerId = member.trainer_id;
-            currUserName = member.name;
-            currUserPassword = member.password;
-            currUserAge = member.age;
-            currUserGender = member.gender;
-
-            console.log(currUserMealId + " " + currUserTrainerId + " " + currUserName + " " + currUserPassword);
-            console.log(currUserAge)
-            console.log(currUserGender)
-
-            $("#lblMemberName").val(member.name);
-        }
-    })
-});
-
-$("#modalAssignBtn").click(function () {
-    let userId = $("#memberSelect").val();
-    if (!userId) {
-        alert("Please Select User Id.");
-        return;
-    }
-    console.log(workoutId)
-    // Make the AJAX request
-    $.ajax({
-        url: 'http://localhost:8080/api/v1/user/update',
-        method: 'POST',
-        dataType: 'json',
-        contentType: 'application/json',
-        data: JSON.stringify({
-            "uid": userId,
-            "name": currUserName,
-            "email": currUserEmail,
-            "password": currUserPassword,
-            "trainer_id": currUserTrainerId,
-            "meal_plan_id": currUserMealId,
-            "workout_id": workoutId,
-            "age": currUserAge,
-            "gender": currUserGender
-        }),   // Convert data to JSON string
-        success: function (response) {
-            console.log(response);
-            alert("Workout Assigned Successfully !!")
-            $('#assignWorkoutModal').data('bs.modal').hide();
-            $("#memberSelect").val("");
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.error(jqXHR.responseText);
-        }
-    });
-});
+// $("#modalAssignBtn").click(function () {
+//     let userId = $("#memberSelect").val();
+//     if (!userId) {
+//         alert("Please Select User Id.");
+//         return;
+//     }
+//     console.log(workoutId)
+//     // Make the AJAX request
+//     $.ajax({
+//         url: 'http://localhost:8080/api/v1/user/update',
+//         method: 'POST',
+//         dataType: 'json',
+//         contentType: 'application/json',
+//         data: JSON.stringify({
+//             "uid": userId,
+//             "name": currUserName,
+//             "email": currUserEmail,
+//             "password": currUserPassword,
+//             "trainer_id": currUserTrainerId,
+//             "meal_plan_id": currUserMealId,
+//             "workout_id": workoutId,
+//             "age": currUserAge,
+//             "gender": currUserGender
+//         }),   // Convert data to JSON string
+//         success: function (response) {
+//             console.log(response);
+//             alert("Workout Assigned Successfully !!")
+//             $('#assignWorkoutModal').data('bs.modal').hide();
+//             $("#memberSelect").val("");
+//         },
+//         error: function (jqXHR, textStatus, errorThrown) {
+//             console.error(jqXHR.responseText);
+//         }
+//     });
+// });
 
 
 

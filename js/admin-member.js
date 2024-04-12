@@ -2,6 +2,8 @@ $('#nameLbl').text(localStorage.getItem('adminEmail'));
 let meal_id;
 let workout_id;
 var selectedValue;
+
+loadTrainerId();
 $(window).on('load', function () {
 
     getAllMembers();
