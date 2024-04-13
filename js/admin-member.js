@@ -5,6 +5,10 @@ var selectedValue;
 let breakFast;
 let lunch;
 let dinner;
+
+let getAllMembersResponse;
+
+
 loadTrainerId();
 $(window).on('load', function () {
 
@@ -73,13 +77,13 @@ $('#updateMember').click(function () {
                         "password": newPassword,
                         "name": name,
                         "trainer_id": trainer_id,
-                        "meal_plan_id": meal_id,
-                        "workout_id": workout_id,
+                        "meal_plan_id": selectedMealPlanId,
+                        "workout_id": selectedWorkoutId,
                         "age": age,
                         "gender": gender,
-                        "breakFastMeal":breakFast,
-                        "lunchMeal":lunch,
-                        "dinnerMeal":dinner,
+                        "breakFastMeal":selectedBreakFastMeal,
+                        "lunchMeal":selectedLunchMeal,
+                        "dinnerMeal":selectedDinnerMeal,
                         "workoutType": memberType
                     }),
                     success: function (response) {
@@ -180,9 +184,9 @@ $('#saveMemeber').click(function () {
                         "trainer_id": trainer_id,
                         "age": age,
                         "gender": gender,
-                        "breakFastMeal":breakFast,
-                        "lunchMeal":lunch,
-                        "dinnerMeal":dinner,
+                        // "breakFastMeal":breakFast,
+                        // "lunchMeal":lunch,
+                        // "dinnerMeal":dinner,
                         "workoutType": memberType
                     }),  // Convert data to JSON string
                     success: function (response) {
@@ -414,6 +418,7 @@ async function getAllMembers() {
                     contentType: 'application/json'
                 });
                 trainerName = trainerResponse.data.name;
+
             }
 
             if (member.meal_plan_id !== 0) {
@@ -424,6 +429,8 @@ async function getAllMembers() {
                     contentType: 'application/json'
                 });
                 mealPlan = mealResponse.data.planName;
+
+
             }
 
             if (member.workout_id !== 0) {
@@ -434,6 +441,8 @@ async function getAllMembers() {
                     contentType: 'application/json'
                 });
                 workoutPlanName = workoutResponse.data.planName;
+
+
             }
 
             appendRow(member, mealPlan, workoutPlanName, trainerName);
@@ -455,13 +464,13 @@ function appendRow(member, mealPlanName, workoutPlanName, trainerName) {
     $('#tblMember').append(row);
 }
 
-
+let memberEmail;
 $('#tblMember').on('click', 'tr', function () {
-
+ getOneMemberDetails();
 
     let memberId = $(this).find('td:first').text();
     let memberName = $(this).find('td:nth-child(2)').text();
-    let memberEmail = $(this).find('td:nth-child(3)').text();
+    memberEmail = $(this).find('td:nth-child(3)').text();
     let trainerId = $(this).find('td:nth-child(4)').text();
     let encodedPassword = $(this).find('td:nth-child(5)').text();
     let age = $(this).find('td:nth-child(8)').text();
@@ -469,6 +478,7 @@ $('#tblMember').on('click', 'tr', function () {
     // let password = decodePassword(encodedPassword);
     let password = atob(encodedPassword);
     console.log("decode " + password)
+    console.log(trainerId)
     // Perform actions with the retrieved data
     $('#memberModal').modal('show');
     $('#saveMemeber').css("display", 'none');
@@ -480,6 +490,7 @@ $('#tblMember').on('click', 'tr', function () {
     $('#tra_id').val(trainerId);
     $('#memeber_password').val(password);
     $('#age').val(age);
+
     // $('#gender').val(gender);
     if (gender === 'male') {
         selectedValue = 'male'
@@ -491,6 +502,7 @@ $('#tblMember').on('click', 'tr', function () {
         selectedValue = 'custom'
         $('#inlineRadio3').prop('checked', true);
     }
+
 
 });
 $('#closeBtn').click(function () {
@@ -573,4 +585,73 @@ $("#searchMembers").keyup(function () {
         }
     });
 });
+
+
+//new
+
+let selectedMemId;
+let selectedMemberEmail;
+let selectedMemberName;
+let selectedMemberPassword;
+let selectedTrainerIdd;
+let selectedWorkoutId;
+let selectedAge;
+let selectedGender;
+
+let selectedBreakFastMeal;
+let selectedLunchMeal;
+let selectedDinnerMeal;
+let selectedMealPlanId;
+
+let workoutType;
+ function getOneMemberDetails() {
+
+     $.ajax({
+         url: 'http://localhost:8080/api/v1/user/getAllUsers',
+         method: 'GET',
+         dataType: 'json',
+         contentType: 'application/json',
+         // data:{email:trainerId},
+
+         success: function (response) {
+             getAllMembersResponse = response;
+             console.log(response);
+
+             $.each(response.data, function (index, members) {
+                 console.log(members.name);
+
+                 if (memberEmail===members.email){
+                     selectedMemId=members.uid;
+                     selectedMemberEmail=members.email;
+                     selectedMemberName=members.name;
+                     selectedMemberPassword=members.password;
+                     selectedTrainerIdd=members.trainer_id;
+                     selectedWorkoutId=members.workout_id;
+                     selectedAge=members.age;
+                     selectedGender=members.gender;
+                     selectedBreakFastMeal=members.breakFastMeal;
+                     selectedLunchMeal=members.lunchMeal
+                     selectedDinnerMeal=members.dinnerMeal;
+                     selectedMealPlanId=members.meal_plan_id
+
+                 }
+             })
+
+             console.log(selectedMemId);
+             console.log(selectedMemberName);
+             console.log(selectedGender);
+             console.log(selectedAge);
+             console.log(selectedBreakFastMeal);
+
+
+         },
+         error: function (jqXHR) {
+             console.log(jqXHR.responseText);
+         }
+     })
+
+}
+
+
+
 
