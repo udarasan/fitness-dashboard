@@ -111,8 +111,6 @@ $("#saveMeal").click(function () {
 
     console.log(mealType)
 
-
-
     if (meal_name === "" || meal_details === "" || calorie === "" || mealType ==="") {
         alert("please fill all empty fields !!");
     } else {
@@ -259,42 +257,41 @@ function setDeleteModalContent(mealId) {
 }
 
 // method to set data to assign modal text fields
-function setAssignModalContent(mealID, mealPlanName, mealPlanDetails, calorie) {
-    $("#assign_meal_id").val(mealID);
-}
+// function setAssignModalContent(mealID, mealPlanName, mealPlanDetails, calorie) {
+//     $("#assign_meal_id").val(mealID);
+// }
 
 // send ajax request to load all members id to combo box
 let getAllMembersResponse;
 
-function loadAllMembersIds() {
-    $.ajax({
-        url: 'http://localhost:8080/api/v1/user/getAllUsers',
-        method: 'GET',
-        success: function (response) {
-            getAllMembersResponse = response;
-            console.log(response);
-
-            $("#memberComboBox").empty();
-            let firstOpt = ` <option class="d-none" value="" selected></option>`;
-            $("#memberComboBox").append(firstOpt);
-            $.each(response.data, function (index, members) {
-                console.log(members);
-                setMemberDataToComboBox(members);
-            })
-        },
-        error: function (xhr) {
-            console.log(xhr);
-        }
-    })
-}
+// function loadAllMembersIds() {
+//     $.ajax({
+//         url: 'http://localhost:8080/api/v1/user/getAllUsers',
+//         method: 'GET',
+//         success: function (response) {
+//             getAllMembersResponse = response;
+//             console.log(response);
+//
+//             $("#memberComboBox").empty();
+//             let firstOpt = ` <option class="d-none" value="" selected></option>`;
+//             $("#memberComboBox").append(firstOpt);
+//             $.each(response.data, function (index, members) {
+//                 console.log(members);
+//                 setMemberDataToComboBox(members);
+//             })
+//         },
+//         error: function (xhr) {
+//             console.log(xhr);
+//         }
+//     })
+// }
 
 
 // set member data to combobox based on ajax request
-function setMemberDataToComboBox(members) {
-    let memberData = `<option value="${members.uid}" >${members.name}</option>`
-    $("#memberComboBox").append(memberData);
-
-}
+// function setMemberDataToComboBox(members) {
+//     let memberData = `<option value="${members.uid}" >${members.name}</option>`
+//     $("#memberComboBox").append(memberData);
+// }
 
 let memId;
 let memberEmail;
@@ -305,79 +302,79 @@ let mealId;
 let workoutId;
 let age;
 let gender;
-$("#memberComboBox").click(function () {
-    let memberId = $("#memberComboBox").val();
-    console.log(memberId);
-
-    $.each(getAllMembersResponse.data, function (index, members) {
-        console.log(members);
-        console.log(members.uid);
-
-        if (memberId == members.uid) {
-            memberName = members.name;
-            $("#Member_name").val(memberName);
-
-            memId = members.uid;
-            memberEmail = members.email;
-            memberName = members.name;
-            memberPassword = members.password;
-            trainerId = members.trainer_id;
-            mealId = members.meal_plan_id;
-            workoutId = members.workout_id;
-            age = members.age;
-            gender = members.gender;
-
-            console.log(memberId);
-            console.log(memberEmail);
-            console.log(memberName);
-            console.log(memberPassword);
-            console.log(trainerId);
-            console.log(mealId);
-            console.log(workoutId);
-        }
-    })
-})
+// $("#memberComboBox").click(function () {
+//     let memberId = $("#memberComboBox").val();
+//     console.log(memberId);
+//
+//     $.each(getAllMembersResponse.data, function (index, members) {
+//         console.log(members);
+//         console.log(members.uid);
+//
+//         if (memberId == members.uid) {
+//             memberName = members.name;
+//             $("#Member_name").val(memberName);
+//
+//             memId = members.uid;
+//             memberEmail = members.email;
+//             memberName = members.name;
+//             memberPassword = members.password;
+//             trainerId = members.trainer_id;
+//             mealId = members.meal_plan_id;
+//             workoutId = members.workout_id;
+//             age = members.age;
+//             gender = members.gender;
+//
+//             console.log(memberId);
+//             console.log(memberEmail);
+//             console.log(memberName);
+//             console.log(memberPassword);
+//             console.log(trainerId);
+//             console.log(mealId);
+//             console.log(workoutId);
+//         }
+//     })
+// })
 
 
 // update user with mealPlan
-$("#assignMealPlanBtn").click(function () {
-    console.log(memId);
-    console.log(memberEmail);
-
-    let mealId = $("#assign_meal_id").val();
-    console.log(mealId);
-
-    if ($("#memberComboBox").val() === "") {
-        alert("Please Select Member To Assign !!")
-    } else {
-        $.ajax({
-            url: 'http://localhost:8080/api/v1/user/update',
-            method: "post",
-            dataType: "json",
-            contentType: "application/json",
-            data: JSON.stringify(
-                {
-                    "uid": memId,
-                    "email": memberEmail,
-                    "meal_plan_id": mealId,
-                    "name": memberName,
-                    "password": memberPassword,
-                    "workout_id": workoutId,
-                    "trainer_id": trainerId,
-                    "age": age,
-                    "gender": gender
-
-                }),
-            success: function (response) {
-                console.log(response);
-                alert("Meal Plan Assigned Successfully !!")
-            },
-            error: function (jqXHR) {
-                console.log(jqXHR);
-            }
-        })
-    }
-})
+// $("#assignMealPlanBtn").click(function () {
+//     console.log(memId);
+//     console.log(memberEmail);
+//
+//     let mealId = $("#assign_meal_id").val();
+//     console.log(mealId);
+//
+//     if ($("#memberComboBox").val() === "") {
+//         alert("Please Select Member To Assign !!")
+//     } else {
+//         $.ajax({
+//             url: 'http://localhost:8080/api/v1/user/update',
+//             method: "post",
+//             dataType: "json",
+//             contentType: "application/json",
+//             data: JSON.stringify(
+//                 {
+//                     "uid": memId,
+//                     "email": memberEmail,
+//                     "meal_plan_id": mealId,
+//                     "name": memberName,
+//                     "password": memberPassword,
+//                     "workout_id": workoutId,
+//                     "trainer_id": trainerId,
+//                     "age": age,
+//                     "gender": gender
+//
+//                 }),
+//             success: function (response) {
+//                 console.log(response);
+//                 alert("Meal Plan Assigned Successfully !!")
+//             },
+//             error: function (jqXHR) {
+//                 console.log(jqXHR);
+//             }
+//         })
+//     }
+// })
 
 
 // meal plan search by name
@@ -417,7 +414,7 @@ $("#SearchMeal").keyup(function () {
                                  <ul class="dropdown-menu">
                                     <li><a id="edit"  class="dropdown-item edit" href="#" data-toggle="modal" data-target="#updateMealModal" >Edit</a></li>
                                     <li><a class="dropdown-item delete" href="#" >Delete</a></li>
-                                    <li><a class="dropdown-item assign" href="#" data-toggle="modal" data-target="#assignModal">Assign</a></li>
+<!--                                    <li><a class="dropdown-item assign" href="#" data-toggle="modal" data-target="#assignModal">Assign</a></li>-->
                                  </ul>
                               </div>                        
                               <div class="card-body">
