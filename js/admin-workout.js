@@ -146,7 +146,8 @@ $("#btnNewWorkout").click(function () {
                 $(".equipmentContainer").addClass("mb-4");
 
                 $.each(response.data, function (index, equipment) {
-                    let checkBox = `
+                    if(equipment.checkCondition == "working condition"){
+                        let checkBox = `
                         <div class="form-check mb-1 d-inline-block">
                             <input class="form-check-input" type="checkbox" value="" >
                             <label class="form-check-label" for="">
@@ -155,7 +156,8 @@ $("#btnNewWorkout").click(function () {
                         </div>
                     `
 
-                    $(".equipmentContainer").append(checkBox);
+                        $(".equipmentContainer").append(checkBox);
+                    }
                 });
             }
         },
@@ -206,7 +208,7 @@ function getAllWorkoutPlans() {
                                 <input class="hiddenWorkoutId" type="hidden" value="${workOut.wid}">
                                 <p class="card-text pPlanDetails">${plandetails}</p>
                                 <p class="card-text pCalorieCount">calorie count:&nbsp; ${workOut.burnsCalorieCount} calories</p>
-                                 <p class="card-text pCalorieCount">Type:&nbsp; ${workOut.workOutType}</p>
+                                <p class="card-text">Type:&nbsp;<span class="pWorkoutType">${workOut.workOutType}</span></p>
                             </div>
                         </div>`
 
@@ -239,6 +241,7 @@ function btnEditOnCLick() {
 
         let calorieCount;
         let name;
+        let workOutType = workoutCard.children("div.card-body").children("p.card-text").children("span.pWorkoutType").text();
 
         let countText = workoutCard.children("div.card-body").children("p.pCalorieCount").text();
         var matches = countText.match(/\d+/);
@@ -267,6 +270,8 @@ function btnEditOnCLick() {
         $("#updPlanDetails").val(details);
 
         $("#updPlanCalorieCount").val(calorieCount);
+
+        $("#updWorkoutType").val(workOutType);
 
     });
 }
@@ -341,6 +346,7 @@ $("#modalUpdateBtn").click(function () {
     let name = $("#updPlanName").val();
     let details = $("#updPlanDetails").val();
     let calCount = $("#updPlanCalorieCount").val();
+    let workOutType = $("#updWorkoutType").val();
 
     let detailsWithEquipments = details + "\n\n" + equipmentText;
 
@@ -372,7 +378,8 @@ $("#modalUpdateBtn").click(function () {
                 "wid": id,
                 "planName": name,
                 "planDetails": detailsWithEquipments,
-                "burnsCalorieCount": calCount
+                "burnsCalorieCount": calCount,
+                "workOutType": workOutType
             }),  // Convert data to JSON string
             success: function (response) {
                 alert("Workout Update successful!");
