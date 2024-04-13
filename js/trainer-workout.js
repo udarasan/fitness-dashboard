@@ -102,7 +102,9 @@ $("#btnNewWorkout").click(function () {
                 $(".equipmentContainer").addClass("mb-4");
 
                 $.each(response.data, function (index, equipment) {
-                    let checkBox = `
+
+                    if(equipment.checkCondition == "working condition"){
+                        let checkBox = `
                         <div class="form-check mb-1 d-inline-block">
                             <input class="form-check-input" type="checkbox" value="" >
                             <label class="form-check-label" for="">
@@ -110,7 +112,8 @@ $("#btnNewWorkout").click(function () {
                             </label>
                         </div>`
 
-                    $(".equipmentContainer").append(checkBox);
+                        $(".equipmentContainer").append(checkBox);
+                    }
                 });
             }
         },
