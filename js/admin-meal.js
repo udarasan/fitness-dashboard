@@ -34,6 +34,7 @@ function getAll() {
                             <p class="mb-0" style="font-size: 1rem; font-weight: 400 !important;">
                                 <a id="mealPlanName">${mealPlan.planName}</a></p>
                                 <p class="small mb-0">meal plan id:&nbsp;&nbsp;<span id="mealId">${mealPlan.mid}</span></p>
+                                <p class="small mb-0"><span id="mealType">${mealPlan.mealType}</span></p>
                         </div>
                         <div class="dropdown position-absolute threeDots">
                              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -42,7 +43,7 @@ function getAll() {
                              <ul class="dropdown-menu">
                                 <li><a id="edit"  class="dropdown-item edit" href="#" data-toggle="modal" data-target="#updateMealModal" >Edit</a></li>
                                 <li><a class="dropdown-item delete" href="#" >Delete</a></li>
-                                <li><a  class="dropdown-item assign " href="#" data-toggle="modal" data-target="#assignModal">Assign</a></li>
+<!--                                <li><a  class="dropdown-item assign " href="#" data-toggle="modal" data-target="#assignModal">Assign</a></li>-->
                              </ul>
                         </div>
                         <div class="card-body">    
@@ -67,8 +68,9 @@ function getAll() {
                 mealPlanDetails = mealPlanDetails.replace(/&nbsp;/g, " ");
                 mealPlanDetails = mealPlanDetails.replace(/ +(?= *\n)/g, "");
                 let calorie = card.find('#mealPlanCalorie').text();
+                let mealType=card.find("#mealType").text();
 
-                setUpdateModalContent(mealPlanName, mealPlanDetails, calorie, mealId);
+                setUpdateModalContent(mealPlanName, mealPlanDetails, calorie,mealId,mealType);
             })
 
             $(".delete").click(function () {
@@ -105,8 +107,13 @@ $("#saveMeal").click(function () {
     let meal_name = $("#meal_name").val();
     let meal_details = $("#meal_plan_details").val();
     let calorie = $("#calorie").val();
+    let mealType=$("#adminMealType").val();
 
-    if (meal_name === "" || meal_details === "" || calorie === "") {
+    console.log(mealType)
+
+
+
+    if (meal_name === "" || meal_details === "" || calorie === "" || mealType ==="") {
         alert("please fill all empty fields !!");
     } else {
 
@@ -124,7 +131,8 @@ $("#saveMeal").click(function () {
                         "mid": meal_id,
                         "planName": meal_name,
                         "planDetails": meal_details,
-                        "calorieCount": calorie
+                        "calorieCount": calorie,
+                        "mealType":mealType
                     }),
                     success: function (response) {
                         console.log(response);
@@ -135,6 +143,7 @@ $("#saveMeal").click(function () {
                         $("#meal_name").val("");
                         $("#meal_plan_details").val("");
                         $("#calorie").val("");
+                        $("#adminMealType").val("");
                     },
 
                     error: function (jqXHR) {
@@ -144,7 +153,7 @@ $("#saveMeal").click(function () {
             } else {
                 let errorLabel = $("#mealPlanCalorieErrorLabel");
                 errorLabel.css("display", "inline");
-                errorLabel.text("EInvalid input type !");
+                errorLabel.text("Invalid input type !");
             }
 
         } else {
@@ -164,8 +173,10 @@ $("#updateMeal").click(function () {
     let meal_name = $("#Update_meal_name").val();
     let meal_details = $("#Update_meal_plan_details").val();
     let calorie = $("#Update_calorie").val();
+    let mealType=$("#adminUpdateMealType").val();
+    console.log(mealType)
 
-    if (meal_name === "" || meal_details === "" || calorie === "") {
+    if (meal_name === "" || meal_details === "" || calorie === "" || mealType === "") {
         alert("please fill all empty fields !!");
     } else {
 
@@ -183,7 +194,8 @@ $("#updateMeal").click(function () {
                         "mid": meal_id,
                         "planName": meal_name,
                         "planDetails": meal_details,
-                        "calorieCount": calorie
+                        "calorieCount": calorie,
+                        "mealType":mealType
                     }),
 
                     success: function (response) {
@@ -215,11 +227,13 @@ $("#updateMeal").click(function () {
 })
 
 // method to set data to update modal text fields
-function setUpdateModalContent(mealPlanName, mealPlanDetails, calorie, mealId) {
+function setUpdateModalContent(mealPlanName, mealPlanDetails, calorie, mealId,mealType) {
+    console.log(mealType)
     $("#Update_meal_id").val(mealId);
     $("#Update_meal_name").val(mealPlanName);
     $("#Update_meal_plan_details").val(mealPlanDetails);
     $("#Update_calorie").val(calorie);
+    $("#adminUpdateMealType").val(mealType);
 }
 
 // method to set data to delete modal text fields

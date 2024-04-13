@@ -2,7 +2,9 @@ $('#nameLbl').text(localStorage.getItem('adminEmail'));
 let meal_id;
 let workout_id;
 var selectedValue;
-
+let breakFast;
+let lunch;
+let dinner;
 loadTrainerId();
 $(window).on('load', function () {
 
@@ -50,7 +52,7 @@ $('#updateMember').click(function () {
     let email = $('#member_email').val();
     let name = $('#member_name').val();
     let trainer_id = $('#tra_id').val();
-
+    let memberType = $('#memberType').val();
     let password = $('#memeber_password').val();
     console.log(password);
     hashPassword($('#memeber_password').val())
@@ -74,7 +76,11 @@ $('#updateMember').click(function () {
                         "meal_plan_id": meal_id,
                         "workout_id": workout_id,
                         "age": age,
-                        "gender": gender
+                        "gender": gender,
+                        "breakFastMeal":breakFast,
+                        "lunchMeal":lunch,
+                        "dinnerMeal":dinner,
+                        "workoutType": memberType
                     }),
                     success: function (response) {
                         console.log(response);
@@ -150,7 +156,7 @@ $('#saveMemeber').click(function () {
     let email = $('#member_email').val();
     let name = $('#member_name').val();
     let trainer_id = $('#tra_id').val();
-
+    let memberType = $('#memberType').val();
     let password = $('#memeber_password').val();
     console.log(trainer_id);
     hashPassword($('#memeber_password').val())
@@ -173,7 +179,11 @@ $('#saveMemeber').click(function () {
                         "name": name,
                         "trainer_id": trainer_id,
                         "age": age,
-                        "gender": gender
+                        "gender": gender,
+                        "breakFastMeal":breakFast,
+                        "lunchMeal":lunch,
+                        "dinnerMeal":dinner,
+                        "workoutType": memberType
                     }),  // Convert data to JSON string
                     success: function (response) {
                         console.log(response);
@@ -371,6 +381,8 @@ $('#saveMemeber').click(function () {
         }
     });
 }*/
+
+
 async function getAllMembers() {
     $('#tblMember').empty();
     try {
@@ -390,6 +402,9 @@ async function getAllMembers() {
             let trainerName = "Not Assign";
             let mealPlan = "Not Assign";
             let workoutPlanName = "Not Assign";
+               breakFast = member.breakFastMeal;
+               lunch  = member.lunchMeal;
+               dinner = member.dinnerMeal;
 
             if (member.trainer_id !== 0) {
                 const trainerResponse = await $.ajax({
@@ -436,7 +451,7 @@ async function getAllMembers() {
 
 
 function appendRow(member, mealPlanName, workoutPlanName, trainerName) {
-    let row = `<tr><td>${member.uid}</td><td>${member.name}</td><td>${member.email}</td><td>${trainerName}</td><td style="display: none">${member.password}</td><td>${mealPlanName}</td><td>${workoutPlanName}</td><td>${member.age}</td><td>${member.gender}</td></tr>`;
+    let row = `<tr><td>${member.uid}</td><td>${member.name}</td><td>${member.email}</td><td>${trainerName}</td><td style="display: none">${member.password}</td><td>${mealPlanName}</td><td>${workoutPlanName}</td><td>${member.age}</td><td>${member.gender}</td><td>${member.workoutType}</td></tr>`;
     $('#tblMember').append(row);
 }
 
@@ -544,7 +559,7 @@ $("#searchMembers").keyup(function () {
                 getAllMembers();
             } else {
                 $.each(response.data, function (index, member) {
-                    let row = `<tr><td>${member.uid}</td><td>${member.name}</td><td>${member.email}</td><td>${member.trainer_id}</td><td style="display: none">${member.password}</td><td>${member.meal_plan_id}</td><td>${member.workout_id}</td><td>${member.age}</td><td>${member.gender}</td></tr>`;
+                    let row = `<tr><td>${member.uid}</td><td>${member.name}</td><td>${member.email}</td><td>${member.trainer_id}</td><td style="display: none">${member.password}</td><td>${member.meal_plan_id}</td><td>${member.workout_id}</td><td>${member.age}</td><td>${member.gender}</td><td>${member.workoutType}</td></tr>`;
                     $('#tblMember').append(row);
                 });
             }
