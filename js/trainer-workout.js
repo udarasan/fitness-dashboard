@@ -43,7 +43,7 @@ $("#searchWorkoutPlans").keyup(function () {
         dataType: 'json',
         data: {partialName: text},
         success: function (response) {
-            console.log(response);
+           console.log(response);
 
             $(".gridContainer").empty();
             $('.npResImg').addClass("d-none");

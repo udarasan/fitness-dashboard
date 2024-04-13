@@ -80,18 +80,18 @@ function getAll() {
             })
 
             // click event to assign data to assign modal
-            $(".assign").click(function () {
-                let card = $(this).closest('.card');
+            // $(".assign").click(function () {
+            //     let card = $(this).closest('.card');
+            //
+            //     let mealID = card.find("#mealId").text();
+            //     let mealPlanName = card.find('#mealPlanName').text();
+            //     let mealPlanDetails = card.find('#mealPlanDetail').text();
+            //     let calorie = card.find('#mealPlanCalorie').text();
+            //
+            //     setAssignModalContent(mealID, mealPlanName, mealPlanDetails, calorie);
+            // })
 
-                let mealID = card.find("#mealId").text();
-                let mealPlanName = card.find('#mealPlanName').text();
-                let mealPlanDetails = card.find('#mealPlanDetail').text();
-                let calorie = card.find('#mealPlanCalorie').text();
 
-                setAssignModalContent(mealID, mealPlanName, mealPlanDetails, calorie);
-            })
-
-            loadAllMembersIds();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error(jqXHR.responseText);
@@ -101,11 +101,12 @@ function getAll() {
 }
 
 // meal plan save method
-$("#saveMeal").click(function () {
+/*$("#saveMeal").click(function () {
 
     let meal_id = $("#meal_id").val();
     let meal_name = $("#meal_name").val();
     let meal_details = $("#meal_plan_details").val();
+
     let calorie = $("#calorie").val();
     let mealType=$("#adminMealType").val();
 
@@ -163,11 +164,99 @@ $("#saveMeal").click(function () {
     }
 
 
-})
+})*/
+$("#saveMeal").click(function () {
+
+    let meal_id = $("#meal_id").val();
+    let meal_name = $("#meal_name").val();
+    let meal_details = $("#meal_plan_details").val();
+
+    let meal_plan = {
+        "meal_details": meal_details
+    };
+
+    let calorie = $("#calorie").val();
+    let mealType = $("#adminMealType").val();
+
+    console.log(mealType)
+
+    if (meal_name === "" || meal_details === "" || mealType === "") {
+        alert("please fill all empty fields !!");
+    } else {
+
+        if (isValidPlan(meal_name)) {
+            $("#mealPlanNameErrorLabel").css("display", "none");
+
+            if (!isNaN(calorie)) {
+                $("#mealPlanCalorieErrorLabel").css("display", "none");
+
+                // Call ChatGPT API to generate calorie count
+                $.ajax({
+                    url: 'https://api.openai.com/v1/chat/completions',
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer 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'
+                    },
+                    data: JSON.stringify({
+                        "model": "gpt-3.5-turbo",
+                        "messages": [{ "role": "user", "content": "In the food plan, give a numerical value of the calories of " + meal_details + " . The numerical value should come in the content. One answer can come. Not separately, the whole should come in one answer. No need for more details, calorie. Only the count should come.ex: 200 That's it" }]
+                    }),
+                    success: function (response) {
+                        let calorieCount = response.choices[0].message.content.trim();
+                        console.log("Calorie count:", calorieCount);
+
+
+                        $.ajax({
+                            url: 'http://localhost:8080/api/v1/mealPlan/save',
+                            method: 'POST',
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            data: JSON.stringify({
+                                "mid": meal_id,
+                                "planName": meal_name,
+                                "planDetails": meal_details,
+                                "calorieCount": calorieCount,
+                                "mealType": mealType
+                            }),
+                            success: function (response) {
+                                console.log(response);
+                                getAll();
+                                alert("Meal Plan Saved Successfully !!")
+                                $('#newMealModal').data('bs.modal').hide();
+                                $("#meal_id").val("");
+                                $("#meal_name").val("");
+                                $("#meal_plan_details").val("");
+                                $("#calorie").val("");
+                                $("#adminMealType").val("");
+                            },
+                            error: function (jqXHR) {
+                                console.log(jqXHR);
+                            }
+                        });
+                    },
+                    error: function (jqXHR) {
+                        console.log(jqXHR);
+                    }
+                });
+            } else {
+                let errorLabel = $("#mealPlanCalorieErrorLabel");
+                errorLabel.css("display", "inline");
+                errorLabel.text("Invalid input type !");
+            }
+
+        } else {
+            let errorLabel = $("#mealPlanNameErrorLabel");
+            errorLabel.css("display", "inline");
+            errorLabel.text("Enter minimum 2 characters !");
+        }
+
+    }
+});
 
 $("#updateMeal").click(function () {
 
-    let meal_id = $("#Update_meal_id").val();
+/*    let meal_id = $("#Update_meal_id").val();
     let meal_name = $("#Update_meal_name").val();
     let meal_details = $("#Update_meal_plan_details").val();
     let calorie = $("#Update_calorie").val();
@@ -220,8 +309,94 @@ $("#updateMeal").click(function () {
             errorLabel.css("display", "inline");
             errorLabel.text("Enter minimum 2 characters !");
         }
-    }
+    }*/
 
+    let meal_id = $("#Update_meal_id").val();
+    let meal_name = $("#Update_meal_name").val();
+    let meal_details = $("#Update_meal_plan_details").val();
+    let calorie = $("#Update_calorie").val();
+    let mealType=$("#adminUpdateMealType").val();
+
+    let meal_plan = {
+        "meal_details": meal_details
+    };
+
+
+
+    console.log(mealType)
+
+    if (meal_name === "" || meal_details === "" || mealType === "") {
+        alert("please fill all empty fields !!");
+    } else {
+
+        if (isValidPlan(meal_name)) {
+            $("#mealPlanNameErrorLabel").css("display", "none");
+
+            if (!isNaN(calorie)) {
+                $("#mealPlanCalorieErrorLabel").css("display", "none");
+
+                // Call ChatGPT API to generate calorie count
+                $.ajax({
+                    url: 'https://api.openai.com/v1/chat/completions',
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer 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'
+                    },
+                    data: JSON.stringify({
+                        "model": "gpt-3.5-turbo",
+                        "messages": [{ "role": "user", "content": "In the food plan, give a numerical value of the calories of " + meal_details + " . The numerical value should come in the content. One answer can come. Not separately, the whole should come in one answer. No need for more details, calorie. Only the count should come.ex: 200 That's it" }]
+                    }),
+                    success: function (response) {
+                        let calorieCount = response.choices[0].message.content.trim();
+                        console.log("Calorie count:", calorieCount);
+
+
+                        $.ajax({
+                            url: 'http://localhost:8080/api/v1/mealPlan/update',
+                            method: 'POST',
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            data: JSON.stringify({
+                                "mid": meal_id,
+                                "planName": meal_name,
+                                "planDetails": meal_details,
+                                "calorieCount": calorieCount,
+                                "mealType": mealType
+                            }),
+                            success: function (response) {
+                                console.log(response);
+                                getAll();
+                                alert("Meal Plan Update Successfully !!")
+                                $('#newMealModal').data('bs.modal').hide();
+                                $("#meal_id").val("");
+                                $("#meal_name").val("");
+                                $("#meal_plan_details").val("");
+                                $("#calorie").val("");
+                                $("#adminMealType").val("");
+                            },
+                            error: function (jqXHR) {
+                                console.log(jqXHR);
+                            }
+                        });
+                    },
+                    error: function (jqXHR) {
+                        console.log(jqXHR);
+                    }
+                });
+            } else {
+                let errorLabel = $("#mealPlanCalorieErrorLabel");
+                errorLabel.css("display", "inline");
+                errorLabel.text("Invalid input type !");
+            }
+
+        } else {
+            let errorLabel = $("#mealPlanNameErrorLabel");
+            errorLabel.css("display", "inline");
+            errorLabel.text("Enter minimum 2 characters !");
+        }
+
+    }
 })
 
 // method to set data to update modal text fields
