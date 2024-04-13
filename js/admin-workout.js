@@ -26,6 +26,7 @@ $("#modalAddNew").click(function () {
     let name = $('#planName').val();
     let details = $('#planDetails').val();
     let calCount = $('#planCalorieCount').val();
+     let workOutType = $('#workoutType').val();
 
     let detailsWithEquipments = details + "\n\n" + equipmentText;
 
@@ -55,7 +56,8 @@ $("#modalAddNew").click(function () {
             data: JSON.stringify({
                 "planName": name,
                 "planDetails": detailsWithEquipments,
-                "burnsCalorieCount": calCount
+                "burnsCalorieCount": calCount,
+                "workOutType": workOutType
             }),  // Convert data to JSON string
             success: function (response) {
                 console.log(response);
@@ -204,6 +206,7 @@ function getAllWorkoutPlans() {
                                 <input class="hiddenWorkoutId" type="hidden" value="${workOut.wid}">
                                 <p class="card-text pPlanDetails">${plandetails}</p>
                                 <p class="card-text pCalorieCount">calorie count:&nbsp; ${workOut.burnsCalorieCount} calories</p>
+                                 <p class="card-text pCalorieCount">Type:&nbsp; ${workOut.workOutType}</p>
                             </div>
                         </div>`
 
