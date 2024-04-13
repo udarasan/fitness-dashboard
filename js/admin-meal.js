@@ -1,4 +1,3 @@
-/*
 $('#nameLbl').text(localStorage.getItem('adminEmail'));
 
 // meal plan Get All
@@ -102,7 +101,7 @@ function getAll() {
 }
 
 // meal plan save method
-/!*$("#saveMeal").click(function () {
+/*$("#saveMeal").click(function () {
 
     let meal_id = $("#meal_id").val();
     let meal_name = $("#meal_name").val();
@@ -165,7 +164,7 @@ function getAll() {
     }
 
 
-})*!/
+})*/
 $("#saveMeal").click(function () {
 
     let meal_id = $("#meal_id").val();
@@ -257,7 +256,7 @@ $("#saveMeal").click(function () {
 
 $("#updateMeal").click(function () {
 
-/!*    let meal_id = $("#Update_meal_id").val();
+/*    let meal_id = $("#Update_meal_id").val();
     let meal_name = $("#Update_meal_name").val();
     let meal_details = $("#Update_meal_plan_details").val();
     let calorie = $("#Update_calorie").val();
@@ -310,7 +309,7 @@ $("#updateMeal").click(function () {
             errorLabel.css("display", "inline");
             errorLabel.text("Enter minimum 2 characters !");
         }
-    }*!/
+    }*/
 
     let meal_id = $("#Update_meal_id").val();
     let meal_name = $("#Update_meal_name").val();
@@ -624,4 +623,3 @@ $("#SearchMeal").keyup(function () {
 
 
 
-*/
