@@ -69,6 +69,7 @@ $("#searchWorkoutPlans").keyup(function () {
                                 <input class="hiddenWorkoutId" type="hidden" value="${workOut.wid}">
                                 <p class="card-text">${plandetails}</p>
                                 <p class="card-text">calorie count: ${workOut.burnsCalorieCount} calories</p>
+                                 <p class="card-text pCalorieCount">Type:&nbsp; ${workOut.workOutType}</p>
                             </div>
                         </div>`
 
@@ -160,6 +161,7 @@ function getAllWorkoutPlans() {
                                 <input class="hiddenWorkoutId" type="hidden" value="${workOut.wid}">
                                 <p class="card-text pPlanDetails">${plandetails}</p>
                                 <p class="card-text pCalorieCount">calorie count:&nbsp; ${workOut.burnsCalorieCount} calories</p>
+                                 <p class="card-text pCalorieCount">Type:&nbsp; ${workOut.workOutType}</p>
                             </div>
                         </div>`
 
@@ -220,6 +222,10 @@ let currUserName;
 let currUserPassword;
 let currUserAge;
 let currUserGender;
+let currWorkoutType;
+let currBreakfast;
+let currLunch;
+let currDinner;
 $(".memberSelect").change(function () {
     let currUserId = $(this).val();
 
@@ -232,6 +238,11 @@ $(".memberSelect").change(function () {
             currUserPassword = member.password;
             currUserAge = member.age;
             currUserGender = member.gender;
+            currWorkoutType = member.workoutType;
+            currBreakfast = member.breakFastMeal;
+            currLunch = member.lunchMeal;
+            currDinner = member.dinnerMeal;
+
 
             console.log(currUserMealId + " " + currUserTrainerId + " " + currUserName + " " + currUserPassword);
             console.log(currUserAge)
@@ -266,7 +277,11 @@ $("#modalAssignBtn").click(function () {
             "meal_plan_id": currUserMealId,
             "workout_id": workoutId,
             "age": currUserAge,
-            "gender": currUserGender
+            "gender": currUserGender,
+            "workoutType":currWorkoutType,
+            "breakFastMeal":currBreakfast,
+            "lunchMeal":currLunch,
+            "dinnerMeal":currDinner
         }),  // Convert data to JSON string
         success: function (response) {
             console.log(response);
@@ -296,7 +311,7 @@ $("#modalAssignNew").click(function () {
     let name = $('#planName').val();
     let details = $('#planDetails').val();
     let calCount = $('#planCalorieCount').val();
-
+    let workOutType = $('#workoutType').val();
     let detailsWithEquipments = details + "\n\n" + equipmentText;
 
     let userId = $("#assignNewWorkoutModal .memberSelect").val();
@@ -326,7 +341,8 @@ $("#modalAssignNew").click(function () {
                 "workOutPlanDTO": {
                     "planName": name,
                     "planDetails": detailsWithEquipments,
-                    "burnsCalorieCount": calCount
+                    "burnsCalorieCount": calCount,
+                    "workOutType": workOutType
                 },
                 "userDTO": {
                     "uid": userId,

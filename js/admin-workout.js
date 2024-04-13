@@ -111,6 +111,7 @@ $("#searchWorkoutPlans").keyup(function () {
                                 <input class="hiddenWorkoutId" type="hidden" value="${workOut.wid}">
                                 <p class="card-text">${plandetails}</p>
                                 <p class="card-text">calorie count: ${workOut.burnsCalorieCount} calories</p>
+                        
                             </div>
                         </div>`
 
