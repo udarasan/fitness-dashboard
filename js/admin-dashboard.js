@@ -11,17 +11,17 @@ var workoutCount;
 var mealCount;
 var equipmentCount;
 
-function pieChart() {
+function barChart(mealRegisteredMembers, workoutRegisteredMembers) {
     const chartData = {
-        labels: ["Trainers", "Members", "MealPlans", "WorkOutPlans", "Equipments"],
-        data: [trainerCount, memberCount, mealCount, workoutCount, equipmentCount],
+        labels: ["T", "M", "W"],
+        data: [memberCount, mealRegisteredMembers, workoutRegisteredMembers],
     };
 
-    const myChart = document.querySelector(".my-chart");
-    const ul = document.querySelector(".programming-stats .details ul");
+    const myChart = document.querySelector(".my-bar-chart");
+    const ul = document.querySelector("#bar-chart .programming-stats .details ul");
 
     new Chart(myChart, {
-        type: "doughnut",
+        type: "bar",
         data: {
             labels: chartData.labels,
             datasets: [
@@ -44,6 +44,66 @@ function pieChart() {
     });
 
     const populateUl = () => {
+        chartData.labels.forEach((l, i) => {
+            let li = document.createElement("li");
+
+            if(l === "T") {
+                li.innerHTML = `${l} -Total Members: <span class='percentage'>${chartData.data[i]}</span>`;
+            }else if(l === "M") {
+                li.innerHTML = `${l} -Meal Plan Registered Members: <span class='percentage'>${chartData.data[i]}</span>`;
+            }else if(l === "W") {
+                li.innerHTML = `${l} -Workout Plan Registered Members: <span class='percentage'>${chartData.data[i]}</span>`;
+            }
+            ul.appendChild(li);
+        });
+    };
+
+    populateUl();
+}
+
+function pieChart(activeTrainerCount) {
+
+    let inactiveTrainerCount = trainerCount - activeTrainerCount;
+
+    letActiveTrainerPercentage = (activeTrainerCount / trainerCount) * 100;
+    letInactiveTrainerPercentage = (inactiveTrainerCount / trainerCount) * 100;
+
+    const chartData = {
+        labels: ["Active Trainers", "Inactive Trainers"],
+        data: [letActiveTrainerPercentage, letInactiveTrainerPercentage],
+    };
+
+    const myChart = document.querySelector("#trainer-pie-chart .my-pie-chart");
+    const ul = document.querySelector("#trainer-pie-chart .programming-stats .details ul");
+
+    new Chart(myChart, {
+        type: "pie",
+        data: {
+            labels: chartData.labels,
+            datasets: [
+                {
+                    label: "Percentage(%)",
+                    data: chartData.data,
+                },
+            ],
+        },
+        options: {
+            borderWidth: 10,
+            borderRadius: 2,
+            hoverBorderWidth: 0,
+            plugins: {
+                legend: {
+                    display: false,
+                },
+            },
+        },
+    });
+
+    const populateUl = () => {
+        let li1 = document.createElement("li");
+        li1.innerHTML = `Total Trainers: <span class='percentage'>${trainerCount}</span>`;
+        ul.appendChild(li1);
+
         chartData.labels.forEach((l, i) => {
             let li = document.createElement("li");
             li.innerHTML = `${l}: <span class='percentage'>${chartData.data[i]}%</span>`;
@@ -142,7 +202,8 @@ function getEquipmentCount() {
         contentType: 'application/json',
         success: function (response) {
             equipmentCount = response.data;
-            pieChart();
+            // pieChart();
+            getMealAndWorkoutRegisteredMembersCount();
         },
         error: function (jqXHR) {
             console.log(jqXHR.responseText);
@@ -150,6 +211,50 @@ function getEquipmentCount() {
     })
 }
 
+function getMealAndWorkoutRegisteredMembersCount() {
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/user/getAllUsers',
+        method: 'GET',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (response) {
+            let mealRegisteredMembers=0;
+            let workoutRegisteredMembers=0;
+            response.data.forEach(function(member) {
+                if(member.meal_plan_id != 0) {
+                    mealRegisteredMembers++;
+                }
+                if(member.workout_id != 0) {
+                    workoutRegisteredMembers++;
+                }
+            });
+
+            barChart(mealRegisteredMembers, workoutRegisteredMembers);
+
+            getActiveTrainerCount();
+        },
+        error: function (jqXHR) {
+            console.log(jqXHR.responseText);
+        }
+    })
+}
+
+function getActiveTrainerCount() {
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/admin/getActiveTrainerCount',
+        method: 'GET',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (response) {
+            let activeTrainerCount = response.data;
+
+            pieChart(activeTrainerCount);
+        },
+        error: function (jqXHR) {
+            console.log(jqXHR.responseText);
+        }
+    })
+}
 
 //new
 

@@ -414,6 +414,8 @@ let breakFastMeal;
 let lunchMeal;
 let dinnerMeal;
 
+let workoutType;
+
 $("#memberComboBox").click(function () {
 
     let memberId = $("#memberComboBox").val();
@@ -459,6 +461,7 @@ $("#memberComboBox").click(function () {
             console.log(members.breakFastMeal);
             console.log(members.lunchMeal);
             console.log(members.dinnerMeal);
+            console.log(members.workoutType);
 
             memId = members.uid;
             memberEmail = members.email;
@@ -471,6 +474,7 @@ $("#memberComboBox").click(function () {
             breakFastMeal=members.breakFastMeal;
             lunchMeal=members.lunchMeal;
             dinnerMeal=members.dinnerMeal;
+            workoutType=members.workoutType;
         }
 
     })
@@ -506,6 +510,11 @@ $("#assign_member_id").click(function () {
         // console.log(age);
         // console.log(gender);
 
+        console.log(members.breakFastMeal);
+        console.log(members.lunchMeal);
+        console.log(members.dinnerMeal);
+        console.log(members.workoutType);
+
 
         if (memberId === members.uid) {
             let memberNames= members.name;
@@ -533,7 +542,8 @@ $("#assign_member_id").click(function () {
             gender = members.gender;
             breakFastMeal=members.breakFastMeal;
             lunchMeal=members.lunchMeal;
-            dinnerMeal=members.dinnerMeal
+            dinnerMeal=members.dinnerMeal;
+            workoutType=members.workoutType;
 
         }
 
