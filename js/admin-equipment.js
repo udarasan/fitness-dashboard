@@ -69,8 +69,9 @@ $('#updateEquip').click(function () {
     let name = $('#equipName').val();
     let desc = $('#equipDesc').val();
     let date = $('#date').val();
+    let condition=$('#check_condition').val();
 
-    if (!name || !desc || !date) {
+    if (!name || !desc || !date ||!condition) {
         alert("Please fill in all required fields.");
         return;
     }
@@ -89,7 +90,7 @@ $('#updateEquip').click(function () {
         dataType: 'json',
         contentType: 'application/json',  // Set content type to JSON
 
-        data: JSON.stringify({"eid": eid, "equipmentName": name, "equipmentDetail": desc, "purchaseDate": date,}),  // Convert data to JSON string
+        data: JSON.stringify({"eid": eid, "equipmentName": name, "equipmentDetail": desc, "purchaseDate": date,"checkCondition":condition}),  // Convert data to JSON string
         success: function (response) {
             console.log(response);
             alert("Equipment Update successful!");
@@ -109,8 +110,9 @@ $('#addEquip').click(function () {
     let name = $('#equipName').val();
     let desc = $('#equipDesc').val();
     let date = $('#date').val();
+    let condition=$('#check_condition').val();
 
-    if (!name || !desc || !date) {
+    if (!name || !desc || !date ||!condition) {
         alert("Please fill in all required fields.");
         return;
     }
@@ -128,7 +130,7 @@ $('#addEquip').click(function () {
         dataType: 'json',
         contentType: 'application/json',  // Set content type to JSON
 
-        data: JSON.stringify({"equipmentName": name, "equipmentDetail": desc, "purchaseDate": date,}),  // Convert data to JSON string
+        data: JSON.stringify({"equipmentName": name, "equipmentDetail": desc, "purchaseDate": date,"checkCondition":condition}),  // Convert data to JSON string
         success: function (response) {
             console.log(response);
             alert("Equipment Added successful!");
@@ -163,7 +165,7 @@ function getAllEquipments() {
                 return;
             }
             $.each(response.data, function (index, equipment) {
-                let row = `<tr><td>${equipment.eid}</td><td>${equipment.equipmentName}</td><td>${equipment.equipmentDetail}</td><td>${equipment.purchaseDate}</td></tr>`;
+                let row = `<tr><td>${equipment.eid}</td><td>${equipment.equipmentName}</td><td>${equipment.equipmentDetail}</td><td>${equipment.purchaseDate}</td><td>${equipment.checkCondition}</td></tr>`;
                 $('#tblEquip').append(row);
             });
 
