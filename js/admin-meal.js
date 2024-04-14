@@ -196,7 +196,8 @@ $("#saveMeal").click(function () {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer YOUR_KEY'
+                        'Authorization': 'Bearer YOUR_KEY',
+                         'OpenAI-Organization': 'org-ipyjrPJzsP41M9H3lgQuPpem'
                     },
                     data: JSON.stringify({
                         "model": "gpt-3.5-turbo",
@@ -341,7 +342,8 @@ $("#updateMeal").click(function () {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer YOUR_KEY'
+                        'Authorization': 'Bearer YOUR_KEY',
+                        'OpenAI-Organization': 'org-ipyjrPJzsP41M9H3lgQuPpem'
                         
                     },
                     data: JSON.stringify({
