@@ -313,13 +313,13 @@ $("#modalAssignNew").click(function () {
 
     let name = $('#planName').val();
     let details = $('#planDetails').val();
-    let calCount = $('#planCalorieCount').val();
+    // let calCount = $('#planCalorieCount').val();
     let workOutType = $('#workoutType').val();
     let detailsWithEquipments = details + "\n\n" + equipmentText;
 
     let userId = $("#assignNewWorkoutModal .memberSelect").val();
 
-    if (!name || !details || !calCount) {
+    if (!name || !details) {
         alert("Please fill in all required fields.");
         return;
     }
@@ -329,47 +329,70 @@ $("#modalAssignNew").click(function () {
     } else {
         $('#nameErrorLabel').text(""); // Clear the error label
     }
-    if (isNaN(calCount)) {
-        $('#calaryErrorLabel').text("Invalid input type");
-    } else {
-        $('#calaryErrorLabel').text("");
-    }
-    if (isValidPlan(name) && !isNaN(calCount)) {
+
+    if (isValidPlan(name)) {
+
+        // Call ChatGPT API to generate calorie count
         $.ajax({
-            url: 'http://localhost:8080/api/v1/workoutplan/assignNewWorkout',
+            url: 'https://api.openai.com/v1/chat/completions',
             method: 'POST',
-            dataType: 'json',
-            contentType: 'application/json',  // Set content type to JSON
-            data: JSON.stringify({
-                "workOutPlanDTO": {
-                    "planName": name,
-                    "planDetails": detailsWithEquipments,
-                    "burnsCalorieCount": calCount,
-                    "workOutType": workOutType
-                },
-                "userDTO": {
-                    "uid": userId,
-                    "name": currUserName,
-                    "email": currUserEmail,
-                    "password": currUserPassword,
-                    "trainer_id": currUserTrainerId,
-                    "meal_plan_id": currUserMealId,
-                    "age": currUserAge,
-                    "gender": currUserGender
-                }
-            }),   // Convert data to JSON string
-            success: function (response) {
-                console.log(response);
-                alert("WorkOut Added successful!");
-                $('#assignNewWorkoutModal').data('bs.modal').hide();
-                $(".memberSelect").val("");
-                getAllWorkoutPlans();
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer YOUR-KEY',
+                'OpenAI-Organization':'org-ipyjrPJzsP41M9H3lgQuPpem'
+
             },
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert("WorkOut Added failed! Please check your input and try again.");
-                console.error(jqXHR.responseText);  // Log the response text for debugging
+            data: JSON.stringify({
+                "model": "gpt-3.5-turbo",
+                "messages": [{ "role": "user", "content": "In the workout plan, give a numerical value of the burning calories of " + details + " . The numerical value should come in the content. One answer can come. Not separately, the whole should come in one answer. No need for more details, calorie. Only the count should come.ex: 200 That's it" }]
+            }),
+            success: function (response) {
+                let calorieCount = response.choices[0].message.content.trim();
+                console.log("Calorie count:", calorieCount);
+
+                // Make the AJAX request
+                $.ajax({
+                    url: 'http://localhost:8080/api/v1/workoutplan/assignNewWorkout',
+                    method: 'POST',
+                    dataType: 'json',
+                    contentType: 'application/json',  // Set content type to JSON
+                    data: JSON.stringify({
+                        "workOutPlanDTO": {
+                            "planName": name,
+                            "planDetails": detailsWithEquipments,
+                            "burnsCalorieCount": calorieCount,
+                            "workOutType": workOutType
+                        },
+                        "userDTO": {
+                            "uid": userId,
+                            "name": currUserName,
+                            "email": currUserEmail,
+                            "password": currUserPassword,
+                            "trainer_id": currUserTrainerId,
+                            "meal_plan_id": currUserMealId,
+                            "age": currUserAge,
+                            "gender": currUserGender
+                        }
+                    }),   // Convert data to JSON string
+                    success: function (response) {
+                        console.log(response);
+                        alert("WorkOut Added successful!");
+                        $('#assignNewWorkoutModal').data('bs.modal').hide();
+                        $(".memberSelect").val("");
+                        getAllWorkoutPlans();
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert("WorkOut Added failed! Please check your input and try again.");
+                        console.error(jqXHR.responseText);  // Log the response text for debugging
+                    }
+                });
+
+            },
+            error: function (jqXHR) {
+                console.log(jqXHR);
             }
         });
+
     }
 });
 

@@ -152,49 +152,71 @@ $('#updateRecord').click(function () {
     let date = $("#mngDate").val();
     let workout = $("#mng_wr_name").val();
     let details = $("#mng_wr_details").val();
-    let calories = $("#mng_wr_calories").val();
+    // let calories = $("#mng_wr_calories").val();
     let recordId = $("#mngRecordId").val();
 
-    console.log(date, workout, details, calories, recordId);
+    console.log(date, workout, details, recordId);
 
-    if (!date || !workout || !details || !calories) {
+    if (!date || !workout || !details) {
         alert("Please fill in all required fields.");
         return;
     }
 
 
-    if (isNaN(calories)) {
-        $('#mngCalorieErrorLabel').text("Invalid input type!! Please input number");
-        return;
-    } else {
-        $('#mngCalorieErrorLabel').text("");
-    }
+    // if (isNaN(calories)) {
+    //     $('#mngCalorieErrorLabel').text("Invalid input type!! Please input number");
+    //     return;
+    // } else {
+    //     $('#mngCalorieErrorLabel').text("");
+    // }
 
     $.ajax({
-        url: 'http://localhost:8080/api/v1/workoutRecords/update',
+        url: 'https://api.openai.com/v1/chat/completions',
         method: 'POST',
-        dataType: 'json',
-        contentType: 'application/json',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer YOUR-KEY',
+            'OpenAI-Organization':'org-ipyjrPJzsP41M9H3lgQuPpem'
 
-        data: JSON.stringify({
-            "date": date, "workout": workout, "details": details, "calories": calories,
-            "userId": userId, "wrID": recordId
-        }), // Convert data to JSON string
-        success: function (response) {
-            console.log(response);
-            alert("Record Updated successfully!");
-            $('#mng_wr_name').val("");
-            $('#mng_wr_details').val("");
-            $('#mng_wr_calories').val("");
-            $("#manageRecModal").data('bs.modal').hide();
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            if (jqXHR.status == 409) {
-                alert("Duplicate Record Values. Please check your details again");
-                return;
-            }
-            alert("Record Updating Process Failed! Please check your input and try again.");
-            console.error(jqXHR.responseText);
+        data: JSON.stringify({
+            "model": "gpt-3.5-turbo",
+            "messages": [{ "role": "user", "content": "In the workout plan, give a numerical value of the burning calories of " + details + " . The numerical value should come in the content. One answer can come. Not separately, the whole should come in one answer. No need for more details, calorie. Only the count should come.ex: 200 That's it" }]
+        }),
+        success: function (response) {
+            let caloriesBurnt = response.choices[0].message.content.trim();
+            console.log("Calorie count:", caloriesBurnt);
+
+            $.ajax({
+                url: 'http://localhost:8080/api/v1/workoutRecords/update',
+                method: 'POST',
+                dataType: 'json',
+                contentType: 'application/json',
+
+                data: JSON.stringify({
+                    "date": date, "workout": workout, "details": details, "calories": caloriesBurnt,
+                    "userId": userId, "wrID": recordId
+                }), // Convert data to JSON string
+                success: function (response) {
+                    console.log(response);
+                    alert("Record Updated successfully!");
+                    $('#mng_wr_name').val("");
+                    $('#mng_wr_details').val("");
+                    $('#mng_wr_calories').val("");
+                    $("#manageRecModal").data('bs.modal').hide();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    if (jqXHR.status == 409) {
+                        alert("Duplicate Record Values. Please check your details again");
+                        return;
+                    }
+                    alert("Record Updating Process Failed! Please check your input and try again.");
+                    console.error(jqXHR.responseText);
+                }
+            });
+        },
+        error: function (jqXHR) {
+            console.log(jqXHR);
         }
     });
 });
