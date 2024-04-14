@@ -80,7 +80,7 @@ $("#addRecord").click(function () {
         },
         data: JSON.stringify({
             "model": "gpt-3.5-turbo",
-            "messages": [{ "role": "user", "content": "In the food plan, give a numerical value of the calories of " + meal_details + " . The numerical value should come in the content. One answer can come. Not separately, the whole should come in one answer. No need for more details, calorie. Only the count should come.ex: 200 That's it" }]
+            "messages": [{ "role": "user", "content": "In the food plan, give a numerical value of the calories of " + mealDetails + " . The numerical value should come in the content. One answer can come. Not separately, the whole should come in one answer. No need for more details, calorie. Only the count should come.ex: 200 That's it" }]
         }),
         success: function (response) {
             let calorieCount = response.choices[0].message.content.trim();
