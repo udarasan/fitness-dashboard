@@ -146,52 +146,75 @@ $('#updateRecord').click(function () {
     let date = $("#mngDate").val();
     let mealType = $("#mngMeal").val();
     let details = $("#mngMealDetails").val();
-    let calories = $("#mngCalories").val();
+    // let calories = $("#mngCalories").val();
     let recordId = $("#mngRecordId").val();
 
-    console.log(date, mealType, details, calories, recordId);
+    console.log(date, mealType, details, recordId);
 
-    if (!date || !mealType || !details || !calories) {
+    if (!date || !mealType || !details) {
         alert("Please fill in all required fields.");
         return;
     }
 
 
 
-    if (isNaN(calories)) {
-        $('#mngCalorieErrorLabel').text("Invalid input type!! Please input number");
-        return;
-    } else {
-        $('#mngCalorieErrorLabel').text("");
-    }
+    // if (isNaN(calories)) {
+    //     $('#mngCalorieErrorLabel').text("Invalid input type!! Please input number");
+    //     return;
+    // } else {
+    //     $('#mngCalorieErrorLabel').text("");
+    // }
 
     $.ajax({
-        url: 'http://localhost:8080/api/v1/mealRecords/update',
+        url: 'https://api.openai.com/v1/chat/completions',
         method: 'POST',
-        dataType: 'json',
-        contentType: 'application/json',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer YOUR_KEY',
+            'OpenAI-Organization':'org-ipyjrPJzsP41M9H3lgQuPpem'
 
-        data: JSON.stringify({
-            "date": date, "meal": mealType, "details": details, "calories": calories,
-            "userId": userId, "mrID": recordId
-        }), // Convert data to JSON string
-        success: function (response) {
-            console.log(response);
-            alert("Record Updated successfully!");
-            $('#meal').val("");
-            $('#mealDetails').val("");
-            $('#calories').val("");
-            $("#manageRecModal").data('bs.modal').hide();
         },
-        error: function (jqXHR, textStatus, errorThrown) {
-            if (jqXHR.status == 409) {
-                alert("Duplicate Record Values. Please check your details again");
-                return;
-            }
-            alert("Record Updating Process Failed! Please check your input and try again.");
-            console.error(jqXHR.responseText);
+        data: JSON.stringify({
+            "model": "gpt-3.5-turbo",
+            "messages": [{ "role": "user", "content": "In the food plan, give a numerical value of the calories of " + details + " . The numerical value should come in the content. One answer can come. Not separately, the whole should come in one answer. No need for more details, calorie. Only the count should come.ex: 200 That's it" }]
+        }),
+        success: function (response) {
+            let calorieCount = response.choices[0].message.content.trim();
+            console.log("Calorie count:", calorieCount);
+
+            $.ajax({
+                url: 'http://localhost:8080/api/v1/mealRecords/update',
+                method: 'POST',
+                dataType: 'json',
+                contentType: 'application/json',
+
+                data: JSON.stringify({
+                    "date": date, "meal": mealType, "details": details, "calories": calorieCount,
+                    "userId": userId, "mrID": recordId
+                }), // Convert data to JSON string
+                success: function (response) {
+                    console.log(response);
+                    alert("Record Updated successfully!");
+                    $('#meal').val("");
+                    $('#mealDetails').val("");
+                    $('#calories').val("");
+                    $("#manageRecModal").data('bs.modal').hide();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    if (jqXHR.status == 409) {
+                        alert("Duplicate Record Values. Please check your details again");
+                        return;
+                    }
+                    alert("Record Updating Process Failed! Please check your input and try again.");
+                    console.error(jqXHR.responseText);
+                }
+            });
+        },
+        error: function (jqXHR) {
+            console.log(jqXHR);
         }
     });
+
 });
 
 $('#deleteRecord').click(function () {
