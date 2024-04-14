@@ -74,7 +74,7 @@ $("#addRecord").click(function () {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer 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',
+            'Authorization': 'Bearer YOUR-KEY',
             'OpenAI-Organization':'org-ipyjrPJzsP41M9H3lgQuPpem'
 
         },
@@ -170,7 +170,7 @@ $('#updateRecord').click(function () {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer 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',
+            'Authorization': 'Bearer YOUR-KEY',
             'OpenAI-Organization':'org-ipyjrPJzsP41M9H3lgQuPpem'
 
         },
