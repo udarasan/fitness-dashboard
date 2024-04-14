@@ -53,9 +53,9 @@ function getWorkoutRecordsByUser() {
 
 
 $("#addRecord").click(function () {
-    date = $("#date").val();
-    workOut = $("#wr_name").val();
-    workOutDetails = $("#wr_details").val();
+    let date = $("#date").val();
+    let workOut = $("#wr_name").val();
+    let workOutDetails = $("#wr_details").val();
     // calories = $("#wr_calories").val();
 
 
