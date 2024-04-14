@@ -460,7 +460,7 @@ async function getAllMembers() {
 
 
 function appendRow(member, mealPlanName, workoutPlanName, trainerName) {
-    let row = `<tr><td>${member.uid}</td><td>${member.name}</td><td>${member.email}</td><td>${trainerName}</td><td style="display: none">${member.password}</td><td>${mealPlanName}</td><td>${workoutPlanName}</td><td>${member.age}</td><td>${member.gender}</td><td>${member.workoutType}</td></tr>`;
+    let row = `<tr><td>${member.uid}</td><td>${member.name}</td><td>${member.email}</td><td>${trainerName}</td><td style="display: none">${member.password}</td><td>${member.age}</td><td>${member.gender}</td><td>${workoutPlanName}</td><td>${member.workoutType}</td><td>${member.breakFastMeal}</td><td>${member.lunchMeal}</td><td>${member.dinnerMeal}</td></tr>`;
     $('#tblMember').append(row);
 }
 
