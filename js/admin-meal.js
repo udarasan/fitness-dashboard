@@ -196,8 +196,7 @@ $("#saveMeal").click(function () {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer YOUR_API_KEY'
-                        // YOUR_API_KEY =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
+                        'Authorization': 'Bearer YOUR_KEY'
                     },
                     data: JSON.stringify({
                         "model": "gpt-3.5-turbo",
@@ -342,8 +341,8 @@ $("#updateMeal").click(function () {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer YOUR_API_KEY'
-                        // YOUR_API_KEY =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
+                        'Authorization': 'Bearer YOUR_KEY'
+                        
                     },
                     data: JSON.stringify({
                         "model": "gpt-3.5-turbo",
