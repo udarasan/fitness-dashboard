@@ -343,7 +343,7 @@ $("#updateMeal").click(function () {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer YOUR_KEY',
-                        'OpenAI-Organization': 'org-ipyjrPJzsP41M9H3lgQuPpem'
+                        'OpenAI-Organization':'org-ipyjrPJzsP41M9H3lgQuPpem'
                         
                     },
                     data: JSON.stringify({
