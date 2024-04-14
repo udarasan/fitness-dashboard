@@ -133,18 +133,18 @@ function appendMealSection(mealPlan) {
         let card = $(this).closest('.card');
 
         let mealID = card.find("#mealId").text();
-        let mealType=card.find("#mealType").text();
+        let mealType = card.find("#mealType").text();
         // let mealPlanName = card.find('#mealPlanName').text();
         // let mealPlanDetails = card.find('#mealPlanDetail').text();
         // let calorie = card.find('#mealPlanCalorie').text();
 
-        setTrainerAssignModalContent(mealID,mealType);
+        setTrainerAssignModalContent(mealID, mealType);
     })
 
 
 }
 
-function setTrainerAssignModalContent(mealID,mealType) {
+function setTrainerAssignModalContent(mealID, mealType) {
     $("#assign_meal_id").val(mealID);
     $("#type_check").val(mealType);
 }
@@ -187,10 +187,10 @@ $("#saveMeal").click(function () {
     let meal_name = $("#meal_name").val();
     let meal_details = $("#meal_plan_details").val();
     let calorie = $("#calorie").val();
-    let mealType=$("#trainerMealType").val();
+    let mealType = $("#trainerMealType").val();
     console.log(mealType)
 
-    if (meal_name === "" || meal_details === "" || calorie === "" || $("#memberComboBox").val() === "") {
+    if (meal_name === "" || meal_details === "" || $("#memberComboBox").val() === "") {
         alert("please fill all empty fields !!");
     } else {
         if (isValidPlan(meal_name)) {
@@ -201,54 +201,129 @@ $("#saveMeal").click(function () {
                 $("#TrainerMealPlanCalorieErrorLabel").css("display", "none");
 
                 $.ajax({
-                    url: 'http://localhost:8080/api/v1/mealPlan/assignNewMealPlan',
+                    url: 'https://api.openai.com/v1/chat/completions',
                     method: 'POST',
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    data: JSON.stringify({
-
-                        "mealPlanDTO": {
-                            "planName": meal_name,
-                            "planDetails": meal_details,
-                            "calorieCount": calorie,
-                            "mealType":mealType
-                        },
-                        "userDTO": {
-                            "uid": memId,
-                            "email": memberEmail,
-                            "name": memberName,
-                            "password": memberPassword,
-                            "workout_id": workoutId,
-                            "trainer_id": trainerIdd,
-                            "age": age,
-                            "gender": gender,
-                            "breakFastMeal":breakFastMeal,
-                            "lunchMeal":lunchMeal,
-                            "dinnerMeal":dinnerMeal
-
-
-                        }
-
-                    }),
-
-                    success: function (response) {
-                        console.log(response);
-                        // updateMemberWithMealId(meal_id);
-                        alert("Meal Plan Saved Successfully !!")
-
-                        getAll();
-                        $('#TrainerNewMealModal').data('bs.modal').hide();
-                        $("#meal_id").val("");
-                        $("#meal_name").val("");
-                        $("#meal_plan_details").val("");
-                        $("#calorie").val("");
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer YOUR-KEY',
+                        'OpenAI-Organization': 'org-ipyjrPJzsP41M9H3lgQuPpem'
                     },
+                    data: JSON.stringify({
+                        "model": "gpt-3.5-turbo",
+                        "messages": [{
+                            "role": "user",
+                            "content": "In the food plan, give a numerical value of the calories of " + meal_details + " . The numerical value should come in the content. One answer can come. Not separately, the whole should come in one answer. No need for more details, calorie. Only the count should come.ex: 200 That's it"
+                        }]
+                    }),
+                    success: function (response) {
+                        let calorieCount = response.choices[0].message.content.trim();
+                        console.log("Calorie count:", calorieCount);
 
+
+                        $.ajax({
+                            url: 'http://localhost:8080/api/v1/mealPlan/assignNewMealPlan',
+                            method: 'POST',
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            data: JSON.stringify({
+
+                                "mealPlanDTO": {
+                                    "planName": meal_name,
+                                    "planDetails": meal_details,
+                                    "calorieCount": calorieCount,
+                                    "mealType": mealType
+                                },
+                                "userDTO": {
+                                    "uid": memId,
+                                    "email": memberEmail,
+                                    "name": memberName,
+                                    "password": memberPassword,
+                                    "workout_id": workoutId,
+                                    "trainer_id": trainerIdd,
+                                    "age": age,
+                                    "gender": gender,
+                                    "breakFastMeal": breakFastMeal,
+                                    "lunchMeal": lunchMeal,
+                                    "dinnerMeal": dinnerMeal
+
+
+                                }
+
+                            }),
+
+                            success: function (response) {
+                                console.log(response);
+                                // updateMemberWithMealId(meal_id);
+                                alert("Meal Plan Saved Successfully !!")
+
+                                getAll();
+                                $('#TrainerNewMealModal').data('bs.modal').hide();
+                                $("#meal_id").val("");
+                                $("#meal_name").val("");
+                                $("#meal_plan_details").val("");
+                                $("#calorie").val("");
+                            },
+
+                            error: function (jqXHR) {
+                                console.log(jqXHR);
+
+                            }
+                        })
+                    },
                     error: function (jqXHR) {
                         console.log(jqXHR);
-
                     }
-                })
+                });
+
+                /* $.ajax({
+                     url: 'http://localhost:8080/api/v1/mealPlan/assignNewMealPlan',
+                     method: 'POST',
+                     dataType: 'json',
+                     contentType: 'application/json',
+                     data: JSON.stringify({
+
+                         "mealPlanDTO": {
+                             "planName": meal_name,
+                             "planDetails": meal_details,
+                             "calorieCount": calorie,
+                             "mealType":mealType
+                         },
+                         "userDTO": {
+                             "uid": memId,
+                             "email": memberEmail,
+                             "name": memberName,
+                             "password": memberPassword,
+                             "workout_id": workoutId,
+                             "trainer_id": trainerIdd,
+                             "age": age,
+                             "gender": gender,
+                             "breakFastMeal":breakFastMeal,
+                             "lunchMeal":lunchMeal,
+                             "dinnerMeal":dinnerMeal
+
+
+                         }
+
+                     }),
+
+                     success: function (response) {
+                         console.log(response);
+                         // updateMemberWithMealId(meal_id);
+                         alert("Meal Plan Saved Successfully !!")
+
+                         getAll();
+                         $('#TrainerNewMealModal').data('bs.modal').hide();
+                         $("#meal_id").val("");
+                         $("#meal_name").val("");
+                         $("#meal_plan_details").val("");
+                         $("#calorie").val("");
+                     },
+
+                     error: function (jqXHR) {
+                         console.log(jqXHR);
+
+                     }
+                 })*/
 
             } else {
                 let errorLabel = $("#TrainerMealPlanCalorieErrorLabel");
@@ -389,7 +464,7 @@ function loadAllMembersIds() {
 
 function setMemberDataToComboBox(members) {
 
-    console.log("popop "+members.name)
+    console.log("popop " + members.name)
 
     let firstOpt = ` <option class="d-none" value="" selected></option>`;
     $("#assign_member_id").append(firstOpt);
@@ -443,8 +518,6 @@ $("#memberComboBox").click(function () {
         // console.log(gender);
 
 
-
-
         if (memberId === members.uid) {
             let memberNames = members.name;
             $("#Member_name").val(memberNames);
@@ -471,10 +544,10 @@ $("#memberComboBox").click(function () {
             workoutId = members.workout_id;
             age = members.age;
             gender = members.gender;
-            breakFastMeal=members.breakFastMeal;
-            lunchMeal=members.lunchMeal;
-            dinnerMeal=members.dinnerMeal;
-            workoutType=members.workoutType;
+            breakFastMeal = members.breakFastMeal;
+            lunchMeal = members.lunchMeal;
+            dinnerMeal = members.dinnerMeal;
+            workoutType = members.workoutType;
         }
 
     })
@@ -485,8 +558,7 @@ $("#memberComboBox").click(function () {
 $("#assign_member_id").click(function () {
 
     let memberId = $("#assign_member_id").val();
-    console.log("lolll "+memberId);
-
+    console.log("lolll " + memberId);
 
 
     $.each(getAllMembersResponse.data, function (index, members) {
@@ -517,8 +589,8 @@ $("#assign_member_id").click(function () {
 
 
         if (memberId === members.uid) {
-            let memberNames= members.name;
-            console.log("lol name "+memberNames)
+            let memberNames = members.name;
+            console.log("lol name " + memberNames)
             $("#assign_member_name").val(memberId);
 
             console.log(memberEmail);
@@ -540,10 +612,10 @@ $("#assign_member_id").click(function () {
             workoutId = members.workout_id;
             age = members.age;
             gender = members.gender;
-            breakFastMeal=members.breakFastMeal;
-            lunchMeal=members.lunchMeal;
-            dinnerMeal=members.dinnerMeal;
-            workoutType=members.workoutType;
+            breakFastMeal = members.breakFastMeal;
+            lunchMeal = members.lunchMeal;
+            dinnerMeal = members.dinnerMeal;
+            workoutType = members.workoutType;
 
         }
 
@@ -554,23 +626,23 @@ $("#assign_member_id").click(function () {
 // update user with mealPlan
 $("#assignTrainerMealPlanBtn").click(function () {
 
-    console.log("last check"+$("#assign_member_name").val())
+    console.log("last check" + $("#assign_member_name").val())
 
     console.log(memId);
     console.log(memberEmail);
 
     let mealId = $("#assign_meal_id").val();
 
-    let typeCheck=$("#type_check").val();
+    let typeCheck = $("#type_check").val();
 
-    if(typeCheck==="Breakfast"){
-        breakFastMeal=mealId;
+    if (typeCheck === "Breakfast") {
+        breakFastMeal = mealId;
     }
-    if(typeCheck==="Lunch"){
-        lunchMeal=mealId;
+    if (typeCheck === "Lunch") {
+        lunchMeal = mealId;
     }
-    if(typeCheck==="Dinner"){
-        dinnerMeal=mealId;
+    if (typeCheck === "Dinner") {
+        dinnerMeal = mealId;
     }
 
 
@@ -593,9 +665,9 @@ $("#assignTrainerMealPlanBtn").click(function () {
                     "trainer_id": trainerId,
                     "age": age,
                     "gender": gender,
-                    "breakFastMeal":breakFastMeal,
-                    "lunchMeal":lunchMeal,
-                    "dinnerMeal":dinnerMeal
+                    "breakFastMeal": breakFastMeal,
+                    "lunchMeal": lunchMeal,
+                    "dinnerMeal": dinnerMeal
 
                 }),
 
