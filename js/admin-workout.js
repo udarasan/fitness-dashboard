@@ -49,8 +49,8 @@ $("#modalAddNew").click(function () {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer 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',
-                'OpenAI-Organization':'org-ipyjrPJzsP41M9H3lgQuPpem'
+                'Authorization': 'Bearer '+Authorization,
+                'OpenAI-Organization':OpenAI_Organization
 
             },
             data: JSON.stringify({
@@ -396,8 +396,8 @@ $("#modalUpdateBtn").click(function () {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer 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',
-                'OpenAI-Organization':'org-ipyjrPJzsP41M9H3lgQuPpem'
+                'Authorization': 'Bearer '+Authorization,
+                'OpenAI-Organization':OpenAI_Organization
 
             },
             data: JSON.stringify({
