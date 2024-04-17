@@ -49,7 +49,7 @@ $("#modalAddNew").click(function () {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer YOUR-KEY',
+                'Authorization': 'Bearer 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',
                 'OpenAI-Organization':'org-ipyjrPJzsP41M9H3lgQuPpem'
 
             },
@@ -237,9 +237,9 @@ function getAllWorkoutPlans() {
 
             btnEditOnCLick();
             btnDeleteOnClick();
-            btnAssignOnClick();
+            // btnAssignOnClick();
 
-            loadMembers();
+            // loadMembers();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             alert("Failed to retrieve workouts. Please try again.");
@@ -396,7 +396,7 @@ $("#modalUpdateBtn").click(function () {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer YOUR-KEY',
+                'Authorization': 'Bearer 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',
                 'OpenAI-Organization':'org-ipyjrPJzsP41M9H3lgQuPpem'
 
             },
