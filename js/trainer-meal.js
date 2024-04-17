@@ -8,6 +8,9 @@ $(window).on('load', function () {
 
     console.log(trainerEmail + "ss")
     console.log('Window has fully loaded!');
+
+    console.log("auth_key "+Authorization)
+    console.log("organization_key "+OpenAI_Organization)
 });
 
 function getAll() {
@@ -205,8 +208,8 @@ $("#saveMeal").click(function () {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer YOUR-KEY',
-                        'OpenAI-Organization': 'org-ipyjrPJzsP41M9H3lgQuPpem'
+                        'Authorization': 'Bearer '+Authorization,
+                        'OpenAI-Organization':OpenAI_Organization
                     },
                     data: JSON.stringify({
                         "model": "gpt-3.5-turbo",
