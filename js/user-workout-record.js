@@ -77,7 +77,7 @@ $("#addRecord").click(function () {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer YOUR-KEY',
+            'Authorization': 'Bearer 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',
             'OpenAI-Organization':'org-ipyjrPJzsP41M9H3lgQuPpem'
 
         },
@@ -175,7 +175,7 @@ $('#updateRecord').click(function () {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer YOUR-KEY',
+            'Authorization': 'Bearer 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',
             'OpenAI-Organization':'org-ipyjrPJzsP41M9H3lgQuPpem'
 
         },
@@ -200,6 +200,7 @@ $('#updateRecord').click(function () {
                 success: function (response) {
                     console.log(response);
                     alert("Record Updated successfully!");
+                    getWorkoutRecordsByUser();
                     $('#mng_wr_name').val("");
                     $('#mng_wr_details').val("");
                     $('#mng_wr_calories').val("");

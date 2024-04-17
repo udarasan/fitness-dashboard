@@ -8,9 +8,6 @@ $(window).on('load', function () {
             getAllWorkoutPlans();
         }
     });
-
-    console.log("auth_key "+Authorization)
-    console.log("organization_key "+OpenAI_Organization)
 });
 
 $("#modalAddNew").click(function () {
@@ -52,8 +49,8 @@ $("#modalAddNew").click(function () {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer '+Authorization,
-                'OpenAI-Organization': OpenAI_Organization
+                'Authorization': 'Bearer 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',
+                'OpenAI-Organization':'org-ipyjrPJzsP41M9H3lgQuPpem'
 
             },
             data: JSON.stringify({
@@ -240,9 +237,9 @@ function getAllWorkoutPlans() {
 
             btnEditOnCLick();
             btnDeleteOnClick();
-            btnAssignOnClick();
+            // btnAssignOnClick();
 
-            loadMembers();
+            // loadMembers();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             alert("Failed to retrieve workouts. Please try again.");
@@ -399,8 +396,8 @@ $("#modalUpdateBtn").click(function () {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer '+Authorization,
-                'OpenAI-Organization': OpenAI_Organization
+                'Authorization': 'Bearer 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',
+                'OpenAI-Organization':'org-ipyjrPJzsP41M9H3lgQuPpem'
 
             },
             data: JSON.stringify({

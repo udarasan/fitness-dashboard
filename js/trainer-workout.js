@@ -10,9 +10,6 @@ $(window).on('load', function () {
             getAllWorkoutPlans();
         }
     });
-
-    console.log("auth_key "+Authorization)
-    console.log("organization_key "+OpenAI_Organization)
 });
 
 let trainerId;
@@ -341,8 +338,8 @@ $("#modalAssignNew").click(function () {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer '+Authorization,
-                'OpenAI-Organization': OpenAI_Organization
+                'Authorization': 'Bearer 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',
+                'OpenAI-Organization':'org-ipyjrPJzsP41M9H3lgQuPpem'
 
             },
             data: JSON.stringify({
