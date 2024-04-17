@@ -42,7 +42,7 @@ $('#btnLogin').click(function () {
                                 console.log(response);
                                 alert("Login Successful!");
                                 localStorage.setItem("userEmail", email);
-                                window.location.href = '../user/index.html';
+                                window.location.href = '../../fitness-dashboard/pages/user/index.html';
                             },
                             error: function (jqXHR, textStatus, errorThrown) {
                                 alert("Login Failed! Please check your credentials. Also, there might be an issue with the server.");
@@ -86,7 +86,7 @@ $('#btnLogin').click(function () {
                                 console.log(response)
                                 localStorage.setItem("adminEmail", email);
                                 alert("Login Successful!");
-                                window.location.href = '../admin/index.html';
+                                window.location.href = '../../fitness-dashboard/pages/admin/index.html';
                             },
                             error: function (jqXHR, textStatus, errorThrown) {
                                 alert("Login Failed! Please check your credentials. Also, there might be an issue with the server.");
@@ -134,7 +134,7 @@ $('#btnLogin').click(function () {
                                 console.log(response);
                                 alert("Login Successful!");
                                 localStorage.setItem("trainer-email", email);
-                                window.location.href = '../trainer/index.html';
+                                window.location.href = '../../fitness-dashboard/pages/trainer/index.html';
                             },
                             error: function (jqXHR, textStatus, errorThrown) {
                                 alert("Login Failed! Please check your credentials. Also, there might be an issue with the server.");
