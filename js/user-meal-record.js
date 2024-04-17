@@ -74,8 +74,8 @@ $("#addRecord").click(function () {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer YOUR-KEY',
-            'OpenAI-Organization':'org-ipyjrPJzsP41M9H3lgQuPpem'
+            'Authorization': 'Bearer '+Authorization,
+            'OpenAI-Organization':OpenAI_Organization
 
         },
         data: JSON.stringify({
@@ -170,8 +170,8 @@ $('#updateRecord').click(function () {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer YOUR-KEY',
-            'OpenAI-Organization':'org-ipyjrPJzsP41M9H3lgQuPpem'
+            'Authorization': 'Bearer '+Authorization,
+            'OpenAI-Organization':OpenAI_Organization
 
         },
         data: JSON.stringify({
