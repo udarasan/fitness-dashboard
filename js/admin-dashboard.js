@@ -65,8 +65,8 @@ function pieChart(activeTrainerCount) {
 
     let inactiveTrainerCount = trainerCount - activeTrainerCount;
 
-    letActiveTrainerPercentage = (activeTrainerCount / trainerCount) * 100;
-    letInactiveTrainerPercentage = (inactiveTrainerCount / trainerCount) * 100;
+    let letActiveTrainerPercentage = ((activeTrainerCount / trainerCount) * 100).toFixed(2);
+    let letInactiveTrainerPercentage = ((inactiveTrainerCount / trainerCount) * 100).toFixed(2);
 
     const chartData = {
         labels: ["Active Trainers", "Inactive Trainers"],
