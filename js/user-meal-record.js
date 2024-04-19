@@ -301,13 +301,14 @@ $('#meal').on('change', function () {
             error: function (jqXHR, textStatus, errorThrown) {
                 $('#mealDetails').val("Not Assign Meal")
                 $('#mealDetails').prop('disabled', true);
+                $('#addRecord').prop('disabled',true);
                 console.error(jqXHR.responseText);
             }
         });
     }else if(mealPlan === 'Lunch'){
         $.ajax({
             url: 'http://localhost:8080/api/v1/mealPlan/getMealPlan/' + lunch,
-            method: 'DELETE',
+            method: 'GET',
             success: function (response) {
                 console.log(response);
                 $('#mealDetails').val(response.data.planDetails)
@@ -316,13 +317,14 @@ $('#meal').on('change', function () {
             error: function (jqXHR, textStatus, errorThrown) {
                 $('#mealDetails').val("Not Assign Meal")
                 $('#mealDetails').prop('disabled', true);
+                $('#addRecord').prop('disabled',true);
                 console.error(jqXHR.responseText);
             }
         });
     }else if(mealPlan === 'Dinner'){
         $.ajax({
             url: 'http://localhost:8080/api/v1/mealPlan/getMealPlan/' + dinner,
-            method: 'DELETE',
+            method: 'GET',
             success: function (response) {
                 console.log(response);
                 $('#mealDetails').val(response.data.planDetails)
@@ -330,6 +332,7 @@ $('#meal').on('change', function () {
             error: function (jqXHR, textStatus, errorThrown) {
                 $('#mealDetails').val("Not Assign Meal")
                 $('#mealDetails').prop('disabled', true);
+                $('#addRecord').prop('disabled',true);
                 console.error(jqXHR.responseText);
             }
         });
