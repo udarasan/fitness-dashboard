@@ -7,6 +7,7 @@ window.onload = function () {
 
 
 let userId;
+let user_workout_id;
 
 function searchUserWithEmail() {
     $.ajax({
@@ -17,6 +18,7 @@ function searchUserWithEmail() {
         data: {email: userEmail},
         success: function (response) {
             userId = response.data.uid;
+            user_workout_id = response.data.workout_id;
             getWorkoutRecordsByUser();
         },
         error: function (jqXHR) {
@@ -44,11 +46,32 @@ function getWorkoutRecordsByUser() {
                             <td>${workOutRec.calories}</td><td class="d-none">${workOutRec.wrID}</td></tr>`;
                 $('#tblMemberRecBody').append(row);
             });
+
+            getUserWorkoutDetails();
         },
         error: function (jqXHR) {
             console.log(jqXHR.responseText);
         }
     })
+}
+
+function getUserWorkoutDetails() {
+    if(user_workout_id==0) {
+        $("#addNewWorkOutRec").prop("disabled", true);
+    }else{
+        $.ajax({
+            url: 'http://localhost:8080/api/v1/workoutplan/getWorkoutPlan/' + user_workout_id,
+            method: 'GET',
+            success: function (response) {
+                console.log(response);
+
+
+            },
+            error: function (jqXHR) {
+                console.log(jqXHR.responseText);
+            }
+        })
+    }
 }
 
 
