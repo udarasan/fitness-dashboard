@@ -60,9 +60,10 @@ function getUserWorkoutDetails() {
         $("#addNewWorkOutRec").prop("disabled", true);
     }else{
         $.ajax({
-            url: 'http://localhost:8080/api/v1/workoutplan/getWorkoutPlan/' + user_workout_id,
+            url: 'http://localhost:8080/api/v1/workoutplan/getWorkOutPlan/' + user_workout_id,
             method: 'GET',
             success: function (response) {
+                $("#wr_details").val(response.data.planDetails)
                 console.log(response);
 
 
