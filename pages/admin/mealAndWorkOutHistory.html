@@ -22,7 +22,7 @@
     <!-- Custom styles for this template-->
     <link href="../../css/sb-admin-2.min.css" rel="stylesheet">
     <link href="../../css/admin-dashboard.css" rel="stylesheet">
-    <link href="../../css/filter-data.css" rel="stylesheet">
+    <link href="../../css/watch-history.css" rel="stylesheet">
     <link href="../../css/sidebar-manage.css" rel="stylesheet">
 
 </head>
@@ -103,13 +103,13 @@
                 <span>Equipments</span></a>
         </li>
 
-        <li class="nav-item active">
+        <li class="nav-item ">
             <a class="nav-link" href="filterData.html">
                 <i class="fa-solid fa-people-group"></i>
                 <span>Watch Clients</span></a>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item active">
             <a class="nav-link" href="mealAndWorkOutHistory.html">
                 <i class="fa-solid fa-people-group"></i>
                 <span>Watch History</span></a>
@@ -171,8 +171,8 @@
                             <div class="card-header bg-white text-muted text-right border-0" >
                                 <div class="mb-3">
 
-                                    <label class="form-label" for="tra_id" >Trainers</label>
-                                    <select class="form-select form-control col" id="tra_id">
+                                    <label class="form-label" for="mem_id" >Members</label>
+                                    <select class="form-select form-control col" id="mem_id">
 
                                     </select>
 
@@ -195,27 +195,18 @@
                             <div class="row">
                                 <div class="card w-100 mx-auto">
 
-                                    <div class="card-header bg-white border-0 text-right">
-                                        <button class="btn text-white" id="printDetails" style="background-color: #2d324a" >Print Details</button>
-                                    </div>
-
                                         <div class="card-body d-flex justify-content-center ">
 
-                                            <table id="memberTable" class="table table-responsive">
+                                            <table id="historyMealPlan" class="table table-responsive">
                                                 <thead class="thead-light">
                                                 <tr>
-                                                    <th scope="col">Id</th>
-                                                    <th scope="col">Name</th>
-                                                    <th scope="col">Email</th>
-                                                    <th scope="col">Trainer</th>
-                                                    <th style="display: none" scope="col"></th>
-                                                    <th scope="col">Meal Plan </th>
-                                                    <th scope="col">WorkOut Plan</th>
-                                                    <th scope="col">Age</th>
-                                                    <th scope="col">Gender</th>
+                                                    <th scope="col">Date</th>
+                                                    <th scope="col">Meal</th>
+                                                    <th scope="col">Meal Details</th>
+                                                    <th scope="col">Calories</th>
                                                 </tr>
                                                 </thead>
-                                                <tbody id="tblMember">
+                                                <tbody id="tblHMeal">
 
                                                 </tbody>
                                             </table>
@@ -223,7 +214,29 @@
                                             <img class="npResImg d-none "  src="https://cdn.dribbble.com/users/1242216/screenshots/9326781/media/6384fef8088782664310666d3b7d4bf2.png" alt="no" width="500px">
 
                                         </div>
+
                                     </div>
+                                <div class="card w-100 mx-auto mt-5">
+                                <div class="card-body d-flex justify-content-center ">
+
+                                    <table id="historyWorkOutPlan" class="table table-responsive">
+                                        <thead class="thead-light">
+                                        <tr>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">WorkOut</th>
+                                            <th scope="col">WorkOut Details</th>
+                                            <th scope="col">Calories</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="tblHWork">
+
+                                        </tbody>
+                                    </table>
+
+                                    <img class="npWorkImg d-none "  src="https://cdn.dribbble.com/users/1242216/screenshots/9326781/media/6384fef8088782664310666d3b7d4bf2.png" alt="no" width="500px">
+
+                                </div>
+                                </div>
                                 </div>
 
                         </div>
@@ -305,7 +318,7 @@
 <script src="https://unpkg.com/jspdf-invoice-template@1.4.0/dist/index.js"></script>
 
 
-        <script src="../../js/filter-data.js"></script>
+        <script src="../../js/watchHistory.js"></script>
 <script src="../../js/sidebar-manage.js"></script>
 
 
