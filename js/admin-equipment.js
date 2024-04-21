@@ -70,6 +70,7 @@ $('#updateEquip').click(function () {
     let desc = $('#equipDesc').val();
     let date = $('#date').val();
     let condition=$('#check_condition').val();
+    let wExpirationDate = $('#wExpireDate').val();
 
     if (!name || !desc || !date ||!condition) {
         alert("Please fill in all required fields.");
@@ -90,7 +91,8 @@ $('#updateEquip').click(function () {
         dataType: 'json',
         contentType: 'application/json',  // Set content type to JSON
 
-        data: JSON.stringify({"eid": eid, "equipmentName": name, "equipmentDetail": desc, "purchaseDate": date,"checkCondition":condition}),  // Convert data to JSON string
+        data: JSON.stringify({"eid": eid, "equipmentName": name, "equipmentDetail": desc, "purchaseDate": date,
+            "checkCondition":condition, "warrantyEndDate": wExpirationDate}),  // Convert data to JSON string
         success: function (response) {
             console.log(response);
             alert("Equipment Update successful!");
@@ -111,6 +113,7 @@ $('#addEquip').click(function () {
     let desc = $('#equipDesc').val();
     let date = $('#date').val();
     let condition=$('#check_condition').val();
+    let wExpirationDate = $('#wExpireDate').val();
 
     if (!name || !desc || !date ||!condition) {
         alert("Please fill in all required fields.");
@@ -130,7 +133,8 @@ $('#addEquip').click(function () {
         dataType: 'json',
         contentType: 'application/json',  // Set content type to JSON
 
-        data: JSON.stringify({"equipmentName": name, "equipmentDetail": desc, "purchaseDate": date,"checkCondition":condition}),  // Convert data to JSON string
+        data: JSON.stringify({"equipmentName": name, "equipmentDetail": desc, "purchaseDate": date,"checkCondition":condition,
+        "warrantyEndDate": wExpirationDate}),  // Convert data to JSON string
         success: function (response) {
             console.log(response);
             alert("Equipment Added successful!");
@@ -165,7 +169,18 @@ function getAllEquipments() {
                 return;
             }
             $.each(response.data, function (index, equipment) {
-                let row = `<tr><td>${equipment.eid}</td><td>${equipment.equipmentName}</td><td>${equipment.equipmentDetail}</td><td>${equipment.purchaseDate}</td><td>${equipment.checkCondition}</td></tr>`;
+
+                if(equipment.warrantyEndDate == null){
+                    equipment.warrantyEndDate="No Warranty"
+                }
+
+                let row = `<tr><td>${equipment.eid}</td>
+                    <td>${equipment.equipmentName}</td>
+                    <td>${equipment.equipmentDetail}</td>
+                    <td>${equipment.purchaseDate}</td>
+                    <td>${equipment.checkCondition}</td>
+                     <td>${equipment.warrantyEndDate}</td>
+                    </tr>`;
                 $('#tblEquip').append(row);
             });
 
@@ -184,6 +199,8 @@ $('#tblEquip').on('click', 'tr', function () {
     let equipName = $(this).find('td:nth-child(2)').text(); // Assuming the second cell contains the trainer email
     let equipDetails = $(this).find('td:nth-child(3)').text();
     let equipDate = $(this).find('td:nth-child(4)').text();
+    let equipCondition = $(this).find('td:nth-child(5)').text();
+    let wExpDate = $(this).find('td:nth-child(6)').text();
 
     // Perform actions with the retrieved data
     $('#equipmentModal').modal('show');
@@ -194,6 +211,8 @@ $('#tblEquip').on('click', 'tr', function () {
     $('#equipName').val(equipName);
     $('#equipDesc').val(equipDetails);
     $('#date').val(equipDate);
+    $('#check_condition').val(equipCondition);
+    $('#wExpireDate').val(wExpDate);
 
 
 });
