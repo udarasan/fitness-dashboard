@@ -286,14 +286,13 @@ function getWarrantyPeriodExpiredEquipments() {
         dataType: 'json',
         contentType: 'application/json',
         success: function (eqResponse) {
+            console.log(eqResponse.data);
             $.each(eqResponse.data, function (index, equipment) {
-
+                // data for Equipments: Warranty Period Expired table
                 let warrantyExpirationDate = new Date(equipment.warrantyEndDate);
                 let today = new Date();
 
                 if(equipment.warrantyEndDate != null){
-                    console.log(warrantyExpirationDate);
-                    console.log(today);
                     if (warrantyExpirationDate < today) {
                         $("#warrantyExpiredEqRow").css("display", "block");
                         let row = `<tr>
@@ -304,6 +303,14 @@ function getWarrantyPeriodExpiredEquipments() {
                         $('#warrExpEqTableBody').append(row);
                     }
                 }
+
+                // data for Equipments: Condition table
+                let rowCondition = `<tr>
+                            <td>${equipment.eid}</td>
+                            <td>${equipment.equipmentName}</td>
+                            <td>${equipment.checkCondition}</td>
+                            </tr>`;
+                $('#eqConditionTableBody').append(rowCondition);
             });
 
         },

@@ -2,7 +2,7 @@
     font-family: 'Poppins', sans-serif;
 }
 
-#expWarrantyHeader{
+#expWarrantyHeader, #eqConditionHeader{
     color: #0F3876;
 }
 
@@ -51,7 +51,7 @@
 }
 
 
-#trainerTable,#memberTable,#equipTable,#tblClient, #warrExpEqTable,#historyWorkOutPlan,#historyMealPlan{
+#trainerTable,#memberTable,#equipTable,#tblClient, #warrExpEqTable,#historyWorkOutPlan,#historyMealPlan, #eqConditionTable{
     font-size: 13px;
 }
 
