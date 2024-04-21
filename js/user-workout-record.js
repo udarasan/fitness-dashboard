@@ -64,6 +64,7 @@ function getUserWorkoutDetails() {
             method: 'GET',
             success: function (response) {
                 $("#wr_details").val(response.data.planDetails)
+                $("#wr_name").val(response.data.planName)
                 console.log(response);
 
 
