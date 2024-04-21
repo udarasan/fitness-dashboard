@@ -3,7 +3,7 @@ $(window).on('load', function () {
     getTrainerCount();
     loadUserIdsToProgress();
 
-
+    getWarrantyPeriodExpiredEquipments();
 });
 var trainerCount;
 var memberCount;
@@ -256,8 +256,6 @@ function getActiveTrainerCount() {
     })
 }
 
-//new
-
 function loadUserIdsToProgress() {
     $.ajax({
         url: 'http://localhost:8080/api/v1/user/getAllUsers',
@@ -277,6 +275,40 @@ function loadUserIdsToProgress() {
         },
         error: function (xhr) {
             console.log(xhr);
+        }
+    })
+}
+
+function getWarrantyPeriodExpiredEquipments() {
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/equipment/getAllEquipment',
+        method: 'GET',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (eqResponse) {
+            $.each(eqResponse.data, function (index, equipment) {
+
+                let warrantyExpirationDate = new Date(equipment.warrantyEndDate);
+                let today = new Date();
+
+                if(equipment.warrantyEndDate != null){
+                    console.log(warrantyExpirationDate);
+                    console.log(today);
+                    if (warrantyExpirationDate < today) {
+                        $("#warrantyExpiredEqRow").css("display", "block");
+                        let row = `<tr>
+                            <td>${equipment.eid}</td>
+                            <td>${equipment.equipmentName}</td>
+                            <td>${equipment.warrantyEndDate}</td>
+                            </tr>`;
+                        $('#warrExpEqTableBody').append(row);
+                    }
+                }
+            });
+
+        },
+        error: function (jqXHR) {
+            console.log(jqXHR.responseText);
         }
     })
 }

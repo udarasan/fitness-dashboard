@@ -2,6 +2,14 @@
     font-family: 'Poppins', sans-serif;
 }
 
+#expWarrantyHeader{
+    color: #0F3876;
+}
+
+#warrantyExpiredEqRow{
+    display: none;
+}
+
 .bg-gradient-primary {
     background-color: #2d324a !important;
     background-image: none;
@@ -43,7 +51,7 @@
 }
 
 
-#trainerTable,#memberTable,#equipTable,#tblClient{
+#trainerTable,#memberTable,#equipTable,#tblClient, #warrExpEqTable{
     font-size: 13px;
 }
 
