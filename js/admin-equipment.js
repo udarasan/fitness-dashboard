@@ -21,7 +21,14 @@ $("#searchEquipments").keyup(function () {
             } else {
 
                 $.each(response.data, function (index, equipment) {
-                    let row = `<tr><td>${equipment.eid}</td><td>${equipment.equipmentName}</td><td>${equipment.equipmentDetail}</td><td>${equipment.purchaseDate}</td></tr>`;
+                    let row = `<tr><td>${equipment.eid}</td>
+                        <td>${equipment.equipmentName}</td>
+                        <td>${equipment.equipmentDetail}</td>
+                        <td>${equipment.purchaseDate}</td>
+                         <td>${equipment.checkCondition}</td>
+                        <td>${equipment.warrantyEndDate}</td>
+                        </tr>`;
+
                     $('#tblEquip').append(row);
                 });
             }
