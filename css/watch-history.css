@@ -1,0 +1,16 @@
+#historyMealPlan{
+
+    max-width: 100% !important;
+}
+#historyWorkOutPlan{
+
+    max-width: 100% !important;
+}
+
+@media all and (max-width: 1200px) {
+    #client{
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+}
+

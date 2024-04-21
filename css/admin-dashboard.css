@@ -43,7 +43,7 @@
 }
 
 
-#trainerTable,#memberTable,#equipTable,#tblClient{
+#trainerTable,#memberTable,#equipTable,#tblClient,#historyWorkOutPlan,#historyMealPlan{
     font-size: 13px;
 }
 
