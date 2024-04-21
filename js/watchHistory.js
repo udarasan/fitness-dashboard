@@ -55,17 +55,28 @@ function loadMemberId() {
         contentType: 'application/json',
         success: function (response) {
             console.log(response.data);
-            if (response.data.length === 0) {
+            let today = new Date();
+            let threeMonthsAgo = new Date();
+            threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+
+            // Filter meal records for the past three months
+            let filteredRecords = response.data.filter(function (mealRecord) {
+                let recordDate = new Date(mealRecord.date);
+                return recordDate >= threeMonthsAgo && recordDate <= today;
+            });
+
+            if (filteredRecords.length === 0) {
                 $('#historyMealPlan').css("display", "none");
                 $('.npResImg').removeClass("d-none");
             } else {
                 $('.npResImg').addClass("d-none");
                 $('#historyMealPlan').css("display", "block");
             }
-            $.each(response.data, function (index, mealRecords) {
+
+            $.each(filteredRecords, function (index, mealRecords) {
                 let row = `<tr><td>${mealRecords.date}</td><td>${mealRecords.meal}</td><td>${mealRecords.details}</td><td>${mealRecords.calories}</td></tr>`;
                 $('#tblHMeal').append(row);
-            })
+            });
 
 
         },
@@ -80,17 +91,28 @@ function loadMemberId() {
         contentType: 'application/json',
         success: function (response) {
             console.log(response.data);
-            if (response.data.length === 0) {
+            let today = new Date();
+            let threeMonthsAgo = new Date();
+            threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+
+            // Filter workout records for the past three months
+            let filteredRecords = response.data.filter(function (workOutRecord) {
+                let recordDate = new Date(workOutRecord.date);
+                return recordDate >= threeMonthsAgo && recordDate <= today;
+            });
+
+            if (filteredRecords.length === 0) {
                 $('#historyWorkOutPlan').css("display", "none");
                 $('.npWorkImg').removeClass("d-none");
             } else {
                 $('.npWorkImg').addClass("d-none");
                 $('#historyWorkOutPlan').css("display", "block");
             }
-            $.each(response.data, function (index, workOutRecords) {
+
+            $.each(filteredRecords, function (index, workOutRecords) {
                 let row = `<tr><td>${workOutRecords.date}</td><td>${workOutRecords.workout}</td><td>${workOutRecords.details}</td><td>${workOutRecords.calories}</td></tr>`;
                 $('#tblHWork').append(row);
-            })
+            });
 
 
         },
