@@ -30,6 +30,7 @@ $('#btnLogin').click(function () {
                     let newPassword = hashedPassword;
                     console.log("new Password: " + newPassword);
 
+
                     // Perform login for trainer
                     if (email===usersEmail){
                         $.ajax({
@@ -57,7 +58,8 @@ $('#btnLogin').click(function () {
         },
         error: function (jqXHR) {
             console.log(jqXHR.responseText);
-            alert("Please enter a valid email.");
+
+            alert("hello")
         }
     });
     $.ajax({
@@ -103,8 +105,9 @@ $('#btnLogin').click(function () {
 
         },
         error: function (jqXHR) {
-            console.log(jqXHR.responseText);
-            alert("Please enter a valid email.");
+            console.log(jqXHR.responseJSON.data);
+            alert("hello");
+
         }
     })
      $.ajax({
@@ -122,7 +125,9 @@ $('#btnLogin').click(function () {
                     console.log('Hashed Password:', hashedPassword);
                     let newPassword = hashedPassword;
                     console.log("new Password: " + newPassword);
-
+                    if (email!==trainersEmail){
+                        alert("Please enter a valid email.");
+                    }
                     // Perform login for trainer
                      if(email===trainersEmail){
                         console.log("hello")
@@ -152,9 +157,18 @@ $('#btnLogin').click(function () {
         },
         error: function (jqXHR) {
             console.log(jqXHR.responseText);
-            alert("Please enter a valid email.");
+
+            alert("hello")
         }
     })
     console.log(trainersEmail);
+    // if (trainersEmail === "nullAdmin"){
+    //      alert("hello")
+    //
+    // }else if (adminsEmail === "nullAdmin"){
+    //     alert("hello")
+    // }else if(usersEmail === "nullAdmin"){
+    //     alert("hello")
+    // }
 
 });
