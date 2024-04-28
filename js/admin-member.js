@@ -11,14 +11,15 @@ let getAllMembersResponse;
 
 loadTrainerId();
 $(window).on('load', function () {
-
     getAllMembers();
 });
+
 $(".form-check-input").on("click", function () {
     selectedValue = $("input[name='inlineRadioOptions']:checked").val();
     console.log("Selected value: " + selectedValue);
 
 });
+
 //delete member
 $('#deleteMember').click(function () {
 
@@ -49,6 +50,7 @@ $('#deleteMember').click(function () {
 
 });
 let newPassword;
+
 //update member
 $('#updateMember').click(function () {
 
@@ -402,13 +404,15 @@ async function getAllMembers() {
             return;
         }
 
+        console.log(response.data);
+
         for (const member of response.data) {
-            let trainerName = "Not Assign";
-            let mealPlan = "Not Assign";
-            let workoutPlanName = "Not Assign";
-               breakFast = member.breakFastMeal;
-               lunch  = member.lunchMeal;
-               dinner = member.dinnerMeal;
+            let trainerName;
+            let workoutPlanName;
+
+            breakFast = member.breakFastMeal;
+            lunch  = member.lunchMeal;
+            dinner = member.dinnerMeal;
 
             if (member.trainer_id !== 0) {
                 const trainerResponse = await $.ajax({
@@ -418,20 +422,19 @@ async function getAllMembers() {
                     contentType: 'application/json'
                 });
                 trainerName = trainerResponse.data.name;
-
+            }else{
+                trainerName = "Not Assigned";
             }
 
-            if (member.meal_plan_id !== 0) {
-                const mealResponse = await $.ajax({
-                    url: 'http://localhost:8080/api/v1/mealPlan/getMealPlan/' + member.meal_plan_id,
-                    method: 'GET',
-                    dataType: 'json',
-                    contentType: 'application/json'
-                });
-                mealPlan = mealResponse.data.planName;
-
-
-            }
+            // if (member.meal_plan_id !== 0) {
+            //     const mealResponse = await $.ajax({
+            //         url: 'http://localhost:8080/api/v1/mealPlan/getMealPlan/' + member.meal_plan_id,
+            //         method: 'GET',
+            //         dataType: 'json',
+            //         contentType: 'application/json'
+            //     });
+            //     mealPlan = mealResponse.data.planName;
+            // }
 
             if (member.workout_id !== 0) {
                 const workoutResponse = await $.ajax({
@@ -441,11 +444,11 @@ async function getAllMembers() {
                     contentType: 'application/json'
                 });
                 workoutPlanName = workoutResponse.data.planName;
-
-
+            }else{
+                workoutPlanName = "Not Assigned";
             }
 
-            appendRow(member, mealPlan, workoutPlanName, trainerName);
+            appendRow(member, workoutPlanName, trainerName, member.trainer_id);
         }
     } catch (error) {
         alert("Failed to retrieve members. Please try again.");
@@ -459,8 +462,12 @@ async function getAllMembers() {
 // Call getAllMembers function to start fetching members
 
 
-function appendRow(member, mealPlanName, workoutPlanName, trainerName) {
-    let row = `<tr><td>${member.uid}</td><td>${member.name}</td><td>${member.email}</td><td>${trainerName}</td><td style="display: none">${member.password}</td><td>${member.age}</td><td>${member.gender}</td><td>${workoutPlanName}</td><td>${member.workoutType}</td><td>${member.breakFastMeal}</td><td>${member.lunchMeal}</td><td>${member.dinnerMeal}</td></tr>`;
+function appendRow(member, workoutPlanName, trainerName, trainerId) {
+    let row = `<tr><td>${member.uid}</td><td>${member.name}</td><td>${member.email}</td><td>${trainerName}</td>
+        <td style="display: none">${member.password}</td><td>${member.age}</td><td>${member.gender}</td>
+        <td>${workoutPlanName}</td><td>${member.workoutType}</td><td>${member.breakFastMeal}</td>
+        <td>${member.lunchMeal}</td><td>${member.dinnerMeal}</td><td>${trainerId}</td>
+        </tr>`;
     $('#tblMember').append(row);
 }
 
@@ -471,14 +478,14 @@ $('#tblMember').on('click', 'tr', function () {
     let memberId = $(this).find('td:first').text();
     let memberName = $(this).find('td:nth-child(2)').text();
     memberEmail = $(this).find('td:nth-child(3)').text();
-    let trainerId = $(this).find('td:nth-child(4)').text();
+    let trainerName = $(this).find('td:nth-child(4)').text();
+    let trainerId = $(this).find('td:nth-child(13)').text();
     let encodedPassword = $(this).find('td:nth-child(5)').text();
-    let age = $(this).find('td:nth-child(8)').text();
-    let gender = $(this).find('td:nth-child(9)').text();
-    // let password = decodePassword(encodedPassword);
+    let age = $(this).find('td:nth-child(6)').text();
+    let gender = $(this).find('td:nth-child(7)').text();
     let password = atob(encodedPassword);
     console.log("decode " + password)
-    console.log(trainerId)
+    console.log(trainerName)
     // Perform actions with the retrieved data
     $('#memberModal').modal('show');
     $('#saveMemeber').css("display", 'none');
@@ -491,7 +498,6 @@ $('#tblMember').on('click', 'tr', function () {
     $('#memeber_password').val(password);
     $('#age').val(age);
 
-    // $('#gender').val(gender);
     if (gender === 'male') {
         selectedValue = 'male'
         $('#inlineRadio1').prop('checked', true);
@@ -502,9 +508,8 @@ $('#tblMember').on('click', 'tr', function () {
         selectedValue = 'custom'
         $('#inlineRadio3').prop('checked', true);
     }
-
-
 });
+
 $('#closeBtn').click(function () {
     $('#updateMember').css("display", 'none');
     $('#deleteMember').css("display", 'none');
@@ -513,6 +518,7 @@ $('#closeBtn').click(function () {
     $('#pwdErrorLabel').text("");
     $('#ageErrorLabel').text("");
 });
+
 $('#addMemberBTn').click(function () {
     $('#updateMember').css("display", 'none');
     $('#deleteMember').css("display", 'none');
@@ -544,9 +550,7 @@ function loadTrainerId() {
             $.each(response.data, function (index, trainer) {
                 $('#tra_id').append(`<option value="${trainer.tid}">${trainer.name}</option>`);
                 console.log(trainer.users.length)
-
             });
-
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error(jqXHR.responseText);
