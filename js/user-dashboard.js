@@ -22,7 +22,9 @@ $(window).on('load', function () {
 });
 
 let currUserWorkoutId;
-let currUserMealId;
+let currUserBreakfastMealId;
+let currUserLunchMealId;
+let currUserDinnerMealId;
 let currUserTrainerId;
 
 function searchUserWithEmail() {
@@ -37,13 +39,28 @@ function searchUserWithEmail() {
             localStorage.setItem("name", response.data.name);
             uId = response.data.uid;
             currUserWorkoutId = response.data.workout_id;
-            currUserMealId = response.data.meal_plan_id;
+            currUserBreakfastMealId = response.data.breakFastMeal;
+            currUserLunchMealId = response.data.lunchMeal;
+            currUserDinnerMealId = response.data.dinnerMeal;
             currUserTrainerId = response.data.trainer_id;
 
             if (currUserTrainerId == 0) {
                 $("#trainerId").text("No trainer");
             } else {
-                $("#trainerId").text(currUserTrainerId);
+                $.ajax({
+                    url: 'http://localhost:8080/api/v1/trainer/getTrainer/'+ currUserTrainerId,
+                    method: 'GET',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (response) {
+                        console.log(response);
+                        let currUserTrainerName = response.data.name;
+                        $("#trainerId").text(currUserTrainerName);
+                    },
+                    error: function (jqXHR) {
+                        console.log(jqXHR.responseText);
+                    }
+                })
             }
 
             getDataToAreaChart(uId);
@@ -98,15 +115,33 @@ function getMealPlan() {
             console.log(mealResponse);
 
             $.each(mealResponse.data, function (index, meal) {
-                // check for current users' meal plan
-                if (currUserMealId == meal.mid) {
-                    currUserMealName = meal.planName;
-                    currUserMealDescription = meal.planDetails;
-                    currUserMealCalories = meal.calorieCount;
+                // check for current users' meal plans
+                if (currUserBreakfastMealId == meal.mid) {
+                    currUserBreakfastMealName = meal.planName;
+                    currUserBreakfastMealDescription = meal.planDetails;
+                    currUserBreakfastMealCalories = meal.calorieCount;
 
-                    $("#lblMealPLanName").text(currUserMealName);
-                    $("#pMealTab").text(currUserMealDescription);
-                    $("#lblMealCalories").text(currUserMealCalories + " calories");
+                    $("#lblBreakfastMealPLanName").text(currUserBreakfastMealName);
+                    $("#pBreakfastMealTab").text(currUserBreakfastMealDescription);
+                    $("#lblBreakfastMealCalories").text(currUserBreakfastMealCalories + " calories");
+                }
+                if (currUserLunchMealId == meal.mid) {
+                    currUserLunchMealName = meal.planName;
+                    currUserLunchMealDescription = meal.planDetails;
+                    currUserLunchMealCalories = meal.calorieCount;
+
+                    $("#lblLunchMealPLanName").text(currUserBreakfastMealName);
+                    $("#pLunchMealTab").text(currUserBreakfastMealDescription);
+                    $("#lblLunchMealCalories").text(currUserBreakfastMealCalories + " calories");
+                }
+                if (currUserDinnerMealId == meal.mid) {
+                    currUserDinnerMealName = meal.planName;
+                    currUserDinnerMealDescription = meal.planDetails;
+                    currUserDinnerMealCalories = meal.calorieCount;
+
+                    $("#lblDinnerMealPLanName").text(currUserBreakfastMealName);
+                    $("#pDinnerMealTab").text(currUserBreakfastMealDescription);
+                    $("#lblDinnerMealCalories").text(currUserBreakfastMealCalories + " calories");
                 }
             });
 
