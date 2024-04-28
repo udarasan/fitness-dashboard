@@ -43,7 +43,20 @@ function searchUserWithEmail() {
             if (currUserTrainerId == 0) {
                 $("#trainerId").text("No trainer");
             } else {
-                $("#trainerId").text(currUserTrainerId);
+                $.ajax({
+                    url: 'http://localhost:8080/api/v1/trainer/getTrainer/'+ currUserTrainerId,
+                    method: 'GET',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (response) {
+                        console.log(response);
+                        let currUserTrainerName = response.data.name;
+                        $("#trainerId").text(currUserTrainerName);
+                    },
+                    error: function (jqXHR) {
+                        console.log(jqXHR.responseText);
+                    }
+                })
             }
 
             getDataToAreaChart(uId);
