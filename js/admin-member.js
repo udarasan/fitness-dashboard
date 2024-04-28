@@ -473,8 +473,9 @@ $('#tblMember').on('click', 'tr', function () {
     memberEmail = $(this).find('td:nth-child(3)').text();
     let trainerId = $(this).find('td:nth-child(4)').text();
     let encodedPassword = $(this).find('td:nth-child(5)').text();
-    let age = $(this).find('td:nth-child(8)').text();
-    let gender = $(this).find('td:nth-child(9)').text();
+    let age = $(this).find('td:nth-child(6)').text();
+    let gender = $(this).find('td:nth-child(7)').text();
+    let wType = $(this).find('td:nth-child(9)').text();
     // let password = decodePassword(encodedPassword);
     let password = atob(encodedPassword);
     console.log("decode " + password)
@@ -490,6 +491,7 @@ $('#tblMember').on('click', 'tr', function () {
     $('#tra_id').val(trainerId);
     $('#memeber_password').val(password);
     $('#age').val(age);
+    $('#memberType').val(wType)
 
     // $('#gender').val(gender);
     if (gender === 'male') {

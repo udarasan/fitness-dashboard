@@ -200,9 +200,21 @@ async function setClientDetails() {
         let clientList = trainerResponse.data;
         console.log("wwwwwwwwwwww");
         console.log(clientList);
+        let workoutTypes = [];
+        let breakFast =[];
+        let lunch =[];
+        let dinner =[];
+        for (const clientListElement of clientList) {
+            console.log(clientListElement.workoutType)
+            workoutTypes.push(clientListElement.workoutType);
+            breakFast.push(clientListElement.breakFastMeal);
+            lunch.push(clientListElement.lunchMeal);
+            dinner.push(clientListElement.dinnerMeal);
 
+        }
+        console.log(breakFast)
         $('#printDetails').click(function () {
-            var pdfObject = jsPDFInvoiceTemplate.default(getPdfProps(clientList));
+            var pdfObject = jsPDFInvoiceTemplate.default(getPdfProps(clientList,workoutTypes,breakFast,lunch,dinner));
             console.log(pdfObject);
         });
 
@@ -254,7 +266,7 @@ async function setClientDetails() {
 }
 
 function appendRow(member, mealPlanName, workoutPlanName, trainerName) {
-    let row = `<tr><td>${member.uid}</td><td>${member.name}</td><td>${member.email}</td><td>${trainerName}</td><td style="display: none">${member.password}</td><td>${mealPlanName}</td><td>${workoutPlanName}</td><td>${member.age}</td><td>${member.gender}</td></tr>`;
+    let row = `<tr><td>${member.uid}</td><td>${member.name}</td><td>${member.email}</td><td>${trainerName}</td><td style="display: none">${member.password}</td><td>${member.age}</td><td>${member.gender}</td><td>${workoutPlanName}</td><td>${member.workoutType}</td><td>${member.breakFastMeal}</td><td>${member.lunchMeal}</td><td>${member.dinnerMeal}</td></tr>`;
     $('#tblMember').append(row);
 }
 
@@ -274,7 +286,8 @@ $('#tra_id').on('change', function () {
 
 });
 
-function getPdfProps(clientList) {
+function getPdfProps(clientList,workoutTypes,breakFast,lunch,dinner) {
+    console.log(clientList);
     return {
         outputType: jsPDFInvoiceTemplate.OutputType.save,
         returnJsPDFDocObject: true,
@@ -331,7 +344,7 @@ function getPdfProps(clientList) {
                 {
                     title: "Email",
                     style: {
-                        width: 40
+                        width: 30
                     }
                 },
                 {title: "WorkOutPlan"},
@@ -345,6 +358,10 @@ function getPdfProps(clientList) {
                     }
                 },
                 {title: "Gender"},
+                {title: "WorkOutType"},
+                // {title: "breakFast"},
+                // {title: "lunch"},
+                // {title: "dinner"},
 
 
             ],
@@ -360,6 +377,14 @@ function getPdfProps(clientList) {
                // clients.trainer_id ? clients.trainer_id : "Not Assign",
                 clients.age,
                 clients.gender,
+                workoutTypes[index]
+                // breakFast[index] ?  breakFast[index] : "Not Assign",
+                // lunch[index] ?  lunch[index] : "Not Assign",
+                // dinner[index] ? dinner[index] : "Not Assign"
+                // clients.breakFastMeal,
+                // clients.lunchMeal,
+                // clients.dinnerMeal,
+
 
             ]),
             margin: {
