@@ -114,6 +114,16 @@ function btnEditOnCLick() {
             endDate = "";
         }
 
+        if(status == "Completed"){
+            $("#updModalStatus").prop("disabled", true);
+            $("#updModalStatus option:nth-child(2)").css("display", "block");
+        }else if(status == "Ongoing"){
+            $("#updModalStatus").prop("disabled", false);
+            $("#updModalStatus option:nth-child(2)").css("display", "none");
+        }else{
+            $("#updModalStatus").prop("disabled", false);
+            $("#updModalStatus option:nth-child(2)").css("display", "block");
+        }
 
         $("#updModalGoalName").val(name);
         $("#updModalGoalDetails").val(details);
