@@ -57,6 +57,7 @@ $('#btnLogin').click(function () {
         },
         error: function (jqXHR) {
             console.log(jqXHR.responseText);
+            alert("Please enter a valid email.");
         }
     });
     $.ajax({
@@ -103,6 +104,7 @@ $('#btnLogin').click(function () {
         },
         error: function (jqXHR) {
             console.log(jqXHR.responseText);
+            alert("Please enter a valid email.");
         }
     })
      $.ajax({
@@ -150,6 +152,7 @@ $('#btnLogin').click(function () {
         },
         error: function (jqXHR) {
             console.log(jqXHR.responseText);
+            alert("Please enter a valid email.");
         }
     })
     console.log(trainersEmail);
