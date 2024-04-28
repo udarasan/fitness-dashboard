@@ -101,6 +101,9 @@ $('#updateTrainer').click(function () {
     let email = $('#trainer_email').val();
     let password = $('#trainer_password').val();
     let category = $('#trainer_category').val();
+    let status=$("#trainerStatus").val();
+
+    console.log(status)
 
     hashPassword($('#trainer_password').val())
         .then(hashedPassword => {
@@ -118,7 +121,7 @@ $('#updateTrainer').click(function () {
                         "email": email,
                         "password": newPassword,
                         "category": category,
-                        "status": "active"
+                        "status":status
                     }),
                     success: function (response) {
                         console.log(response);
@@ -270,7 +273,7 @@ function getAllTrainers() {
             }
             $.each(response.data, function (index, trainer) {
 
-                let row = `<tr><td>${trainer.tid}</td><td>${trainer.name}</td><td>${trainer.email}</td><td>${trainer.category}</td><td style="display: none">${trainer.password}</td></tr>`;
+                let row = `<tr><td>${trainer.tid}</td><td>${trainer.name}</td><td>${trainer.email}</td><td>${trainer.category}</td><td style="display: none">${trainer.password}</td><td>${trainer.status}</td></tr>`;
                 $('#tblTrainer').append(row);
             });
 
@@ -292,6 +295,7 @@ $('#tblTrainer').on('click', 'tr', function () {
     let trainerCategory = $(this).find('td:nth-child(4)').text();
     let trainerEnPassword = $(this).find('td:nth-child(5)').text();
     let trainerPassword = atob(trainerEnPassword);
+    let status=$(this).find('td:nth-child(6)').text();
     $('#trainerModal').modal('show');
     $('#saveTrainer').css("display", 'none');
     $('#updateTrainer').css("display", 'block');
