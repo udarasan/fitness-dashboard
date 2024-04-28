@@ -203,6 +203,7 @@
                                     <th scope="col">Category</th>
                                     <!--<th scope="col">Age</th>-->
                                     <th style="display: none" scope="col">Password</th>
+                                    <th scope="col">Status</th>
                                 </tr>
                                 </thead>
                                 <tbody id="tblTrainer" >
@@ -325,6 +326,14 @@
                         >
                         <label id="cateErrorLabel" style="color: red;"></label>
 
+                    </div>
+
+                    <div class="mb3">
+                        <label class="col-auto assignModalLabel my-auto">Status &nbsp;</label>
+                        <select id="trainerStatus" class="form-select col py-1 " >
+                            <option>active</option>
+                            <option>inactive</option>
+                        </select>
                     </div>
 
                 </form>

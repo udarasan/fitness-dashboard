@@ -208,6 +208,7 @@ function loadMembers() {
                 if (member.trainer_id == trainerId) {
                     let memberData = `<option value="${member.uid}">${member.name}</option>`;
                     $(".memberSelect").append(memberData);
+
                 }
 
             })
@@ -252,6 +253,7 @@ $(".memberSelect").change(function () {
             console.log(currUserGender)
 
             $(".lblMemberName").val(member.name);
+            $("#memberWorkoutType").val(currWorkoutType);
         }
     })
 });
