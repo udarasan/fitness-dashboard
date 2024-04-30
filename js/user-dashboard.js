@@ -24,9 +24,7 @@ $(window).on('load', function () {
 
     mealAndWorkoutCardHandler();
     searchUserWithEmail();
-    getGoalsByUser();
-    getMealPlanDetails();
-    getAllProgress()
+
     var currentDate = new Date();
     var currentMonthName = new Intl.DateTimeFormat('en-US', {month: 'long'}).format(currentDate);
     var currentYear = new Intl.DateTimeFormat('en-US', {year: 'numeric'}).format(currentDate);
@@ -169,6 +167,7 @@ function getMealPlan() {
                 $("#lblMealPLanName").text("No Meal Plan");
             }
 
+            getGoalsByUser();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error(jqXHR.responseText);
@@ -820,10 +819,11 @@ function getGoalsByUser() {
         success: function (response) {
             fitGoals = response.data;
 
-              console.log(fitGoals)
+              console.log(response);
             $.each(response.data, function (index, goal) {
 
             });
+            getMealPlanDetails();
         },
         error: function (jqXHR) {
             console.log(jqXHR.responseText);
@@ -845,6 +845,8 @@ function getMealPlanDetails() {
             breakmealPlanDetails = response.data.meal_details;
             breakmealCalaroy =response.data.calories;
             console.log(response);
+
+            getAllProgress()
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -892,9 +894,7 @@ function getAllProgress() {
         contentType: 'application/json',  // Set content type to JSON
         success: function (response) {
              progressData = response.data;
-
-
-
+            console.log(response);
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
