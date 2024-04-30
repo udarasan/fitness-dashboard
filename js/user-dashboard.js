@@ -47,13 +47,13 @@ function searchUserWithEmail() {
             localStorage.setItem("name", response.data.name);
             uId = response.data.uid;
             userId = response.data.uid;
-              userName = response.data.name;
-              age = response.data.name;
-              email = response.data.email;
-              gender = response.data.gender;
-              breakFastId = response.data.breakFastMeal;
-              lunchId = response.data.lunchMeal;
-              dinnerId = response.data.dinnerMeal;
+            userName = response.data.name;
+            age = response.data.age;
+            email = response.data.email;
+            gender = response.data.gender;
+            breakFastId = response.data.breakFastMeal;
+            lunchId = response.data.lunchMeal;
+            dinnerId = response.data.dinnerMeal;
 
             currUserWorkoutId = response.data.workout_id;
             currUserBreakfastMealId = response.data.breakFastMeal;
@@ -81,6 +81,7 @@ function searchUserWithEmail() {
             }
 
             getDataToAreaChart(uId);
+
         },
         error: function (jqXHR) {
             console.log(jqXHR.responseText);
@@ -104,9 +105,12 @@ function getWorkoutPlan() {
                 if (currUserWorkoutId == workOut.wid) {
 
                     currUserWorkoutName = workOut.planName;
+
                     currUserWorkoutDescription = workOut.planDetails;
                     currUserWorkoutCalories = workOut.burnsCalorieCount;
-
+                    console.log(currUserWorkoutDescription);
+                    console.log(currUserWorkoutCalories);
+                    getMealPlan(currUserWorkoutName,currUserWorkoutDescription,currUserWorkoutCalories);
                     $("#lblWorkPLanName").text(currUserWorkoutName);
                     $("#pWorkTab").text(currUserWorkoutDescription);
                     $("#lblWorkCalories").text(currUserWorkoutCalories + " calories");
@@ -116,7 +120,7 @@ function getWorkoutPlan() {
             if ($("#lblWorkPLanName").text() === "") {
                 $("#lblWorkPLanName").text("No Workout Plan");
             }
-            getMealPlan();
+            getGoalsByUser();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error(jqXHR.responseText);
@@ -167,7 +171,7 @@ function getMealPlan() {
                 $("#lblMealPLanName").text("No Meal Plan");
             }
 
-            getGoalsByUser();
+
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error(jqXHR.responseText);
@@ -464,7 +468,7 @@ function setDataToCalorieIntakeChart() {
     var aggregatedAmounts = Object.values(aggregatedData);
 
 
-     dynamicChart = new Chart(ctx, {
+    dynamicChart = new Chart(ctx, {
         type: 'line',
         data: {
             labels: aggregatedDates,
@@ -725,7 +729,7 @@ function setFilterDataToCalorieIntakeChart(filter) {
     var aggregatedAmounts = Object.values(aggregatedData);
 
 
-     dynamicChart1 = new Chart(ctx, {
+    dynamicChart1 = new Chart(ctx, {
         type: 'line',
         data: {
             labels: aggregatedDates,
@@ -819,7 +823,7 @@ function getGoalsByUser() {
         success: function (response) {
             fitGoals = response.data;
 
-              console.log(response);
+            console.log(response);
             $.each(response.data, function (index, goal) {
 
             });
@@ -842,8 +846,9 @@ function getMealPlanDetails() {
         url: 'http://localhost:8080/api/v1/mealPlan/getMealPlan/' + breakFastId,
         method: 'GET',
         success: function (response) {
-            breakmealPlanDetails = response.data.meal_details;
-            breakmealCalaroy =response.data.calories;
+            breakmealPlanDetails = response.data.planDetails
+            ;
+            breakmealCalaroy =response.data.calorieCount;
             console.log(response);
 
             getAllProgress()
@@ -859,8 +864,8 @@ function getMealPlanDetails() {
         method: 'GET',
         success: function (response) {
             console.log(response);
-            lunchMealPlanDetails = response.data.meal_details;
-            lunchMealCalary =response.data.calories;
+            lunchMealPlanDetails = response.data.planDetails;
+            lunchMealCalary =response.data.calorieCount;
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -873,8 +878,8 @@ function getMealPlanDetails() {
         method: 'GET',
         success: function (response) {
             console.log(response);
-            dinnerMealPlanDetails = response.data.meal_details;
-            dinnerMealCalary =response.data.calories;
+            dinnerMealPlanDetails = response.data.planDetails;
+            dinnerMealCalary =response.data.calorieCount;
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -893,55 +898,150 @@ function getAllProgress() {
 
         contentType: 'application/json',  // Set content type to JSON
         success: function (response) {
-             progressData = response.data;
+            progressData = response.data;
             console.log(response);
 
+            console.log("__________________________")
+            console.log(userName);
+            console.log(userEmail);
+            console.log(age);
+            console.log(gender);
+            console.log(fitGoals);
+            console.log(currUserWorkoutDescription);
+            console.log(currUserWorkoutCalories);
+            console.log(breakmealPlanDetails);
+            console.log(breakmealCalaroy);
+            console.log(lunchMealPlanDetails);
+            console.log(lunchMealCalary);
+            console.log(dinnerMealPlanDetails);
+            console.log(dinnerMealCalary);
+            console.log(progressData);
+
+
+                generateReport();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error(jqXHR.responseText);
         }
     });
 }
+$('#Summary').click(function () {
+  generateReport();
 
-console.log("______________________________________________________________________________")
-console.log(userName);
-console.log(userEmail);
-console.log(age);
-console.log(gender);
-console.log(fitGoals);
-console.log(currUserWorkoutDescription);
-console.log(currUserWorkoutCalories);
-console.log(breakmealPlanDetails);
-console.log(breakmealCalaroy);
-console.log(lunchMealPlanDetails);
-console.log(lunchMealCalary);
-console.log(dinnerMealPlanDetails);
-console.log(dinnerMealCalary);
-console.log(progressData);
+});
+function generateReport() {
+    // Define reportData object
+    let reportData = {
+        name: userName,
+        email: userEmail,
+        age: age,
+        gender: gender,
+        fitGoals: fitGoals,
+        currUserWorkoutDescription: currUserWorkoutDescription,
+        currUserWorkoutCalories: currUserWorkoutCalories,
+        breakmealPlanDetails: breakmealPlanDetails,
+        breakmealCalaroy: breakmealCalaroy,
+        lunchMealPlanDetails: lunchMealPlanDetails,
+        lunchMealCalary: lunchMealCalary,
+        dinnerMealPlanDetails: dinnerMealPlanDetails,
+        dinnerMealCalary: dinnerMealCalary,
+        progressData: progressData
+    };
 
-///chat gpt prompt
+    // Add fitness goals to the array
+    let fitnessGoals = [];
+    for (let i = 0; i < fitGoals.length; i++) {
+        fitnessGoals.push({
+            goalName: fitGoals[i].goalName,
+            goalDetails: fitGoals[i].goalDetails
+        });
+    }
 
-// $.ajax({
-//     url: 'https://api.openai.com/v1/chat/completions',
-//     method: 'POST',
-//     headers: {
-//         'Content-Type': 'application/json',
-//         'Authorization': 'Bearer '+Authorization,
-//         'OpenAI-Organization':OpenAI_Organization
-//
-//     },
-//     data: JSON.stringify({
-//         "model": "gpt-3.5-turbo",
-//         "messages": [{ "role": "user", "content": "In the food plan, give a numerical value of the calories of " + meal_details + " . The numerical value should come in the content. One answer can come. Not separately, the whole should come in one answer. No need for more details, calorie. Only the count should come.ex: 200 That's it" }]
-//     }),
-//     success: function (response) {
-//         let calorieCount = response.choices[0].message.content.trim();
-//         console.log("Calorie count:", calorieCount);
-//
-//
-//     },
-//     error: function (jqXHR) {
-//         console.log(jqXHR);
-//     }
-// });
+    // Prepare progress data for report generation
+    let progressEntries = [];
+    for (let i = 0; i < progressData.length; i++) {
+        progressEntries.push({
+            "height": progressData[i].height,
+            "weight": progressData[i].weight,
+            "date": progressData[i].date
+        });
+    }
+
+    let fitnessGoalsText = "";
+    for (let i = 0; i < fitnessGoals.length; i++) {
+        fitnessGoalsText += "{\n" +
+            "My Fitness Goal\n" +
+            "goalName - " + fitnessGoals[i].goalName + "\n" +
+            "goalDetails - " + fitnessGoals[i].goalDetails + "\n" +
+            "},\n";
+    }
+// Remove the trailing comma and newline
+    fitnessGoalsText = fitnessGoalsText.slice(0, -2);
+    console.log(fitnessGoalsText+" gpt 01")
+
+    let progressText = "";
+    for (let i = 0; i < progressEntries.length; i++) {
+        progressText +="{\n" +
+            "My progress \n" +
+            "\"height\": " + progressEntries[i].height + ",\n" +
+            "\"weight\": " + progressEntries[i].weight + ",\n" +
+            "\"date\": " + progressEntries[i].date + "\n" +
+            "}";
+    }
+    console.log(progressText+ " gpt 02")
+// Remove the trailing comma and newline
+    progressText = progressText.slice(0, -2);
+
+    // Send data to OpenAI API for report generation
+    $.ajax({
+        url: 'https://api.openai.com/v1/chat/completions',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+Authorization,
+            'OpenAI-Organization': OpenAI_Organization
+        },
+        data: JSON.stringify({
+            "model": "gpt-3.5-turbo",
+            "messages": [{
+                "role": "user",
+                "content": "generate detailed reports using the below data. generate a report using these points,\n" +
+                    "greeting the user, what section needs to improve to achieve the goals, don't add progress details to the report.but generate summary using progress data.\n" +
+                    "{\n" +
+                    "My details - \n" +
+                    "name - " + reportData.name + "\n" +
+                    "email - " + reportData.email + "\n" +
+                    "age - " + reportData.age + "\n" +
+                    "gender - " + reportData.gender + "\n" +
+                    "},\n" +
+                     fitnessGoalsText +
+                    "{\n" +
+                    "My Workout plan - " + reportData.currUserWorkoutDescription + "\n" +
+                    "details - " + reportData.currUserWorkoutCalories + "\n" +
+                    "},\n" +
+                    "{\n" +
+                    "My Breakfast meal plan detail - " + reportData.breakmealPlanDetails + "\n" +
+                    "gain calories - " + reportData.breakmealCalaroy + "\n" +
+                    "\n" +
+                    "My Lunch meal plan detail - " + reportData.lunchMealPlanDetails + "\n" +
+                    "gain calories - " + reportData.lunchMealCalary + "\n" +
+                    "},\n" +
+                    progressText+
+                    "]  remove   best regards  and add thank you word and add gym name is fitness gym center"
+
+            }]
+        }),
+        success: function (response) {
+            let summary = response.choices[0].message.content.trim();
+            console.log("summary:", summary);
+            $("#summary_textarea").append(summary);
+        },
+        error: function (jqXHR) {
+            console.log(jqXHR);
+        }
+    });
+}
+
+
+
 
