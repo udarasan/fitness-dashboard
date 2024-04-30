@@ -20,6 +20,17 @@ body{
     padding-right: 3.5rem;
 }
 
+#summary_textarea{
+    border-radius: calc(0.35rem - 1px);
+    resize: none;
+    height: 500px;
+    padding: 0.75rem 1.25rem
+}
+
+#summary_textarea[disabled]{
+    background-color: white;
+}
+
 #mealLink{
     cursor: pointer;
 }
