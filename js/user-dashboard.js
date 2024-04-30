@@ -1,5 +1,17 @@
 let userEmail = localStorage.getItem("userEmail");
-
+let currUserWorkoutId;
+let currUserBreakfastMealId;
+let currUserLunchMealId;
+let currUserDinnerMealId;
+let currUserTrainerId;
+let userId;
+let userName;
+let age;
+let email;
+let gender;
+let breakFastId;
+let lunchId;
+let dinnerId;
 $(window).on('load', function () {
     $(".mealTab").css({
         display: "none"
@@ -12,20 +24,18 @@ $(window).on('load', function () {
 
     mealAndWorkoutCardHandler();
     searchUserWithEmail();
-
+    getGoalsByUser();
+    getMealPlanDetails();
+    getAllProgress()
     var currentDate = new Date();
     var currentMonthName = new Intl.DateTimeFormat('en-US', {month: 'long'}).format(currentDate);
     var currentYear = new Intl.DateTimeFormat('en-US', {year: 'numeric'}).format(currentDate);
 
     $("#lblCalorieIntake").text("Daily Calorie Intake - " + currentMonthName + " " + currentYear);
     $("#lblCalorieBurnOut").text("Daily Calorie Burnout - " + currentMonthName + " " + currentYear);
+
 });
 
-let currUserWorkoutId;
-let currUserBreakfastMealId;
-let currUserLunchMealId;
-let currUserDinnerMealId;
-let currUserTrainerId;
 
 function searchUserWithEmail() {
     $.ajax({
@@ -38,6 +48,15 @@ function searchUserWithEmail() {
             $('#nameLbl').text(response.data.name);
             localStorage.setItem("name", response.data.name);
             uId = response.data.uid;
+            userId = response.data.uid;
+              userName = response.data.name;
+              age = response.data.name;
+              email = response.data.email;
+              gender = response.data.gender;
+              breakFastId = response.data.breakFastMeal;
+              lunchId = response.data.lunchMeal;
+              dinnerId = response.data.dinnerMeal;
+
             currUserWorkoutId = response.data.workout_id;
             currUserBreakfastMealId = response.data.breakFastMeal;
             currUserLunchMealId = response.data.lunchMeal;
@@ -70,19 +89,22 @@ function searchUserWithEmail() {
         }
     })
 }
+let currUserWorkoutDescription;
+let currUserWorkoutName;
+let currUserWorkoutCalories;
 
 function getWorkoutPlan() {
-    // get All workout plans
     $.ajax({
         url: 'http://localhost:8080/api/v1/workoutplan/getAllWorkOutPlans',
         method: 'GET',
         dataType: 'json',
-        contentType: 'application/json',  // Set content type to JSON
+        contentType: 'application/json',
         success: function (workoutResponse) {
             console.log(workoutResponse);
             $.each(workoutResponse.data, function (index, workOut) {
-                // check for current users' workout plan
+
                 if (currUserWorkoutId == workOut.wid) {
+
                     currUserWorkoutName = workOut.planName;
                     currUserWorkoutDescription = workOut.planDetails;
                     currUserWorkoutCalories = workOut.burnsCalorieCount;
@@ -99,23 +121,21 @@ function getWorkoutPlan() {
             getMealPlan();
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            console.error(jqXHR.responseText);
         }
     });
 }
 
 function getMealPlan() {
-    // get All meal plans
     $.ajax({
         url: 'http://localhost:8080/api/v1/mealPlan/getAllMealPlans',
         method: 'GET',
         dataType: 'json',
-        contentType: 'application/json',  // Set content type to JSON
+        contentType: 'application/json',
         success: function (mealResponse) {
             console.log(mealResponse);
 
             $.each(mealResponse.data, function (index, meal) {
-                // check for current users' meal plans
                 if (currUserBreakfastMealId == meal.mid) {
                     currUserBreakfastMealName = meal.planName;
                     currUserBreakfastMealDescription = meal.planDetails;
@@ -151,7 +171,7 @@ function getMealPlan() {
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.error(jqXHR.responseText);  // Log the response text for debugging
+            console.error(jqXHR.responseText);
         }
     });
 }
@@ -791,4 +811,137 @@ function setFilterDataToCalorieIntakeChart(filter) {
         }
     });
 }
+
+let fitGoals;
+function getGoalsByUser() {
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/fitnessGoals/getAllGoals/' + userId,
+        method: 'GET',
+        success: function (response) {
+            fitGoals = response.data;
+
+              console.log(fitGoals)
+            $.each(response.data, function (index, goal) {
+
+            });
+        },
+        error: function (jqXHR) {
+            console.log(jqXHR.responseText);
+        }
+    })
+}
+
+let breakmealPlanDetails;
+let breakmealCalaroy;
+let lunchMealPlanDetails;
+let lunchMealCalary;
+let dinnerMealPlanDetails;
+let dinnerMealCalary;
+function getMealPlanDetails() {
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/mealPlan/getMealPlan/' + breakFastId,
+        method: 'GET',
+        success: function (response) {
+            breakmealPlanDetails = response.data.meal_details;
+            breakmealCalaroy =response.data.calories;
+            console.log(response);
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+
+        }
+    });
+
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/mealPlan/getMealPlan/' + lunchId,
+        method: 'GET',
+        success: function (response) {
+            console.log(response);
+            lunchMealPlanDetails = response.data.meal_details;
+            lunchMealCalary =response.data.calories;
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+
+        }
+    });
+
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/mealPlan/getMealPlan/' + dinnerId,
+        method: 'GET',
+        success: function (response) {
+            console.log(response);
+            dinnerMealPlanDetails = response.data.meal_details;
+            dinnerMealCalary =response.data.calories;
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+
+        }
+    });
+}
+
+let progressData;
+function getAllProgress() {
+
+    // members get All
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/progress/getAllProgress/' + userId,
+        method: 'GET',
+
+        contentType: 'application/json',  // Set content type to JSON
+        success: function (response) {
+             progressData = response.data;
+
+
+
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.error(jqXHR.responseText);
+        }
+    });
+}
+
+console.log("______________________________________________________________________________")
+console.log(userName);
+console.log(userEmail);
+console.log(age);
+console.log(gender);
+console.log(fitGoals);
+console.log(currUserWorkoutDescription);
+console.log(currUserWorkoutCalories);
+console.log(breakmealPlanDetails);
+console.log(breakmealCalaroy);
+console.log(lunchMealPlanDetails);
+console.log(lunchMealCalary);
+console.log(dinnerMealPlanDetails);
+console.log(dinnerMealCalary);
+console.log(progressData);
+
+///chat gpt prompt
+
+// $.ajax({
+//     url: 'https://api.openai.com/v1/chat/completions',
+//     method: 'POST',
+//     headers: {
+//         'Content-Type': 'application/json',
+//         'Authorization': 'Bearer '+Authorization,
+//         'OpenAI-Organization':OpenAI_Organization
+//
+//     },
+//     data: JSON.stringify({
+//         "model": "gpt-3.5-turbo",
+//         "messages": [{ "role": "user", "content": "In the food plan, give a numerical value of the calories of " + meal_details + " . The numerical value should come in the content. One answer can come. Not separately, the whole should come in one answer. No need for more details, calorie. Only the count should come.ex: 200 That's it" }]
+//     }),
+//     success: function (response) {
+//         let calorieCount = response.choices[0].message.content.trim();
+//         console.log("Calorie count:", calorieCount);
+//
+//
+//     },
+//     error: function (jqXHR) {
+//         console.log(jqXHR);
+//     }
+// });
 
