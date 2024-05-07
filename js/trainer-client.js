@@ -182,7 +182,9 @@ async function getClientsWithTrainer(trainerId) {
 
         for (const member of response.data) {
             let trainerName = "Not Assign";
-            let mealPlan = "Not Assign";
+            let mealPlanB = "Not Assign";
+            let mealPlanL = "Not Assign";
+            let mealPlanD = "Not Assign";
             let workoutPlanName = "Not Assign";
 
             if (member.trainer_id !== 0) {
@@ -195,15 +197,34 @@ async function getClientsWithTrainer(trainerId) {
                 trainerName = trainerResponse.data.name;
             }
 
-            if (member.meal_plan_id !== 0) {
+            if (member.breakFastMeal !== 0) {
                 const mealResponse = await $.ajax({
-                    url: 'http://localhost:8080/api/v1/mealPlan/getMealPlan/' + member.meal_plan_id,
+                    url: 'http://localhost:8080/api/v1/mealPlan/getMealPlan/' + member.breakFastMeal,
                     method: 'GET',
                     dataType: 'json',
                     contentType: 'application/json'
                 });
-                mealPlan = mealResponse.data.planName;
+                mealPlanB = mealResponse.data.planName;
             }
+            if (member.lunchMeal !== 0) {
+                const mealResponse = await $.ajax({
+                    url: 'http://localhost:8080/api/v1/mealPlan/getMealPlan/' + member.lunchMeal,
+                    method: 'GET',
+                    dataType: 'json',
+                    contentType: 'application/json'
+                });
+                mealPlanL = mealResponse.data.planName;
+            }
+            if (member.dinnerMeal !== 0) {
+                const mealResponse = await $.ajax({
+                    url: 'http://localhost:8080/api/v1/mealPlan/getMealPlan/' + member.dinnerMeal,
+                    method: 'GET',
+                    dataType: 'json',
+                    contentType: 'application/json'
+                });
+                mealPlanD = mealResponse.data.planName;
+            }
+
 
             if (member.workout_id !== 0) {
                 const workoutResponse = await $.ajax({
@@ -215,17 +236,17 @@ async function getClientsWithTrainer(trainerId) {
                 workoutPlanName = workoutResponse.data.planName;
             }
 
-            appendRow(member, mealPlan, workoutPlanName, trainerName);
+            appendRow(member, mealPlanB,mealPlanL,mealPlanD, workoutPlanName, trainerName);
         }
     } catch (error) {
-        alert("Failed to retrieve members. Please try again.");
+
         console.error(error);
     }
 }
 
 
-function appendRow(member, mealPlanName, workoutPlanName, trainerName) {
-    let row = `<tr><td>${member.uid}</td><td>${member.name}</td><td>${member.email}</td><td style="display: none">${member.password}</td><td>${mealPlanName}</td><td>${workoutPlanName}</td><td>${member.age}</td><td>${member.gender}</td><td>${member.workoutType}</td></tr>`;
+function appendRow(member,mealPlanB,mealPlanL,mealPlanD, workoutPlanName, trainerName) {
+    let row = `<tr><td>${member.uid}</td><td>${member.name}</td><td>${member.email}</td><td style="display: none">${member.password}</td><td>${mealPlanB}</td><td>${mealPlanL}</td><td>${mealPlanD}</td><td>${workoutPlanName}</td><td>${member.age}</td><td>${member.gender}</td><td>${member.workoutType}</td></tr>`;
     $('#tblClient').append(row);
 }
 
