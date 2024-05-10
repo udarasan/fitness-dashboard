@@ -25,6 +25,7 @@ $(window).on('load', function () {
     mealAndWorkoutCardHandler();
     searchUserWithEmail();
 
+
     var currentDate = new Date();
     var currentMonthName = new Intl.DateTimeFormat('en-US', {month: 'long'}).format(currentDate);
     var currentYear = new Intl.DateTimeFormat('en-US', {year: 'numeric'}).format(currentDate);
@@ -61,6 +62,8 @@ function searchUserWithEmail() {
             currUserDinnerMealId = response.data.dinnerMeal;
             currUserTrainerId = response.data.trainer_id;
 
+            // getMealRecordsByUser(uId);
+
             if (currUserTrainerId == 0) {
                 $("#trainerId").text("No trainer");
             } else {
@@ -73,6 +76,8 @@ function searchUserWithEmail() {
                         console.log(response);
                         let currUserTrainerName = response.data.name;
                         $("#trainerId").text(currUserTrainerName);
+                        getMealPlan();
+
                     },
                     error: function (jqXHR) {
                         console.log(jqXHR.responseText);
@@ -110,7 +115,8 @@ function getWorkoutPlan() {
                     currUserWorkoutCalories = workOut.burnsCalorieCount;
                     console.log(currUserWorkoutDescription);
                     console.log(currUserWorkoutCalories);
-                    getMealPlan(currUserWorkoutName,currUserWorkoutDescription,currUserWorkoutCalories);
+                    // getMealPlan(currUserWorkoutName,currUserWorkoutDescription,currUserWorkoutCalories);
+                    // getMealPlan(currUserBreakfastMealId,currUserLunchMealId,currUserDinnerMealId)
                     $("#lblWorkPLanName").text(currUserWorkoutName);
                     $("#pWorkTab").text(currUserWorkoutDescription);
                     $("#lblWorkCalories").text(currUserWorkoutCalories + " calories");
@@ -128,6 +134,7 @@ function getWorkoutPlan() {
     });
 }
 
+// getMealPlan();
 function getMealPlan() {
     $.ajax({
         url: 'http://localhost:8080/api/v1/mealPlan/getAllMealPlans',
@@ -137,8 +144,16 @@ function getMealPlan() {
         success: function (mealResponse) {
             console.log(mealResponse);
 
+
             $.each(mealResponse.data, function (index, meal) {
-                if (currUserBreakfastMealId == meal.mid) {
+                console.log(currUserBreakfastMealId)
+                console.log(meal.mid)
+                let bMealId= meal.mid;
+                let lMealId=meal.mid
+                let dMealId=meal.mid
+
+                if (bMealId ==currUserBreakfastMealId) {
+                    console.log("breakfast")
                     currUserBreakfastMealName = meal.planName;
                     currUserBreakfastMealDescription = meal.planDetails;
                     currUserBreakfastMealCalories = meal.calorieCount;
@@ -147,23 +162,26 @@ function getMealPlan() {
                     $("#pBreakfastMealTab").text(currUserBreakfastMealDescription);
                     $("#lblBreakfastMealCalories").text(currUserBreakfastMealCalories + " calories");
                 }
-                if (currUserLunchMealId == meal.mid) {
+                if (lMealId==currUserLunchMealId) {
+
                     currUserLunchMealName = meal.planName;
                     currUserLunchMealDescription = meal.planDetails;
                     currUserLunchMealCalories = meal.calorieCount;
 
-                    $("#lblLunchMealPLanName").text(currUserBreakfastMealName);
-                    $("#pLunchMealTab").text(currUserBreakfastMealDescription);
-                    $("#lblLunchMealCalories").text(currUserBreakfastMealCalories + " calories");
+                    $("#lblLunchMealPLanName").text(currUserLunchMealName);
+                    $("#pLunchMealTab").text(currUserLunchMealDescription);
+                    $("#lblLunchMealCalories").text(currUserLunchMealCalories + " calories");
                 }
-                if (currUserDinnerMealId == meal.mid) {
+                if (dMealId==currUserDinnerMealId) {
+                    console.log("dinner")
+
                     currUserDinnerMealName = meal.planName;
                     currUserDinnerMealDescription = meal.planDetails;
                     currUserDinnerMealCalories = meal.calorieCount;
 
-                    $("#lblDinnerMealPLanName").text(currUserBreakfastMealName);
-                    $("#pDinnerMealTab").text(currUserBreakfastMealDescription);
-                    $("#lblDinnerMealCalories").text(currUserBreakfastMealCalories + " calories");
+                    $("#lblDinnerMealPLanName").text(currUserDinnerMealName);
+                    $("#pDinnerMealTab").text(currUserDinnerMealDescription);
+                    $("#lblDinnerMealCalories").text(currUserDinnerMealCalories + " calories");
                 }
             });
 
@@ -416,10 +434,12 @@ let mealType = [];
 let dynamicChart;
 let dynamicChart1;
 
+
+
 function getMealRecordsByUser(uId) {
     console.log(uId);
     $.ajax({
-        url: 'http://localhost:8080/api/v1/mealRecords/getAllMealRecords/' + uId,
+        url: 'http://localhost:8080/api/v1/mealRecords/getAllMealRecords/' +uId,
         method: 'GET',
         success: function (response) {
             console.log(response);
@@ -842,12 +862,12 @@ let lunchMealCalary;
 let dinnerMealPlanDetails;
 let dinnerMealCalary;
 function getMealPlanDetails() {
+
     $.ajax({
-        url: 'http://localhost:8080/api/v1/mealPlan/getMealPlan/' + breakFastId,
+        url: 'http://localhost:8080/api/v1/mealPlan/getMealPlan/'+breakFastId,
         method: 'GET',
         success: function (response) {
-            breakmealPlanDetails = response.data.planDetails
-            ;
+            breakmealPlanDetails = response.data.planDetails;
             breakmealCalaroy =response.data.calorieCount;
             console.log(response);
 
@@ -860,7 +880,7 @@ function getMealPlanDetails() {
     });
 
     $.ajax({
-        url: 'http://localhost:8080/api/v1/mealPlan/getMealPlan/' + lunchId,
+        url: 'http://localhost:8080/api/v1/mealPlan/getMealPlan/'+lunchId,
         method: 'GET',
         success: function (response) {
             console.log(response);
@@ -874,7 +894,7 @@ function getMealPlanDetails() {
     });
 
     $.ajax({
-        url: 'http://localhost:8080/api/v1/mealPlan/getMealPlan/' + dinnerId,
+        url: 'http://localhost:8080/api/v1/mealPlan/getMealPlan/'+dinnerId,
         method: 'GET',
         success: function (response) {
             console.log(response);
@@ -887,6 +907,7 @@ function getMealPlanDetails() {
         }
     });
 }
+
 
 let progressData;
 function getAllProgress() {
