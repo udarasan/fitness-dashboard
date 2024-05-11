@@ -29,7 +29,7 @@ function getClients() {
         }
     });
 }
-function setMemberDetail() {
+async function setMemberDetail() {
     $('#tblHMeal').empty();
     $('#tblHWork').empty();
     let memberId = $("#mem_id").val();
@@ -43,8 +43,8 @@ function setMemberDetail() {
     // let MembersMealId = memberResponse.data.meal_plan_id;
     // let WorkOutId = memberResponse.data.workout_id;
 
-    $.ajax({
-        url: 'http://localhost:8080/api/v1/mealRecords/getAllMealRecords/'+memberId,
+    await $.ajax({
+        url: 'http://localhost:8080/api/v1/mealRecords/getAllMealRecords/' + memberId,
         method: 'GET',
         dataType: 'json',
         contentType: 'application/json',
@@ -79,8 +79,9 @@ function setMemberDetail() {
             console.error(jqXHR.responseText);
         }
     });
-    $.ajax({
-        url: 'http://localhost:8080/api/v1/workoutRecords/getAllWorkOutRecords/'+memberId,
+
+    await $.ajax({
+        url: 'http://localhost:8080/api/v1/workoutRecords/getAllWorkOutRecords/' + memberId,
         method: 'GET',
         dataType: 'json',
         contentType: 'application/json',
