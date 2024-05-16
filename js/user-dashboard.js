@@ -939,7 +939,7 @@ function getAllProgress() {
             console.log(progressData);
 
 
-                generateReport();
+                // generateReport();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.error(jqXHR.responseText);
@@ -947,6 +947,7 @@ function getAllProgress() {
     });
 }
 $('#Summary').click(function () {
+    $('#summary_textarea').empty();
   generateReport();
 
 });
