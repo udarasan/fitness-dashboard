@@ -231,10 +231,6 @@ $("#saveMeal").click(function () {
                         console.log("Calorie count:", calorieCount);
 
 
-                        if (categoryMeal!==$("#assign_member_category").val()){
-                            alert("wrong meal category")
-                            return;
-                        }
                         $.ajax({
                             url: 'http://localhost:8080/api/v1/mealPlan/assignNewMealPlan',
                             method: 'POST',
@@ -686,6 +682,11 @@ $("#assignTrainerMealPlanBtn").click(function () {
     }
     if (typeCheck === "Dinner") {
         dinnerMeal = mealId;
+    }
+
+    if (categoryMeal!==$("#assign_member_category").val()){
+        alert("wrong meal category")
+        return;
     }
 
 
