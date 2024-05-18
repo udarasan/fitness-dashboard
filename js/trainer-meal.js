@@ -101,6 +101,7 @@ function appendMealSection(mealPlan) {
 `
     $("#cardContainer").append(card);
 
+
     // /click event to assign data to update modal
 
 
@@ -115,9 +116,10 @@ function appendMealSection(mealPlan) {
         let mealPlanName = card.find('#mealPlanName').text();
         let mealPlanDetails = card.find('#mealPlanDetail').text();
         let calorie = card.find('#mealPlanCalorie').text();
-        categoryMeal= card.find('#mealcategory').text();
+       let categoryMeal= card.find('#mealcategory').text();
 
-        setTrainerUpdateModalContent(mealPlanName, mealPlanDetails, calorie, mealId);
+
+        setTrainerUpdateModalContent(mealPlanName, mealPlanDetails, calorie, mealId,categoryMeal);
 
 
     })
@@ -145,19 +147,21 @@ function appendMealSection(mealPlan) {
         let mealCategory = card.find("#mealcategory").text();
 
 
+
         // let mealPlanName = card.find('#mealPlanName').text();
         // let mealPlanDetails = card.find('#mealPlanDetail').text();
         // let calorie = card.find('#mealPlanCalorie').text();
 
-        setTrainerAssignModalContent(mealID, mealType);
+        setTrainerAssignModalContent(mealID, mealType,mealCategory);
     })
 
 
 }
 
-function setTrainerAssignModalContent(mealID, mealType) {
+function setTrainerAssignModalContent(mealID, mealType,mealCategory) {
     $("#assign_meal_id").val(mealID);
     $("#type_check").val(mealType);
+    $("#assign_member_categoryDemo").val(mealCategory);
 }
 
 function setTrainerUpdateModalContent(mealPlanName, mealPlanDetails, calorie, mealId) {
@@ -684,11 +688,12 @@ $("#assignTrainerMealPlanBtn").click(function () {
         dinnerMeal = mealId;
     }
 
-    if (categoryMeal!==$("#assign_member_category").val()){
+    console.log(categoryMeal)
+    console.log($("#assign_member_category").val())
+    if ($("#assign_member_categoryDemo").val()!==$("#assign_member_category").val()){
         alert("wrong meal category")
         return;
     }
-
 
     if ($("#assign_member_id").val() === "") {
         alert("please select member to assign !!")
