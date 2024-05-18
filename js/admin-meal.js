@@ -172,6 +172,7 @@ $("#saveMeal").click(function () {
     let meal_id = $("#meal_id").val();
     let meal_name = $("#meal_name").val();
     let meal_details = $("#meal_plan_details").val();
+    let category =  $("#category").val();
 
     let meal_plan = {
         "meal_details": meal_details
@@ -220,7 +221,8 @@ $("#saveMeal").click(function () {
                                 "planName": meal_name,
                                 "planDetails": meal_details,
                                 "calorieCount": calorieCount,
-                                "mealType": mealType
+                                "mealType": mealType,
+                                "category": category
                             }),
                             success: function (response) {
                                 console.log(response);
@@ -319,6 +321,7 @@ $("#updateMeal").click(function () {
     let meal_details = $("#Update_meal_plan_details").val();
     let calorie = $("#Update_calorie").val();
     let mealType=$("#adminUpdateMealType").val();
+    let categoryUpdate =  $("#categoryUpdate").val();
 
     let meal_plan = {
         "meal_details": meal_details
@@ -367,7 +370,8 @@ $("#updateMeal").click(function () {
                                 "planName": meal_name,
                                 "planDetails": meal_details,
                                 "calorieCount": calorieCount,
-                                "mealType": mealType
+                                "mealType": mealType,
+                                "category": categoryUpdate
                             }),
                             success: function (response) {
                                 console.log(response);
