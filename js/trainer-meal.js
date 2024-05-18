@@ -1,4 +1,5 @@
 let trainerEmail;
+let categoryMeal;
 $(window).on('load', function () {
     trainerEmail = localStorage.getItem('trainer-email');
     $("#trainerEmail").text(trainerEmail);
@@ -59,6 +60,7 @@ function appendMealSection(mealPlan) {
       <p id="mealPlanName" class="mb-0" style="font-size: 1rem; font-weight: 400 !important;"><a>${mealPlan.planName}</a></p>
      <p class="small mb-0">meal plan id:&nbsp;&nbsp;<span id="mealId">${mealPlan.mid}</span></p>
      <p class="small mb-0"><span id="mealType">${mealPlan.mealType}</span></p>
+     <p class="small mb-0"><span id="mealcategory">${mealPlan.category}</span></p>
 </div>
 
         
@@ -101,6 +103,8 @@ function appendMealSection(mealPlan) {
 
     // /click event to assign data to update modal
 
+
+
     $(".edit").click(function () {
 
         // let value1 = $(this).find('#mealPlanName').val();
@@ -111,6 +115,7 @@ function appendMealSection(mealPlan) {
         let mealPlanName = card.find('#mealPlanName').text();
         let mealPlanDetails = card.find('#mealPlanDetail').text();
         let calorie = card.find('#mealPlanCalorie').text();
+        categoryMeal= card.find('#mealcategory').text();
 
         setTrainerUpdateModalContent(mealPlanName, mealPlanDetails, calorie, mealId);
 
@@ -137,6 +142,9 @@ function appendMealSection(mealPlan) {
 
         let mealID = card.find("#mealId").text();
         let mealType = card.find("#mealType").text();
+        let mealCategory = card.find("#mealcategory").text();
+
+
         // let mealPlanName = card.find('#mealPlanName').text();
         // let mealPlanDetails = card.find('#mealPlanDetail').text();
         // let calorie = card.find('#mealPlanCalorie').text();
@@ -223,6 +231,10 @@ $("#saveMeal").click(function () {
                         console.log("Calorie count:", calorieCount);
 
 
+                        if (categoryMeal!==$("#assign_member_category").val()){
+                            alert("wrong meal category")
+                            return;
+                        }
                         $.ajax({
                             url: 'http://localhost:8080/api/v1/mealPlan/assignNewMealPlan',
                             method: 'POST',
