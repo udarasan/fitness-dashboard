@@ -450,8 +450,16 @@ function loadAllMembersIds() {
             getAllMembersResponse = response;
             console.log(response);
 
+
+            // if(response.age>15){
+            //
+            // }
+
             $.each(response.data, function (index, members) {
                 console.log(members.name);
+                console.log(members.age)
+
+
                 setMemberDataToComboBox(members);
             })
 
@@ -477,6 +485,8 @@ function setMemberDataToComboBox(members) {
     $("#memberComboBox").append(memberData);
     $("#assign_member_id").append(memberData);
 
+
+
 }
 
 let memId;
@@ -495,6 +505,7 @@ let dinnerMeal;
 let workoutType;
 
 $("#memberComboBox").click(function () {
+
 
     let memberId = $("#memberComboBox").val();
     console.log(memberId);
@@ -519,11 +530,13 @@ $("#memberComboBox").click(function () {
         // console.log(workoutId);
         // console.log(age);
         // console.log(gender);
-
+        console.log(members.age)
 
         if (memberId === members.uid) {
             let memberNames = members.name;
             $("#Member_name").val(memberNames);
+
+
 
             // console.log(members);
             // console.log(members.uid);
@@ -619,6 +632,21 @@ $("#assign_member_id").click(function () {
             lunchMeal = members.lunchMeal;
             dinnerMeal = members.dinnerMeal;
             workoutType = members.workoutType;
+
+            if (members.age>=15 && members.age<20){
+                $("#assign_member_category").val("Underweight");
+
+            }else if(members.age>=20 && members.age<25){
+                $("#assign_member_category").val("Normal");
+            }
+
+            else if(members.age>=25 && members.age<30){
+                $("#assign_member_category").val("Overweight");
+            }
+
+            else if(members.age>=30 && members.age<35){
+                $("#assign_member_category").val("Obese");
+            }
 
         }
 
